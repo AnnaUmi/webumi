@@ -1,0 +1,31 @@
+# Webumi
+
+> Webumi (webumi.com.au) is an Australian web and AI studio for small businesses. It builds websites, online booking systems, business automations, AI assistants and AI integrations. Run by Anna, an Australian sole trader (ABN 42 183 713 603). Works with clients Australia-wide, online.
+
+Tagline: "More customers. Less admin." — Web, AI & Automation for Small Business.
+
+## Who Webumi helps
+- Tradies and home services: plumbers, electricians, builders, landscapers, cleaners, pool, pest control
+- Beauty, hair, nails, massage and wellness
+- Pet grooming and pet care
+- Tutors, coaches, consultants and photographers
+- Any Australian small business that wants more enquiries, online bookings or less admin
+
+## Services and starting prices (AUD)
+- Get Found — from $1,490: mobile-first website (up to 5 pages), Google Business Profile setup, quote/enquiry form with instant auto-reply, reviews, gallery, click-to-call, SEO basics and analytics.
+- Get Booked — from $2,990: everything in Get Found plus online booking with deposits (Square, Fresha, Calendly), automatic confirmations and SMS reminders, review requests, "book again" nudges, service and suburb pages.
+- Run Itself — from $4,990: everything in Get Booked plus enquiries into a CRM, quotes → invoices → payments, integrations with Xero, Stripe, Gmail and Google Sheets, automatic quote follow-ups, a simple dashboard.
+- AI Assistant — from $1,990: an AI assistant trained on the business's services, prices and FAQs that answers customers 24/7, books appointments and hands tricky questions to the owner.
+- AI systems, AI integrations, web apps, client portals and internal tools — quoted per project.
+- Website Rescue — from $690: fixes an existing website's mobile layout, speed, forms, Google Maps, reviews and calls to action.
+- Care plans (hosting, updates, small changes) — from $49/month.
+
+## How it works
+1. Free 20-minute chat about how the business runs.
+2. A one-page plan with a fixed quote.
+3. Build, usually 2–4 weeks.
+4. Launch, video handover and ongoing support. The client owns everything — domain, website and accounts.
+
+## Contact
+- Website: https://webumi.com.au/
+- Email: hello@webumi.com.au
