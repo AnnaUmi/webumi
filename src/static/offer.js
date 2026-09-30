@@ -83,7 +83,7 @@
     base: "doc", pages: "doc", "design-unique": "sparkle", "text-written": "doc", "images-stock": "camera", "images-unique": "camera",
     "cms-simple": "doc", "cms-wordpress": "folder", "hosting-year": "search", care: "shield", "care-plus": "lifebuoy", "care-growth": "chart",
     booking: "calendar", payments: "card", logo: "star", blog: "doc", email: "envelope", "quote-form": "inbox", crm: "user", store: "card",
-    "email-marketing": "envelope", reviews: "star", tracking: "chart", whatsapp: "chat", "ai-assistant": "robot", automations: "bolt", rush: "clock", express: "bolt",
+    "email-marketing": "envelope", reviews: "star", tracking: "chart", whatsapp: "chat", "ai-assistant": "robot", "ai-agent": "robot", automations: "bolt", rush: "clock", express: "bolt",
   };
   // share of the timeline each step takes: [start, end] where 1 = launch
   const SPANS = [[0, .05], [.05, .12], [.12, .28], [.28, .48], [.48, .86], [.86, 1], [1, 1.2]];
@@ -152,7 +152,7 @@
       .filter((opt) => opt && opt.explain && !p.ids.has(opt.id) && !(opt.id === "cms-simple" && hasCms) && !(opt.id === "care" && hasPlan))
       .slice(0, 4);
     if (!list.length) return "";
-    const priceOf = (opt) => (opt.monthly ? `${aud(opt.monthly)}/month` : `${opt.from ? "from " : ""}${aud(opt[p.t])}`);
+    const priceOf = (opt) => (opt.quote ? "Quoted after a chat" : opt.monthly ? `${aud(opt.monthly)}/month` : `${opt.from ? "from " : ""}${aud(opt[p.t])}`);
     return `
       <section class="pz-sec"><div class="wrap">
         <p class="kicker">Worth considering</p>

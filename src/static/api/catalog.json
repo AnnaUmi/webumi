@@ -217,7 +217,15 @@
       "desc": "Answers customer questions and takes enquiries 24/7, trained on your services, prices and FAQs. From $390, plus AI usage fees charged by the AI provider.",
       "landing": 390,
       "website": 390,
-      "from": true
+      "from": true,
+      "explain": "A chat on your site that answers customers' questions from your own services, prices and FAQs, day and night, and passes enquiries to you. Most questions get answered before people give up and leave."
+    },
+    {
+      "id": "ai-agent",
+      "name": "Custom AI agent",
+      "quote": true,
+      "desc": "A chat with a job: asks customers the right questions and hands back a finished quote, plan or report as a PDF, like the Webumi website planner. Priced after a chat.",
+      "explain": "A chat that asks customers the right questions and produces a finished quote, plan or report as a PDF, like the planner that made this plan."
     },
     {
       "id": "automations",
@@ -337,6 +345,7 @@
   },
   "suggest": [
     "crm",
+    "ai-assistant",
     "email",
     "reviews",
     "cms-simple",

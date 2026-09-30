@@ -900,6 +900,127 @@
   });
   if (form) $$(".field input", form).forEach((i) => i.addEventListener("input", () => i.closest(".field").classList.remove("is-invalid")));
 
+  /* ---------- AI agents page: robot, live demo, browser mock ---------- */
+  const bot = $("#bot");
+  if (bot) {
+    // eyes follow the cursor
+    const eyes = $("#botEyes");
+    if (!reduceMotion && matchMedia("(pointer: fine)").matches) {
+      addEventListener("mousemove", (e) => {
+        const r = bot.getBoundingClientRect();
+        const dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height * 0.36);
+        const d = Math.hypot(dx, dy) || 1, k = Math.min(1, d / 400);
+        eyes.style.transform = `translate(${(dx / d) * 7 * k}px, ${(dy / d) * 6 * k}px)`;
+      }, { passive: true });
+    }
+    // status bubbles pop in turn
+    const bubbles = $$("[data-bot-bubble]", bot);
+    let bi = 0;
+    const nextBubble = () => { bubbles.forEach((b, i) => b.classList.toggle("is-on", i === bi % bubbles.length)); bi++; };
+    nextBubble();
+    if (!reduceMotion) setInterval(nextBubble, 2200);
+  }
+
+  const ademo = $("#ademo");
+  if (ademo) {
+    const log = $("#ademoLog"), chips = $("#ademoChips"), lines = $("#adocLines");
+    const wait = (ms) => new Promise((r) => setTimeout(r, reduceMotion ? 0 : ms));
+    let run = 0;
+    const say = (who, text) => {
+      const el = document.createElement("div");
+      el.className = `bubble bubble--${who}`; el.textContent = text; log.appendChild(el);
+      while (log.scrollHeight > log.clientHeight && log.children.length > 2) log.firstChild.remove();
+      return el;
+    };
+    // every step checks it still belongs to the latest run, so "Play again" mid-way can't mix two runs
+    const ask = async (id, q, options, answer) => {
+      if (id !== run) return;
+      say("bot", q); await wait(600); if (id !== run) return;
+      chips.innerHTML = options.map((o) => `<span>${o}</span>`).join("");
+      await wait(900); if (id !== run) return;
+      [...chips.children].find((c) => c.textContent === answer)?.classList.add("is-tap");
+      await wait(350); if (id !== run) return;
+      chips.innerHTML = ""; say("user", answer); await wait(500);
+    };
+    async function play() {
+      const id = ++run;
+      log.innerHTML = ""; chips.innerHTML = ""; lines.innerHTML = "";
+      $("#adocMeta").textContent = "…"; $("#adocTotal").textContent = "$0";
+      $("#adocStamp").classList.remove("is-on"); $("#adocToast").classList.remove("is-on"); ademo.classList.remove("is-thinking");
+      await ask(id, "Hi! I can quote your end-of-lease clean in 30 seconds. How many bedrooms?", ["1", "2", "3", "4+"], "3");
+      await ask(id, "And bathrooms?", ["1", "2", "3"], "2");
+      await ask(id, "Any extras?", ["Oven", "Windows", "Carpets", "No extras"], "Oven");
+      if (id !== run) return;
+      const think = say("bot", ""); think.classList.add("bubble--typing"); think.innerHTML = "<i></i><i></i><i></i>";
+      ademo.classList.add("is-thinking");
+      $("#adocMeta").textContent = "3 bedrooms, 2 bathrooms";
+      const items = [["End-of-lease clean, 3 bed", 420], ["Second bathroom", 60], ["Oven & rangehood", 80], ["Bond-back re-clean guarantee", 0]];
+      let total = 0;
+      for (const [n, v] of items) {
+        await wait(550); if (id !== run) return;
+        const li = document.createElement("li"); li.innerHTML = `<span>${n}</span><b>${v ? "$" + v : "Included"}</b>`; lines.appendChild(li);
+        total += v; $("#adocTotal").textContent = "$" + total;
+      }
+      await wait(400); if (id !== run) return;
+      ademo.classList.remove("is-thinking"); think.remove();
+      $("#adocStamp").classList.add("is-on");
+      await wait(500); if (id !== run) return;
+      say("bot", "Your quote is ready: $" + total + ". I've emailed you the PDF, and the team will confirm your date.");
+      await wait(700); if (id === run) $("#adocToast").classList.add("is-on");
+    }
+    const io = new IntersectionObserver((en) => { if (en[0].isIntersecting) { play(); io.disconnect(); } }, { threshold: 0.35 });
+    io.observe(ademo);
+    $("#ademoReplay").addEventListener("click", play);
+  }
+
+  // industry tabs: "something goes in, something useful comes out"
+  $$(".agen__tab").forEach((tab) => tab.addEventListener("click", () => {
+    $$(".agen__tab").forEach((t) => t.setAttribute("aria-selected", t === tab));
+    $$(".agen__panel").forEach((p) => (p.hidden = p.dataset.panel !== tab.dataset.gen));
+  }));
+
+  const abrowser = $("#abrowser");
+  if (abrowser) {
+    const io = new IntersectionObserver((en) => { if (en[0].isIntersecting) { abrowser.classList.add("is-live"); io.disconnect(); } }, { threshold: 0.4 });
+    io.observe(abrowser);
+    const names = ["WordPress", "Wix", "Squarespace", "Shopify", "any website"];
+    let ni = 0;
+    if (!reduceMotion) setInterval(() => {
+      const el = $("#abPlatform"); ni = (ni + 1) % names.length;
+      const clone = el.cloneNode(); clone.textContent = names[ni]; el.replaceWith(clone);   // re-triggers the swap animation
+    }, 1800);
+  }
+
+  /* ---------- AI assistants page: live night-time chat ---------- */
+  const aphone = $("#aphoneLog");
+  if (aphone) {
+    const talk = [
+      ["11:42 pm", "Do you groom big dogs?", "Yes! A full groom for a large dog is $120 and takes about 2 hours. Want me to find a time?"],
+      ["11:43 pm", "Is there parking?", "Yes, free street parking right out front."],
+      ["11:44 pm", "Saturday morning?", "Saturday 9:00am is free. Booked ✓ You'll get a confirmation by SMS."],
+    ];
+    const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+    const add = (who, text) => {
+      const el = document.createElement("div");
+      el.className = `bubble bubble--${who}`; el.textContent = text; aphone.appendChild(el);
+      while (aphone.children.length > 5) aphone.firstChild.remove();
+      return el;
+    };
+    if (reduceMotion) talk.slice(0, 2).forEach(([, q, a]) => { add("user", q); add("bot", a); });
+    else (async () => {
+      for (let i = 0; ; i = (i + 1) % talk.length) {
+        const [time, q, a] = talk[i];
+        $("#anClock").textContent = time;
+        if (i === 0) { aphone.innerHTML = ""; $("#anBadge").classList.remove("is-on"); }
+        await wait(700); add("user", q);
+        await wait(500); const t = add("bot", ""); t.classList.add("bubble--typing"); t.innerHTML = "<i></i><i></i><i></i>";
+        await wait(1300); t.remove(); add("bot", a);
+        $("#anBadge").classList.add("is-on");
+        await wait(2600);
+      }
+    })();
+  }
+
   /* ---------- Non-profit application form ---------- */
   const npForm = $("#npForm");
   npForm?.addEventListener("submit", (e) => {

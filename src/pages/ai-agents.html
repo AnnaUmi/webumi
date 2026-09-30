@@ -1,0 +1,346 @@
+<!--meta
+{
+ "title": "Custom AI Agents & AI for Your Website | Webumi",
+ "ogTitle": "Custom AI agents for small business — Webumi",
+ "description": "AI agents that chat with your customers and hand back a finished result: a quote, plan or report as a PDF. Plus AI added to the website you already have.",
+ "crumb": "AI agents",
+ "service": { "name": "Custom AI agents and AI website integration", "serviceType": "AI agent development", "description": "Custom AI agents that ask customers the right questions, use the business's prices and rules, and produce a finished quote, plan or report as a PDF; plus AI assistants added to existing websites." }
+}
+-->
+    <!-- ============ HERO: robot ============ -->
+    <section class="phero ahero">
+      <div class="hero__glow" aria-hidden="true"></div>
+      <div class="wrap ahero__grid">
+        <div>
+          <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span>AI agents</span></nav>
+          <p class="kicker">AI agents</p>
+          <h1>AI agents that <em>finish the job</em>.</h1>
+          <p class="hero__lead">An AI agent is a chat with a job to do. It asks your customer the right questions, uses your prices and rules, and hands back a finished result: a quote, a plan or a report as a PDF.</p>
+          <div class="hero__ctas">
+            <a href="/plan/" class="btn btn--primary">Try a live AI agent <span class="arrow">→</span></a>
+            <a href="#agent-demo" class="btn btn--ghost">Watch one work ↓</a>
+          </div>
+        </div>
+
+        <div class="bot" id="bot" aria-hidden="true">
+          <span class="bot__bubble bot__bubble--a" data-bot-bubble>Quote ready ✓</span>
+          <span class="bot__bubble bot__bubble--b" data-bot-bubble>Lead saved to CRM</span>
+          <span class="bot__bubble bot__bubble--c" data-bot-bubble>3 questions, done</span>
+          <svg class="bot__svg" viewBox="0 0 320 360">
+            <g class="bot__float">
+              <!-- antenna -->
+              <line x1="160" y1="62" x2="160" y2="28" stroke="#111" stroke-width="6" stroke-linecap="round"/>
+              <path class="bot__spark" d="M160 2 L166 18 L182 24 L166 30 L160 46 L154 30 L138 24 L154 18 Z" fill="#1ee3ff" stroke="#111" stroke-width="4" stroke-linejoin="round"/>
+              <!-- ears -->
+              <rect x="38" y="110" width="26" height="56" rx="10" fill="#ff6b4a" stroke="#111" stroke-width="6"/>
+              <rect x="256" y="110" width="26" height="56" rx="10" fill="#ff6b4a" stroke="#111" stroke-width="6"/>
+              <!-- head -->
+              <rect x="70" y="72" width="190" height="150" rx="42" fill="#111"/>
+              <rect x="60" y="62" width="190" height="150" rx="42" fill="#ffd23f" stroke="#111" stroke-width="6"/>
+              <rect x="84" y="88" width="142" height="96" rx="28" fill="#0f2a3d" stroke="#111" stroke-width="5"/>
+              <g class="bot__eyes" id="botEyes">
+                <g class="bot__blink">
+                  <circle cx="126" cy="130" r="15" fill="#1ee3ff"/>
+                  <circle cx="186" cy="130" r="15" fill="#1ee3ff"/>
+                  <circle cx="131" cy="125" r="5" fill="#fff"/>
+                  <circle cx="191" cy="125" r="5" fill="#fff"/>
+                </g>
+              </g>
+              <path d="M134 160 Q156 174 178 160" fill="none" stroke="#1ee3ff" stroke-width="6" stroke-linecap="round"/>
+              <!-- body -->
+              <rect x="104" y="232" width="122" height="96" rx="26" fill="#111"/>
+              <rect x="96" y="224" width="122" height="96" rx="26" fill="#ff6b4a" stroke="#111" stroke-width="6"/>
+              <rect x="116" y="244" width="82" height="52" rx="12" fill="#fff" stroke="#111" stroke-width="4"/>
+              <rect class="bot__line bot__line--1" x="126" y="256" width="62" height="6" rx="3" fill="#0f2a3d"/>
+              <rect class="bot__line bot__line--2" x="126" y="268" width="46" height="6" rx="3" fill="#0f2a3d"/>
+              <rect class="bot__line bot__line--3" x="126" y="280" width="54" height="6" rx="3" fill="#1fa592"/>
+              <!-- neck -->
+              <rect x="138" y="210" width="38" height="18" fill="#111"/>
+              <!-- left arm -->
+              <path d="M96 250 Q62 262 60 296" fill="none" stroke="#111" stroke-width="12" stroke-linecap="round"/>
+              <!-- right arm waving a PDF -->
+              <g class="bot__arm">
+                <path d="M218 250 Q252 236 262 206" fill="none" stroke="#111" stroke-width="12" stroke-linecap="round"/>
+                <g transform="translate(244 150) rotate(12)">
+                  <rect x="0" y="0" width="52" height="64" rx="6" fill="#fff" stroke="#111" stroke-width="5"/>
+                  <rect x="10" y="12" width="32" height="5" rx="2" fill="#0f2a3d"/>
+                  <rect x="10" y="23" width="24" height="5" rx="2" fill="#0f2a3d"/>
+                  <rect x="10" y="34" width="28" height="5" rx="2" fill="#0f2a3d"/>
+                  <text x="26" y="56" text-anchor="middle" font-family="Bricolage Grotesque, sans-serif" font-weight="800" font-size="12" fill="#ff6b4a">PDF</text>
+                </g>
+              </g>
+            </g>
+            <ellipse class="bot__shadow" cx="160" cy="348" rx="84" ry="8" fill="#111" opacity=".15"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ LIVE DEMO: chat → PDF ============ -->
+    <section class="section section--white" id="agent-demo">
+      <div class="wrap">
+        <div class="section__head reveal">
+          <p class="kicker">Watch an agent work</p>
+          <h2>Three questions. One finished quote.</h2>
+          <p class="section__sub">An example quote agent for a cleaning business. The customer answers, the agent applies the price list, and a quote PDF is ready in seconds.</p>
+        </div>
+        <div class="ademo" id="ademo">
+          <div class="ademo__chat">
+            <div class="ademo__head"><span class="ademo__avatar">{{icon:robot}}</span><div><b>Quote agent</b><small><span class="pulse pulse--sea"></span> Sparkle Cleaning (example)</small></div></div>
+            <div class="ademo__log" id="ademoLog"></div>
+            <div class="ademo__chips" id="ademoChips"></div>
+          </div>
+          <div class="ademo__arrow" aria-hidden="true"><span></span></div>
+          <div class="ademo__doc" id="ademoDoc">
+            <div class="adoc__top"><b>Sparkle Cleaning</b><span>QUOTE #1042</span></div>
+            <p class="adoc__for" data-doc>End-of-lease clean · <span id="adocMeta">…</span></p>
+            <ul class="adoc__lines" id="adocLines"></ul>
+            <div class="adoc__total" data-doc><span>Total (incl. GST)</span><b id="adocTotal">$0</b></div>
+            <span class="adoc__stamp" id="adocStamp">READY ✓</span>
+            <div class="adoc__toast" id="adocToast">{{icon:bell}} New lead sent to the team</div>
+          </div>
+        </div>
+        <p class="ademo__replay"><button type="button" class="btn btn--ghost btn--small" id="ademoReplay">↻ Play again</button> <span>Example business and prices, for illustration.</span></p>
+      </div>
+    </section>
+
+    <!-- ============ PIPELINE ============ -->
+    <section class="section">
+      <div class="wrap">
+        <div class="section__head reveal">
+          <p class="kicker">How an agent thinks</p>
+          <h2>Your rules in. A finished result out.</h2>
+        </div>
+        <div class="apipe reveal">
+          <div class="apipe__node" style="--n:0">{{icon:chat}}<b>Customer asks</b><small>"How much for a 3-bed clean?"</small></div>
+          <div class="apipe__link" style="--n:0"><i></i></div>
+          <div class="apipe__node apipe__node--ai" style="--n:1">{{icon:sparkle}}<b>Agent asks back</b><small>Only what it needs</small></div>
+          <div class="apipe__link" style="--n:1"><i></i></div>
+          <div class="apipe__node" style="--n:2">{{icon:folder}}<b>Your prices &amp; rules</b><small>Never invents a price</small></div>
+          <div class="apipe__link" style="--n:2"><i></i></div>
+          <div class="apipe__node" style="--n:3">{{icon:doc}}<b>Finished result</b><small>Quote, plan or report PDF</small></div>
+          <div class="apipe__link" style="--n:3"><i></i></div>
+          <div class="apipe__node apipe__node--you" style="--n:4">{{icon:bell}}<b>You get the lead</b><small>With every detail</small></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ LIVE EXAMPLE ============ -->
+    <section class="section section--white">
+      <div class="wrap split">
+        <div class="prose reveal">
+          <p class="kicker">Live example</p>
+          <h2>Try the one on this site.</h2>
+          <p>The Webumi website planner is an AI agent. It asks 3–4 questions about your business, then builds a full plan: the pages, the features, a timeline and a price from the real price list. You can share it or save it as a PDF.</p>
+          <ul class="checks">
+            <li>Asks only what it needs, and guesses the rest from your business type</li>
+            <li>Uses the real price list, so it never invents a price</li>
+            <li>Produces a presentation you can share, save as a PDF, or book a call from</li>
+            <li>Protected from bots, with a daily spending cap</li>
+          </ul>
+          <p><a href="/plan/" class="btn btn--primary">Open the planner →</a></p>
+        </div>
+        <a href="/plan/" class="aplan reveal" aria-label="Open the website planner">
+          <span class="aplan__tag">Live on this site</span>
+          <div class="aplan__chat">
+            <div class="bubble bubble--bot">What does your business do, and where?</div>
+            <div class="bubble bubble--user">Dog grooming in Bondi</div>
+            <div class="bubble bubble--bot">What do you already have: logo, photos, a domain?</div>
+            <div class="bubble bubble--user">Logo and photos</div>
+          </div>
+          <div class="aplan__card">
+            <p class="aplan__for">Website plan for <b>Bondi Dog Spa</b></p>
+            <p class="aplan__h">Full grooming books, straight from Google</p>
+            <div class="aplan__row"><span>Website · booking · deposits · domain</span><b>$2,160</b></div>
+            <span class="aplan__cta">Open your presentation →</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============ AGENT TYPES ============ -->
+    <section class="section">
+      <div class="wrap">
+        <div class="section__head reveal">
+          <p class="kicker">What an agent can do for you</p>
+          <h2>Custom agents, built around your business.</h2>
+        </div>
+        <ul class="cards cards--3 atypes">
+          <li class="card reveal">{{icon:doc}}<h3>Instant quotes</h3><p>Asks about the job (rooms, size, suburb, dates), then sends a quote PDF from your price list. For cleaners, trades and removalists.</p></li>
+          <li class="card reveal">{{icon:user}}<h3>Client intake</h3><p>Collects a new client's details and needs before the first appointment, and sends you a clear summary. For coaches, health and beauty.</p></li>
+          <li class="card reveal">{{icon:folder}}<h3>Proposals and plans</h3><p>Turns a short chat into a branded proposal or plan with options and prices, ready to send.</p></li>
+          <li class="card reveal">{{icon:search}}<h3>Product and package finder</h3><p>Asks a few questions and recommends the right product, class or package, with a link to buy or book.</p></li>
+          <li class="card reveal">{{icon:chart}}<h3>Reports from answers</h3><p>Turns a questionnaire or uploaded information into a readable report or checklist as a PDF.</p></li>
+          <li class="card reveal">{{icon:lifebuoy}}<h3>Staff helper</h3><p>Answers your team's questions from your own procedures and price lists, so they stop asking you.</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ CONNECT ANYTHING ============ -->
+    <section class="section section--white">
+      <div class="wrap split">
+        <div class="prose reveal">
+          <p class="kicker">Connects to your tools</p>
+          <h2>Plugged into the tools you already use.</h2>
+          <p>Your AI can read from and write to the systems you run your business on: it checks availability, creates invoices, adds contacts, updates spreadsheets and sends messages.</p>
+          <ul class="checks">
+            <li>Accounting and payments: Xero, Stripe, Square</li>
+            <li>Shops and bookings: Shopify, Calendly, your booking system</li>
+            <li>Customers and email: HubSpot, Gmail, Mailchimp</li>
+            <li>Your team: Slack, WhatsApp, Notion, Google Sheets</li>
+          </ul>
+          <p>Most tools with an API, or that can send and receive email, can be connected.</p>
+        </div>
+        <div class="ahub reveal" aria-hidden="true">
+          <div class="ahub__ring"><span class="ahub__tool" style="--i:0"><b>Xero</b></span><span class="ahub__tool" style="--i:1"><b>Stripe</b></span><span class="ahub__tool" style="--i:2"><b>Square</b></span><span class="ahub__tool" style="--i:3"><b>Shopify</b></span><span class="ahub__tool" style="--i:4"><b>HubSpot</b></span><span class="ahub__tool" style="--i:5"><b>Google Sheets</b></span><span class="ahub__tool" style="--i:6"><b>Gmail</b></span><span class="ahub__tool" style="--i:7"><b>Calendly</b></span><span class="ahub__tool" style="--i:8"><b>Mailchimp</b></span><span class="ahub__tool" style="--i:9"><b>Slack</b></span><span class="ahub__tool" style="--i:10"><b>WhatsApp</b></span><span class="ahub__tool" style="--i:11"><b>Notion</b></span></div>
+          <div class="ahub__core">{{icon:sparkle}}<b>Your AI</b></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ GENERATE ANYTHING ============ -->
+    <section class="section">
+      <div class="wrap">
+        <div class="section__head reveal">
+          <p class="kicker">Generate what your customers need</p>
+          <h2>Something goes in. Something useful comes out.</h2>
+          <p class="section__sub">Every system is custom-built for one business: your questions, your rules, your tools and your look. Here are a few examples by industry.</p>
+        </div>
+        <div class="agen reveal">
+          <div class="agen__tabs" role="tablist" aria-label="Examples by industry"><button type="button" role="tab" class="agen__tab" data-gen="tradies" aria-selected="true">Tradies</button><button type="button" role="tab" class="agen__tab" data-gen="beauty" aria-selected="false">Beauty & wellness</button><button type="button" role="tab" class="agen__tab" data-gen="fitness" aria-selected="false">Fitness & coaching</button><button type="button" role="tab" class="agen__tab" data-gen="hospitality" aria-selected="false">Cafés & events</button><button type="button" role="tab" class="agen__tab" data-gen="retail" aria-selected="false">Shops</button><button type="button" role="tab" class="agen__tab" data-gen="property" aria-selected="false">Real estate</button><button type="button" role="tab" class="agen__tab" data-gen="tutors" aria-selected="false">Tutors</button><button type="button" role="tab" class="agen__tab" data-gen="pro" aria-selected="false">Professional services</button></div>
+          <ul class="agen__panel" role="tabpanel" data-panel="tradies">
+              <li class="agen__card" style="--i:0"><span class="agen__in">Photos of the job + a few answers</span><span class="agen__arrow" aria-hidden="true">{{icon:sparkle}}</span><span class="agen__out">A quote PDF with line items from your price list</span></li>
+              <li class="agen__card" style="--i:1"><span class="agen__in">Your job notes</span><span class="agen__arrow" aria-hidden="true">{{icon:sparkle}}</span><span class="agen__out">A clear invoice description, sent to Xero</span></li>
+              <li class="agen__card" style="--i:2"><span class="agen__in">The address and job type</span><span class="agen__arrow" aria-hidden="true">{{icon:sparkle}}</span><span class="agen__out">A site-visit checklist for your team</span></li>
+          </ul>
+          <ul class="agen__panel" role="tabpanel" data-panel="beauty" hidden>
+              <li class="agen__card" style="--i:0"><span class="agen__in">A short skin or hair questionnaire</span><span class="agen__arrow" aria-hidden="true">{{icon:sparkle}}</span><span class="agen__out">A treatment plan with aftercare, as a PDF</span></li>
+              <li class="agen__card" style="--i:1"><span class="agen__in">A new booking</span><span class="agen__arrow" aria-hidden="true">{{icon:sparkle}}</span><span class="agen__out">A personal reminder with how to prepare</span></li>
+              <li class="agen__card" style="--i:2"><span class="agen__in">Before-and-after photos</span><span class="agen__arrow" aria-hidden="true">{{icon:sparkle}}</span><span class="agen__out">Instagram captions in your tone</span></li>
+          </ul>
+          <ul class="agen__panel" role="tabpanel" data-panel="fitness" hidden>
+              <li class="agen__card" style="--i:0"><span class="agen__in">Goals, fitness level and free days</span><span class="agen__arrow" aria-hidden="true">{{icon:sparkle}}</span><span class="agen__out">A personalised 4-week plan as a PDF</span></li>
+              <li class="agen__card" style="--i:1"><span class="agen__in">Weekly check-in answers</span><span class="agen__arrow" aria-hidden="true">{{icon:sparkle}}</span><span class="agen__out">A progress summary for you and the client</span></li>
+              <li class="agen__card" style="--i:2"><span class="agen__in">An intro chat</span><span class="agen__arrow" aria-hidden="true">{{icon:sparkle}}</span><span class="agen__out">The right program or package, with a sign-up link</span></li>
+          </ul>
+          <ul class="agen__panel" role="tabpanel" data-panel="hospitality" hidden>
+              <li class="agen__card" style="--i:0"><span class="agen__in">Guest numbers, date and dietary needs</span><span class="agen__arrow" aria-hidden="true">{{icon:sparkle}}</span><span class="agen__out">An event menu and quote</span></li>
+              <li class="agen__card" style="--i:1"><span class="agen__in">New Google reviews</span><span class="agen__arrow" aria-hidden="true">{{icon:sparkle}}</span><span class="agen__out">Reply drafts for you to approve</span></li>
+              <li class="agen__card" style="--i:2"><span class="agen__in">Today's ingredients</span><span class="agen__arrow" aria-hidden="true">{{icon:sparkle}}</span><span class="agen__out">Specials board and social post text</span></li>
+          </ul>
+          <ul class="agen__panel" role="tabpanel" data-panel="retail" hidden>
+              <li class="agen__card" style="--i:0"><span class="agen__in">Product photos and a few notes</span><span class="agen__arrow" aria-hidden="true">{{icon:sparkle}}</span><span class="agen__out">Product descriptions, added to Shopify</span></li>
+              <li class="agen__card" style="--i:1"><span class="agen__in">"I need a gift for…"</span><span class="agen__arrow" aria-hidden="true">{{icon:sparkle}}</span><span class="agen__out">A gift finder with product picks and links</span></li>
+              <li class="agen__card" style="--i:2"><span class="agen__in">"Where's my order?"</span><span class="agen__arrow" aria-hidden="true">{{icon:sparkle}}</span><span class="agen__out">An instant answer from your order system</span></li>
+          </ul>
+          <ul class="agen__panel" role="tabpanel" data-panel="property" hidden>
+              <li class="agen__card" style="--i:0"><span class="agen__in">Property details and photos</span><span class="agen__arrow" aria-hidden="true">{{icon:sparkle}}</span><span class="agen__out">A listing description ready to publish</span></li>
+              <li class="agen__card" style="--i:1"><span class="agen__in">A buyer's questions</span><span class="agen__arrow" aria-hidden="true">{{icon:sparkle}}</span><span class="agen__out">A suburb snapshot with schools and transport</span></li>
+              <li class="agen__card" style="--i:2"><span class="agen__in">Open-home sign-ups</span><span class="agen__arrow" aria-hidden="true">{{icon:sparkle}}</span><span class="agen__out">Contacts in your CRM with a follow-up email</span></li>
+          </ul>
+          <ul class="agen__panel" role="tabpanel" data-panel="tutors" hidden>
+              <li class="agen__card" style="--i:0"><span class="agen__in">A student's level and goals</span><span class="agen__arrow" aria-hidden="true">{{icon:sparkle}}</span><span class="agen__out">A lesson plan and practice worksheet</span></li>
+              <li class="agen__card" style="--i:1"><span class="agen__in">Homework answers</span><span class="agen__arrow" aria-hidden="true">{{icon:sparkle}}</span><span class="agen__out">Feedback and the next steps</span></li>
+              <li class="agen__card" style="--i:2"><span class="agen__in">A term of lessons</span><span class="agen__arrow" aria-hidden="true">{{icon:sparkle}}</span><span class="agen__out">A progress report for parents</span></li>
+          </ul>
+          <ul class="agen__panel" role="tabpanel" data-panel="pro" hidden>
+              <li class="agen__card" style="--i:0"><span class="agen__in">A new client questionnaire</span><span class="agen__arrow" aria-hidden="true">{{icon:sparkle}}</span><span class="agen__out">An intake summary and document checklist</span></li>
+              <li class="agen__card" style="--i:1"><span class="agen__in">A folder of receipts</span><span class="agen__arrow" aria-hidden="true">{{icon:sparkle}}</span><span class="agen__out">A categorised spreadsheet for tax time</span></li>
+              <li class="agen__card" style="--i:2"><span class="agen__in">Your template and the client's details</span><span class="agen__arrow" aria-hidden="true">{{icon:sparkle}}</span><span class="agen__out">A first draft letter or agreement for you to review</span></li>
+          </ul>
+          <div class="agen__custom">
+            <div><b>Don't see yours?</b><span>Tell me what goes in and what should come out. If it can be described, it can usually be built.</span></div>
+            <a href="#contact" class="btn btn--primary btn--small" data-choose="AI or automation">Describe your idea →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ADD AI TO ANY SITE ============ -->
+    <section class="section section--white">
+      <div class="wrap split">
+        <div class="prose reveal">
+          <p class="kicker">Add AI to any website</p>
+          <h2>Keep your website. Add AI to it.</h2>
+          <p>AI works on the site you already have. No rebuild needed.</p>
+          <ul class="checks">
+            <li><b>AI chat assistant</b> that answers questions from your services, prices and FAQs, 24/7</li>
+            <li><b>AI agent</b> that builds quotes or plans, like the website planner</li>
+            <li><b>Smart forms</b> that summarise each enquiry before it reaches you</li>
+            <li><b>AI search ready:</b> clear pages and structured data, so ChatGPT and Google can recommend you</li>
+          </ul>
+        </div>
+        <div class="abrowser reveal" id="abrowser" aria-hidden="true">
+          <div class="abrowser__bar"><i></i><i></i><i></i><span>yourbusiness.com.au</span><b class="abrowser__platform">Works on <em id="abPlatform">WordPress</em></b></div>
+          <div class="abrowser__page">
+            <div class="abrowser__sk abrowser__sk--hero"></div>
+            <div class="abrowser__sk"></div><div class="abrowser__sk abrowser__sk--short"></div>
+            <div class="abrowser__row"><span></span><span></span><span></span></div>
+            <div class="abrowser__widget">
+              <div class="abrowser__msg abrowser__msg--bot">Hi! Want a price, or to book a time?</div>
+              <div class="abrowser__msg abrowser__msg--me">Price for a 2-bed clean?</div>
+              <div class="abrowser__msg abrowser__msg--bot abrowser__msg--typing"><i></i><i></i><i></i></div>
+            </div>
+            <span class="abrowser__fab">{{icon:robot}}</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PRICES + STEPS ============ -->
+    <section class="section">
+      <div class="wrap split">
+        <div class="reveal">
+          <p class="kicker">How it works</p>
+          <h2>From idea to a working agent.</h2>
+          <ol class="howto howto--2">
+            <li><span class="howto__when">Step 1</span><h3>Map the job</h3><p>The questions to ask, the rules to follow and the result you want.</p></li>
+            <li><span class="howto__when">Step 2</span><h3>Connect your knowledge</h3><p>Your prices, services, FAQs and documents.</p></li>
+            <li><span class="howto__when">Step 3</span><h3>Design the result</h3><p>A PDF, an email, a booking or a lead in your CRM.</p></li>
+            <li><span class="howto__when">Step 4</span><h3>Test and launch</h3><p>Tested with real examples, with bot protection and a spending cap.</p></li>
+          </ol>
+        </div>
+        <aside class="pbox pbox--hot reveal">
+          <p class="pkg__name">Prices</p>
+          <p class="pkg__for">AI chat assistant on your website</p>
+          <p class="pkg__price"><span>from</span> {{aud:ai-assistant:website}}</p>
+          <ul class="checks">
+            <li>Custom AI agents: quoted after a free chat</li>
+            <li>Plus AI usage, charged by the AI provider</li>
+            <li>Usage is usually cents per conversation. The planner on this site costs about half a cent per chat.</li>
+          </ul>
+          <a href="#contact" class="btn btn--primary" data-choose="AI or automation">Talk about your agent</a>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section faq section--white">
+      <div class="wrap faq__wrap">
+        <div class="section__head reveal">
+          <p class="kicker">Questions</p>
+          <h2>About AI agents.</h2>
+        </div>
+        <div class="faq__list">
+          <details class="reveal">
+            <summary>What's the difference between an AI assistant and an AI agent?</summary>
+            <p>An AI assistant answers questions, like a front desk. An AI agent has a specific job: it asks the questions it needs and produces a finished result, such as a quote, a plan or a report.</p>
+          </details>
+          <details class="reveal">
+            <summary>Can you add AI to my current website?</summary>
+            <p>Yes. A chat assistant or an agent can be added to WordPress, Wix, Squarespace, Shopify or a custom site without rebuilding it.</p>
+          </details>
+          <details class="reveal">
+            <summary>How much does the AI itself cost to run?</summary>
+            <p>The AI provider charges per use, usually cents per conversation. Every agent gets a daily spending cap, so the cost can't run away.</p>
+          </details>
+          <details class="reveal">
+            <summary>Will the AI make things up?</summary>
+            <p>Agents are limited to your own information. Prices always come from your price list and are calculated by the page, not written by the AI.</p>
+          </details>
+          <details class="reveal">
+            <summary>What happens to customers' answers?</summary>
+            <p>Conversations are sent to the AI provider to generate replies, and the result is sent to you. I'll explain exactly what's stored and where before we launch, and add it to your privacy page.</p>
+          </details>
+        </div>
+      </div>
+    </section>

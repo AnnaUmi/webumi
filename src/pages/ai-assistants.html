@@ -9,7 +9,7 @@
 -->
     <section class="phero">
       <div class="hero__glow" aria-hidden="true"></div>
-      <div class="wrap phero__grid">
+      <div class="wrap ahero__grid">
         <div>
           <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span>AI assistants</span></nav>
           <p class="kicker">AI for small business</p>
@@ -17,21 +17,25 @@
           <p class="hero__lead">It answers customer questions from your own services, prices and policies, books appointments, and passes anything it isn't sure about to you, day or night.</p>
           <div class="hero__ctas">
             <a href="#contact" class="btn btn--primary" data-choose="AI or automation">Talk about AI for my business <span class="arrow">→</span></a>
-            <a href="/pricing/" class="btn btn--ghost">See pricing</a>
+            <a href="/ai-agents/" class="btn btn--ghost">See AI agents</a>
           </div>
+          <p class="anight__price">From <b>{{aud:ai-assistant:website}}</b> on your website, plus AI usage.</p>
         </div>
-        <aside class="pbox reveal">
-          <p class="pkg__name">AI assistant</p>
-          <p class="pkg__for">Added to your website, app or platform. Quoted after a free chat, based on what it needs to know and do.</p>
-          <ul class="checks">
-            <li>Trained on your services, prices &amp; FAQs</li>
-            <li>Chat assistant on your website or app</li>
-            <li>Books into your calendar</li>
-            <li>Hands over to you with a summary</li>
-            <li>Conversation history you can review</li>
-          </ul>
-          <a href="#contact" class="btn btn--primary" data-choose="AI or automation">Ask about an AI assistant</a>
-        </aside>
+
+        <div class="anight" aria-hidden="true">
+          <div class="anight__sky"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="anight__moon"></div>
+          <div class="anight__clock">{{icon:moon}} <span id="anClock">11:42 pm</span></div>
+          <div class="aphone">
+            <div class="aphone__head">
+              <svg class="aphone__bot" viewBox="0 0 64 64"><rect x="10" y="14" width="44" height="36" rx="12" fill="#ffd23f" stroke="#111" stroke-width="4"/><rect x="17" y="21" width="30" height="20" rx="7" fill="#0f2a3d"/><circle class="aphone__eye" cx="26" cy="31" r="4" fill="#1ee3ff"/><circle class="aphone__eye" cx="38" cy="31" r="4" fill="#1ee3ff"/><line x1="32" y1="14" x2="32" y2="6" stroke="#111" stroke-width="4" stroke-linecap="round"/><circle cx="32" cy="5" r="4" fill="#1ee3ff" stroke="#111" stroke-width="2.5"/></svg>
+              <div><b>Bondi Dog Spa</b><small><span class="pulse pulse--sea"></span> AI assistant · online now</small></div>
+            </div>
+            <div class="aphone__log" id="aphoneLog"></div>
+            <div class="aphone__input"><span>Type a message…</span><i>{{icon:sparkle}}</i></div>
+          </div>
+          <div class="anight__badge" id="anBadge">⚡ Answered in 2 seconds</div>
+        </div>
       </div>
     </section>
 
@@ -41,7 +45,7 @@
           <p class="kicker">What it does</p>
           <h2>The front desk that's always open.</h2>
         </div>
-        <ul class="cards">
+        <ul class="cards cards--3 atypes">
           <li class="card reveal">{{icon:chat}}<h3>Answers questions</h3><p>Prices, services, availability, parking, policies. Answered in seconds, in your tone.</p></li>
           <li class="card reveal">{{icon:doc}}<h3>Quotes from your price list</h3><p>Gives accurate prices and ranges based on the information you've approved.</p></li>
           <li class="card reveal">{{icon:calendar}}<h3>Books appointments</h3><p>Offers real available times and books them into your calendar or booking system.</p></li>
@@ -56,7 +60,7 @@
       <div class="wrap split">
         <div class="example reveal">
           <h3>An enquiry at 11:42 pm</h3>
-          <ol class="flow">
+          <ol class="flow flow--live">
             <li><span class="flow__dot">{{icon:moon}}</span><span class="flow__t">Customer asks a question<span class="flow__s">"How much for a full groom for a big dog?"</span></span></li>
             <li><span class="flow__dot">{{icon:sparkle}}</span><span class="flow__t">AI answers from your price list<span class="flow__s">"$120, about 2 hours. Want a time?"</span></span></li>
             <li><span class="flow__dot">{{icon:calendar}}</span><span class="flow__t">Offers a time and books it<span class="flow__s">Saturday 9:00am, deposit paid</span></span></li>
@@ -87,6 +91,7 @@
           <p class="section__sub">Not every AI project is a chatbot. These save time inside your business and are quoted per project.</p>
         </div>
         <ul class="cards">
+          <li><a href="/ai-agents/" class="card reveal">{{icon:sparkle}}<h3>Custom AI agents →</h3><p>A chat that asks the right questions and produces a finished quote, plan or report as a PDF. See a live example.</p></a></li>
           <li class="card reveal">{{icon:inbox}}<h3>AI inbox helper</h3><p>Sorts incoming enquiries, drafts replies in your tone and flags the urgent ones. You check and send.</p></li>
           <li class="card reveal">{{icon:doc}}<h3>Document &amp; data processing</h3><p>Pulls details from invoices, forms, emails and PDFs into your spreadsheet, CRM or Xero.</p></li>
           <li class="card reveal">{{icon:plug}}<h3>AI integrations</h3><p>Adds AI to the tools you already use: your CRM, booking system, email or website forms.</p></li>
