@@ -53,18 +53,29 @@ The AI only picks options from the catalog; the page calculates the prices, so i
 | Contact details (phone is a placeholder) | `src/data/contact.json` |
 
 **One-time setup on Hostinger**
-1. Create an API key at platform.openai.com → API keys, and add a monthly spending limit under Billing → Limits.
+1. In OpenAI (platform.openai.com): create an API key and set a monthly limit under Billing → Limits.
 2. In hPanel → File Manager, go **one folder above** `public_html` and create `webumi-config.php`:
    ```php
-   <?php return ['openai_key' => 'sk-...your key...', 'model' => 'gpt-5-mini'];
+   <?php return [
+     'openai_key'       => 'sk-...your OpenAI key...',
+     'model'            => 'gpt-5-mini',
+     'turnstile_secret' => '0x...your Cloudflare Turnstile SECRET key...',
+     'daily_budget'     => 0.50,   // USD per day for all visitors together
+   ];
    ```
-   It sits outside `public_html`, so nobody can download it.
+   It sits outside `public_html`, so nobody can download it. Usage counters are saved next to it in `webumi-data/`.
 3. Upload `dist/` as usual. Open webumi.com.au/plan/ and try it.
 
-**Testing on your Mac:** `node build.js serve` runs a scripted demo (no key needed).
-To test with the real AI, put your key in a `.env` file in the project folder (git ignores it):
-```
-OPENAI_API_KEY=sk-...
-```
+**Protection against wasted OpenAI money** (all in `chat.php`)
+| Check | Limit |
+|---|---|
+| Only requests from webumi.com.au + hidden bot field | blocked before any cost |
+| Cloudflare Turnstile "are you human?" check | once per conversation |
+| Messages per conversation | 14 |
+| New conversations per visitor | 3 per day |
+| Messages per visitor | 25 per hour |
+| Daily budget (real cost of every reply added up) | `daily_budget`, default $0.50 |
 
-Visitors are limited to 40 messages per hour each, to protect your OpenAI bill.
+When a limit or the budget is reached, the planner points visitors to the price builder and the booking form.
+To see today's spend, open `webumi-data/usage-YYYY-MM-DD.json` in File Manager.
+The Turnstile site key (public) is in `src/data/site.json`; the widget is managed at dash.cloudflare.com → Turnstile.

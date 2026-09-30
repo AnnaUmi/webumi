@@ -557,6 +557,45 @@
     let state = { messages: [], bubbles: [], offer: null, choices: greeting.choices };
     let catalog, busy = false, planText = "";
 
+    // Cloudflare Turnstile: an invisible "are you human?" check, needed once per conversation
+    const ts = { widget: null, token: null, waiters: [] };
+    function tsInit() {
+      const box = $("#plVerify");
+      if (ts.widget !== null || !box?.dataset.sitekey || !window.turnstile) return;
+      ts.widget = window.turnstile.render(box, {
+        sitekey: box.dataset.sitekey,
+        appearance: "interaction-only",
+        callback: (t) => { ts.token = t; ts.waiters.splice(0).forEach((f) => f(t)); },
+        "expired-callback": () => { ts.token = null; },
+        "error-callback": () => { ts.waiters.splice(0).forEach((f) => f("")); return true; },
+      });
+    }
+    async function humanToken() {
+      if (!$("#plVerify")?.dataset.sitekey) return "";
+      // Cloudflare's script loads async; give it a few seconds (it can be blocked by ad blockers)
+      for (let i = 0; i < 16 && !window.turnstile; i++) await new Promise((r) => setTimeout(r, 250));
+      if (!window.turnstile) return "";
+      tsInit();
+      if (ts.token) { const t = ts.token; ts.token = null; setTimeout(() => ts.widget !== null && window.turnstile.reset(ts.widget), 0); return Promise.resolve(t); }
+      return new Promise((resolve) => {
+        const done = (t) => { clearTimeout(timer); ts.token = null; setTimeout(() => ts.widget !== null && window.turnstile.reset(ts.widget), 0); resolve(t); };
+        const timer = setTimeout(() => { ts.waiters = ts.waiters.filter((f) => f !== done); resolve(""); }, 12000);
+        ts.waiters.push(done);
+      });
+    }
+    const tsPoll = setInterval(() => { if (window.turnstile) { clearInterval(tsPoll); tsInit(); } }, 300);
+    setTimeout(() => clearInterval(tsPoll), 30000);
+
+    async function ask(retried = false) {
+      const body = { messages: state.messages, conv: state.conv || "", website: plForm.elements.website?.value || "" };
+      if (!state.conv) body.turnstile = await humanToken();
+      const r = await fetch("/api/chat.php", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+      const data = await r.json().catch(() => ({ error: "The planner is busy. Please try again in a moment." }));
+      if (data.code === "verify" && !retried) { state.conv = null; return ask(true); }   // conversation expired: check again once
+      if (data.conv) state.conv = data.conv;
+      return data;
+    }
+
     function bubble(who, text, save = true) {
       const el = document.createElement("div");
       el.className = `bubble bubble--${who}`;
@@ -591,10 +630,9 @@
       typing.innerHTML = "<i></i><i></i><i></i>";
       const slow = setTimeout(() => { typing.classList.remove("bubble--typing"); typing.textContent = "Putting your plan together…"; }, 4000);
       try {
-        const r = await fetch("/api/chat.php", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ messages: state.messages }) });
-        const data = await r.json().catch(() => ({ error: "The planner is busy. Please try again in a moment." }));
+        const data = await ask();
         typing.remove();
-        if (data.error) throw new Error(data.error);
+        if (data.error) throw Object.assign(new Error(data.error), { code: data.code });
         const a = data.args;
         if (data.tool === "present_offer") {
           bubble("bot", a.message);
@@ -614,7 +652,13 @@
         const err = bubble("bot", e.message || "Something went wrong. Please try again.", false);
         err.classList.add("bubble--error");
         const mine = err.previousElementSibling;
-        showChips(["Try again"], () => { err.remove(); mine?.remove(); state.bubbles.pop(); busy = false; send(text); });
+        if (e.code === "limit" || e.code === "budget") {
+          // out of messages for today: send people to the free options
+          showChips(["Use the price builder", "Book a free call"], (c) => {
+            if (c === "Use the price builder") location.href = "/pricing/#build";
+            else { contactTab("book"); contact?.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" }); }
+          });
+        } else showChips(["Try again"], () => { err.remove(); mine?.remove(); state.bubbles.pop(); busy = false; send(text); });
       }
       clearTimeout(slow);
       busy = false;
@@ -675,7 +719,7 @@
     plForm.addEventListener("submit", (e) => { e.preventDefault(); send(input.value); });
     $("#plReset").addEventListener("click", () => {
       store.clear();
-      state = { messages: [], bubbles: [], offer: null, choices: greeting.choices };
+      state = { messages: [], bubbles: [], offer: null, choices: greeting.choices, conv: null };
       log.innerHTML = ""; $("#offer").hidden = true;
       bubble("bot", greeting.text, false); showChips(greeting.choices); save();
     });

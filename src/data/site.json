@@ -1,0 +1,4 @@
+{
+  "_note": "Public settings used in page templates. The Turnstile SECRET key never goes here (it's in .env / webumi-config.php).",
+  "turnstileSiteKey": "0x4AAAAAAFJwxAC6iaxU2Q7g"
+}

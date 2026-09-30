@@ -10,3 +10,6 @@ dist/
 
 # Private notes, not part of the website
 private/
+
+# Planner usage counters (local preview)
+webumi-data/

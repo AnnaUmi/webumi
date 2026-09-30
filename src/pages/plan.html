@@ -29,8 +29,10 @@
           </div>
           <div class="pl__log" id="plLog" aria-live="polite"></div>
           <div class="pl__chips" id="plChips"></div>
+          <div class="pl__verify" id="plVerify" data-sitekey="{{turnstileSiteKey}}"></div>
           <form class="pl__form" id="plForm" autocomplete="off">
             <label class="sr-only" for="plInput">Your answer</label>
+            <input class="pl__hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
             <input id="plInput" maxlength="1000" placeholder="Type your answer…">
             <button type="submit" class="btn btn--primary btn--small" aria-label="Send">Send →</button>
           </form>
@@ -42,3 +44,5 @@
     <section class="section offer" id="offer" hidden>
       <div class="wrap" id="offerBody"></div>
     </section>
+
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>

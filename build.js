@@ -27,7 +27,7 @@ const http = require("http");
 try {
   for (const line of fs.readFileSync(path.join(__dirname, ".env"), "utf8").split("\n")) {
     const m = line.match(/^\s*([A-Z_]+)\s*=\s*(.*?)\s*$/);
-    if (m && !process.env[m[1]]) process.env[m[1]] = m[2];
+    if (m && !(m[1] in process.env)) process.env[m[1]] = m[2];   // a variable set on the command line (even empty) wins
   }
 } catch {}
 
@@ -54,6 +54,20 @@ function priceOf(cat, id, field) {
   const v = item && item[field];
   if (v === undefined) throw new Error(`Unknown price {{price:${id}:${field}}}`);
   return v;
+}
+
+// A shorter price list for the AI: fewer tokens on every message = lower OpenAI cost
+function aiCatalog(cat = catalog()) {
+  return {
+    currency: cat.currency,
+    types: cat.types,
+    options: cat.options.map(({ features, ...o }) => o),
+    support: cat.support.note,
+    included: cat.included,
+    process: cat.process.map((s) => `${s.step} (${s.when})`).join(" → "),
+    payment: "50% to start, 50% at launch; Express 100% upfront; support plans monthly from 30 days after launch.",
+    systems: cat.systems,
+  };
 }
 
 function render(tpl, vars, depth = 0) {
@@ -100,6 +114,7 @@ function build() {
   fs.rmSync(DIST, { recursive: true, force: true });
   fs.mkdirSync(DIST, { recursive: true });
   fs.cpSync(path.join(SRC, "static"), DIST, { recursive: true });
+  fs.writeFileSync(path.join(DIST, "api", "catalog-ai.json"), JSON.stringify(aiCatalog()));
 
   const layout = read(path.join(SRC, "layout.html"));
   const pages = walk(path.join(SRC, "pages")).filter((f) => f.endsWith(".html") && !path.basename(f).startsWith("_"));
@@ -114,7 +129,8 @@ function build() {
     for (const k of ["title", "description"]) if (!page[k]) throw new Error(`${file}: meta "${k}" is required`);
     if (page.description.length > 165) console.warn(`  ! ${page.url} description is ${page.description.length} chars (aim for ≤160)`);
 
-    const vars = { ...JSON.parse(read(path.join(SRC, "data", "contact.json"))), ...page, site: SITE };
+    const data = (f) => JSON.parse(read(path.join(SRC, "data", f)));
+    const vars = { ...data("contact.json"), ...data("site.json"), ...page, site: SITE };
     const body = render(raw.slice(m[0].length), vars);
     const html = render(layout, {
       ...vars,
@@ -168,38 +184,41 @@ if (process.argv[2] === "serve") {
 }
 
 /*
-  Local stand-in for api/chat.php (PHP isn't needed on your Mac).
-  With OPENAI_API_KEY set (in .env or the environment) it calls OpenAI exactly like the PHP file.
-  Without a key it plays a short scripted demo so you can see the flow.
+  Local preview of api/chat.php. PHP isn't installed on a Mac, so the real chat.php runs through
+  PHP compiled to WebAssembly (npx @php-wasm/cli), with the same limits, bot check and budget as
+  on Hostinger. Settings come from .env (OPENAI_API_KEY, TURNSTILE_SECRET, WEBUMI_DAILY_BUDGET).
+  Without OPENAI_API_KEY it plays a short scripted demo instead.
 */
+const PHP_WASM = "@php-wasm/cli@3.1.56";
+const STATUS = { verify: 401, limit: 429, budget: 503 };
+
 function devChat(req, res) {
   let body = "";
   req.on("data", (c) => (body += c));
-  req.on("end", async () => {
+  req.on("end", () => {
     const send = (code, data) => { res.writeHead(code, { "Content-Type": "application/json" }); res.end(JSON.stringify(data)); };
-    let messages;
-    try { messages = (JSON.parse(body || "{}").messages || []).slice(-30); } catch { return send(400, { error: "Bad request" }); }
-    const api = path.join(SRC, "static", "api");
-    if (!process.env.OPENAI_API_KEY) return setTimeout(() => send(200, demoTurn(messages)), 700);
-    const model = process.env.OPENAI_MODEL || "gpt-5-mini";
-    try {
-      const r = await fetch("https://api.openai.com/v1/chat/completions", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Authorization: `Bearer ${process.env.OPENAI_API_KEY}` },
-        body: JSON.stringify({
-          model,
-          messages: [{ role: "system", content: read(path.join(api, "prompt.txt")).replace("{{CATALOG}}", JSON.stringify(catalog())) }, ...messages],
-          tools: JSON.parse(read(path.join(api, "tools.json"))),
-          tool_choice: "required",
-          parallel_tool_calls: false,
-          ...(/^(gpt-5|o\d)/.test(model) && { reasoning_effort: process.env.OPENAI_REASONING || "low" }),
-        }),
-      });
-      const data = await r.json();
-      if (!r.ok) { console.error("OpenAI", r.status, JSON.stringify(data).slice(0, 400)); return send(502, { error: "The planner is busy. Please try again in a moment." }); }
-      const call = data.choices[0].message.tool_calls[0].function;
-      send(200, { tool: call.name, args: JSON.parse(call.arguments) });
-    } catch (e) { console.error(e); send(502, { error: "The planner is busy. Please try again in a moment." }); }
+    if (!process.env.OPENAI_API_KEY) {
+      let messages;
+      try { messages = JSON.parse(body || "{}").messages || []; } catch { return send(400, { error: "Bad request" }); }
+      return setTimeout(() => send(200, { ...demoTurn(messages), conv: "demo" }), 700);
+    }
+    const php = require("child_process").spawn("npx", ["-y", PHP_WASM, path.join(DIST, "api", "chat.php")], {
+      env: { ...process.env, REQUEST_METHOD: "POST", HTTP_ORIGIN: req.headers.origin || "", REMOTE_ADDR: req.socket.remoteAddress || "", WEBUMI_ALLOWED_HOSTS: "localhost" },
+    });
+    let out = "", err = "";
+    php.stdout.on("data", (c) => (out += c));
+    php.stderr.on("data", (c) => (err += c));
+    php.on("close", () => {
+      const json = out.slice(out.indexOf("{"));
+      try {
+        const data = JSON.parse(json);
+        send(data.error ? STATUS[data.code] || 400 : 200, data);
+      } catch {
+        console.error("chat.php:", (out + err).split("\n").filter((l) => !l.includes("npm warn")).join("\n").slice(0, 800));
+        send(502, { error: "The planner is busy. Please try again in a moment." });
+      }
+    });
+    php.stdin.end(body);
   });
 }
 

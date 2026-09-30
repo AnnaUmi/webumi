@@ -734,6 +734,8 @@ input[type="range"]::-moz-range-thumb { border-color: var(--black); background: 
 .pl__form { display: flex; gap: 10px; padding: 12px; background: #fff; border-top: 2px solid var(--black); }
 .pl__form input { flex: 1; min-width: 0; font: inherit; padding: 12px 16px; border: 2px solid var(--black); border-radius: 999px; background: var(--sand); }
 .pl__form input:focus { outline: none; box-shadow: 3px 3px 0 var(--coral); background: #fff; }
+.pl__verify:not(:empty) { display: flex; justify-content: center; padding: 0 18px 12px; }
+.pl__hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
 .pl__alt { text-align: center; margin-top: 22px; color: var(--muted); font-size: .95rem; }
 .pl__alt a { color: var(--coral); font-weight: 700; }
 
