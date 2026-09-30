@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>{{title}}</title>
+  <meta name="description" content="{{description}}">
+  <link rel="canonical" href="{{url}}">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="author" content="Webumi">
+  <meta name="geo.region" content="AU">
+
+  <!-- Social sharing (Facebook, LinkedIn, WhatsApp, iMessage, X) -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Webumi">
+  <meta property="og:locale" content="en_AU">
+  <meta property="og:url" content="{{url}}">
+  <meta property="og:title" content="{{ogTitle}}">
+  <meta property="og:description" content="{{description}}">
+  <meta property="og:image" content="{{site}}/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Webumi bear logo — More customers. Less admin.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ogTitle}}">
+  <meta name="twitter:description" content="{{description}}">
+  <meta name="twitter:image" content="{{site}}/og-image.png">
+
+  <meta name="theme-color" content="#0f2a3d">
+  <link rel="icon" href="/logo.svg" type="image/svg+xml">
+  <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="alternate" type="text/plain" href="/llms.txt" title="Webumi summary for AI assistants">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+
+  <script type="application/ld+json">
+{{schema}}
+  </script>
+</head>
+<body>
+  {{> icons}}
+  {{> header}}
+
+  <main id="top">
+{{content}}
+{{> contact}}
+  </main>
+
+  {{> footer}}
+
+  <!-- Mobile sticky CTA -->
+  <a href="#contact" class="sticky-cta" id="stickyCta">Free 15-min chat →</a>
+
+  <script src="/script.js"></script>
+</body>
+</html>

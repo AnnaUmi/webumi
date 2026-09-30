@@ -1,0 +1,251 @@
+{
+  "currency": "AUD",
+  "types": {
+    "landing": {
+      "name": "Landing page",
+      "price": 990,
+      "pages": 1,
+      "time": "1–2 weeks",
+      "desc": "One page with one goal: calls, bookings or sign-ups. For new businesses, one main service or an ad campaign."
+    },
+    "website": {
+      "name": "Business website",
+      "price": 2490,
+      "pages": 8,
+      "maxPages": 40,
+      "extraPage": 150,
+      "time": "2–4 weeks",
+      "desc": "Up to 8 pages included (home, services, areas, about, contact). Extra pages for more services or suburbs."
+    }
+  },
+  "options": [
+    {
+      "id": "design-unique",
+      "group": "design",
+      "name": "Unique design",
+      "landing": 490,
+      "website": 990,
+      "desc": "Designed from scratch for the brand, mockup approved before the build. Default (free) is a proven layout in their logo, colours and fonts."
+    },
+    {
+      "id": "text-written",
+      "group": "text",
+      "name": "Unique text, written for you",
+      "landing": 290,
+      "website": 690,
+      "desc": "Anna writes every page after a 30-minute call, targeted at what customers search for. Default (free): client sends text, Anna edits it."
+    },
+    {
+      "id": "images-stock",
+      "group": "images",
+      "name": "Stock photos",
+      "landing": 90,
+      "website": 190,
+      "desc": "Licensed photos picked to match the business. Default (free): client's own photos, optimised."
+    },
+    {
+      "id": "images-unique",
+      "group": "images",
+      "name": "Unique images",
+      "landing": 290,
+      "website": 590,
+      "desc": "Images made for this business only."
+    },
+    {
+      "id": "hosting-year",
+      "group": "hosting",
+      "name": "Domain + hosting, 1 year",
+      "landing": 290,
+      "website": 290,
+      "noRush": true,
+      "desc": ".com.au domain registered in the client's name plus 12 months hosting and SSL. Default (free): client already has domain and hosting."
+    },
+    {
+      "id": "care",
+      "group": "hosting",
+      "name": "Care plan",
+      "monthly": 49,
+      "desc": "Domain (.com.au in the client's name), hosting, SSL, security updates, weekly backups, uptime monitoring, up to 30 min of changes a month, email support (reply within 2 business days). Cancel anytime.",
+      "features": [
+        "Domain, hosting, SSL & security updates",
+        "Weekly backups & uptime monitoring",
+        "Up to 30 min of changes a month",
+        "Email support, reply within 2 business days"
+      ]
+    },
+    {
+      "id": "care-plus",
+      "group": "hosting",
+      "name": "Care Plus plan",
+      "monthly": 99,
+      "desc": "Everything in Care, plus up to 2 hours of changes a month, monthly report (visitors, enquiries, Google), booking and integrations checked, reply within 1 business day.",
+      "features": [
+        "Everything in Care",
+        "Up to 2 hours of changes a month",
+        "Monthly report: visitors, enquiries, Google",
+        "Bookings & integrations checked",
+        "Reply within 1 business day"
+      ]
+    },
+    {
+      "id": "care-growth",
+      "group": "hosting",
+      "name": "Growth plan",
+      "monthly": 199,
+      "desc": "Everything in Care Plus, plus up to 4 hours of changes, 1 new page or blog post a month, 2 Google Business Profile posts a month, quarterly 30-min strategy call, same-day replies.",
+      "features": [
+        "Everything in Care Plus",
+        "Up to 4 hours of changes a month",
+        "1 new page or blog post a month",
+        "2 Google Business Profile posts a month",
+        "Quarterly strategy call",
+        "Same-day replies on business days"
+      ]
+    },
+    {
+      "id": "booking",
+      "name": "Online booking",
+      "landing": 490,
+      "website": 490,
+      "desc": "Customers pick a time online and get email/SMS reminders."
+    },
+    {
+      "id": "payments",
+      "name": "Payments & deposits",
+      "landing": 490,
+      "website": 490,
+      "desc": "Card payments or deposits with Stripe or Square."
+    },
+    {
+      "id": "logo",
+      "name": "Logo design",
+      "landing": 490,
+      "website": 490,
+      "desc": "3 concepts, 2 rounds of changes, files for web, print and social."
+    },
+    {
+      "id": "blog",
+      "name": "Blog",
+      "landing": 390,
+      "website": 390,
+      "desc": "Client posts news and tips; each post can rank on Google."
+    },
+    {
+      "id": "email",
+      "name": "Business email",
+      "landing": 150,
+      "website": 150,
+      "desc": "you@business.com.au on Google Workspace or Microsoft 365 (their subscription paid separately)."
+    },
+    {
+      "id": "ai-assistant",
+      "name": "AI assistant",
+      "quote": true,
+      "desc": "Answers customer questions and takes enquiries 24/7. Priced after a chat."
+    },
+    {
+      "id": "automations",
+      "name": "Automations",
+      "quote": true,
+      "desc": "Enquiries, invoices and follow-ups sent automatically. Priced after a chat."
+    },
+    {
+      "id": "rush",
+      "group": "speed",
+      "name": "Rush delivery",
+      "percent": 25,
+      "landingTime": "about 1 week",
+      "websiteTime": "1–2 weeks",
+      "desc": "About half the usual time. +25% on the build (not on domain & hosting)."
+    },
+    {
+      "id": "express",
+      "group": "speed",
+      "name": "Express delivery",
+      "percent": 50,
+      "landingTime": "1–2 business days",
+      "websiteTime": "5 business days",
+      "desc": "Top priority: landing page live in 1–2 business days, business website in 5 business days, once text and photos are received. +50% on the build (not on domain & hosting)."
+    }
+  ],
+  "included": [
+    "Looks right on phones, tablets and computers",
+    "Enquiry form with an instant reply",
+    "Google Business Profile setup",
+    "Page titles and descriptions set up for Google",
+    "Visitor stats (Google Analytics)",
+    "2 rounds of changes",
+    "30 days of free fixes after launch"
+  ],
+  "support": {
+    "freeDays": 30,
+    "hourly": 95,
+    "note": "30 days of free fixes after launch are included with every website. After that: a monthly plan, or pay as you go at $95/hour in 15-minute blocks."
+  },
+  "process": [
+    {
+      "step": "Free call",
+      "when": "Day 1",
+      "what": "15-minute video call, or meet in person in Sydney. We talk about your business, customers and goals.",
+      "you": "Tell me what you need"
+    },
+    {
+      "step": "Plan & fixed quote",
+      "when": "Within 1 business day",
+      "what": "A written plan with pages, features, timeline and one fixed price.",
+      "you": "Approve the quote and pay the 50% deposit"
+    },
+    {
+      "step": "Kick-off",
+      "when": "Week 1",
+      "what": "A 30-minute call (or a short form) to collect everything needed to start.",
+      "you": "Send your logo, photos and text, or book the text-writing call"
+    },
+    {
+      "step": "Design preview",
+      "when": "Week 1–2",
+      "what": "You see the home page design on a private link before the rest is built.",
+      "you": "Reply with feedback (round 1 of changes)"
+    },
+    {
+      "step": "Build & review",
+      "when": "Week 2–3",
+      "what": "The full website on a private link, on your phone and computer. Short progress update by email every week.",
+      "you": "Check it and send changes (round 2)"
+    },
+    {
+      "step": "Launch",
+      "when": "Week 2–4",
+      "what": "The site goes live, connected to Google. 30-minute handover: how to see enquiries and make simple edits.",
+      "you": "Pay the final 50%"
+    },
+    {
+      "step": "After launch",
+      "when": "30 days",
+      "what": "Free fixes for 30 days. Then a monthly support plan, or pay as you go at $95/hour.",
+      "you": "Tell me if anything needs fixing"
+    }
+  ],
+  "payment": {
+    "schedule": [
+      {
+        "when": "To start",
+        "what": "50% deposit, after you approve the quote"
+      },
+      {
+        "when": "At launch",
+        "what": "50%, before the site goes live"
+      },
+      {
+        "when": "Monthly",
+        "what": "Support plan (if chosen), from 30 days after launch"
+      }
+    ],
+    "notes": [
+      "Express delivery: 100% upfront, because the work starts straight away.",
+      "Apps and platforms: paid in stages, as each stage is delivered.",
+      "Bank transfer or card. Invoices under ABN 42 183 713 603."
+    ]
+  },
+  "communication": "4 scheduled check-ins (free call, kick-off, design preview, launch handover), a progress email every week, and replies by email or phone within 1 business day."
+}

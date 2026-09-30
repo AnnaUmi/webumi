@@ -1,0 +1,205 @@
+<!--meta
+{
+ "title": "Pricing: Websites, Apps & Platforms for Small Business | Webumi",
+ "ogTitle": "Webumi pricing — landing pages, websites, apps and platforms",
+ "description": "Clear starting prices: landing pages from $990, business websites from $2,490, apps from $8,900 and custom platforms from $15,000. Fixed written quotes.",
+ "crumb": "Pricing"
+}
+-->
+    <section class="phero">
+      <div class="hero__glow" aria-hidden="true"></div>
+      <div class="wrap">
+        <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span>Pricing</span></nav>
+        <p class="kicker">Pricing</p>
+        <h1>Build your website. <em>See the price as you go.</em></h1>
+        <p class="hero__lead">Tick what you need and the total updates. Send it to me, and after a free chat you get a written, fixed quote. The price in the quote is the price you pay.</p>
+        <div class="hero__ctas">
+          <a href="#build" class="btn btn--primary">Build it myself <span class="arrow">↓</span></a>
+          <a href="/plan/" class="btn btn--ghost">Not sure? Get a plan in 2 minutes <span class="arrow">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight" id="build">
+      <div class="wrap">
+{{> builder}}
+      </div>
+    </section>
+
+    <section class="section packages" id="packages">
+      <div class="wrap">
+        <div class="section__head reveal">
+          <p class="kicker">All options</p>
+          <h2>Need an app or a platform?</h2>
+          <p class="section__sub">Apps and custom platforms are quoted after a chat. Here are the starting prices for everything.</p>
+        </div>
+{{> offers}}
+      </div>
+    </section>
+
+    <section class="section section--white">
+      <div class="wrap">
+        <div class="section__head reveal">
+          <p class="kicker">Not sure which one?</p>
+          <h2>A quick guide.</h2>
+        </div>
+        <ul class="cards">
+          <li class="card reveal">{{icon:doc}}<h3>Choose a landing page if…</h3><p>You're just starting, you offer one main service, or you need a page for an ad campaign. One page, one clear action.</p></li>
+          <li class="card reveal">{{icon:pin}}<h3>Choose a business website if…</h3><p>You want to be found on Google for several services or areas, and you want customers to enquire or book online.</p></li>
+          <li class="card reveal">{{icon:phone}}<h3>Choose an app if…</h3><p>Customers or staff use it again and again: rebooking, loyalty, orders or job tracking. It lives on their home screen.</p></li>
+          <li class="card reveal">{{icon:puzzle}}<h3>Choose a platform if…</h3><p>People need to log in and manage things: a client portal, a dashboard, a marketplace or your own software product.</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap split">
+        <div class="prose reveal">
+          <p class="kicker">What affects the price</p>
+          <h2>Why "from"?</h2>
+          <p>The starting price covers the option as described. It goes up when a project needs more, for example:</p>
+          <ul class="checks">
+            <li>More pages, services or locations</li>
+            <li>Online booking, payments or a customer login</li>
+            <li>Automations and connections to your other tools</li>
+            <li>An AI assistant</li>
+            <li>More screens or features in an app or platform</li>
+          </ul>
+          <p>You'll see all of this in your written quote before any work starts.</p>
+        </div>
+        <div class="prose reveal">
+          <p class="kicker">Rush &amp; Express</p>
+          <h2>Need it sooner?</h2>
+          <ul class="checks">
+            <li><b>Rush, +{{price:rush:percent}}%:</b> landing page in {{price:rush:landingTime}}, website in {{price:rush:websiteTime}}</li>
+            <li><b>Express, +{{price:express:percent}}%:</b> landing page in {{price:express:landingTime}}, website in {{price:express:websiteTime}}. Paid upfront.</li>
+          </ul>
+          <p>Times start once I have your text and photos.</p>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section section--white" id="support">
+      <div class="wrap">
+        <div class="section__head reveal">
+          <p class="kicker">Support after launch</p>
+          <h2>{{price:support:freeDays}} days of free fixes. Then pick a plan.</h2>
+          <p class="section__sub">Every website comes with {{price:support:freeDays}} days of free fixes after launch. After that, choose a monthly plan (domain and hosting included, cancel anytime) or pay as you go at {{aud:support:hourly}}/hour in 15-minute blocks.</p>
+        </div>
+        <div class="pkg__grid">
+          <article class="pkg reveal">
+            {{icon:shield}}
+            <p class="pkg__name">Care</p>
+            <p class="pkg__for">Your site stays online, secure and backed up.</p>
+            <p class="pkg__price">{{aud:care:monthly}}<span>/month</span></p>
+            <ul class="checks">
+              <li>Domain, hosting, SSL &amp; security updates</li>
+              <li>Weekly backups &amp; uptime monitoring</li>
+              <li>Up to 30 min of changes a month</li>
+              <li>Email support, reply within 2 business days</li>
+            </ul>
+            <a href="#contact" class="btn btn--ghost btn--block" data-choose="Support plan">Choose Care</a>
+          </article>
+          <article class="pkg pkg--hot reveal">
+            <span class="pkg__badge">Best for booking sites</span>
+            {{icon:lifebuoy}}
+            <p class="pkg__name">Care Plus</p>
+            <p class="pkg__for">Regular updates and a monthly report on what the site brings in.</p>
+            <p class="pkg__price">{{aud:care-plus:monthly}}<span>/month</span></p>
+            <ul class="checks">
+              <li>Everything in Care</li>
+              <li>Up to 2 hours of changes a month</li>
+              <li>Monthly report: visitors, enquiries, Google</li>
+              <li>Bookings &amp; integrations checked</li>
+              <li>Reply within 1 business day</li>
+            </ul>
+            <a href="#contact" class="btn btn--primary btn--block" data-choose="Support plan">Choose Care Plus</a>
+          </article>
+          <article class="pkg reveal">
+            {{icon:chart}}
+            <p class="pkg__name">Growth</p>
+            <p class="pkg__for">New content every month to bring in more customers from Google.</p>
+            <p class="pkg__price">{{aud:care-growth:monthly}}<span>/month</span></p>
+            <ul class="checks">
+              <li>Everything in Care Plus</li>
+              <li>Up to 4 hours of changes a month</li>
+              <li>1 new page or blog post a month</li>
+              <li>2 Google Business Profile posts a month</li>
+              <li>Quarterly strategy call</li>
+              <li>Same-day replies on business days</li>
+            </ul>
+            <a href="#contact" class="btn btn--ghost btn--block" data-choose="Support plan">Choose Growth</a>
+          </article>
+        </div>
+        <p class="pkg__note">Apps and platforms need more upkeep, so their support is quoted with the project.</p>
+      </div>
+    </section>
+
+    <section class="section" id="how">
+      <div class="wrap">
+        <div class="section__head reveal">
+          <p class="kicker">How it works</p>
+          <h2>From first call to launch in 7 steps.</h2>
+          <p class="section__sub">4 scheduled check-ins, a progress email every week, and replies within 1 business day.</p>
+        </div>
+        <ol class="howto">
+          <li class="reveal"><span class="howto__when">Day 1</span><h3>Free call</h3><p>{{callMinutes}}-minute video call, or meet in person in Sydney.</p></li>
+          <li class="reveal"><span class="howto__when">Within 1 day</span><h3>Plan &amp; fixed quote</h3><p>Pages, features, timeline and one fixed price. You approve and pay the 50% deposit.</p></li>
+          <li class="reveal"><span class="howto__when">Week 1</span><h3>Kick-off</h3><p>A 30-minute call to collect your logo, photos and text.</p></li>
+          <li class="reveal"><span class="howto__when">Week 1–2</span><h3>Design preview</h3><p>See the home page on a private link and send feedback.</p></li>
+          <li class="reveal"><span class="howto__when">Week 2–3</span><h3>Build &amp; review</h3><p>The full site on a private link. Check it and send changes.</p></li>
+          <li class="reveal"><span class="howto__when">Week 2–4</span><h3>Launch</h3><p>Final 50% paid, site goes live, 30-minute handover.</p></li>
+          <li class="reveal"><span class="howto__when">30 days</span><h3>After launch</h3><p>Free fixes, then a support plan or pay as you go.</p></li>
+        </ol>
+        <div class="howto__pay reveal">
+          <p><b>Payments:</b> 50% to start, 50% at launch. Express is paid upfront. Apps and platforms are paid in stages. Bank transfer or card, invoiced under my ABN.</p>
+        </div>
+      </div>
+    </section>
+    <section class="section section--white">
+      <div class="wrap">
+        <div class="section__head reveal">
+          <p class="kicker">Other costs</p>
+          <h2>Third-party fees, explained upfront.</h2>
+          <p class="section__sub">Some tools charge their own fees, paid directly by you. I'll tell you which ones apply before we start. Many have free plans.</p>
+        </div>
+        <ul class="cards">
+          <li class="card reveal">{{icon:search}}<h3>Domain name</h3><p>Your .com.au address, renewed yearly and registered in your name.</p></li>
+          <li class="card reveal">{{icon:calendar}}<h3>Booking software</h3><p>Some systems are free for one location. Others charge monthly or per booking.</p></li>
+          <li class="card reveal">{{icon:phone}}<h3>App store accounts</h3><p>Only for iOS &amp; Android apps: Apple charges a yearly developer fee and Google a one-off fee.</p></li>
+          <li class="card reveal">{{icon:sparkle}}<h3>AI usage</h3><p>AI providers charge by use. I'll estimate your monthly cost from your enquiry volume.</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section faq">
+      <div class="wrap faq__wrap">
+        <div class="section__head reveal">
+          <p class="kicker">Pricing questions</p>
+          <h2>About quotes and payments.</h2>
+        </div>
+        <div class="faq__list">
+          <details class="reveal">
+            <summary>How much does a small business website cost in Australia?</summary>
+            <p>With Webumi, a landing page starts at $990 and a complete business website starts at $2,490. For comparison, Australian agencies commonly charge $3,000 to $8,000 for a standard small business website.</p>
+          </details>
+          <details class="reveal">
+            <summary>How much does an app cost?</summary>
+            <p>A web app (PWA) starts at $8,900 and an iOS &amp; Android app starts at $14,900. The final price depends on the number of screens and features, such as logins, payments and notifications.</p>
+          </details>
+          <details class="reveal">
+            <summary>Why fixed prices instead of hourly rates?</summary>
+            <p>So you know the full cost before you commit. If I underestimate the work, that's on me, not you.</p>
+          </details>
+          <details class="reveal">
+            <summary>How do payments work?</summary>
+            <p>Usually 50% to start and 50% at launch. Larger apps and platforms are split into stages, paid as each stage is delivered. Everything is invoiced under my ABN.</p>
+          </details>
+          <details class="reveal">
+            <summary>What if I only need something small?</summary>
+            <p>Small jobs are welcome, like fixing a contact form or speeding up a slow website. Tell me what you need and I'll quote it.</p>
+          </details>
+        </div>
+      </div>
+    </section>

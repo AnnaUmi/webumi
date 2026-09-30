@@ -1,0 +1,44 @@
+<!--meta
+{
+ "title": "Plan Your Website: Free Plan & Price in 2 Minutes | Webumi",
+ "ogTitle": "Plan your website with Webumi",
+ "description": "Answer a few questions about your business and get a website plan with pages, features and a price. Free, no sign-up.",
+ "crumb": "Plan my website"
+}
+-->
+    <section class="phero phero--short">
+      <div class="hero__glow" aria-hidden="true"></div>
+      <div class="wrap">
+        <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span>Plan my website</span></nav>
+        <p class="kicker">Website planner</p>
+        <h1>Tell me about your business. <em>Get a plan and price.</em></h1>
+        <p class="hero__lead">Answer a few questions and get a website plan made for your business: the pages, the features and what it costs. About 2 minutes, no sign-up.</p>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="wrap">
+        <div class="pl" id="planner">
+          <div class="pl__head">
+            <span class="pl__avatar">{{icon:sparkle}}</span>
+            <div>
+              <p class="pl__name">Webumi planner</p>
+              <p class="pl__status"><span class="pulse pulse--sea"></span> Uses Webumi's real prices</p>
+            </div>
+            <button type="button" class="pl__reset" id="plReset" hidden>Start again</button>
+          </div>
+          <div class="pl__log" id="plLog" aria-live="polite"></div>
+          <div class="pl__chips" id="plChips"></div>
+          <form class="pl__form" id="plForm" autocomplete="off">
+            <label class="sr-only" for="plInput">Your answer</label>
+            <input id="plInput" maxlength="1000" placeholder="Type your answer…">
+            <button type="submit" class="btn btn--primary btn--small" aria-label="Send">Send →</button>
+          </form>
+        </div>
+        <p class="pl__alt">Prefer to choose yourself? <a href="/pricing/#build">Use the price builder</a>.</p>
+      </div>
+    </section>
+
+    <section class="section offer" id="offer" hidden>
+      <div class="wrap" id="offerBody"></div>
+    </section>

@@ -1,0 +1,65 @@
+[
+  {
+    "type": "function",
+    "function": {
+      "name": "ask",
+      "description": "Reply to the visitor and ask the next question, with quick-reply choices.",
+      "strict": true,
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "message": { "type": "string", "description": "Short reply ending with one question. Max 45 words." },
+          "choices": { "type": "array", "items": { "type": "string" }, "description": "2–5 tap-able answers, 1–5 words each." }
+        },
+        "required": ["message", "choices"],
+        "additionalProperties": false
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "present_offer",
+      "description": "Present a personal website offer built from catalog options. Prices are calculated by the page.",
+      "strict": true,
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "message": { "type": "string", "description": "One or two sentences introducing the offer in the chat." },
+          "business_name": { "type": "string", "description": "Their business name, or a short description like 'Your dog grooming business' if unknown." },
+          "headline": { "type": "string", "description": "Max 10 words: what the website will do for their business." },
+          "summary": { "type": "string", "description": "2–3 sentences: their situation, goal and how this website reaches it." },
+          "type": { "type": "string", "enum": ["landing", "website"] },
+          "pages": { "type": "integer", "description": "1 for landing; 8–40 for website, equal to the sitemap length." },
+          "sitemap": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string", "description": "Page (or section, for a landing page) name." },
+                "purpose": { "type": "string", "description": "One short sentence: what it contains and why." }
+              },
+              "required": ["name", "purpose"],
+              "additionalProperties": false
+            }
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "string", "enum": ["design-unique", "text-written", "images-stock", "images-unique", "hosting-year", "care", "care-plus", "care-growth", "booking", "payments", "logo", "blog", "email", "ai-assistant", "automations", "rush", "express"] },
+                "why": { "type": "string", "description": "One sentence tied to what they told you." }
+              },
+              "required": ["id", "why"],
+              "additionalProperties": false
+            }
+          },
+          "ideas": { "type": "array", "items": { "type": "string" }, "description": "3 specific ideas for their site (a section, offer, call to action or feature), one sentence each." }
+        },
+        "required": ["message", "business_name", "headline", "summary", "type", "pages", "sitemap", "options", "ideas"],
+        "additionalProperties": false
+      }
+    }
+  }
+]

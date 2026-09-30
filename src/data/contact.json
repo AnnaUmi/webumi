@@ -1,0 +1,9 @@
+{
+  "_note": "Contact details used across the site. PLACEHOLDERS: replace phone before going live.",
+  "phone": "04XX XXX XXX",
+  "phoneHref": "+61400000000",
+  "email": "hello@webumi.com.au",
+  "callMinutes": 15,
+  "meetMinutes": 30,
+  "hours": "Mon–Fri, 9am–5pm Sydney time"
+}

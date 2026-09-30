@@ -1,0 +1,106 @@
+    <!-- ============ CONTACT ============ -->
+    <section class="section contact" id="contact">
+      <div class="wrap contact__grid">
+        <div class="contact__copy reveal">
+          <p class="kicker kicker--light">Let's talk</p>
+          <h2>Book a free call or send a message.</h2>
+          <p class="section__sub section__sub--light">A {{callMinutes}}-minute video call from anywhere in Australia, or meet in person in Sydney. Free, with no obligation.</p>
+          <ul class="contact__bits">
+            <li>{{icon:phone}} <a href="tel:{{phoneHref}}" id="ctPhone">{{phone}}</a></li>
+            <li>{{icon:envelope}} <a href="mailto:{{email}}" id="ctEmail">{{email}}</a></li>
+            <li>{{icon:chat}} Video calls Australia-wide</li>
+            <li>{{icon:pin}} In-person meetings in Sydney only</li>
+            <li>{{icon:clock}} {{hours}}</li>
+          </ul>
+        </div>
+
+        <div class="contact__panel reveal">
+          <div class="ctabs" role="tablist" aria-label="How would you like to get in touch?">
+            <button type="button" role="tab" class="ctabs__btn" id="tabBook" aria-selected="true" aria-controls="bookForm">{{icon:calendar}} Book a call</button>
+            <button type="button" role="tab" class="ctabs__btn" id="tabMsg" aria-selected="false" aria-controls="contactForm">{{icon:envelope}} Send a message</button>
+          </div>
+
+          <!-- Booking: visitor picks a slot, the request is emailed; Anna confirms by email. -->
+          <form class="form" id="bookForm" role="tabpanel" aria-labelledby="tabBook" novalidate>
+            <fieldset>
+              <legend>How would you like to meet?</legend>
+              <div class="bk__types">
+                <label class="opt"><input type="radio" name="mtype" value="video" checked>
+                  <span class="opt__box">{{icon:chat}}<b class="opt__t">Video call</b><span class="opt__d">{{callMinutes}} min · Google Meet or Zoom · anywhere in Australia</span></span></label>
+                <label class="opt"><input type="radio" name="mtype" value="person">
+                  <span class="opt__box">{{icon:pin}}<b class="opt__t">In person</b><span class="opt__d">{{meetMinutes}} min · at your business or a café · Sydney only</span></span></label>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Pick a day <span>(Sydney time)</span></legend>
+              <div class="cal" id="cal" data-video-minutes="{{callMinutes}}" data-person-minutes="{{meetMinutes}}">
+                <div class="cal__head">
+                  <button type="button" class="cal__nav" data-month="-1" aria-label="Previous month">‹</button>
+                  <b class="cal__title" id="calTitle"></b>
+                  <button type="button" class="cal__nav" data-month="1" aria-label="Next month">›</button>
+                </div>
+                <div class="cal__dow" aria-hidden="true"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+                <div class="cal__grid" id="calGrid"></div>
+              </div>
+            </fieldset>
+
+            <fieldset id="slotsWrap" hidden>
+              <legend>Pick a time <span id="slotsDay"></span></legend>
+              <div class="slots" id="slots"></div>
+            </fieldset>
+
+            <label class="field" id="suburbField" hidden><span>Where in Sydney?</span><input name="suburb" placeholder="e.g. Surry Hills, or my shop at 12 King St"></label>
+            <div class="form__row">
+              <label class="field"><span>Your name</span><input name="name" required autocomplete="name" placeholder="Sarah"></label>
+              <label class="field"><span>Email</span><input name="email" type="email" required autocomplete="email" placeholder="sarah@example.com"></label>
+            </div>
+            <div class="form__row">
+              <label class="field"><span>Phone <em>(optional)</em></span><input name="phone" type="tel" autocomplete="tel" placeholder="04xx xxx xxx"></label>
+              <label class="field"><span>Business <em>(optional)</em></span><input name="business" autocomplete="organization" placeholder="Bondi Dog Spa"></label>
+            </div>
+            <label class="field"><span>What would you like to talk about? <em>(optional)</em></span><textarea name="note" rows="2" placeholder="e.g. A website with online booking"></textarea></label>
+            <p class="bk__pick" id="bkPick">Pick a day and time above.</p>
+            <button type="submit" class="btn btn--primary btn--block">Request this time →</button>
+            <p class="form__fine">I'll confirm by email within one business day, with a calendar invite.</p>
+            <div class="form__done" id="bookDone" hidden>
+              <div class="form__doneIcon"><svg class="ic" aria-hidden="true"><use href="#i-calendar"/></svg></div>
+              <h3>Almost done, <span id="bookName">there</span>!</h3>
+              <p>Your email app opened with your request for <b id="bookWhen"></b>. Press send, and I'll confirm with a calendar invite within one business day.</p>
+            </div>
+          </form>
+
+          <form class="form" id="contactForm" role="tabpanel" aria-labelledby="tabMsg" novalidate hidden>
+            <fieldset class="form__need">
+              <legend>What do you need? <span>(choose any)</span></legend>
+              <div class="form__chips">
+                <label class="tick"><input type="checkbox" name="need" value="Landing page"><span>{{icon:doc}} Landing page</span></label>
+                <label class="tick"><input type="checkbox" name="need" value="Business website"><span>{{icon:pin}} Business website</span></label>
+                <label class="tick"><input type="checkbox" name="need" value="App"><span>{{icon:phone}} App</span></label>
+                <label class="tick"><input type="checkbox" name="need" value="Platform"><span>{{icon:puzzle}} Platform</span></label>
+                <label class="tick"><input type="checkbox" name="need" value="AI or automation"><span>{{icon:sparkle}} AI or automation</span></label>
+                <label class="tick"><input type="checkbox" name="need" value="Support plan"><span>{{icon:lifebuoy}} Support plan</span></label>
+                <label class="tick"><input type="checkbox" name="need" value="Fix my current website"><span>{{icon:wrench}} Fix my current website</span></label>
+                <label class="tick"><input type="checkbox" name="need" value="Not sure yet"><span>{{icon:question}} Not sure yet</span></label>
+              </div>
+            </fieldset>
+            <div class="form__row">
+              <label class="field"><span>Your name</span><input name="name" required autocomplete="name" placeholder="Sarah"></label>
+              <label class="field"><span>Business</span><input name="business" autocomplete="organization" placeholder="Bondi Dog Spa"></label>
+            </div>
+            <div class="form__row">
+              <label class="field"><span>Email</span><input name="email" type="email" required autocomplete="email" placeholder="sarah@example.com"></label>
+              <label class="field"><span>Phone <em>(optional)</em></span><input name="phone" type="tel" autocomplete="tel" placeholder="04xx xxx xxx"></label>
+            </div>
+            <label class="field"><span>What would you like help with?</span><textarea name="message" rows="3" placeholder="e.g. I spend hours each week replying to booking messages"></textarea></label>
+            <button type="submit" class="btn btn--primary btn--block">Send enquiry →</button>
+            <p class="form__fine">Your details are only used to reply to your enquiry.</p>
+            <div class="form__done" id="formDone" hidden>
+              <div class="form__doneIcon"><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></div>
+              <h3>Thanks, <span id="doneName">there</span>!</h3>
+              <p>Your email app should have opened with your message ready to send. If it didn't, just email <a href="mailto:{{email}}">{{email}}</a>.</p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>

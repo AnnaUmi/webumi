@@ -1,0 +1,147 @@
+        <!--
+          Website builder. Prices live in the data attributes:
+            data-landing / data-website = one-off price for that site type
+            data-monthly                = monthly price
+            data-quote                  = no fixed price, quoted after a chat
+          Numbers come from src/static/api/catalog.json at build time ({{price:…}}), so
+          the builder and the AI planner always use the same prices.
+        -->
+        <form class="bld" id="builder" novalidate>
+          <div class="bld__opts">
+
+            <fieldset class="bld__step">
+              <legend><span class="bld__n">1</span> What kind of website?</legend>
+              <div class="bld__grid bld__grid--2">
+                <label class="opt"><input type="radio" name="type" value="landing" data-landing="{{price:landing:price}}" data-website="{{price:landing:price}}">
+                  <span class="opt__box">{{icon:doc}}<b class="opt__t">Landing page</b><span class="opt__d">One page with one goal: calls, bookings or sign-ups.</span><span class="opt__p">{{aud:landing:price}}</span></span></label>
+                <label class="opt"><input type="radio" name="type" value="website" data-landing="{{price:website:price}}" data-website="{{price:website:price}}" checked>
+                  <span class="opt__box">{{icon:pin}}<b class="opt__t">Business website</b><span class="opt__d">Up to {{price:website:pages}} pages: home, services, areas, about, contact.</span><span class="opt__p">{{aud:website:price}}</span></span></label>
+              </div>
+            </fieldset>
+
+            <fieldset class="bld__step" data-only="website">
+              <legend><span class="bld__n">2</span> How many pages?</legend>
+              <div class="bld__pages">
+                <button type="button" class="bld__stepper" data-step="-1" aria-label="Fewer pages">−</button>
+                <output id="bldPagesOut" class="bld__count">{{price:website:pages}}</output>
+                <button type="button" class="bld__stepper" data-step="1" aria-label="More pages">+</button>
+                <input type="hidden" id="bldPages" name="pages" value="{{price:website:pages}}" data-min="{{price:website:pages}}" data-max="{{price:website:maxPages}}" data-each="{{price:website:extraPage}}">
+                <p class="bld__hint">{{price:website:pages}} pages included. Each extra page (a service, a suburb, a gallery) is <b>{{aud:website:extraPage}}</b>.</p>
+              </div>
+            </fieldset>
+
+            <fieldset class="bld__step">
+              <legend><span class="bld__n" data-num></span> Design</legend>
+              <div class="bld__grid bld__grid--2">
+                <label class="opt"><input type="radio" name="design" value="Proven layout in your brand colours" data-landing="0" data-website="0" checked>
+                  <span class="opt__box"><b class="opt__t">Proven layout</b><span class="opt__d">A tested layout set up with your logo, colours and fonts.</span><span class="opt__p">Included</span></span></label>
+                <label class="opt"><input type="radio" name="design" value="Unique design" data-landing="{{price:design-unique:landing}}" data-website="{{price:design-unique:website}}">
+                  <span class="opt__box"><b class="opt__t">Unique design</b><span class="opt__d">Designed from scratch for your brand. You approve a mockup before the build.</span><span class="opt__p" data-price></span></span></label>
+              </div>
+            </fieldset>
+
+            <fieldset class="bld__step">
+              <legend><span class="bld__n" data-num></span> Text</legend>
+              <div class="bld__grid bld__grid--2">
+                <label class="opt"><input type="radio" name="content" value="I send the text, you edit it" data-landing="0" data-website="0" checked>
+                  <span class="opt__box"><b class="opt__t">You send the text</b><span class="opt__d">I edit it for clarity and Google keywords, then lay it out.</span><span class="opt__p">Included</span></span></label>
+                <label class="opt"><input type="radio" name="content" value="Unique text written for me" data-landing="{{price:text-written:landing}}" data-website="{{price:text-written:website}}">
+                  <span class="opt__box"><b class="opt__t">Unique text, written for you</b><span class="opt__d">After a 30-minute call I write every page, targeted at what your customers search for.</span><span class="opt__p" data-price></span></span></label>
+              </div>
+            </fieldset>
+
+            <fieldset class="bld__step">
+              <legend><span class="bld__n" data-num></span> Pictures</legend>
+              <div class="bld__grid bld__grid--3">
+                <label class="opt"><input type="radio" name="images" value="My own photos" data-landing="0" data-website="0" checked>
+                  <span class="opt__box">{{icon:camera}}<b class="opt__t">Your photos</b><span class="opt__d">I crop, resize and compress them so pages load fast.</span><span class="opt__p">Included</span></span></label>
+                <label class="opt"><input type="radio" name="images" value="Licensed stock photos" data-landing="{{price:images-stock:landing}}" data-website="{{price:images-stock:website}}">
+                  <span class="opt__box">{{icon:folder}}<b class="opt__t">Stock photos</b><span class="opt__d">Licensed photos picked to match your business and area.</span><span class="opt__p" data-price></span></span></label>
+                <label class="opt"><input type="radio" name="images" value="Unique images made for my business" data-landing="{{price:images-unique:landing}}" data-website="{{price:images-unique:website}}">
+                  <span class="opt__box">{{icon:sparkle}}<b class="opt__t">Unique images</b><span class="opt__d">Images made for your business only. No other website has them.</span><span class="opt__p" data-price></span></span></label>
+              </div>
+            </fieldset>
+
+            <fieldset class="bld__step">
+              <legend><span class="bld__n" data-num></span> Hosting &amp; support after launch</legend>
+              <p class="bld__hint bld__hint--top">Every website includes {{price:support:freeDays}} days of free fixes after launch. After that, choose a plan or pay as you go ({{aud:support:hourly}}/hour).</p>
+              <div class="bld__grid bld__grid--3">
+                <label class="opt"><input type="radio" name="hosting" value="I have my own domain and hosting" data-landing="0" data-website="0">
+                  <span class="opt__box"><b class="opt__t">I have my own</b><span class="opt__d">I set the site up on your existing domain and hosting.</span><span class="opt__p">$0</span></span></label>
+                <label class="opt"><input type="radio" name="hosting" value="Domain + hosting for 1 year" data-landing="{{price:hosting-year:landing}}" data-website="{{price:hosting-year:website}}" checked>
+                  <span class="opt__box">{{icon:search}}<b class="opt__t">Domain + hosting, 1 year</b><span class="opt__d">Your .com.au address in your name, plus 12 months of hosting and SSL.</span><span class="opt__p">{{aud:hosting-year:website}}</span></span></label>
+                <label class="opt"><input type="radio" name="hosting" value="Care plan" data-monthly="{{price:care:monthly}}">
+                  <span class="opt__box">{{icon:shield}}<b class="opt__t">Care</b><span class="opt__d">Domain, hosting, security updates, weekly backups, up to 30 min of changes a month.</span><span class="opt__p">{{aud:care:monthly}}/month</span></span></label>
+                <label class="opt"><input type="radio" name="hosting" value="Care Plus plan" data-monthly="{{price:care-plus:monthly}}">
+                  <span class="opt__box">{{icon:lifebuoy}}<b class="opt__t">Care Plus</b><span class="opt__d">Everything in Care, up to 2 hours of changes, monthly report, reply within 1 business day.</span><span class="opt__p">{{aud:care-plus:monthly}}/month</span></span></label>
+                <label class="opt"><input type="radio" name="hosting" value="Growth plan" data-monthly="{{price:care-growth:monthly}}">
+                  <span class="opt__box">{{icon:chart}}<b class="opt__t">Growth</b><span class="opt__d">Everything in Care Plus, a new page or blog post and 2 Google posts every month.</span><span class="opt__p">{{aud:care-growth:monthly}}/month</span></span></label>
+              </div>
+              <p class="bld__hint bld__hint--top">Monthly plans include your domain and hosting and start after the free {{price:support:freeDays}} days. Cancel anytime.</p>
+            </fieldset>
+
+            <fieldset class="bld__step">
+              <legend><span class="bld__n" data-num></span> Extras <span class="bld__sub">(tick any)</span></legend>
+              <div class="bld__grid bld__grid--2">
+                <label class="opt opt--check"><input type="checkbox" name="extra" value="Online booking" data-landing="{{price:booking:landing}}" data-website="{{price:booking:website}}">
+                  <span class="opt__box">{{icon:calendar}}<b class="opt__t">Online booking</b><span class="opt__d">Customers pick a time and get reminders by email or SMS.</span><span class="opt__p" data-price></span></span></label>
+                <label class="opt opt--check"><input type="checkbox" name="extra" value="Online payments & deposits" data-landing="{{price:payments:landing}}" data-website="{{price:payments:website}}">
+                  <span class="opt__box">{{icon:card}}<b class="opt__t">Payments &amp; deposits</b><span class="opt__d">Take card payments or deposits with Stripe or Square.</span><span class="opt__p" data-price></span></span></label>
+                <label class="opt opt--check"><input type="checkbox" name="extra" value="Logo design" data-landing="{{price:logo:landing}}" data-website="{{price:logo:website}}">
+                  <span class="opt__box">{{icon:star}}<b class="opt__t">Logo design</b><span class="opt__d">3 concepts, 2 rounds of changes, files for web, print and social.</span><span class="opt__p" data-price></span></span></label>
+                <label class="opt opt--check"><input type="checkbox" name="extra" value="Blog" data-landing="{{price:blog:landing}}" data-website="{{price:blog:website}}">
+                  <span class="opt__box">{{icon:doc}}<b class="opt__t">Blog</b><span class="opt__d">Post news and tips yourself. Each post can rank on Google.</span><span class="opt__p" data-price></span></span></label>
+                <label class="opt opt--check"><input type="checkbox" name="extra" value="Business email setup" data-landing="{{price:email:landing}}" data-website="{{price:email:website}}">
+                  <span class="opt__box">{{icon:envelope}}<b class="opt__t">Business email</b><span class="opt__d">you@yourbusiness.com.au on Google Workspace or Microsoft 365.</span><span class="opt__p" data-price></span></span></label>
+                <label class="opt opt--check"><input type="checkbox" name="extra" value="AI assistant" data-quote>
+                  <span class="opt__box">{{icon:robot}}<b class="opt__t">AI assistant</b><span class="opt__d">Answers customer questions and takes enquiries 24/7.</span><span class="opt__p">Quoted after a chat</span></span></label>
+                <label class="opt opt--check"><input type="checkbox" name="extra" value="Automations" data-quote>
+                  <span class="opt__box">{{icon:bolt}}<b class="opt__t">Automations</b><span class="opt__d">Enquiries, invoices and follow-ups sent without you.</span><span class="opt__p">Quoted after a chat</span></span></label>
+              </div>
+            </fieldset>
+
+            <fieldset class="bld__step">
+              <legend><span class="bld__n" data-num></span> When do you need it?</legend>
+              <div class="bld__grid bld__grid--3">
+                <label class="opt"><input type="radio" name="speed" value="Standard" data-landing-time="{{price:landing:time}}" data-website-time="{{price:website:time}}" checked>
+                  <span class="opt__box">{{icon:calendar}}<b class="opt__t">Standard</b><span class="opt__d" data-time></span><span class="opt__p">Included</span></span></label>
+                <label class="opt"><input type="radio" name="speed" value="Rush" data-rush="{{price:rush:percent}}" data-landing-time="{{price:rush:landingTime}}" data-website-time="{{price:rush:websiteTime}}">
+                  <span class="opt__box">{{icon:clock}}<b class="opt__t">Rush</b><span class="opt__d" data-time></span><span class="opt__p">+{{price:rush:percent}}%</span></span></label>
+                <label class="opt"><input type="radio" name="speed" value="Express" data-rush="{{price:express:percent}}" data-landing-time="{{price:express:landingTime}}" data-website-time="{{price:express:websiteTime}}">
+                  <span class="opt__box">{{icon:bolt}}<b class="opt__t">Express</b><span class="opt__d" data-time></span><span class="opt__p">+{{price:express:percent}}%</span></span></label>
+              </div>
+              <p class="bld__hint bld__hint--top">Rush and Express times start once I have your text and photos.</p>
+            </fieldset>
+
+            <div class="bld__bar">
+              <span><b id="bldBarTotal">$0</b><small id="bldBarMonthly"></small></span>
+              <a href="#bldSummary" class="btn btn--primary btn--small">See summary</a>
+            </div>
+          </div>
+
+          <aside class="bld__sum" id="bldSummary" aria-live="polite">
+            <p class="kicker">Your website</p>
+            <ul class="bld__lines" id="bldLines"></ul>
+            <div class="bld__total">
+              <span>Total</span>
+              <b id="bldTotal">$0</b>
+            </div>
+            <p class="bld__monthly" id="bldMonthly" hidden></p>
+            <p class="bld__deposit" id="bldDeposit"></p>
+            <p class="bld__quote" id="bldQuote" hidden></p>
+            <div class="bld__incl">
+              <p>Always included</p>
+              <ul class="checks">
+                <li>Looks right on phones, tablets and computers</li>
+                <li>Enquiry form with an instant reply</li>
+                <li>Google Business Profile setup</li>
+                <li>Page titles and descriptions set up for Google</li>
+                <li>Visitor stats (Google Analytics)</li>
+                <li>2 rounds of changes</li>
+                <li>{{price:support:freeDays}} days of free fixes after launch</li>
+              </ul>
+            </div>
+            <button type="submit" class="btn btn--primary btn--block">Send me this quote →</button>
+            <p class="bld__fine">Prices in AUD. After a free chat you get a written, fixed quote.</p>
+          </aside>
+        </form>

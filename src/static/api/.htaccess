@@ -1,0 +1,4 @@
+Options -Indexes
+<FilesMatch "\.(txt)$">
+  Require all denied
+</FilesMatch>

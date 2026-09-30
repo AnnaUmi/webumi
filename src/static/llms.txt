@@ -1,0 +1,48 @@
+# Webumi
+
+> Webumi (webumi.com.au) is an Australian web and AI studio for small businesses. It builds landing pages, business websites, apps (PWA, iOS and Android), custom platforms, automations and AI assistants. Run by Anna, an Australian sole trader (ABN 42 183 713 603). Works with clients Australia-wide, online.
+
+Tagline: "More customers. Less admin." — Web, AI & Automation for Small Business.
+
+## Who Webumi helps
+- Tradies and home services: plumbers, electricians, builders, landscapers, cleaners, pool, pest control
+- Beauty, hair, nails, massage and wellness
+- Pet grooming and pet care
+- Tutors, coaches, consultants and photographers
+- Any Australian small business that wants more enquiries, online bookings or less admin
+
+## Services and starting prices (AUD)
+- Landing page — from $990: one page with one goal (calls, bookings or sign-ups), designed for phones, enquiry form with instant reply, Google Business Profile setup. Usually live in 1–2 weeks.
+- Business website — from $2,490: up to 8 pages, service and area pages for Google search, Google Business Profile and reviews; can include online booking and payments. Usually live in 2–4 weeks.
+- App — web app (PWA) from $8,900; iOS & Android app from $14,900: customer rebooking and loyalty apps, ordering, customer accounts, staff and job apps. Usually 6–12 weeks.
+- Platform — from $15,000: client portals, dashboards, internal tools, marketplaces and SaaS products, starting with a focused first version (MVP). Usually 8–16 weeks.
+- Can be added to any of the above, quoted per project: online bookings with deposits and reminders, automations and integrations (Xero, Stripe, Gmail, Google Sheets, CRMs), AI assistants trained on the business's services, prices and FAQs.
+- Website fixes and redesigns: quoted after a free review.
+- Hosting & support plans: from $49/month for websites; quoted per project for apps and platforms.
+
+## How it works
+1. Free 15-minute chat about how the business runs.
+2. A one-page plan with a fixed quote.
+3. Build, usually 2–4 weeks.
+4. Launch, video handover and ongoing support. The client owns everything — domain, website and accounts.
+
+## Pages
+- Home: https://webumi.com.au/
+- Landing pages & business websites: https://webumi.com.au/websites/
+- Apps (PWA, iOS & Android): https://webumi.com.au/apps/
+- Platforms, client portals & SaaS: https://webumi.com.au/platforms/
+- Online bookings: https://webumi.com.au/online-bookings/
+- AI assistants and AI systems: https://webumi.com.au/ai-assistants/
+- Business automation and integrations: https://webumi.com.au/automation/
+- Pricing: https://webumi.com.au/pricing/
+- About Anna: https://webumi.com.au/about/
+- Contact: https://webumi.com.au/contact/
+- For tradies: https://webumi.com.au/for/tradies/
+- For beauty, hair and wellness: https://webumi.com.au/for/beauty/
+- For pet grooming and pet care: https://webumi.com.au/for/pet-care/
+- For cleaning businesses: https://webumi.com.au/for/cleaners/
+- For tutors, coaches and consultants: https://webumi.com.au/for/coaches/
+
+## Contact
+- Website: https://webumi.com.au/
+- Email: hello@webumi.com.au

@@ -1,0 +1,138 @@
+{
+ "@type": "ProfessionalService",
+ "@id": "https://webumi.com.au/#business",
+ "name": "Webumi",
+ "url": "https://webumi.com.au/",
+ "logo": "https://webumi.com.au/icon-512.png",
+ "image": "https://webumi.com.au/og-image.png",
+ "slogan": "More customers. Less admin.",
+ "description": "Webumi builds landing pages, business websites, apps (PWA, iOS and Android), custom platforms, automations and AI assistants for Australian small businesses.",
+ "email": "hello@webumi.com.au",
+ "taxID": "ABN 42 183 713 603",
+ "founder": {
+  "@type": "Person",
+  "name": "Anna"
+ },
+ "areaServed": {
+  "@type": "Country",
+  "name": "Australia"
+ },
+ "address": {
+  "@type": "PostalAddress",
+  "addressCountry": "AU"
+ },
+ "priceRange": "$990–$15,000+ AUD",
+ "knowsAbout": [
+  "AI assistants",
+  "AI chatbots",
+  "AI integrations",
+  "Android apps",
+  "Business automation",
+  "CRM integrations",
+  "Client portals",
+  "Google Business Profile",
+  "Internal tools",
+  "Landing pages",
+  "Local SEO",
+  "Online booking systems",
+  "Progressive web apps",
+  "React Native",
+  "SaaS development",
+  "Small business websites",
+  "Web apps",
+  "Web design",
+  "Xero integration",
+  "iOS apps"
+ ],
+ "hasOfferCatalog": {
+  "@type": "OfferCatalog",
+  "name": "Webumi services",
+  "itemListElement": [
+   {
+    "@type": "Offer",
+    "priceCurrency": "AUD",
+    "price": "990",
+    "url": "https://webumi.com.au/websites/",
+    "priceSpecification": {
+     "@type": "PriceSpecification",
+     "minPrice": "990",
+     "priceCurrency": "AUD"
+    },
+    "itemOffered": {
+     "@type": "Service",
+     "name": "Landing page",
+     "description": "A one-page website for a single service, new business or ad campaign, designed for phones, with an enquiry form and Google Business Profile setup.",
+     "areaServed": "AU"
+    }
+   },
+   {
+    "@type": "Offer",
+    "priceCurrency": "AUD",
+    "price": "2490",
+    "url": "https://webumi.com.au/websites/",
+    "priceSpecification": {
+     "@type": "PriceSpecification",
+     "minPrice": "2490",
+     "priceCurrency": "AUD"
+    },
+    "itemOffered": {
+     "@type": "Service",
+     "name": "Business website",
+     "description": "A multi-page small business website with service and area pages, Google Business Profile, reviews and optional online booking and payments.",
+     "areaServed": "AU"
+    }
+   },
+   {
+    "@type": "Offer",
+    "priceCurrency": "AUD",
+    "price": "8900",
+    "url": "https://webumi.com.au/apps/",
+    "priceSpecification": {
+     "@type": "PriceSpecification",
+     "minPrice": "8900",
+     "priceCurrency": "AUD"
+    },
+    "itemOffered": {
+     "@type": "Service",
+     "name": "Web app (PWA)",
+     "description": "A progressive web app customers or staff install from the browser, with logins, bookings, payments and notifications.",
+     "areaServed": "AU"
+    }
+   },
+   {
+    "@type": "Offer",
+    "priceCurrency": "AUD",
+    "price": "14900",
+    "url": "https://webumi.com.au/apps/",
+    "priceSpecification": {
+     "@type": "PriceSpecification",
+     "minPrice": "14900",
+     "priceCurrency": "AUD"
+    },
+    "itemOffered": {
+     "@type": "Service",
+     "name": "iOS and Android app",
+     "description": "A mobile app published in the Apple App Store and Google Play, built from one codebase.",
+     "areaServed": "AU"
+    }
+   },
+   {
+    "@type": "Offer",
+    "priceCurrency": "AUD",
+    "price": "15000",
+    "url": "https://webumi.com.au/platforms/",
+    "priceSpecification": {
+     "@type": "PriceSpecification",
+     "minPrice": "15000",
+     "priceCurrency": "AUD"
+    },
+    "itemOffered": {
+     "@type": "Service",
+     "name": "Custom platform",
+     "description": "Client portals, dashboards, internal tools, marketplaces and SaaS products, starting with a focused first version.",
+     "areaServed": "AU"
+    }
+   }
+  ]
+ }
+}
