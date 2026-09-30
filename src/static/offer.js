@@ -41,7 +41,7 @@
       if (opt.monthly) { monthly += opt.monthly; return monthlyLines.push({ id: opt.id, name: opt.name, why, value: opt.monthly }); }
       const name = opt.id === "crm" && offer.crm_system && offer.crm_system !== "none" ? `${opt.name}: ${offer.crm_system}` : opt.name;
       total += opt[t]; if (opt.noRush) noRush += opt[t];
-      lines.push({ id: opt.id, name, why, value: opt[t] });
+      lines.push({ id: opt.id, name, why, value: opt[t], from: !!opt.from });
     });
     if (speed) {
       const fee = Math.round(((total - noRush) * speed.opt.percent) / 100 / 10) * 10;
@@ -49,7 +49,8 @@
       total += fee;
     }
     const ids = new Set(picked.map((p) => p.opt.id));
-    return { t, type, pages, lines, monthlyLines, quoted, total, monthly, ids, speed: speed?.opt.id, time: speed ? speed.opt[t + "Time"] : type.time };
+    const from = lines.some((l) => l.from);   // e.g. an online store "from $1,290": the total is a starting price
+    return { t, type, pages, lines, monthlyLines, quoted, total, monthly, ids, from, speed: speed?.opt.id, time: speed ? speed.opt[t + "Time"] : type.time };
   }
 
   /* ---------- Share links: the whole plan lives in the URL hash ---------- */
@@ -60,10 +61,10 @@
   function planText(offer, p) {
     return [
       `Website plan for ${offer.business_name}`, offer.headline, "",
-      ...p.lines.map((l) => `- ${l.name}: ${aud(l.value)}`),
+      ...p.lines.map((l) => `- ${l.name}: ${l.from ? "from " : ""}${aud(l.value)}`),
       ...p.monthlyLines.map((l) => `- ${l.name}: ${aud(l.value)}/month`),
       ...p.quoted.map((l) => `- ${l.name}: quoted after a chat`),
-      `Total: ${aud(p.total)}${p.monthly ? ` + ${aud(p.monthly)}/month` : ""}`, "",
+      `Total: ${p.from ? "from " : ""}${aud(p.total)}${p.monthly ? ` + ${aud(p.monthly)}/month` : ""}`, "",
       "Pages: " + (offer.sitemap || []).map((s) => s.name).join(", "),
       "", `Full plan: ${location.origin}${linkFor(offer)}`,
     ].join("\n");
@@ -123,8 +124,8 @@
     const segs = p.lines.map((l, i) => ({ ...l, color: COLORS[i % COLORS.length], pct: (l.value / p.total) * 100 }));
     return `<div class="pz-chart" data-anim>
       <div class="pz-bar" role="img" aria-label="Price breakdown">${segs.map((s) => `<span style="--w:${s.pct}%;--c:${s.color}" title="${esc(s.name)}: ${aud(s.value)}"></span>`).join("")}</div>
-      <ul class="pz-legend">${segs.map((s) => `<li><i style="--c:${s.color}"></i><span>${esc(s.name)}</span><b>${aud(s.value)}</b></li>`).join("")}</ul>
-      <div class="pz-total"><span>Total</span><b data-count="${p.total}">${aud(p.total)}</b></div>
+      <ul class="pz-legend">${segs.map((s) => `<li><i style="--c:${s.color}"></i><span>${esc(s.name)}</span><b>${s.from ? "from " : ""}${aud(s.value)}</b></li>`).join("")}</ul>
+      <div class="pz-total"><span>${p.from ? "Total, from" : "Total"}</span><b data-count="${p.total}">${aud(p.total)}</b></div>
       ${p.monthly ? `<p class="pz-monthly">+ ${aud(p.monthly)}/month for ${esc(p.monthlyLines.map((l) => l.name).join(", "))}, starting 30 days after launch</p>` : ""}
       ${p.quoted.length ? `<p class="pz-quoted">+ ${esc(p.quoted.map((q) => q.name).join(" and "))}: priced after a free chat</p>` : ""}
     </div>`;
@@ -151,7 +152,7 @@
       .filter((opt) => opt && opt.explain && !p.ids.has(opt.id) && !(opt.id === "cms-simple" && hasCms) && !(opt.id === "care" && hasPlan))
       .slice(0, 4);
     if (!list.length) return "";
-    const priceOf = (opt) => (opt.monthly ? `${aud(opt.monthly)}/month` : aud(opt[p.t]));
+    const priceOf = (opt) => (opt.monthly ? `${aud(opt.monthly)}/month` : `${opt.from ? "from " : ""}${aud(opt[p.t])}`);
     return `
       <section class="pz-sec"><div class="wrap">
         <p class="kicker">Worth considering</p>
@@ -197,7 +198,7 @@
           <h1 class="pz-headline">${words}</h1>
           <p class="pz-summary">${esc(o.summary)}</p>
           <div class="pz-stats">
-            <div class="pz-stat"><small>Total</small><b data-count="${p.total}">${aud(p.total)}</b></div>
+            <div class="pz-stat"><small>${p.from ? "Total, from" : "Total"}</small><b data-count="${p.total}">${aud(p.total)}</b></div>
             ${p.monthly ? `<div class="pz-stat"><small>Monthly</small><b>${aud(p.monthly)}</b></div>` : ""}
             <div class="pz-stat"><small>${p.t === "landing" ? "Sections" : "Pages"}</small><b>${p.t === "landing" ? (o.sitemap || []).length : p.pages}</b></div>
             <div class="pz-stat"><small>Live in</small><b class="pz-stat__txt">${esc(p.time)}</b></div>
@@ -226,7 +227,7 @@
             <span class="pz-card__ic">${ic(ICONS[c.id] || "sparkle")}</span>
             <h3>${esc(c.name)}</h3>
             <p>${esc(c.why)}</p>
-            <div class="pz-card__foot"><b class="pz-card__p">${c.quote ? "Quoted after a chat" : c.monthly ? `${aud(c.value)}/month` : aud(c.value)}</b>
+            <div class="pz-card__foot"><b class="pz-card__p">${c.quote ? "Quoted after a chat" : c.monthly ? `${aud(c.value)}/month` : `${c.from ? "from " : ""}${aud(c.value)}`}</b>
               <button type="button" class="pz-card__rm" data-remove="${esc(c.id)}" aria-label="Remove ${esc(c.name)}">Remove</button></div>
           </article>`).join("")}
         </div>

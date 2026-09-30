@@ -3,19 +3,19 @@
   "types": {
     "landing": {
       "name": "Landing page",
-      "price": 990,
+      "price": 590,
       "pages": 1,
       "time": "1–2 weeks",
       "desc": "One page with one goal: calls, bookings or sign-ups. For new businesses, one main service or an ad campaign."
     },
     "website": {
       "name": "Business website",
-      "price": 2490,
-      "pages": 8,
+      "price": 1290,
+      "pages": 10,
       "maxPages": 40,
-      "extraPage": 150,
+      "extraPage": 120,
       "time": "2–4 weeks",
-      "desc": "Up to 8 pages included (home, services, areas, about, contact). Extra pages for more services or suburbs."
+      "desc": "Up to 10 pages included (home, services, areas, about, contact). Extra pages for more services or suburbs."
     }
   },
   "options": [
@@ -23,40 +23,40 @@
       "id": "design-unique",
       "group": "design",
       "name": "Unique design",
-      "landing": 490,
-      "website": 990,
+      "landing": 290,
+      "website": 590,
       "desc": "Designed from scratch for the brand, mockup approved before the build. Default (free) is a proven layout in their logo, colours and fonts."
     },
     {
       "id": "text-written",
       "group": "text",
       "name": "Unique text, written for you",
-      "landing": 290,
-      "website": 690,
+      "landing": 190,
+      "website": 390,
       "desc": "Anna writes every page after a 30-minute call, targeted at what customers search for. Default (free): client sends text, Anna edits it."
     },
     {
       "id": "images-stock",
       "group": "images",
       "name": "Stock photos",
-      "landing": 90,
-      "website": 190,
+      "landing": 70,
+      "website": 150,
       "desc": "Licensed photos picked to match the business. Default (free): client's own photos, optimised."
     },
     {
       "id": "images-unique",
       "group": "images",
       "name": "Unique images",
-      "landing": 290,
-      "website": 590,
+      "landing": 190,
+      "website": 390,
       "desc": "Images made for this business only."
     },
     {
       "id": "cms-simple",
       "group": "cms",
       "name": "Simple content editor",
-      "landing": 390,
-      "website": 690,
+      "landing": 190,
+      "website": 390,
       "desc": "Edit text, photos, prices and opening hours yourself in a simple online editor. Free to run, nothing to update. Includes a 30-minute training video.",
       "explain": "A simple online editor to change text, photos, prices and opening hours yourself, whenever you like, without paying for small updates."
     },
@@ -64,16 +64,16 @@
       "id": "cms-wordpress",
       "group": "cms",
       "name": "WordPress",
-      "landing": 590,
-      "website": 990,
+      "landing": 390,
+      "website": 590,
       "desc": "The WordPress dashboard: pages, blog, media and plugins. Needs WordPress hosting and regular updates, so a support plan is recommended. Includes training."
     },
     {
       "id": "hosting-year",
       "group": "hosting",
       "name": "Domain + hosting, 1 year",
-      "landing": 290,
-      "website": 290,
+      "landing": 190,
+      "website": 190,
       "noRush": true,
       "desc": ".com.au domain registered in the client's name plus 12 months hosting and SSL. Default (free): client already has domain and hosting."
     },
@@ -123,36 +123,36 @@
     {
       "id": "booking",
       "name": "Online booking",
-      "landing": 490,
-      "website": 490,
+      "landing": 390,
+      "website": 390,
       "desc": "Customers pick a time online and get email/SMS reminders."
     },
     {
       "id": "payments",
       "name": "Payments & deposits",
-      "landing": 490,
-      "website": 490,
+      "landing": 290,
+      "website": 290,
       "desc": "Card payments or deposits with Stripe or Square."
     },
     {
       "id": "logo",
       "name": "Logo & mini brand kit",
-      "landing": 490,
-      "website": 490,
+      "landing": 390,
+      "website": 390,
       "desc": "Logo, icon and favicon, 4–6 brand colours, 2 fonts, button and photo style, social profile image. 3 concepts, 2 rounds of changes."
     },
     {
       "id": "blog",
       "name": "Blog",
-      "landing": 390,
-      "website": 390,
+      "landing": 190,
+      "website": 190,
       "desc": "Client posts news and tips; each post can rank on Google."
     },
     {
       "id": "email",
       "name": "Business email",
-      "landing": 150,
-      "website": 150,
+      "landing": 90,
+      "website": 90,
       "desc": "you@business.com.au on Google Workspace or Microsoft 365 (their subscription paid separately).",
       "explain": "you@yourbusiness.com.au instead of a Gmail address. Customers trust it more, and it stays with the business if staff change. Google or Microsoft charge a small monthly fee per mailbox."
     },
@@ -166,17 +166,18 @@
     {
       "id": "crm",
       "name": "CRM setup",
-      "landing": 490,
-      "website": 490,
+      "landing": 390,
+      "website": 390,
       "desc": "Every enquiry and booking goes automatically into a CRM (customer list + sales pipeline). HubSpot free plan, Zoho, Pipedrive or the CRM you already use.",
       "explain": "One place for every customer: name, phone, what they asked for and when they last booked. Follow up quotes, rebook regulars and never lose an enquiry in your inbox. HubSpot's free plan is enough for most small businesses."
     },
     {
       "id": "store",
       "name": "Online store",
-      "landing": 1490,
-      "website": 1490,
-      "desc": "Sell products online: up to 20 products, cart and checkout, shipping rules, order emails (Shopify or Stripe)."
+      "landing": 1290,
+      "website": 1290,
+      "desc": "Sell products online: up to 20 products, cart and checkout, shipping rules, order emails (Shopify or Stripe).",
+      "from": true
     },
     {
       "id": "email-marketing",
@@ -189,8 +190,8 @@
     {
       "id": "reviews",
       "name": "Google reviews on your site",
-      "landing": 190,
-      "website": 190,
+      "landing": 150,
+      "website": 150,
       "desc": "Your Google reviews shown on the site, plus a review link and QR code to collect more.",
       "explain": "Your Google reviews shown on your site, plus a link and QR code so happy customers can leave one in seconds. Reviews are one of the first things people check before they call."
     },
@@ -205,16 +206,18 @@
     {
       "id": "whatsapp",
       "name": "WhatsApp chat button",
-      "landing": 90,
-      "website": 90,
+      "landing": 50,
+      "website": 50,
       "desc": "A button that opens a WhatsApp chat with you, on every page.",
       "explain": "A button that opens a WhatsApp chat with you. Many customers would rather send a quick message than call or fill in a form."
     },
     {
       "id": "ai-assistant",
       "name": "AI assistant",
-      "quote": true,
-      "desc": "Answers customer questions and takes enquiries 24/7. Priced after a chat."
+      "desc": "Answers customer questions and takes enquiries 24/7, trained on your services, prices and FAQs. From $390, plus AI usage fees charged by the AI provider.",
+      "landing": 390,
+      "website": 390,
+      "from": true
     },
     {
       "id": "automations",

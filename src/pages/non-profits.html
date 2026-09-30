@@ -1,0 +1,108 @@
+<!--meta
+{
+ "title": "Free Website Help for Volunteer-Run Non-Profits | Webumi",
+ "ogTitle": "Free website help for non-profits — Webumi",
+ "description": "Webumi supports Australian volunteer-run non-profits and community groups with free websites, volunteer sign-up forms and online donations. Apply in 2 minutes.",
+ "crumb": "Non-profits"
+}
+-->
+    <section class="phero">
+      <div class="hero__glow" aria-hidden="true"></div>
+      <div class="wrap">
+        <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span>Non-profits</span></nav>
+        <p class="kicker">Non-profits</p>
+        <h1>Free website help for <em>volunteer-run</em> non-profits.</h1>
+        <p class="hero__lead">Webumi supports Australian non-profits and community groups that run on volunteers. If a website or an online tool would help your cause, tell me about it. If I can help, the work is free.</p>
+        <div class="hero__ctas">
+          <a href="#np-apply" class="btn btn--primary">Apply for free help <span class="arrow">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--white">
+      <div class="wrap">
+        <div class="section__head reveal">
+          <p class="kicker">What I can help with</p>
+          <h2>The online tools volunteers need most.</h2>
+        </div>
+        <ul class="cards cards--3">
+          <li class="card reveal">{{icon:doc}}<h3>A simple website</h3><p>A landing page or small website that explains what you do and how people can help or get help.</p></li>
+          <li class="card reveal">{{icon:wrench}}<h3>Fixing your current site</h3><p>Broken forms, outdated pages, a slow site or one that doesn't work on phones.</p></li>
+          <li class="card reveal">{{icon:user}}<h3>Volunteer sign-ups</h3><p>An online form for new volunteers, with their details sent straight to your coordinator.</p></li>
+          <li class="card reveal">{{icon:calendar}}<h3>Event registrations</h3><p>Sign-ups for events, working bees and classes, with automatic confirmations.</p></li>
+          <li class="card reveal">{{icon:card}}<h3>Online donations</h3><p>A donate button connected to Stripe or PayPal, with a thank-you email.</p></li>
+          <li class="card reveal">{{icon:sparkle}}<h3>Free non-profit plans</h3><p>Help applying for free programs such as Google for Nonprofits and Canva for Nonprofits.</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap split">
+        <div class="prose reveal">
+          <p class="kicker">Who it's for</p>
+          <h2>Community groups doing good work.</h2>
+          <ul class="checks">
+            <li>Australian non-profits, charities and community groups</li>
+            <li>Run mostly by volunteers</li>
+            <li>Registered charities (ACNC), incorporated associations or informal community groups</li>
+            <li>A clear benefit to the community</li>
+          </ul>
+          <p>I take on a small number of free projects at a time, so I can't say yes to everyone. Every application gets a reply.</p>
+        </div>
+        <div class="prose reveal">
+          <p class="kicker">How it works</p>
+          <h2>Apply, chat, build.</h2>
+          <ol class="checks">
+            <li><b>Apply</b> with the form below. It takes about 2 minutes.</li>
+            <li><b>I reply within a week</b> to say whether I can help.</li>
+            <li><b>A short call</b> to agree what to build.</li>
+            <li><b>I build it</b> in between paid projects, so it can take longer than usual.</li>
+          </ol>
+          <p><b>What's free:</b> my design and build work. Third-party costs, such as a domain name, stay with your organisation, and I'll help you find free non-profit plans where they exist.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--white" id="np-apply">
+      <div class="wrap np__grid">
+        <div class="reveal">
+          <p class="kicker">Apply</p>
+          <h2>Tell me about your organisation.</h2>
+          <p class="section__sub">A few details about what you do and what would help. I'll reply within a week.</p>
+        </div>
+
+        <form class="form reveal" id="npForm" novalidate>
+          <div class="form__row">
+            <label class="field"><span>Organisation name</span><input name="org" required autocomplete="organization" placeholder="Inner West Food Rescue"></label>
+            <label class="field"><span>Your name</span><input name="name" required autocomplete="name" placeholder="Sam"></label>
+          </div>
+          <div class="form__row">
+            <label class="field"><span>Email</span><input name="email" type="email" required autocomplete="email" placeholder="sam@example.org.au"></label>
+            <label class="field"><span>Phone <em>(optional)</em></span><input name="phone" type="tel" autocomplete="tel" placeholder="04xx xxx xxx"></label>
+          </div>
+          <div class="form__row">
+            <label class="field"><span>Website or social page <em>(optional)</em></span><input name="site" placeholder="facebook.com/yourgroup"></label>
+            <label class="field"><span>ABN or ACNC number <em>(optional)</em></span><input name="abn" placeholder="12 345 678 901"></label>
+          </div>
+          <fieldset class="form__need">
+            <legend>What would help? <span>(choose any)</span></legend>
+            <div class="form__chips">
+              <label class="tick"><input type="checkbox" name="need" value="New website"><span>{{icon:doc}} New website</span></label>
+              <label class="tick"><input type="checkbox" name="need" value="Fix current website"><span>{{icon:wrench}} Fix current website</span></label>
+              <label class="tick"><input type="checkbox" name="need" value="Volunteer sign-up form"><span>{{icon:user}} Volunteer sign-ups</span></label>
+              <label class="tick"><input type="checkbox" name="need" value="Event registrations"><span>{{icon:calendar}} Event registrations</span></label>
+              <label class="tick"><input type="checkbox" name="need" value="Online donations"><span>{{icon:card}} Online donations</span></label>
+              <label class="tick"><input type="checkbox" name="need" value="Not sure"><span>{{icon:question}} Not sure</span></label>
+            </div>
+          </fieldset>
+          <label class="field"><span>About your organisation</span><textarea name="about" rows="4" required placeholder="What you do, who you help, how many volunteers you have, and what's hard right now."></textarea></label>
+          <button type="submit" class="btn btn--primary btn--block">Send application →</button>
+          <p class="form__fine">Your details are only used to reply to your application.</p>
+          <div class="form__done" id="npDone" hidden>
+            <div class="form__doneIcon"><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></div>
+            <h3>Thanks, <span id="npName">there</span>!</h3>
+            <p>Your email app opened with your application. Press send, and I'll reply within a week. If it didn't open, email <a href="mailto:{{email}}">{{email}}</a>.</p>
+          </div>
+        </form>
+      </div>
+    </section>

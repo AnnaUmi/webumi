@@ -456,12 +456,12 @@
       const crmSystem = $("#bldCrm")?.checked ? bld.elements.crmSystem.value : "";
       if ($("#bldCrmPick")) $("#bldCrmPick").hidden = !crmSystem;
       $$(".bld__step:not([hidden]) .bld__n", bld).forEach((n, i) => (n.textContent = i + 1));
-      $$("[data-price]", bld).forEach((el) => (el.textContent = "+" + aud(priceOf(el.closest(".opt").querySelector("input")))));
+      $$("[data-price]", bld).forEach((el) => (el.textContent = ("from" in el.dataset ? "from +" : "+") + aud(priceOf(el.closest(".opt").querySelector("input")))));
       const timeOf = (input) => input.dataset[t + "Time"];
       $$("[data-time]", bld).forEach((el) => (el.textContent = `Live in ${timeOf(el.closest(".opt").querySelector("input"))}.`));
 
       const lines = [], quotes = [];
-      let total = 0, monthly = 0;
+      let total = 0, monthly = 0, from = false;
       const base = $('input[name="type"]:checked', bld);
       const pageCount = t === "website" ? +pages.value : 1;
       const included = t === "website" ? +pages.dataset.min : 1;
@@ -485,6 +485,7 @@
           return summary.push(`${i.value}: ${aud(+i.dataset.monthly)}/month`);
         }
         const p = priceOf(i), name = i.id === "bldCrm" ? `${i.value} (${crmSystem})` : i.value;
+        if (i.closest(".opt").querySelector("[data-from]")) from = true;
         if (p) lines.push([name, p]);
         summary.push(`${name}: ${p ? aud(p) : "included"}`);
         total += p;
@@ -503,6 +504,7 @@
         `<li${isBase ? ' class="is-base"' : ""}><span>${n}</span><span>${typeof p === "number" ? aud(p) : p}</span></li>`).join("");
       const totalEl = $("#bldTotal");
       totalEl.textContent = aud(total);
+      $(".bld__total span", bld).textContent = from ? "Total, from" : "Total";
       if (lastTotal !== null && lastTotal !== total && !reduceMotion) {
         totalEl.classList.remove("bump"); void totalEl.offsetWidth; totalEl.classList.add("bump");
       }
@@ -512,10 +514,10 @@
       $("#bldDeposit").textContent = rush.value === "Express" ? "Paid upfront, because Express work starts straight away." : `Pay 50% (${aud(half(total))}) to start and the rest at launch.`;
       $("#bldQuote").hidden = !quotes.length;
       $("#bldQuote").textContent = `+ ${quotes.join(" and ")}: priced after a free chat.`;
-      $("#bldBarTotal").textContent = aud(total);
+      $("#bldBarTotal").textContent = (from ? "from " : "") + aud(total);
       $("#bldBarMonthly").textContent = monthly ? `+ ${aud(monthly)}/mo` : "";
 
-      summary.push("", `Total: ${aud(total)}${monthly ? ` + ${aud(monthly)}/month` : ""}`);
+      summary.push("", `Total: ${from ? "from " : ""}${aud(total)}${monthly ? ` + ${aud(monthly)}/month` : ""}`);
       if (quotes.length) summary.push(`Also interested in: ${quotes.join(", ")}`);
     }
 
@@ -680,13 +682,13 @@
               <li>${esc(p.type.name)}</li><li>${p.pages} page${p.pages > 1 ? "s" : ""}</li><li>Live in ${esc(p.time)}</li>
             </ul>
             <ul class="ofc__lines">
-              ${p.lines.map((l) => `<li><span>${esc(l.name)}</span><b>${W.aud(l.value)}</b></li>`).join("")}
+              ${p.lines.map((l) => `<li><span>${esc(l.name)}</span><b>${l.from ? "from " : ""}${W.aud(l.value)}</b></li>`).join("")}
               ${p.monthlyLines.map((l) => `<li><span>${esc(l.name)}</span><b>${W.aud(l.value)}/mo</b></li>`).join("")}
               ${p.quoted.map((l) => `<li><span>${esc(l.name)}</span><b>Quoted</b></li>`).join("")}
             </ul>
           </div>
           <div class="ofc__side">
-            <p class="ofc__label">Total</p>
+            <p class="ofc__label">${p.from ? "Total, from" : "Total"}</p>
             <p class="ofc__total">${W.aud(p.total)}</p>
             ${p.monthly ? `<p class="ofc__monthly">+ ${W.aud(p.monthly)}/month</p>` : ""}
             <a class="btn btn--primary btn--block" href="${link}" id="ofOpen">Open your presentation →</a>
@@ -897,6 +899,37 @@
     confetti(form);
   });
   if (form) $$(".field input", form).forEach((i) => i.addEventListener("input", () => i.closest(".field").classList.remove("is-invalid")));
+
+  /* ---------- Non-profit application form ---------- */
+  const npForm = $("#npForm");
+  npForm?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    let ok = true;
+    ["org", "name", "email", "about"].forEach((n) => {
+      const input = npForm.elements[n];
+      const valid = input.value.trim() && input.checkValidity();
+      input.closest(".field").classList.toggle("is-invalid", !valid);
+      if (!valid && ok) { input.focus(); ok = false; }
+    });
+    if (!ok) return;
+    const fd = new FormData(npForm);
+    const body = [
+      `Organisation: ${fd.get("org")}`,
+      `Contact: ${fd.get("name")}`,
+      `Email: ${fd.get("email")}`,
+      `Phone: ${fd.get("phone") || "-"}`,
+      `Website / social: ${fd.get("site") || "-"}`,
+      `ABN / ACNC: ${fd.get("abn") || "-"}`,
+      `Would help: ${fd.getAll("need").join(", ") || "Not specified"}`,
+      "", fd.get("about"),
+    ].join("\n");
+    const to = $("#ctEmail")?.textContent || "hello@webumi.com.au";
+    location.href = `mailto:${to}?subject=${encodeURIComponent(`Non-profit application: ${fd.get("org")}`)}&body=${encodeURIComponent(body)}`;
+    $("#npName").textContent = String(fd.get("name")).split(" ")[0];
+    $("#npDone").hidden = false;
+    confetti(npForm);
+  });
+  if (npForm) $$(".field input, .field textarea", npForm).forEach((i) => i.addEventListener("input", () => i.closest(".field").classList.remove("is-invalid")));
 
   function confetti(from) {
     if (reduceMotion) return;

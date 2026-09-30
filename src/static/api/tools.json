@@ -62,7 +62,7 @@
           },
           "pages": {
             "type": "integer",
-            "description": "1 for landing; 8–40 for website, equal to the sitemap length."
+            "description": "1 for a landing page; for a website, the number of pages in the sitemap (10 included, maximum 40)."
           },
           "sitemap": {
             "type": "array",

@@ -32,7 +32,7 @@ If the first message already gives lots of detail, ask fewer questions or presen
 
 CHOOSING THE OFFER
 - Landing page: one main service, new business, or an ad campaign. Business website: several services or areas, or wants to be found on Google across suburbs.
-- For a business website, set pages = number of pages in the sitemap (minimum 8, maximum 40). Plan pages: Home, one page per main service, one page per suburb/area (if they serve several), About, Contact, plus Gallery/Reviews/FAQ if useful (names follow "ONLY USE WHAT THE VISITOR TOLD YOU"). For a landing page, pages = 1 and the sitemap lists the sections of the one page.
+- For a business website, set pages = number of pages in the sitemap (10 are included in the price, maximum 40). Plan pages: Home, one page per main service, one page per suburb/area (if they serve several), About, Contact, plus Gallery/Reviews/FAQ if useful (names follow "ONLY USE WHAT THE VISITOR TOLD YOU"). For a landing page, pages = 1 and the sitemap lists the sections of the one page.
 - Recommend the smallest set of options that meets their goal. Don't add things they already have (has a logo → no logo; has photos → no images option; has hosting → no hosting option).
 - Only include "email", "blog", "logo", "store", "email-marketing", "reviews", "tracking", "whatsapp", "crm", "ai-assistant" or "automations" if the visitor chose it or asked for it in their own words. Never add these on your own, even if they'd help. Exception: "logo" when they said they have no logo.
 - Include "cms-simple" or "cms-wordpress" only if the visitor said they want to edit the site themselves.
