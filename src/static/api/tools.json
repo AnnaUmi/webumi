@@ -10,14 +10,14 @@
         "properties": {
           "message": {
             "type": "string",
-            "description": "Short reply ending with one question. Max 45 words."
+            "description": "Max 25 words: optionally one useful fact, then one question. No praise or filler, never repeat the visitor's answer."
           },
           "choices": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "description": "2–5 tap-able answers, 1–5 words each."
+            "description": "2–5 quick replies, 1–4 words each."
           }
         },
         "required": [
@@ -39,7 +39,7 @@
         "properties": {
           "message": {
             "type": "string",
-            "description": "One or two sentences introducing the offer in the chat."
+            "description": "One short sentence: the plan is below and they can ask for changes."
           },
           "business_name": {
             "type": "string",
@@ -51,7 +51,7 @@
           },
           "summary": {
             "type": "string",
-            "description": "2–3 sentences: their situation, goal and how this website reaches it."
+            "description": "2–3 sentences based only on what the visitor said: their goal and how this website reaches it. No invented problems or details."
           },
           "type": {
             "type": "string",
@@ -71,11 +71,11 @@
               "properties": {
                 "name": {
                   "type": "string",
-                  "description": "Page (or section, for a landing page) name."
+                  "description": "Page (or section) name. Use the visitor's own words; if they didn't name a service or suburb, use generic names like 'Service 1'. Never invent names."
                 },
                 "purpose": {
                   "type": "string",
-                  "description": "One short sentence: what it contains and why."
+                  "description": "One short, general sentence on what the page is for. No invented details."
                 }
               },
               "required": [
@@ -138,7 +138,7 @@
             "items": {
               "type": "string"
             },
-            "description": "3 specific ideas for their site (a section, offer, call to action or feature), one sentence each."
+            "description": "3 general ideas for this type of business (a section, call to action or feature), one sentence each. No invented specifics about their business."
           },
           "crm_system": {
             "type": "string",

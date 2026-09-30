@@ -649,7 +649,8 @@
       } catch (e) {
         typing.remove();
         state.messages.pop();
-        const err = bubble("bot", e.message || "Something went wrong. Please try again.", false);
+        const shown = e.code ? e.message : e instanceof TypeError ? "Can't reach the planner. Check your internet connection and try again." : e.message || "Something went wrong. Please try again.";
+        const err = bubble("bot", shown, false);
         err.classList.add("bubble--error");
         const mine = err.previousElementSibling;
         if (e.code === "limit" || e.code === "budget") {
@@ -824,13 +825,14 @@
       if (picked.day && !slotsFor(picked.day).length) picked.day = null;
       drawCal(); drawSlots();
     }));
-    // open on the month of the first bookable day (e.g. late in the month, jump to next month)
+    // open on the month of the first bookable day; if that's in the last 3 days of a month, show the next month
     for (let d = today; d <= today + DAYS_AHEAD * DAY; d += DAY) {
       if (!slotsFor(d).length) continue;
-      const f = new Date(d); if (Date.UTC(f.getUTCFullYear(), f.getUTCMonth() + 1, 0) - d < 3 * DAY) view = { y: f.getUTCFullYear(), m: f.getUTCMonth() + 1 };
+      const f = new Date(d), nearEnd = Date.UTC(f.getUTCFullYear(), f.getUTCMonth() + 1, 0) - d < 3 * DAY;
+      const v = new Date(Date.UTC(f.getUTCFullYear(), f.getUTCMonth() + (nearEnd ? 1 : 0), 1));
+      view = { y: v.getUTCFullYear(), m: v.getUTCMonth() };
       break;
     }
-    if (view.m > 11) view = { y: view.y + 1, m: 0 };
     drawCal(); drawSlots();
 
     bookForm.addEventListener("submit", (e) => {

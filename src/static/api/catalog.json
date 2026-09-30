@@ -57,7 +57,8 @@
       "name": "Simple content editor",
       "landing": 390,
       "website": 690,
-      "desc": "Edit text, photos, prices and opening hours yourself in a simple online editor. Free to run, nothing to update. Includes a 30-minute training video."
+      "desc": "Edit text, photos, prices and opening hours yourself in a simple online editor. Free to run, nothing to update. Includes a 30-minute training video.",
+      "explain": "A simple online editor to change text, photos, prices and opening hours yourself, whenever you like, without paying for small updates."
     },
     {
       "id": "cms-wordpress",
@@ -87,7 +88,8 @@
         "Weekly backups & uptime monitoring",
         "Up to 30 min of changes a month",
         "Email support, reply within 2 business days"
-      ]
+      ],
+      "explain": "Hosting, security updates, backups and small changes every month, so the site keeps working and stays up to date without you thinking about it."
     },
     {
       "id": "care-plus",
@@ -151,7 +153,8 @@
       "name": "Business email",
       "landing": 150,
       "website": 150,
-      "desc": "you@business.com.au on Google Workspace or Microsoft 365 (their subscription paid separately)."
+      "desc": "you@business.com.au on Google Workspace or Microsoft 365 (their subscription paid separately).",
+      "explain": "you@yourbusiness.com.au instead of a Gmail address. Customers trust it more, and it stays with the business if staff change. Google or Microsoft charge a small monthly fee per mailbox."
     },
     {
       "id": "quote-form",
@@ -165,7 +168,8 @@
       "name": "CRM setup",
       "landing": 490,
       "website": 490,
-      "desc": "Every enquiry and booking goes automatically into a CRM (customer list + sales pipeline). HubSpot free plan, Zoho, Pipedrive or the CRM you already use."
+      "desc": "Every enquiry and booking goes automatically into a CRM (customer list + sales pipeline). HubSpot free plan, Zoho, Pipedrive or the CRM you already use.",
+      "explain": "One place for every customer: name, phone, what they asked for and when they last booked. Follow up quotes, rebook regulars and never lose an enquiry in your inbox. HubSpot's free plan is enough for most small businesses."
     },
     {
       "id": "store",
@@ -179,28 +183,32 @@
       "name": "Email marketing",
       "landing": 290,
       "website": 290,
-      "desc": "Newsletter signup on the site, connected to Mailchimp or similar, with an automatic welcome email."
+      "desc": "Newsletter signup on the site, connected to Mailchimp or similar, with an automatic welcome email.",
+      "explain": "A newsletter signup on your site, connected to Mailchimp, with an automatic welcome email. Bring past customers back with news and offers."
     },
     {
       "id": "reviews",
       "name": "Google reviews on your site",
       "landing": 190,
       "website": 190,
-      "desc": "Your Google reviews shown on the site, plus a review link and QR code to collect more."
+      "desc": "Your Google reviews shown on the site, plus a review link and QR code to collect more.",
+      "explain": "Your Google reviews shown on your site, plus a link and QR code so happy customers can leave one in seconds. Reviews are one of the first things people check before they call."
     },
     {
       "id": "tracking",
       "name": "Ads & conversion tracking",
       "landing": 290,
       "website": 290,
-      "desc": "Track calls, forms and bookings as conversions in Google Analytics, Google Ads and Meta (Facebook/Instagram) Pixel, so you see which ads bring customers."
+      "desc": "Track calls, forms and bookings as conversions in Google Analytics, Google Ads and Meta (Facebook/Instagram) Pixel, so you see which ads bring customers.",
+      "explain": "See which ads and pages bring calls, forms and bookings, so you only keep paying for the ads that work."
     },
     {
       "id": "whatsapp",
       "name": "WhatsApp chat button",
       "landing": 90,
       "website": 90,
-      "desc": "A button that opens a WhatsApp chat with you, on every page."
+      "desc": "A button that opens a WhatsApp chat with you, on every page.",
+      "explain": "A button that opens a WhatsApp chat with you. Many customers would rather send a quick message than call or fill in a form."
     },
     {
       "id": "ai-assistant",
@@ -323,5 +331,15 @@
       "The CRM I already use",
       "Not sure, recommend one"
     ]
-  }
+  },
+  "suggest": [
+    "crm",
+    "email",
+    "reviews",
+    "cms-simple",
+    "care",
+    "email-marketing",
+    "whatsapp",
+    "tracking"
+  ]
 }

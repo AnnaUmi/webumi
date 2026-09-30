@@ -13,18 +13,21 @@ Tagline: "More customers. Less admin." — Web, AI & Automation for Small Busine
 
 ## Services and starting prices (AUD)
 - Landing page — from $990: one page with one goal (calls, bookings or sign-ups), designed for phones, enquiry form with instant reply, Google Business Profile setup. Usually live in 1–2 weeks.
-- Business website — from $2,490: up to 8 pages, service and area pages for Google search, Google Business Profile and reviews; can include online booking and payments. Usually live in 2–4 weeks.
-- App — web app (PWA) from $8,900; iOS & Android app from $14,900: customer rebooking and loyalty apps, ordering, customer accounts, staff and job apps. Usually 6–12 weeks.
+- Business website — from $2,490: up to 8 pages (extra pages $150 each), service and area pages for Google search, Google Business Profile and reviews. Usually live in 2–4 weeks.
+- Website extras (fixed prices): online booking $490, payments & deposits $490, unique design, written text, stock or unique images, logo & brand kit $490, simple content editor or WordPress, CRM setup $490, smart quote form $290, online store $1,490, email marketing $290, Google reviews on the site $190, ads & conversion tracking $290, WhatsApp button $90, business email $150. Full price list and builder: https://webumi.com.au/pricing/
+- Faster delivery: Rush +25% (about half the time) or Express +50% (landing page in 1–2 business days, website in 5 business days).
+- App — web app (PWA) from $8,900; iOS & Android app from $14,900. Usually 6–12 weeks.
 - Platform — from $15,000: client portals, dashboards, internal tools, marketplaces and SaaS products, starting with a focused first version (MVP). Usually 8–16 weeks.
-- Can be added to any of the above, quoted per project: online bookings with deposits and reminders, automations and integrations (Xero, Stripe, Gmail, Google Sheets, CRMs), AI assistants trained on the business's services, prices and FAQs.
+- AI assistants and automations (Xero, Stripe, Gmail, Google Sheets, CRMs): quoted per project.
 - Website fixes and redesigns: quoted after a free review.
-- Hosting & support plans: from $49/month for websites; quoted per project for apps and platforms.
+- Support after launch: 30 days of free fixes, then Care $49/month, Care Plus $99/month or Growth $199/month (domain and hosting included, cancel anytime), or pay as you go at $95/hour.
+- Free website planner: answer a few questions and get a plan with pages and a price at https://webumi.com.au/plan/
 
 ## How it works
-1. Free 15-minute chat about how the business runs.
-2. A one-page plan with a fixed quote.
-3. Build, usually 2–4 weeks.
-4. Launch, video handover and ongoing support. The client owns everything — domain, website and accounts.
+1. Free 15-minute video call (anywhere in Australia) or 30-minute meeting in person (Sydney only).
+2. A written plan with a fixed quote, within 1 business day. 50% deposit to start.
+3. Kick-off, design preview and build with 2 rounds of changes, usually 2–4 weeks.
+4. Launch (final 50%), 30-minute handover and 30 days of free fixes. The client owns everything — domain, website and accounts.
 
 ## Pages
 - Home: https://webumi.com.au/
@@ -34,7 +37,8 @@ Tagline: "More customers. Less admin." — Web, AI & Automation for Small Busine
 - Online bookings: https://webumi.com.au/online-bookings/
 - AI assistants and AI systems: https://webumi.com.au/ai-assistants/
 - Business automation and integrations: https://webumi.com.au/automation/
-- Pricing: https://webumi.com.au/pricing/
+- Pricing and price builder: https://webumi.com.au/pricing/
+- Plan my website (free planner): https://webumi.com.au/plan/
 - About Anna: https://webumi.com.au/about/
 - Contact: https://webumi.com.au/contact/
 - For tradies: https://webumi.com.au/for/tradies/

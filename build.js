@@ -61,7 +61,7 @@ function aiCatalog(cat = catalog()) {
   return {
     currency: cat.currency,
     types: cat.types,
-    options: cat.options.map(({ features, ...o }) => o),
+    options: cat.options.map(({ features, explain, ...o }) => o),
     support: cat.support.note,
     included: cat.included,
     process: cat.process.map((s) => `${s.step} (${s.when})`).join(" → "),

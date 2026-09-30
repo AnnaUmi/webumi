@@ -40,7 +40,8 @@ All prices live in `src/static/api/catalog.json`. The price builder (`/pricing/`
 
 A chat that asks a few questions (business, goal, services, what they have, features, editing/CMS, CRM, timing)
 and then makes a personal website plan. The plan opens as an animated presentation at `/plan/offer/`
-(flow diagram, page map, price chart, timeline, next steps). The whole plan is stored in the link, so it can be shared.
+(flow diagram, page map, price chart, timeline, "worth considering" tools with Add/Remove, next steps).
+The whole plan is stored in the link, so it can be shared. Plain-language tool explanations live in `catalog.json` ("explain").
 It uses OpenAI through `api/chat.php`, which runs on Hostinger's normal PHP hosting (no Node server).
 The AI only picks options from the catalog; the page calculates the prices, so it can't invent a price.
 

@@ -97,7 +97,7 @@
       </div>`;
     const arrow = `<div class="pz-flow__arrow" aria-hidden="true"><span></span></div>`;
     return `<div class="pz-flow">
-      ${col("Customers find you", [["search", "Google search", "people looking for what you do"], ["pin", "Google Maps", "Business Profile"], ["chat", "Social & word of mouth"], has("tracking") && ["chart", "Google & Meta ads", "tracked"]])}
+      ${col("Customers find you", [["search", "Google search", "people looking for what you do"], ["pin", "Google Maps", "Business Profile"], ["sparkle", "ChatGPT & AI search", "recommends businesses it can read clearly"], ["chat", "Social & word of mouth"], has("tracking") && ["chart", "Google & Meta ads", "tracked"]])}
       ${arrow}
       ${col("They land on your site", [["doc", p.type.name, `${p.pages} page${p.pages > 1 ? "s" : ""}, fast on phones`], has("reviews") && ["star", "Google reviews", "shown on the site"]], "pz-flow__col--site")}
       ${arrow}
@@ -142,12 +142,50 @@
     </div>`;
   }
 
+  // tools that aren't in the plan yet, explained in plain words, with an "Add to my plan" button
+  function suggestions(o, p, catalog) {
+    const hasCms = [...p.ids].some((id) => id.startsWith("cms-"));
+    const hasPlan = ["care", "care-plus", "care-growth"].some((id) => p.ids.has(id));
+    const list = (catalog.suggest || [])
+      .map((id) => catalog.options.find((x) => x.id === id))
+      .filter((opt) => opt && opt.explain && !p.ids.has(opt.id) && !(opt.id === "cms-simple" && hasCms) && !(opt.id === "care" && hasPlan))
+      .slice(0, 4);
+    if (!list.length) return "";
+    const priceOf = (opt) => (opt.monthly ? `${aud(opt.monthly)}/month` : aud(opt[p.t]));
+    return `
+      <section class="pz-sec"><div class="wrap">
+        <p class="kicker">Worth considering</p>
+        <h2>Tools that could help you.</h2>
+        <p class="pz-lead">Not in your plan yet. Add any of them and the price updates straight away.</p>
+        <div class="pz-tools">${list.map((opt, i) => `
+          <article class="pz-tool" data-anim style="--i:${i}">
+            <span class="pz-card__ic">${ic(ICONS[opt.id] || "sparkle")}</span>
+            <h3>${esc(opt.name)}</h3>
+            <p>${esc(opt.explain)}</p>
+            <div class="pz-tool__foot"><b>${priceOf(opt)}</b><button type="button" class="btn btn--small btn--primary" data-add="${opt.id}">Add to my plan</button></div>
+          </article>`).join("")}
+        </div>
+      </div></section>`;
+  }
+
+  // change the plan from the presentation: update the link (and the planner's copy), redraw without replaying animations
+  function update(o, catalog, change) {
+    o = { ...o, options: change(o.options || []) };
+    history.replaceState(null, "", linkFor(o));
+    try { const st = JSON.parse(sessionStorage.getItem("webumiPlan")); if (st) { st.offer = o; sessionStorage.setItem("webumiPlan", JSON.stringify(st)); } } catch {}
+    const y = scrollY;
+    root.classList.add("no-anim");
+    render(o, catalog);
+    scrollTo(0, y);
+  }
+
   function render(o, catalog) {
     const p = price(o, catalog);
     const phone = $id("ctPhone")?.textContent || "", email = $id("ctEmail")?.textContent || "";
     const mins = $id("cal")?.dataset.videoMinutes || "15";
     const express = p.speed === "express";
     const words = esc(o.headline).split(" ").map((w, i) => `<span style="--i:${i}">${w}</span>`).join(" ");
+    const sugg = suggestions(o, p, catalog);
     const cards = [...p.lines.filter((l) => l.id !== "base" && l.id !== "pages"), ...p.monthlyLines.map((l) => ({ ...l, monthly: true })), ...p.quoted.map((l) => ({ ...l, quote: true }))];
 
     root.innerHTML = `
@@ -170,7 +208,7 @@
 
       <section class="pz-sec" id="pz-flow"><div class="wrap">
         <p class="kicker">How it works for your customers</p>
-        <h2>From a Google search to a new customer.</h2>
+        <h2>From a search to a new customer.</h2>
         ${flow(o, p)}
       </div></section>
 
@@ -188,7 +226,8 @@
             <span class="pz-card__ic">${ic(ICONS[c.id] || "sparkle")}</span>
             <h3>${esc(c.name)}</h3>
             <p>${esc(c.why)}</p>
-            <b class="pz-card__p">${c.quote ? "Quoted after a chat" : c.monthly ? `${aud(c.value)}/month` : aud(c.value)}</b>
+            <div class="pz-card__foot"><b class="pz-card__p">${c.quote ? "Quoted after a chat" : c.monthly ? `${aud(c.value)}/month` : aud(c.value)}</b>
+              <button type="button" class="pz-card__rm" data-remove="${esc(c.id)}" aria-label="Remove ${esc(c.name)}">Remove</button></div>
           </article>`).join("")}
         </div>
         <div class="pz-incl" data-anim><p>Always included</p><ul>${catalog.included.map((i) => `<li>${ic("sparkle")} ${esc(i)}</li>`).join("")}</ul></div>
@@ -224,7 +263,9 @@
         <ol class="pz-ideas">${(o.ideas || []).map((idea, i) => `<li data-anim style="--i:${i}"><span>${i + 1}</span><p>${esc(idea)}</p></li>`).join("")}</ol>
       </div></section>
 
-      <section class="pz-sec"><div class="wrap">
+      ${sugg}
+
+      <section class="pz-sec${sugg ? " pz-sec--white" : ""}"><div class="wrap">
         <div class="pz-cta" data-anim>
           <div>
             <h2>Let's go through it together.</h2>
@@ -249,6 +290,10 @@
     const biz = document.querySelectorAll('input[name="business"]');
     if (!o.business_name.startsWith("Your ")) biz.forEach((b) => { if (!b.value) b.value = o.business_name; });
 
+    root.querySelectorAll("[data-add]").forEach((b) => b.addEventListener("click", () =>
+      update(o, catalog, (opts) => [...opts, { id: b.dataset.add, why: catalog.options.find((x) => x.id === b.dataset.add)?.explain || "" }])));
+    root.querySelectorAll("[data-remove]").forEach((b) => b.addEventListener("click", () =>
+      update(o, catalog, (opts) => opts.filter((x) => x.id !== b.dataset.remove))));
     $id("pzPrint").addEventListener("click", () => print());
     $id("pzCopy").addEventListener("click", async (e) => {
       const url = location.origin + linkFor(o);
@@ -271,7 +316,7 @@
       requestAnimationFrame(step);
     };
     root.classList.add("is-ready");
-    if (reduceMotion || !("IntersectionObserver" in window)) { els.forEach((el) => el.classList.add("in")); return; }
+    if (reduceMotion || root.classList.contains("no-anim") || !("IntersectionObserver" in window)) { els.forEach((el) => el.classList.add("in")); return; }
     root.querySelectorAll(".pz-cover [data-count]").forEach(countUp);
     const io = new IntersectionObserver((entries) => entries.forEach((en) => {
       if (!en.isIntersecting) return;
