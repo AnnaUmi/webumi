@@ -453,6 +453,8 @@
     function update() {
       const t = typeOf();
       $$("[data-only]", bld).forEach((el) => (el.hidden = el.dataset.only !== t));
+      const crmSystem = $("#bldCrm")?.checked ? bld.elements.crmSystem.value : "";
+      if ($("#bldCrmPick")) $("#bldCrmPick").hidden = !crmSystem;
       $$(".bld__step:not([hidden]) .bld__n", bld).forEach((n, i) => (n.textContent = i + 1));
       $$("[data-price]", bld).forEach((el) => (el.textContent = "+" + aud(priceOf(el.closest(".opt").querySelector("input")))));
       const timeOf = (input) => input.dataset[t + "Time"];
@@ -482,9 +484,9 @@
           lines.push([i.value, `${aud(+i.dataset.monthly)}/mo`]);
           return summary.push(`${i.value}: ${aud(+i.dataset.monthly)}/month`);
         }
-        const p = priceOf(i);
-        if (p) lines.push([i.value, p]);
-        summary.push(`${i.value}: ${p ? aud(p) : "included"}`);
+        const p = priceOf(i), name = i.id === "bldCrm" ? `${i.value} (${crmSystem})` : i.value;
+        if (p) lines.push([name, p]);
+        summary.push(`${name}: ${p ? aud(p) : "included"}`);
         total += p;
       });
       const rushable = total - priceOf($('input[name="hosting"]:checked', bld)); // rush doesn't apply to domain & hosting
@@ -545,14 +547,13 @@
   const planner = $("#planner");
   if (planner) {
     const log = $("#plLog"), chips = $("#plChips"), input = $("#plInput"), plForm = $("#plForm");
-    const escHtml = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
     const store = {
       get() { try { return JSON.parse(sessionStorage.getItem("webumiPlan")) || null; } catch { return null; } },
       set(v) { try { sessionStorage.setItem("webumiPlan", JSON.stringify(v)); } catch {} },
       clear() { try { sessionStorage.removeItem("webumiPlan"); } catch {} },
     };
     const greeting = { text: "Hi! I'll help you plan your website and show you what it costs. What do you need?", choices: ["I need a website", "I need a landing page", "Not sure yet"] };
-    const afterOffer = ["Make it cheaper", "Add a feature", "Looks good →"];
+    const afterOffer = ["Open my presentation →", "Make it cheaper", "Add a feature"];
     let state = { messages: [], bubbles: [], offer: null, choices: greeting.choices };
     let catalog, busy = false, planText = "";
 
@@ -571,7 +572,7 @@
       list.forEach((c) => {
         const b = document.createElement("button");
         b.type = "button"; b.className = "chip"; b.textContent = c;
-        b.addEventListener("click", () => (onPick ? onPick(c) : c === "Looks good →" ? showOffer() : send(c)));
+        b.addEventListener("click", () => (onPick ? onPick(c) : c === "Open my presentation →" ? openPresentation() : send(c)));
         chips.appendChild(b);
       });
     }
@@ -622,128 +623,38 @@
       if (!justOffered) input.focus({ preventScroll: true });
     }
 
-    function price(offer) {
-      const t = offer.type === "landing" ? "landing" : "website";
-      const type = catalog.types[t];
-      const pages = t === "website" ? Math.min(type.maxPages, Math.max(type.pages, offer.pages || type.pages)) : 1;
-      const lines = [[`${type.name} (${type.pages} page${type.pages > 1 ? "s" : ""})`, "", type.price]];
-      const extra = t === "website" ? pages - type.pages : 0;
-      if (extra > 0) lines.push([`${extra} extra page${extra > 1 ? "s" : ""}`, "", extra * type.extraPage]);
-      const byGroup = {}, picked = [];
-      // monthly plans include domain + hosting, so they win over the one-off hosting option
-      const opts = [...(offer.options || [])].sort((a, b) => !!catalog.options.find((x) => x.id === b.id)?.monthly - !!catalog.options.find((x) => x.id === a.id)?.monthly);
-      opts.forEach((o) => {
-        const opt = catalog.options.find((x) => x.id === o.id);
-        if (!opt || picked.some((p) => p.opt.id === opt.id)) return;
-        if (opt.group) { if (byGroup[opt.group]) return; byGroup[opt.group] = true; }
-        picked.push({ opt, why: o.why });
-      });
-      let total = lines.reduce((s, l) => s + l[2], 0), monthly = 0, noRush = 0, speed = null;
-      const quoted = [];
-      picked.forEach(({ opt, why }) => {
-        if (opt.quote) return quoted.push([opt.name, why]);
-        if (opt.group === "speed") return (speed = { opt, why });
-        if (opt.monthly) { monthly += opt.monthly; return lines.push([opt.name, why, `${aud(opt.monthly)}/mo`]); }
-        total += opt[t]; if (opt.noRush) noRush += opt[t];
-        lines.push([opt.name, why, opt[t]]);
-      });
-      if (speed) {
-        const fee = Math.round(((total - noRush) * speed.opt.percent) / 100 / 10) * 10;
-        lines.push([`${speed.opt.name} (+${speed.opt.percent}%)`, speed.why, fee]);
-        total += fee;
-      }
-      return { t, type, pages, lines, quoted, total, monthly, speed: speed?.opt.id, time: speed ? speed.opt[t + "Time"] : type.time };
-    }
-
     function renderOffer(o) {
-      const p = price(o);
-      const phone = $("#ctPhone")?.textContent || "", email = $("#ctEmail")?.textContent || "";
-      const mins = $("#cal")?.dataset.videoMinutes || "15";
-      const money = (v) => (typeof v === "number" ? aud(v) : escHtml(v));
+      const W = window.WebumiOffer, p = W.price(o, catalog), link = W.linkFor(o), esc = W.esc;
+      planText = W.planText(o, p);
       $("#offerBody").innerHTML = `
-        <article class="of">
-          <header class="of__cover">
-            <p class="of__for">Website plan for <b>${escHtml(o.business_name)}</b></p>
-            <h2>${escHtml(o.headline)}</h2>
-            <p class="of__summary">${escHtml(o.summary)}</p>
+        <article class="ofc">
+          <div class="ofc__main">
+            <p class="of__for">Website plan for <b>${esc(o.business_name)}</b></p>
+            <h2>${esc(o.headline)}</h2>
             <ul class="of__facts">
-              <li>${escHtml(p.type.name)}</li><li>${p.pages} page${p.pages > 1 ? "s" : ""}</li><li>Live in ${escHtml(p.time)}</li>
+              <li>${esc(p.type.name)}</li><li>${p.pages} page${p.pages > 1 ? "s" : ""}</li><li>Live in ${esc(p.time)}</li>
             </ul>
-          </header>
-          <div class="of__grid">
-            <section class="of__card">
-              <h3>${p.t === "landing" ? "Sections of your page" : "Your pages"}</h3>
-              <ol class="of__pages">${(o.sitemap || []).map((s) => `<li><b>${escHtml(s.name)}</b><span>${escHtml(s.purpose)}</span></li>`).join("")}</ol>
-            </section>
-            <section class="of__card of__card--ideas">
-              <h3>Ideas for your site</h3>
-              <ul class="of__ideas">${(o.ideas || []).map((i) => `<li>${escHtml(i)}</li>`).join("")}</ul>
-            </section>
+            <ul class="ofc__lines">
+              ${p.lines.map((l) => `<li><span>${esc(l.name)}</span><b>${W.aud(l.value)}</b></li>`).join("")}
+              ${p.monthlyLines.map((l) => `<li><span>${esc(l.name)}</span><b>${W.aud(l.value)}/mo</b></li>`).join("")}
+              ${p.quoted.map((l) => `<li><span>${esc(l.name)}</span><b>Quoted</b></li>`).join("")}
+            </ul>
           </div>
-          <section class="of__card of__price">
-            <h3>What you get</h3>
-            <table class="of__lines"><tbody>
-              ${p.lines.map(([n, why, v]) => `<tr><td><b>${escHtml(n)}</b>${why ? `<span>${escHtml(why)}</span>` : ""}</td><td>${money(v)}</td></tr>`).join("")}
-              ${p.quoted.map(([n, why]) => `<tr><td><b>${escHtml(n)}</b><span>${escHtml(why)}</span></td><td class="of__q">Quoted after a chat</td></tr>`).join("")}
-            </tbody></table>
-            <div class="of__total"><span>Total</span><b>${aud(p.total)}</b></div>
-            ${p.monthly ? `<p class="of__monthly">+ ${aud(p.monthly)}/month</p>` : ""}
-            <p class="of__deposit">${p.speed === "express" ? "Paid upfront (Express)." : `Pay 50% (${aud(half(p.total))}) to start and the rest at launch.`}</p>
-            <div class="bld__incl"><p>Always included</p><ul class="checks">${catalog.included.map((i) => `<li>${escHtml(i)}</li>`).join("")}</ul></div>
-          </section>
-          <section class="of__card of__how">
-            <h3>How we'll work together</h3>
-            <ol class="of__steps">${catalog.process.map((st) => `
-              <li><span class="of__when">${escHtml(p.speed === "express" && st.when.startsWith("Week") ? "Express" : st.when)}</span><b>${escHtml(st.step)}</b><span>${escHtml(st.what)}</span><em>You: ${escHtml(st.you)}</em></li>`).join("")}
-            </ol>
-            <div class="of__pay">
-              <div>
-                <h4>Payments</h4>
-                <ul>${p.speed === "express"
-                  ? `<li><b>${aud(p.total)}</b> upfront, because Express work starts straight away</li>`
-                  : `<li><b>${aud(half(p.total))}</b> deposit to start, after you approve the quote</li><li><b>${aud(p.total - half(p.total))}</b> at launch, before the site goes live</li>`}
-                  ${p.monthly ? `<li><b>${aud(p.monthly)}/month</b> support plan, from ${catalog.support.freeDays} days after launch</li>` : ""}
-                </ul>
-                <p>${escHtml(catalog.payment.notes[2])}</p>
-              </div>
-              <div>
-                <h4>Staying in touch</h4>
-                <p>${escHtml(catalog.communication)}</p>
-              </div>
-            </div>
-          </section>
-          <section class="of__next">
-            <div>
-              <h3>Next step: go through this plan together</h3>
-              <p>A free ${escHtml(mins)}-minute video call from anywhere in Australia, or meet in person in Sydney. You'll get a written, fixed quote afterwards.</p>
-              <ul class="of__contact">
-                <li>${ic("phone")} ${escHtml(phone)}</li>
-                <li>${ic("envelope")} ${escHtml(email)}</li>
-                <li>${ic("pin")} In-person meetings in Sydney only</li>
-              </ul>
-            </div>
-            <div class="of__actions">
-              <button type="button" class="btn btn--primary" id="ofBook">${ic("calendar")} Book a free call</button>
-              <button type="button" class="btn btn--ghost" id="ofSend">Email this plan to Anna</button>
-              <button type="button" class="btn btn--ghost" id="ofPrint">Save as PDF</button>
-              <button type="button" class="btn btn--ghost" id="ofEdit">Change something</button>
-            </div>
-          </section>
-          <p class="of__fine">Prices in AUD. After a free chat you get a written, fixed quote. The price in the quote is the price you pay.</p>
+          <div class="ofc__side">
+            <p class="ofc__label">Total</p>
+            <p class="ofc__total">${W.aud(p.total)}</p>
+            ${p.monthly ? `<p class="ofc__monthly">+ ${W.aud(p.monthly)}/month</p>` : ""}
+            <a class="btn btn--primary btn--block" href="${link}" id="ofOpen">Open your presentation →</a>
+            <button type="button" class="btn btn--ghost btn--block" id="ofBook">${ic("calendar")} Book a free call</button>
+            <button type="button" class="btn btn--ghost btn--block" id="ofSend">Email this plan to Anna</button>
+            <p class="ofc__hint">The presentation shows how it all works, your pages, the timeline and payments. You can share its link.</p>
+          </div>
         </article>`;
       $("#offer").hidden = false;
-
-      planText = [
-        `Website plan for ${o.business_name}`, o.headline, "",
-        ...p.lines.map(([n, , v]) => `- ${n}: ${typeof v === "number" ? aud(v) : v}`),
-        ...p.quoted.map(([n]) => `- ${n}: quoted after a chat`),
-        `Total: ${aud(p.total)}${p.monthly ? ` + ${aud(p.monthly)}/month` : ""}`, "",
-        "Pages: " + (o.sitemap || []).map((s) => s.name).join(", "),
-      ].join("\n");
       $("#ofSend").addEventListener("click", () => {
-        const box = $(`input[name="need"][value="${p.t === "landing" ? "Landing page" : "Business website"}"]`);
+        const box = $$('input[name="need"]').find((i) => i.value === (p.t === "landing" ? "Landing page" : "Business website"));
         if (box) box.checked = true;
-        const msg = $('textarea[name="message"]');
+        const msg = $('#contactForm textarea[name="message"]');
         if (msg) msg.value = planText;
         contactTab("message");
         contact?.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
@@ -757,10 +668,9 @@
         contactTab("book");
         contact?.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
       });
-      $("#ofPrint").addEventListener("click", () => print());
-      $("#ofEdit").addEventListener("click", () => { planner.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" }); input.focus({ preventScroll: true }); });
     }
     function showOffer() { $("#offer").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" }); }
+    function openPresentation() { if (state.offer) location.href = window.WebumiOffer.linkFor(state.offer); }
 
     plForm.addEventListener("submit", (e) => { e.preventDefault(); send(input.value); });
     $("#plReset").addEventListener("click", () => {
@@ -771,7 +681,7 @@
     });
 
     bubble("bot", greeting.text, false);
-    fetch("/api/catalog.json").then((r) => r.json()).then((c) => {
+    window.WebumiOffer.loadCatalog().then((c) => {
       catalog = c;
       const saved = store.get();
       if (saved?.messages?.length && Array.isArray(saved.bubbles)) {

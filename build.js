@@ -125,13 +125,15 @@ function build() {
       content: body,
       schema: schemaFor(page, body),
     })
+      // personal pages (e.g. a visitor's plan) stay out of Google
+      .replace("</head>", page.noindex ? '  <meta name="robots" content="noindex">\n</head>' : "</head>")
       // mark the current page in the navigation
       .replace(new RegExp(`(<nav class="nav__links"[\\s\\S]*?)<a href="${page.url}"`), `$1<a href="${page.url}" aria-current="page"`);
 
     const out = path.join(DIST, page.url, "index.html");
     fs.mkdirSync(path.dirname(out), { recursive: true });
     fs.writeFileSync(out, html);
-    urls.push({ url: page.url, priority: page.url === "/" ? "1.0" : page.url.split("/").length > 3 ? "0.7" : "0.8" });
+    if (!page.noindex) urls.push({ url: page.url, priority: page.url === "/" ? "1.0" : page.url.split("/").length > 3 ? "0.7" : "0.8" });
   }
 
   urls.sort((a, b) => a.url.localeCompare(b.url));
@@ -214,7 +216,7 @@ function demoTurn(messages) {
     business_name: "Bondi Dog Spa",
     headline: "Full grooming books, straight from Google",
     summary: "You groom dogs in Bondi and lose bookings to slow replies on Instagram. This website shows up for local searches, shows your prices upfront, and lets owners book and pay a deposit in under a minute.",
-    type: "website", pages: 9,
+    type: "website", pages: 9, crm_system: "HubSpot (free plan)",
     sitemap: [
       { name: "Home", purpose: "Prices, reviews and a Book now button above the fold." },
       { name: "Full groom", purpose: "What's included, time needed and price by dog size." },
@@ -230,6 +232,8 @@ function demoTurn(messages) {
       { id: "booking", why: "Owners book the slot themselves instead of messaging you." },
       { id: "payments", why: "A deposit cuts no-shows on busy Saturdays." },
       { id: "text-written", why: "You said writing isn't your thing; each page targets what Bondi owners search for." },
+      { id: "crm", why: "Every booking and enquiry lands in one customer list, so regulars are easy to rebook." },
+      { id: "reviews", why: "Your 5-star Google reviews sit right next to the Book now button." },
       { id: "care-plus", why: "Price and hours changes are done for you, and you get a monthly report on bookings." },
     ],
     ideas: [

@@ -52,6 +52,22 @@
       "desc": "Images made for this business only."
     },
     {
+      "id": "cms-simple",
+      "group": "cms",
+      "name": "Simple content editor",
+      "landing": 390,
+      "website": 690,
+      "desc": "Edit text, photos, prices and opening hours yourself in a simple online editor. Free to run, nothing to update. Includes a 30-minute training video."
+    },
+    {
+      "id": "cms-wordpress",
+      "group": "cms",
+      "name": "WordPress",
+      "landing": 590,
+      "website": 990,
+      "desc": "The WordPress dashboard: pages, blog, media and plugins. Needs WordPress hosting and regular updates, so a support plan is recommended. Includes training."
+    },
+    {
       "id": "hosting-year",
       "group": "hosting",
       "name": "Domain + hosting, 1 year",
@@ -118,10 +134,10 @@
     },
     {
       "id": "logo",
-      "name": "Logo design",
+      "name": "Logo & mini brand kit",
       "landing": 490,
       "website": 490,
-      "desc": "3 concepts, 2 rounds of changes, files for web, print and social."
+      "desc": "Logo, icon and favicon, 4–6 brand colours, 2 fonts, button and photo style, social profile image. 3 concepts, 2 rounds of changes."
     },
     {
       "id": "blog",
@@ -136,6 +152,55 @@
       "landing": 150,
       "website": 150,
       "desc": "you@business.com.au on Google Workspace or Microsoft 365 (their subscription paid separately)."
+    },
+    {
+      "id": "quote-form",
+      "name": "Smart quote form",
+      "landing": 290,
+      "website": 290,
+      "desc": "A step-by-step questionnaire for your trade (e.g. rooms, suburb, dates, budget) with photo or file upload, so you get qualified leads instead of 'how much?' messages."
+    },
+    {
+      "id": "crm",
+      "name": "CRM setup",
+      "landing": 490,
+      "website": 490,
+      "desc": "Every enquiry and booking goes automatically into a CRM (customer list + sales pipeline). HubSpot free plan, Zoho, Pipedrive or the CRM you already use."
+    },
+    {
+      "id": "store",
+      "name": "Online store",
+      "landing": 1490,
+      "website": 1490,
+      "desc": "Sell products online: up to 20 products, cart and checkout, shipping rules, order emails (Shopify or Stripe)."
+    },
+    {
+      "id": "email-marketing",
+      "name": "Email marketing",
+      "landing": 290,
+      "website": 290,
+      "desc": "Newsletter signup on the site, connected to Mailchimp or similar, with an automatic welcome email."
+    },
+    {
+      "id": "reviews",
+      "name": "Google reviews on your site",
+      "landing": 190,
+      "website": 190,
+      "desc": "Your Google reviews shown on the site, plus a review link and QR code to collect more."
+    },
+    {
+      "id": "tracking",
+      "name": "Ads & conversion tracking",
+      "landing": 290,
+      "website": 290,
+      "desc": "Track calls, forms and bookings as conversions in Google Analytics, Google Ads and Meta (Facebook/Instagram) Pixel, so you see which ads bring customers."
+    },
+    {
+      "id": "whatsapp",
+      "name": "WhatsApp chat button",
+      "landing": 90,
+      "website": 90,
+      "desc": "A button that opens a WhatsApp chat with you, on every page."
     },
     {
       "id": "ai-assistant",
@@ -170,10 +235,12 @@
   ],
   "included": [
     "Looks right on phones, tablets and computers",
-    "Enquiry form with an instant reply",
+    "Enquiry form with an instant reply and spam protection",
     "Google Business Profile setup",
-    "Page titles and descriptions set up for Google",
-    "Visitor stats (Google Analytics)",
+    "Page titles, descriptions and Google structured data",
+    "Visitor stats (Google Analytics) and Search Console",
+    "Accessible design (WCAG basics) and a privacy page",
+    "Your domain and accounts stay in your name",
     "2 rounds of changes",
     "30 days of free fixes after launch"
   ],
@@ -247,5 +314,14 @@
       "Bank transfer or card. Invoices under ABN 42 183 713 603."
     ]
   },
-  "communication": "4 scheduled check-ins (free call, kick-off, design preview, launch handover), a progress email every week, and replies by email or phone within 1 business day."
+  "communication": "4 scheduled check-ins (free call, kick-off, design preview, launch handover), a progress email every week, and replies by email or phone within 1 business day.",
+  "systems": {
+    "crm": [
+      "HubSpot (free plan)",
+      "Zoho CRM",
+      "Pipedrive",
+      "The CRM I already use",
+      "Not sure, recommend one"
+    ]
+  }
 }

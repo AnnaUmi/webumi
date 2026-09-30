@@ -63,6 +63,18 @@
             </fieldset>
 
             <fieldset class="bld__step">
+              <legend><span class="bld__n" data-num></span> Editing your website</legend>
+              <div class="bld__grid bld__grid--3">
+                <label class="opt"><input type="radio" name="cms" value="Anna makes changes for me" data-landing="0" data-website="0" checked>
+                  <span class="opt__box">{{icon:chat}}<b class="opt__t">I'll ask you</b><span class="opt__d">Email me what to change. Included for 30 days, then with a support plan.</span><span class="opt__p">Included</span></span></label>
+                <label class="opt"><input type="radio" name="cms" value="Simple content editor" data-landing="{{price:cms-simple:landing}}" data-website="{{price:cms-simple:website}}">
+                  <span class="opt__box">{{icon:doc}}<b class="opt__t">Simple editor</b><span class="opt__d">Change text, photos, prices and hours yourself. Free to run, with a training video.</span><span class="opt__p" data-price></span></span></label>
+                <label class="opt"><input type="radio" name="cms" value="WordPress" data-landing="{{price:cms-wordpress:landing}}" data-website="{{price:cms-wordpress:website}}">
+                  <span class="opt__box">{{icon:folder}}<b class="opt__t">WordPress</b><span class="opt__d">The WordPress dashboard with blog and plugins. Best with a support plan for updates.</span><span class="opt__p" data-price></span></span></label>
+              </div>
+            </fieldset>
+
+            <fieldset class="bld__step">
               <legend><span class="bld__n" data-num></span> Hosting &amp; support after launch</legend>
               <p class="bld__hint bld__hint--top">Every website includes {{price:support:freeDays}} days of free fixes after launch. After that, choose a plan or pay as you go ({{aud:support:hourly}}/hour).</p>
               <div class="bld__grid bld__grid--3">
@@ -87,17 +99,36 @@
                   <span class="opt__box">{{icon:calendar}}<b class="opt__t">Online booking</b><span class="opt__d">Customers pick a time and get reminders by email or SMS.</span><span class="opt__p" data-price></span></span></label>
                 <label class="opt opt--check"><input type="checkbox" name="extra" value="Online payments & deposits" data-landing="{{price:payments:landing}}" data-website="{{price:payments:website}}">
                   <span class="opt__box">{{icon:card}}<b class="opt__t">Payments &amp; deposits</b><span class="opt__d">Take card payments or deposits with Stripe or Square.</span><span class="opt__p" data-price></span></span></label>
-                <label class="opt opt--check"><input type="checkbox" name="extra" value="Logo design" data-landing="{{price:logo:landing}}" data-website="{{price:logo:website}}">
-                  <span class="opt__box">{{icon:star}}<b class="opt__t">Logo design</b><span class="opt__d">3 concepts, 2 rounds of changes, files for web, print and social.</span><span class="opt__p" data-price></span></span></label>
+                <label class="opt opt--check"><input type="checkbox" name="extra" value="Logo & mini brand kit" data-landing="{{price:logo:landing}}" data-website="{{price:logo:website}}">
+                  <span class="opt__box">{{icon:star}}<b class="opt__t">Logo &amp; brand kit</b><span class="opt__d">Logo, favicon, colours and fonts. 3 concepts, 2 rounds of changes.</span><span class="opt__p" data-price></span></span></label>
                 <label class="opt opt--check"><input type="checkbox" name="extra" value="Blog" data-landing="{{price:blog:landing}}" data-website="{{price:blog:website}}">
                   <span class="opt__box">{{icon:doc}}<b class="opt__t">Blog</b><span class="opt__d">Post news and tips yourself. Each post can rank on Google.</span><span class="opt__p" data-price></span></span></label>
                 <label class="opt opt--check"><input type="checkbox" name="extra" value="Business email setup" data-landing="{{price:email:landing}}" data-website="{{price:email:website}}">
                   <span class="opt__box">{{icon:envelope}}<b class="opt__t">Business email</b><span class="opt__d">you@yourbusiness.com.au on Google Workspace or Microsoft 365.</span><span class="opt__p" data-price></span></span></label>
+                <label class="opt opt--check"><input type="checkbox" name="extra" value="Smart quote form" data-landing="{{price:quote-form:landing}}" data-website="{{price:quote-form:website}}">
+                  <span class="opt__box">{{icon:inbox}}<b class="opt__t">Smart quote form</b><span class="opt__d">Step-by-step questions for your job, with photo upload. Qualified leads, not "how much?".</span><span class="opt__p" data-price></span></span></label>
+                <label class="opt opt--check"><input type="checkbox" name="extra" value="CRM setup" data-landing="{{price:crm:landing}}" data-website="{{price:crm:website}}" id="bldCrm">
+                  <span class="opt__box">{{icon:user}}<b class="opt__t">CRM setup</b><span class="opt__d">Every enquiry and booking lands in your customer list and sales pipeline automatically.</span><span class="opt__p" data-price></span></span></label>
+                <label class="opt opt--check"><input type="checkbox" name="extra" value="Online store" data-landing="{{price:store:landing}}" data-website="{{price:store:website}}">
+                  <span class="opt__box">{{icon:card}}<b class="opt__t">Online store</b><span class="opt__d">Up to 20 products, cart, checkout, shipping and order emails.</span><span class="opt__p" data-price></span></span></label>
+                <label class="opt opt--check"><input type="checkbox" name="extra" value="Email marketing" data-landing="{{price:email-marketing:landing}}" data-website="{{price:email-marketing:website}}">
+                  <span class="opt__box">{{icon:envelope}}<b class="opt__t">Email marketing</b><span class="opt__d">Newsletter signup connected to Mailchimp, with an automatic welcome email.</span><span class="opt__p" data-price></span></span></label>
+                <label class="opt opt--check"><input type="checkbox" name="extra" value="Google reviews on the site" data-landing="{{price:reviews:landing}}" data-website="{{price:reviews:website}}">
+                  <span class="opt__box">{{icon:star}}<b class="opt__t">Google reviews</b><span class="opt__d">Your reviews on the site, plus a review link and QR code to collect more.</span><span class="opt__p" data-price></span></span></label>
+                <label class="opt opt--check"><input type="checkbox" name="extra" value="Ads & conversion tracking" data-landing="{{price:tracking:landing}}" data-website="{{price:tracking:website}}">
+                  <span class="opt__box">{{icon:chart}}<b class="opt__t">Ads &amp; conversion tracking</b><span class="opt__d">See which Google and Meta ads bring calls, forms and bookings.</span><span class="opt__p" data-price></span></span></label>
+                <label class="opt opt--check"><input type="checkbox" name="extra" value="WhatsApp chat button" data-landing="{{price:whatsapp:landing}}" data-website="{{price:whatsapp:website}}">
+                  <span class="opt__box">{{icon:chat}}<b class="opt__t">WhatsApp button</b><span class="opt__d">Customers message you on WhatsApp from any page.</span><span class="opt__p" data-price></span></span></label>
                 <label class="opt opt--check"><input type="checkbox" name="extra" value="AI assistant" data-quote>
                   <span class="opt__box">{{icon:robot}}<b class="opt__t">AI assistant</b><span class="opt__d">Answers customer questions and takes enquiries 24/7.</span><span class="opt__p">Quoted after a chat</span></span></label>
                 <label class="opt opt--check"><input type="checkbox" name="extra" value="Automations" data-quote>
                   <span class="opt__box">{{icon:bolt}}<b class="opt__t">Automations</b><span class="opt__d">Enquiries, invoices and follow-ups sent without you.</span><span class="opt__p">Quoted after a chat</span></span></label>
               </div>
+              <label class="field bld__crm" id="bldCrmPick" hidden><span>Which CRM?</span>
+                <select name="crmSystem">
+                  <option>HubSpot (free plan)</option><option>Zoho CRM</option><option>Pipedrive</option><option>The CRM I already use</option><option selected>Not sure, recommend one</option>
+                </select>
+              </label>
             </fieldset>
 
             <fieldset class="bld__step">
@@ -133,10 +164,12 @@
               <p>Always included</p>
               <ul class="checks">
                 <li>Looks right on phones, tablets and computers</li>
-                <li>Enquiry form with an instant reply</li>
+                <li>Enquiry form with an instant reply and spam protection</li>
                 <li>Google Business Profile setup</li>
-                <li>Page titles and descriptions set up for Google</li>
-                <li>Visitor stats (Google Analytics)</li>
+                <li>Page titles, descriptions and Google structured data</li>
+                <li>Visitor stats (Google Analytics) and Search Console</li>
+                <li>Accessible design (WCAG basics) and a privacy page</li>
+                <li>Your domain and accounts stay in your name</li>
                 <li>2 rounds of changes</li>
                 <li>{{price:support:freeDays}} days of free fixes after launch</li>
               </ul>

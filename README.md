@@ -38,7 +38,9 @@ All prices live in `src/static/api/catalog.json`. The price builder (`/pricing/`
 
 ## AI website planner (`/plan/`)
 
-A chat that asks a few questions and then shows a personal website plan with pages, ideas and a price.
+A chat that asks a few questions (business, goal, services, what they have, features, editing/CMS, CRM, timing)
+and then makes a personal website plan. The plan opens as an animated presentation at `/plan/offer/`
+(flow diagram, page map, price chart, timeline, next steps). The whole plan is stored in the link, so it can be shared.
 It uses OpenAI through `api/chat.php`, which runs on Hostinger's normal PHP hosting (no Node server).
 The AI only picks options from the catalog; the page calculates the prices, so it can't invent a price.
 
@@ -47,6 +49,8 @@ The AI only picks options from the catalog; the page calculates the prices, so i
 | What the planner says and how it decides | `src/static/api/prompt.txt` |
 | The two actions it can take (ask / present offer) | `src/static/api/tools.json` |
 | Server bridge to OpenAI (holds no key itself) | `src/static/api/chat.php` |
+| Plan prices, share links and the presentation page | `src/static/offer.js` |
+| Contact details (phone is a placeholder) | `src/data/contact.json` |
 
 **One-time setup on Hostinger**
 1. Create an API key at platform.openai.com → API keys, and add a monthly spending limit under Billing → Limits.
