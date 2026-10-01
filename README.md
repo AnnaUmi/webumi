@@ -67,6 +67,16 @@ The AI only picks options from the catalog; the page calculates the prices, so i
    It sits outside `public_html`, so nobody can download it. Usage counters are saved next to it in `webumi-data/`.
 3. Upload `dist/` as usual. Open webumi.com.au/plan/ and try it.
 
+**Order form (`/order/`)** sends orders by email through `api/order.php`, sends the customer a confirmation,
+and keeps a backup of every order in `webumi-data/orders/` (next to the config file, not public).
+Add two lines to `webumi-config.php`:
+```php
+'order_email' => 'you@webumi.com.au',     // where orders arrive
+'mail_from'   => 'orders@webumi.com.au',  // a real mailbox on your domain (hPanel → Emails)
+```
+Limits: 5 orders per hour and 10 per day per visitor, plus the same Turnstile check as the planner.
+On your Mac, order emails are saved to `webumi-data/outbox/` instead of being sent.
+
 **Protection against wasted OpenAI money** (all in `chat.php`)
 | Check | Limit |
 |---|---|

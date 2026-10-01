@@ -274,7 +274,8 @@
             <ul class="pz-cta__contact"><li>${ic("phone")} ${esc(phone)}</li><li>${ic("envelope")} ${esc(email)}</li><li>${ic("pin")} In-person meetings in Sydney only</li></ul>
           </div>
           <div class="pz-cta__actions">
-            <a href="#contact" class="btn btn--primary" id="pzBook">${ic("calendar")} Book a free call</a>
+            <a href="/order/?type=${p.t}" class="btn btn--primary">Order this plan →</a>
+            <a href="#contact" class="btn btn--dark" id="pzBook">${ic("calendar")} Book a free call</a>
             <button type="button" class="btn btn--ghost" id="pzCopy">Copy link to this plan</button>
             <button type="button" class="btn btn--ghost" id="pzPrint">Save as PDF</button>
             <a href="/plan/" class="btn btn--ghost">Change something</a>

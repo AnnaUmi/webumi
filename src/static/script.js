@@ -9,6 +9,37 @@
   const aud = (n) => "$" + Math.round(n).toLocaleString("en-AU");
   const half = (n) => Math.ceil(n / 2);   // 50% deposit, rounded to whole dollars
 
+  /* Cloudflare Turnstile: an invisible "are you human?" check. Returns a function that resolves to a
+     fresh token ("" if there's no site key or Cloudflare's script is blocked, e.g. by an ad blocker). */
+  function humanCheck(box) {
+    const ts = { widget: null, token: null, waiters: [] };
+    const reset = () => setTimeout(() => ts.widget !== null && window.turnstile.reset(ts.widget), 0);
+    const init = () => {
+      if (ts.widget !== null || !box?.dataset.sitekey || !window.turnstile) return;
+      ts.widget = window.turnstile.render(box, {
+        sitekey: box.dataset.sitekey,
+        appearance: "interaction-only",
+        callback: (t) => { ts.token = t; ts.waiters.splice(0).forEach((f) => f(t)); },
+        "expired-callback": () => { ts.token = null; },
+        "error-callback": () => { ts.waiters.splice(0).forEach((f) => f("")); return true; },
+      });
+    };
+    const poll = setInterval(() => { if (window.turnstile) { clearInterval(poll); init(); } }, 300);
+    setTimeout(() => clearInterval(poll), 30000);
+    return async () => {
+      if (!box?.dataset.sitekey) return "";
+      for (let i = 0; i < 16 && !window.turnstile; i++) await new Promise((r) => setTimeout(r, 250));
+      if (!window.turnstile) return "";
+      init();
+      if (ts.token) { const t = ts.token; ts.token = null; reset(); return t; }
+      return new Promise((resolve) => {
+        const done = (t) => { clearTimeout(timer); ts.token = null; reset(); resolve(t); };
+        const timer = setTimeout(() => { ts.waiters = ts.waiters.filter((f) => f !== done); resolve(""); }, 12000);
+        ts.waiters.push(done);
+      });
+    };
+  }
+
   /* ---------- Nav ---------- */
   const nav = $("#nav");
   const burger = $(".nav__burger");
@@ -532,16 +563,11 @@
     bld.addEventListener("change", update);
     update();
 
+    // "Continue to order": the estimate travels to the order form and is attached to the order
     bld.addEventListener("submit", (e) => {
       e.preventDefault();
-      const need = typeOf() === "landing" ? "Landing page" : "Business website";
-      const box = $(`input[name="need"][value="${need}"]`);
-      if (box) box.checked = true;
-      const msg = $('textarea[name="message"]');
-      if (msg) msg.value = ["My website estimate:", ...summary].join("\n");
-      contactTab("message");
-      contact?.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
-      setTimeout(() => $('#contactForm input[name="name"]')?.focus({ preventScroll: true }), 600);
+      try { sessionStorage.setItem("webumiEstimate", ["Price builder estimate:", ...summary].join("\n")); } catch {}
+      location.href = `/order/?type=${typeOf()}`;
     });
   }
 
@@ -559,34 +585,8 @@
     let state = { messages: [], bubbles: [], offer: null, choices: greeting.choices };
     let catalog, busy = false, planText = "";
 
-    // Cloudflare Turnstile: an invisible "are you human?" check, needed once per conversation
-    const ts = { widget: null, token: null, waiters: [] };
-    function tsInit() {
-      const box = $("#plVerify");
-      if (ts.widget !== null || !box?.dataset.sitekey || !window.turnstile) return;
-      ts.widget = window.turnstile.render(box, {
-        sitekey: box.dataset.sitekey,
-        appearance: "interaction-only",
-        callback: (t) => { ts.token = t; ts.waiters.splice(0).forEach((f) => f(t)); },
-        "expired-callback": () => { ts.token = null; },
-        "error-callback": () => { ts.waiters.splice(0).forEach((f) => f("")); return true; },
-      });
-    }
-    async function humanToken() {
-      if (!$("#plVerify")?.dataset.sitekey) return "";
-      // Cloudflare's script loads async; give it a few seconds (it can be blocked by ad blockers)
-      for (let i = 0; i < 16 && !window.turnstile; i++) await new Promise((r) => setTimeout(r, 250));
-      if (!window.turnstile) return "";
-      tsInit();
-      if (ts.token) { const t = ts.token; ts.token = null; setTimeout(() => ts.widget !== null && window.turnstile.reset(ts.widget), 0); return Promise.resolve(t); }
-      return new Promise((resolve) => {
-        const done = (t) => { clearTimeout(timer); ts.token = null; setTimeout(() => ts.widget !== null && window.turnstile.reset(ts.widget), 0); resolve(t); };
-        const timer = setTimeout(() => { ts.waiters = ts.waiters.filter((f) => f !== done); resolve(""); }, 12000);
-        ts.waiters.push(done);
-      });
-    }
-    const tsPoll = setInterval(() => { if (window.turnstile) { clearInterval(tsPoll); tsInit(); } }, 300);
-    setTimeout(() => clearInterval(tsPoll), 30000);
+    // Cloudflare "are you human?" check, needed once per conversation
+    const humanToken = humanCheck($("#plVerify"));
 
     async function ask(retried = false) {
       const body = { messages: state.messages, conv: state.conv || "", website: plForm.elements.website?.value || "" };
@@ -692,6 +692,7 @@
             <p class="ofc__total">${W.aud(p.total)}</p>
             ${p.monthly ? `<p class="ofc__monthly">+ ${W.aud(p.monthly)}/month</p>` : ""}
             <a class="btn btn--primary btn--block" href="${link}" id="ofOpen">Open your presentation →</a>
+            <a class="btn btn--dark btn--block" href="/order/?type=${p.t}">Order this plan</a>
             <button type="button" class="btn btn--ghost btn--block" id="ofBook">${ic("calendar")} Book a free call</button>
             <button type="button" class="btn btn--ghost btn--block" id="ofSend">Email this plan to Anna</button>
             <p class="ofc__hint">The presentation shows how it all works, your pages, the timeline and payments. You can share its link.</p>
@@ -1019,6 +1020,258 @@
         await wait(2600);
       }
     })();
+  }
+
+  /* ---------- Order form (/order/): one page, sections open on click, file uploads ---------- */
+  const ord = $("#orderForm");
+  if (ord) {
+    const secs = $$(".osec", ord);
+    const humanToken = humanCheck($("#ordVerify"));
+    const DRAFT = "webumiOrder", MAX_FILES = 12, MAX_TOTAL = 20e6;
+    const files = {};            // zone -> [{ name, type, data (base64), url (preview) }]
+    let attached = "";
+    const selectedTypes = () => $$('input[name="types"]:checked', ord).map((i) => i.value);
+    const shown = (el) => !el.closest(".ord__group[hidden], .ord__cond[hidden]");
+    const titleOf = (sec) => sec.querySelector(".osec__head b").textContent;
+    const labelOf = (el) => {
+      if (el.dataset.label) return el.dataset.label;
+      const field = el.closest(".field");
+      if (field) return field.querySelector("span").childNodes[0].textContent.trim();
+      const chips = el.closest(".form__chips, .bld__grid");
+      return (chips?.previousElementSibling?.classList.contains("ord__label") ? chips.previousElementSibling.childNodes[0].textContent : titleOf(el.closest(".osec"))).trim();
+    };
+
+    // ---- open / close sections ----
+    const open = (sec, on = true) => { sec.classList.toggle("is-open", on); $(".osec__head", sec).setAttribute("aria-expanded", on); };
+    secs.forEach((sec, i) => {
+      $(".osec__head", sec).addEventListener("click", () => open(sec, !sec.classList.contains("is-open")));
+      $(".ord__next", sec)?.addEventListener("click", () => {
+        const next = secs[i + 1]; if (!next) return;
+        open(next); next.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      });
+    });
+
+    // ---- show only the questions that apply ----
+    function refresh() {
+      const types = selectedTypes();
+      $$(".ord__group", ord).forEach((g) => (g.hidden = !g.dataset.for.split(" ").some((t) => types.includes(t))));
+      $("[data-none]", ord).hidden = types.length > 0;
+      const logo = $('input[name="logo"]:checked', ord)?.value || "";
+      $$(".ord__cond", ord).forEach((c) => (c.hidden = !c.dataset.ifLogo.split("|").includes(logo)));
+      secs.forEach((sec) => {
+        let n = 0;
+        $$("input, textarea", sec).forEach((el) => {
+          if (!shown(el) || el.type === "file" || !el.name) return;
+          if (el.type === "checkbox" || el.type === "radio") n += el.checked ? 1 : 0; else if (el.value.trim()) n++;
+        });
+        $$("select[data-required]", sec).forEach((el) => (n += el.value ? 1 : 0));
+        $$(".drop", sec).forEach((d) => shown(d) && (n += (files[d.dataset.zone] || []).length));
+        sec.classList.toggle("is-done", n > 0);
+        $(".osec__status", sec).textContent = n ? `✓ ${n} answered` : "Not started";
+      });
+    }
+
+    // ---- file uploads: images are shrunk in the browser so phone photos send quickly ----
+    const toBase64 = (blob) => new Promise((res) => { const r = new FileReader(); r.onload = () => res(String(r.result).split(",")[1]); r.readAsDataURL(blob); });
+    async function prepare(file) {
+      const isImg = /^image\/(jpeg|png|webp|heic|heif)$/.test(file.type);
+      if (isImg && file.size > 600e3 && "createImageBitmap" in window) {
+        try {
+          const bmp = await createImageBitmap(file), k = Math.min(1, 1800 / Math.max(bmp.width, bmp.height));
+          const c = document.createElement("canvas"); c.width = Math.round(bmp.width * k); c.height = Math.round(bmp.height * k);
+          c.getContext("2d").drawImage(bmp, 0, 0, c.width, c.height);
+          const type = file.type === "image/png" ? "image/webp" : "image/jpeg";    // webp keeps transparent logos transparent
+          const blob = await new Promise((r) => c.toBlob(r, type, 0.85));
+          if (blob && blob.size < file.size) return { name: file.name.replace(/\.\w+$/, type === "image/webp" ? ".webp" : ".jpg"), type, blob };
+        } catch {}
+      }
+      return { name: file.name, type: file.type, blob: file };
+    }
+    const totalSize = () => Object.values(files).flat().reduce((s, f) => s + f.size, 0);
+    function drawList(zone) {
+      const list = $(`.drop[data-zone="${zone}"] .drop__list`, ord);
+      list.innerHTML = "";
+      (files[zone] || []).forEach((f, i) => {
+        const li = document.createElement("li");
+        li.innerHTML = f.type.startsWith("image/") ? `<img src="${f.url}" alt="">` : `<span class="drop__pdf">PDF</span>`;
+        const name = document.createElement("span"); name.textContent = f.name; li.append(name);
+        const rm = document.createElement("button"); rm.type = "button"; rm.textContent = "×"; rm.setAttribute("aria-label", "Remove " + f.name);
+        rm.addEventListener("click", (e) => { e.stopPropagation(); files[zone].splice(i, 1); drawList(zone); refresh(); });
+        li.append(rm); list.append(li);
+      });
+    }
+    async function addFiles(zone, list) {
+      const err = $("#ordError");
+      for (const file of list) {
+        if (!/^image\//.test(file.type) && file.type !== "application/pdf") { err.textContent = `${file.name}: only images and PDFs can be uploaded.`; err.hidden = false; continue; }
+        if (Object.values(files).flat().length >= MAX_FILES) { err.textContent = `Up to ${MAX_FILES} files. For more, add a Google Drive or Dropbox link in the description.`; err.hidden = false; break; }
+        const p = await prepare(file);
+        if (p.blob.size > 8e6 || totalSize() + p.blob.size > MAX_TOTAL) { err.textContent = `${file.name} is too big. Please add a Google Drive or Dropbox link instead.`; err.hidden = false; continue; }
+        (files[zone] ||= []).push({ name: p.name, type: p.type, size: p.blob.size, data: await toBase64(p.blob), url: URL.createObjectURL(p.blob) });
+      }
+      drawList(zone); refresh();
+    }
+    $$(".drop", ord).forEach((d) => {
+      const input = $("input[type=file]", d), zone = d.dataset.zone;
+      d.addEventListener("click", (e) => { if (!e.target.closest("button")) input.click(); });
+      input.addEventListener("change", () => { addFiles(zone, [...input.files]); input.value = ""; });
+      ["dragenter", "dragover"].forEach((t) => d.addEventListener(t, (e) => { e.preventDefault(); d.classList.add("is-over"); }));
+      ["dragleave", "drop"].forEach((t) => d.addEventListener(t, () => d.classList.remove("is-over")));
+      d.addEventListener("drop", (e) => { e.preventDefault(); addFiles(zone, [...e.dataTransfer.files]); });
+    });
+
+    // ---- everything entered, grouped by section (for the email) ----
+    function summary() {
+      return secs.map((sec) => {
+        const rows = [], seen = {};
+        $$("input, select, textarea", sec).forEach((el) => {
+          if (!shown(el) || !el.name || el.type === "file") return;
+          if (el.type === "checkbox" || el.type === "radio" || el.type === "color") {
+            if (el.type !== "color" && !el.checked) return;
+            const v = el.name === "types" ? el.closest(".opt").querySelector(".opt__t").textContent : el.type === "color" ? el.value.toUpperCase() : el.value, key = labelOf(el);
+            if (seen[key] !== undefined) rows[seen[key]][1] += ", " + v; else { seen[key] = rows.length; rows.push([key, v]); }
+          } else if (el.value.trim()) rows.push([labelOf(el), el.value.trim()]);
+        });
+        $$(".drop", sec).forEach((d) => {
+          const list = files[d.dataset.zone] || [];
+          if (shown(d) && list.length) rows.push([labelOf(d), list.map((f) => f.name).join(", ")]);
+        });
+        return { title: titleOf(sec), rows };
+      }).concat([{ title: "Your details", rows: ["name", "email", "phone", "contactBy"].map((n) => [labelOf(ord.elements[n]), ord.elements[n].value.trim()]).filter((r) => r[1]) }])
+        .filter((x) => x.rows.length);
+    }
+
+    // ---- colour palettes: live preview + your own colours ----
+    const preview = $("#palPreview");
+    const DEFAULTS = ["#0F2A3D", "#FF6B4A", "#FFD23F", "#F4E9D8", "#1FA592"];
+    function paint() {
+      const pick = $('input[name="palette"]:checked', ord);
+      const own = $$('input[name="customColour"]', ord).map((i) => i.value);
+      const cols = pick?.dataset.colours ? pick.dataset.colours.split(" ") : own.length ? own : null;
+      preview.classList.toggle("is-on", !!cols);
+      if (cols) ["--p1", "--p2", "--p3", "--p4"].forEach((v, i) => preview.style.setProperty(v, cols[i % cols.length]));
+      $("#palName").textContent = pick?.dataset.colours ? pick.value.split(":")[0] : cols ? "Your colours" : pick ? pick.value : "Pick a palette to preview it";
+    }
+    function addColour(value) {
+      const box = $("#palCustom");
+      if ($$('input[name="customColour"]', box).length >= 5) return;
+      const chip = document.createElement("span"); chip.className = "pal__chip";
+      const input = document.createElement("input");
+      Object.assign(input, { type: "color", name: "customColour", value: value || DEFAULTS[$$('input[name="customColour"]', box).length] });
+      input.dataset.label = "Your own colours"; input.setAttribute("aria-label", "Colour");
+      const rm = document.createElement("button"); rm.type = "button"; rm.textContent = "×"; rm.setAttribute("aria-label", "Remove colour");
+      rm.addEventListener("click", () => { chip.remove(); paint(); saveDraft(); refresh(); });
+      chip.append(input, rm);
+      box.insertBefore(chip, $("#palAdd"));
+      $("#palAdd").hidden = $$('input[name="customColour"]', box).length >= 5;
+      paint();
+    }
+    $("#palAdd").addEventListener("click", () => { addColour(); saveDraft(); refresh(); });
+    ord.addEventListener("input", (e) => { if (e.target.name === "palette" || e.target.name === "customColour") paint(); });
+    ord.addEventListener("change", (e) => { if (e.target.name === "palette") paint(); });
+
+    // ---- draft: keep typed answers if the page is refreshed (files can't be kept) ----
+    const saveDraft = () => {
+      const d = {};
+      $$("input, select, textarea", ord).forEach((el) => {
+        if (!el.name || el.name === "website" || el.name === "consent" || el.type === "file") return;
+        if (el.type === "checkbox" || el.type === "radio") { if (el.checked) (d[el.name] ||= []).push(el.value); }
+        else if (el.type === "color") (d[el.name] ||= []).push(el.value);
+        else if (el.value) d[el.name] = el.value;
+      });
+      try { sessionStorage.setItem(DRAFT, JSON.stringify(d)); } catch {}
+    };
+    try {
+      const d = JSON.parse(sessionStorage.getItem(DRAFT) || "{}");
+      $$("input, select, textarea", ord).forEach((el) => {
+        if (!(el.name in d) || el.type === "file") return;
+        if (el.type === "checkbox" || el.type === "radio") el.checked = d[el.name].includes(el.value); else el.value = d[el.name];
+      });
+      (d.customColour || []).forEach((c) => addColour(c));
+    } catch {}
+    ord.addEventListener("input", () => { saveDraft(); refresh(); });
+    ord.addEventListener("change", () => { saveDraft(); refresh(); });
+
+    // ---- arriving with ?type=website, or from the planner / price builder ----
+    const q = new URLSearchParams(location.search).get("type");
+    if (q) { const box = $(`input[name="types"][value="${q.replace(/[^a-z]/g, "")}"]`, ord); if (box) box.checked = true; }
+    try {
+      const plan = JSON.parse(sessionStorage.getItem("webumiPlan") || "{}").offer;
+      const est = sessionStorage.getItem("webumiEstimate");
+      if (plan?.headline && window.WebumiOffer) {
+        attached = `Website plan: ${plan.headline}\n${location.origin}${window.WebumiOffer.linkFor(plan)}`;
+        $("#ordPlanLink").href = window.WebumiOffer.linkFor(plan);
+        $("#ordPlan").hidden = false;
+        const t = $(`input[name="types"][value="${plan.type === "landing" ? "landing" : "website"}"]`, ord); if (t && !selectedTypes().length) t.checked = true;
+        if (!ord.elements.business.value && !/^your /i.test(plan.business_name)) ord.elements.business.value = plan.business_name;
+      } else if (est) {
+        attached = est;
+        $("#ordPlan").hidden = false;
+        $("#ordPlan span").textContent = "Your price builder estimate will be attached to this order.";
+      }
+    } catch {}
+    refresh(); paint();
+
+    // ---- check, then send ----
+    function check() {
+      let first = null;
+      const bad = (el, sec) => { if (!first) first = { el, sec }; };
+      const none = !selectedTypes().length;
+      $('[data-err="types"]', ord).classList.toggle("is-on", none);
+      if (none) bad($('input[name="types"]', ord), secs[0]);
+      $$("[data-required]", ord).forEach((el) => {
+        const off = !el.value.trim() || !el.checkValidity();
+        el.closest(".field").classList.toggle("is-invalid", off);
+        if (off) bad(el, el.closest(".osec"));
+      });
+      const c = !ord.elements.consent.checked;
+      $('[data-err="consent"]', ord).classList.toggle("is-on", c);
+      if (c) bad(ord.elements.consent, null);
+      if (first) {
+        if (first.sec) open(first.sec);
+        first.el.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
+        setTimeout(() => first.el.focus({ preventScroll: true }), 300);
+      }
+      return !first;
+    }
+    $$("[data-required]", ord).forEach((el) => el.addEventListener("input", () => el.closest(".field")?.classList.remove("is-invalid")));
+
+    ord.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (!check()) return;
+      const btn = $("#ordSubmit"), err = $("#ordError");
+      btn.disabled = true; btn.textContent = "Sending…"; err.hidden = true;
+      const payload = {
+        types: selectedTypes(), name: ord.elements.name.value.trim(), email: ord.elements.email.value.trim(),
+        business: ord.elements.business.value.trim(), consent: true, summary: summary(), plan: attached,
+        website: ord.elements.website.value,
+        files: Object.entries(files).flatMap(([zone, list]) => list.map((f) => ({ zone, name: f.name, type: f.type, data: f.data }))),
+      };
+      try {
+        let data;
+        for (let attempt = 0; attempt < 2; attempt++) {
+          payload.turnstile = await humanToken();
+          const r = await fetch("/api/order.php", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+          data = await r.json().catch(() => ({ error: r.status === 413 ? "The files are too big. Please remove some, or add a Google Drive link." : "Something went wrong. Please try again in a moment." }));
+          if (data.code !== "verify") break;
+        }
+        if (!data.ok) throw new Error(data.error || "Something went wrong.");
+        try { sessionStorage.removeItem(DRAFT); sessionStorage.removeItem("webumiEstimate"); } catch {}
+        $("#ordRef").textContent = data.ref;
+        $("#ordEmail").textContent = payload.email;
+        [...secs, $(".ord__contact", ord), $("#ordPlan")].forEach((el) => (el.hidden = true));
+        $("#ordDone").hidden = false;
+        ord.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+        confetti(ord);
+      } catch (x) {
+        const to = $("#ctEmail")?.textContent || "hello@webumi.com.au";
+        err.innerHTML = "";
+        err.append(`${x instanceof TypeError ? "Can't reach the server. Check your internet connection." : x.message} You can also email your order to `);
+        const a = document.createElement("a"); a.href = `mailto:${to}?subject=${encodeURIComponent("Order request")}`; a.textContent = to; err.append(a, ".");
+        err.hidden = false;
+      }
+      btn.disabled = false; btn.textContent = "Send order →";
+    });
   }
 
   /* ---------- Non-profit application form ---------- */

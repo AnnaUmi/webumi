@@ -32,53 +32,22 @@ const CONV_TTL          = 7200;    // a conversation token lasts 2 hours
 // OpenAI prices in USD per 1M tokens (gpt-5-mini). Update these if you change the model.
 const PRICE_IN = 0.25, PRICE_CACHED = 0.025, PRICE_OUT = 2.00;
 
-function fail($code, $msg, $kind = 'error') { http_response_code($code); echo json_encode(['error' => $msg, 'code' => $kind]); exit; }
-
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') fail(405, 'POST only');
+require __DIR__ . '/lib.php';
 
 // ---------- config ----------
-$config = [];
-$configDir = dirname(__DIR__, 2);
-foreach ([dirname(__DIR__, 2) . '/webumi-config.php', dirname(__DIR__, 3) . '/webumi-config.php'] as $f) {
-  if (is_file($f)) { $config = include $f; $configDir = dirname($f); break; }
-}
-if (!is_array($config)) $config = [];
+$config = webumi_config();
 $key = $config['openai_key'] ?? getenv('OPENAI_API_KEY');
 $model = $config['model'] ?? 'gpt-5-mini';
 $budget = (float)($config['daily_budget'] ?? getenv('WEBUMI_DAILY_BUDGET') ?: 0.50);
+$in = request_json();
 if (!$key) fail(500, 'The planner is not set up yet.');
 $secret = hash('sha256', 'webumi-planner|' . ($config['app_secret'] ?? $key));
-
-$dataDir = "$configDir/webumi-data";
-if (!is_dir($dataDir) && !@mkdir($dataDir, 0700, true)) {
-  $dataDir = sys_get_temp_dir() . '/webumi-data';
-  if (!is_dir($dataDir)) @mkdir($dataDir, 0700, true);
-}
-
-/** Read-modify-write a small JSON file under a lock. $fn gets the data and returns [newData, result]. */
-function with_json($file, callable $fn) {
-  $h = @fopen($file, 'c+');
-  if (!$h) return $fn([])[1];
-  flock($h, LOCK_EX);
-  $data = json_decode(stream_get_contents($h) ?: '[]', true) ?: [];
-  [$data, $result] = $fn($data);
-  ftruncate($h, 0); rewind($h); fwrite($h, json_encode($data));
-  flock($h, LOCK_UN); fclose($h);
-  return $result;
-}
+$dataDir = data_dir();
 
 // ---------- 1. origin + honeypot ----------
-$raw = file_get_contents('php://input');
-if ($raw === '' && PHP_SAPI === 'cli') $raw = stream_get_contents(STDIN);   // local preview runs this file from the command line
-$in = json_decode($raw, true);
-if (!is_array($in)) fail(400, 'Bad request');
-$origin = parse_url($_SERVER['HTTP_ORIGIN'] ?? '', PHP_URL_HOST) ?: '';
-$allowed = array_merge(['webumi.com.au', 'www.webumi.com.au'], (array)($config['allowed_hosts'] ?? []), array_filter(explode(',', (string)getenv('WEBUMI_ALLOWED_HOSTS'))));
-if (!in_array($origin, $allowed, true)) fail(403, 'Not allowed');
-if (!empty($in['website'])) fail(400, 'Bad request');   // hidden field that only bots fill in
-
-$ipKey = substr(hash('sha256', ($_SERVER['REMOTE_ADDR'] ?? 'x') . $secret), 0, 24);
-$today = gmdate('Y-m-d', time() + 10 * 3600);            // the day in Sydney (AEST)
+check_origin_and_honeypot($in);
+$ipKey = visitor_key($secret);
+$today = sydney_today();
 
 // ---------- 4a. daily budget, checked before anything is spent ----------
 $usageFile = "$dataDir/usage-$today.json";
@@ -94,17 +63,7 @@ if (is_string($in['conv'] ?? null) && strpos($in['conv'], '.') !== false) {
       && ($data['exp'] ?? 0) > time() && ($data['ip'] ?? '') === $ipKey) $conv = $data;
 }
 if (!$conv) {
-  $tsSecret = $config['turnstile_secret'] ?? getenv('TURNSTILE_SECRET');
-  if ($tsSecret) {
-    $token = is_string($in['turnstile'] ?? null) ? $in['turnstile'] : '';
-    if (!$token) fail(401, 'Please confirm you are human.', 'verify');
-    $ch = curl_init('https://challenges.cloudflare.com/turnstile/v0/siteverify');
-    curl_setopt_array($ch, [CURLOPT_POST => true, CURLOPT_RETURNTRANSFER => true, CURLOPT_TIMEOUT => 10,
-      CURLOPT_POSTFIELDS => http_build_query(['secret' => $tsSecret, 'response' => $token, 'remoteip' => $_SERVER['REMOTE_ADDR'] ?? ''])]);
-    $ok = json_decode(curl_exec($ch) ?: '', true)['success'] ?? false;
-    curl_close($ch);
-    if (!$ok) fail(401, 'Please confirm you are human.', 'verify');
-  }
+  verify_turnstile($in['turnstile'] ?? '');
   $canStart = with_json("$dataDir/convs-$today.json", function ($d) use ($ipKey) {
     if (($d[$ipKey] ?? 0) >= MAX_CONVERSATIONS) return [$d, false];
     $d[$ipKey] = ($d[$ipKey] ?? 0) + 1;

@@ -40,6 +40,7 @@ Tagline: "More customers. Less admin." — Web, AI & Automation for Small Busine
 - Business automation and integrations: https://webumi.com.au/automation/
 - Pricing and price builder: https://webumi.com.au/pricing/
 - Plan my website (free planner): https://webumi.com.au/plan/
+- Order (detailed order form, fixed quote within 1 business day): https://webumi.com.au/order/
 - About Anna: https://webumi.com.au/about/
 - Projects (MyTalisman and Wealth Frequency iOS apps, MyGoodLuck web app (PWA)): https://webumi.com.au/projects/
 - Free help for volunteer-run non-profits: https://webumi.com.au/non-profits/

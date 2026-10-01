@@ -167,7 +167,8 @@ if (process.argv[2] === "serve") {
   const types = { ".html": "text/html; charset=utf-8", ".css": "text/css", ".js": "text/javascript", ".svg": "image/svg+xml",
     ".png": "image/png", ".txt": "text/plain; charset=utf-8", ".xml": "application/xml", ".webmanifest": "application/manifest+json" };
   http.createServer((req, res) => {
-    if (req.method === "POST" && req.url.startsWith("/api/chat.php")) return devChat(req, res);
+    const api = req.method === "POST" && req.url.match(/^\/api\/(chat|order)\.php/);
+    if (api) return devPhp(req, res, api[1]);
     let p = decodeURIComponent(req.url.split("?")[0]);
     if (p.endsWith("/")) p += "index.html";
     const file = path.join(DIST, p);
@@ -184,26 +185,28 @@ if (process.argv[2] === "serve") {
 }
 
 /*
-  Local preview of api/chat.php. PHP isn't installed on a Mac, so the real chat.php runs through
-  PHP compiled to WebAssembly (npx @php-wasm/cli), with the same limits, bot check and budget as
-  on Hostinger. Settings come from .env (OPENAI_API_KEY, TURNSTILE_SECRET, WEBUMI_DAILY_BUDGET).
-  Without OPENAI_API_KEY it plays a short scripted demo instead.
+  Local preview of the PHP files in api/ (chat.php, order.php). PHP isn't installed on a Mac, so the
+  real files run through PHP compiled to WebAssembly (npx @php-wasm/cli), with the same checks as on
+  Hostinger. Settings come from .env (OPENAI_API_KEY, TURNSTILE_SECRET, WEBUMI_DAILY_BUDGET).
+  Without OPENAI_API_KEY the planner plays a short scripted demo. Order emails can't be sent
+  locally; they're saved to webumi-data/outbox/ so you can read them.
 */
 const PHP_WASM = "@php-wasm/cli@3.1.56";
 const STATUS = { verify: 401, limit: 429, budget: 503 };
 
-function devChat(req, res) {
+function devPhp(req, res, name) {
   let body = "";
   req.on("data", (c) => (body += c));
   req.on("end", () => {
     const send = (code, data) => { res.writeHead(code, { "Content-Type": "application/json" }); res.end(JSON.stringify(data)); };
-    if (!process.env.OPENAI_API_KEY) {
+    if (name === "chat" && !process.env.OPENAI_API_KEY) {
       let messages;
       try { messages = JSON.parse(body || "{}").messages || []; } catch { return send(400, { error: "Bad request" }); }
       return setTimeout(() => send(200, { ...demoTurn(messages), conv: "demo" }), 700);
     }
-    const php = require("child_process").spawn("npx", ["-y", PHP_WASM, path.join(DIST, "api", "chat.php")], {
-      env: { ...process.env, REQUEST_METHOD: "POST", HTTP_ORIGIN: req.headers.origin || "", REMOTE_ADDR: req.socket.remoteAddress || "", WEBUMI_ALLOWED_HOSTS: "localhost" },
+    const php = require("child_process").spawn("npx", ["-y", PHP_WASM, path.join(DIST, "api", name + ".php")], {
+      env: { ...process.env, REQUEST_METHOD: "POST", HTTP_ORIGIN: req.headers.origin || "", REMOTE_ADDR: req.socket.remoteAddress || "",
+        WEBUMI_ALLOWED_HOSTS: "localhost", WEBUMI_DEV_OUTBOX: "1" },
     });
     let out = "", err = "";
     php.stdout.on("data", (c) => (out += c));
@@ -214,8 +217,8 @@ function devChat(req, res) {
         const data = JSON.parse(json);
         send(data.error ? STATUS[data.code] || 400 : 200, data);
       } catch {
-        console.error("chat.php:", (out + err).split("\n").filter((l) => !l.includes("npm warn")).join("\n").slice(0, 800));
-        send(502, { error: "The planner is busy. Please try again in a moment." });
+        console.error(name + ".php:", (out + err).split("\n").filter((l) => !l.includes("npm warn")).join("\n").slice(0, 800));
+        send(502, { error: "Something went wrong. Please try again in a moment." });
       }
     });
     php.stdin.end(body);

@@ -1,0 +1,311 @@
+<!--meta
+{
+ "title": "Order a Website, App or AI Agent | Webumi",
+ "ogTitle": "Order from Webumi",
+ "description": "Tell us what you want to build, share your ideas and files, and get a written, fixed quote within 1 business day. No payment until you approve it.",
+ "crumb": "Order"
+}
+-->
+    <section class="phero phero--short">
+      <div class="hero__glow" aria-hidden="true"></div>
+      <div class="wrap">
+        <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span>Order</span></nav>
+        <p class="kicker">Order</p>
+        <h1>What do you want to build? <em>Tell me everything.</em></h1>
+        <p class="hero__lead">Open any section to fill it in. Share your ideas, links and files. You'll get a written, fixed quote within 1 business day, and nothing is charged until you approve it.</p>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="wrap">
+        <form class="ord" id="orderForm" novalidate>
+          <div class="ord__plan" id="ordPlan" hidden>{{icon:sparkle}} <span>Your website plan will be attached to this order. <a id="ordPlanLink" href="/plan/offer/">View plan</a></span></div>
+          <input class="pl__hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+          <!-- 1 -->
+          <section class="osec is-open" data-sec="build">
+            <button type="button" class="osec__head" aria-expanded="true"><span class="osec__n">1</span><b>What do you want to build?</b><span class="osec__status"></span><i class="osec__chev" aria-hidden="true"></i></button>
+            <div class="osec__body">
+              <p class="ord__hint">Choose any.</p>
+              <div class="bld__grid bld__grid--3">
+                <label class="opt opt--check"><input type="checkbox" name="types" value="landing"><span class="opt__box">{{icon:doc}}<b class="opt__t">Landing page</b><span class="opt__d">One page, one goal. From {{aud:landing:price}}.</span></span></label>
+                <label class="opt opt--check"><input type="checkbox" name="types" value="website"><span class="opt__box">{{icon:pin}}<b class="opt__t">Business website</b><span class="opt__d">Up to {{price:website:pages}} pages. From {{aud:website:price}}.</span></span></label>
+                <label class="opt opt--check"><input type="checkbox" name="types" value="store"><span class="opt__box">{{icon:card}}<b class="opt__t">Online store</b><span class="opt__d">Sell products online. From {{aud:store:website}}.</span></span></label>
+                <label class="opt opt--check"><input type="checkbox" name="types" value="pwa"><span class="opt__box">{{icon:phone}}<b class="opt__t">Web app (PWA)</b><span class="opt__d">Installs from the browser. From $8,900.</span></span></label>
+                <label class="opt opt--check"><input type="checkbox" name="types" value="mobile"><span class="opt__box">{{icon:phone}}<b class="opt__t">iOS &amp; Android app</b><span class="opt__d">App Store and Google Play. From $14,900.</span></span></label>
+                <label class="opt opt--check"><input type="checkbox" name="types" value="platform"><span class="opt__box">{{icon:puzzle}}<b class="opt__t">Platform or portal</b><span class="opt__d">Logins, dashboards, SaaS. From $15,000.</span></span></label>
+                <label class="opt opt--check"><input type="checkbox" name="types" value="ai"><span class="opt__box">{{icon:robot}}<b class="opt__t">AI agent or assistant</b><span class="opt__d">Chat, quotes, documents. From {{aud:ai-assistant:website}}.</span></span></label>
+                <label class="opt opt--check"><input type="checkbox" name="types" value="fix"><span class="opt__box">{{icon:wrench}}<b class="opt__t">Fix or redesign</b><span class="opt__d">Improve the website you have.</span></span></label>
+                <label class="opt opt--check"><input type="checkbox" name="types" value="support"><span class="opt__box">{{icon:shield}}<b class="opt__t">Support plan</b><span class="opt__d">Care from {{aud:care:monthly}}/month.</span></span></label>
+              </div>
+              <p class="ord__err" data-err="types">Choose at least one option.</p>
+              <button type="button" class="ord__next">Next section ↓</button>
+            </div>
+          </section>
+
+          <!-- 2 -->
+          <section class="osec" data-sec="idea">
+            <button type="button" class="osec__head" aria-expanded="false"><span class="osec__n">2</span><b>Your idea &amp; inspiration</b><span class="osec__status"></span><i class="osec__chev" aria-hidden="true"></i></button>
+            <div class="osec__body">
+              <label class="field"><span>Describe your ideal website or app</span><textarea name="ideal" rows="4" placeholder="What should people feel and do when they visit? What must it have? What do you dislike about other sites?"></textarea></label>
+              <label class="field"><span>Links to sites or apps you like <em>(one per line, and why)</em></span><textarea name="likes" rows="3" placeholder="www.example.com – love the big photos&#10;www.another.com – simple booking"></textarea></label>
+              <div class="field"><span>Upload anything that inspires you <em>(screenshots, colours, photos, mood boards)</em></span>
+                <div class="drop" data-zone="inspiration"><input type="file" multiple accept="image/*,application/pdf" hidden>
+                  <p>{{icon:folder}} <b>Drop files here</b> or <u>choose files</u></p><small>Images or PDFs</small><ul class="drop__list"></ul></div>
+              </div>
+              <p class="ord__label">Which words fit your style? <em>(choose any)</em></p>
+              <div class="form__chips">
+                <label class="tick"><input type="checkbox" name="style" value="Clean"><span>Clean</span></label>
+                <label class="tick"><input type="checkbox" name="style" value="Bold"><span>Bold</span></label>
+                <label class="tick"><input type="checkbox" name="style" value="Warm & friendly"><span>Warm &amp; friendly</span></label>
+                <label class="tick"><input type="checkbox" name="style" value="Premium"><span>Premium</span></label>
+                <label class="tick"><input type="checkbox" name="style" value="Playful"><span>Playful</span></label>
+                <label class="tick"><input type="checkbox" name="style" value="Minimal"><span>Minimal</span></label>
+                <label class="tick"><input type="checkbox" name="style" value="Natural"><span>Natural</span></label>
+                <label class="tick"><input type="checkbox" name="style" value="Techy"><span>Techy</span></label>
+              </div>
+<p class="ord__label">Colour palette <em>(pick one, or add your own below)</em></p>
+              <div class="pal">
+                <div class="pal__grid bld__grid">
+                  <label class="pal__opt"><input type="radio" name="palette" data-label="Colour palette" value="Coastal: #0F4C5C, #1FA592, #F4E9D8, #FF6B4A" data-colours="#0F4C5C #1FA592 #F4E9D8 #FF6B4A"><span class="pal__box"><span class="pal__sw"><i style="background:#0F4C5C"></i><i style="background:#1FA592"></i><i style="background:#F4E9D8"></i><i style="background:#FF6B4A"></i></span><b>Coastal</b></span></label>
+                  <label class="pal__opt"><input type="radio" name="palette" data-label="Colour palette" value="Fresh & clean: #12343B, #2BB59A, #E8F6F3, #FFFFFF" data-colours="#12343B #2BB59A #E8F6F3 #FFFFFF"><span class="pal__box"><span class="pal__sw"><i style="background:#12343B"></i><i style="background:#2BB59A"></i><i style="background:#E8F6F3"></i><i style="background:#FFFFFF"></i></span><b>Fresh &amp; clean</b></span></label>
+                  <label class="pal__opt"><input type="radio" name="palette" data-label="Colour palette" value="Warm earth: #3E2C23, #A0522D, #D9A066, #F6EFE6" data-colours="#3E2C23 #A0522D #D9A066 #F6EFE6"><span class="pal__box"><span class="pal__sw"><i style="background:#3E2C23"></i><i style="background:#A0522D"></i><i style="background:#D9A066"></i><i style="background:#F6EFE6"></i></span><b>Warm earth</b></span></label>
+                  <label class="pal__opt"><input type="radio" name="palette" data-label="Colour palette" value="Luxe: #0D0D0D, #C9A86A, #6B5B4B, #F5F1EA" data-colours="#0D0D0D #C9A86A #6B5B4B #F5F1EA"><span class="pal__box"><span class="pal__sw"><i style="background:#0D0D0D"></i><i style="background:#C9A86A"></i><i style="background:#6B5B4B"></i><i style="background:#F5F1EA"></i></span><b>Luxe</b></span></label>
+                  <label class="pal__opt"><input type="radio" name="palette" data-label="Colour palette" value="Playful: #111111, #FF6B4A, #FFD23F, #1EE3FF" data-colours="#111111 #FF6B4A #FFD23F #1EE3FF"><span class="pal__box"><span class="pal__sw"><i style="background:#111111"></i><i style="background:#FF6B4A"></i><i style="background:#FFD23F"></i><i style="background:#1EE3FF"></i></span><b>Playful</b></span></label>
+                  <label class="pal__opt"><input type="radio" name="palette" data-label="Colour palette" value="Soft & calm: #6D6875, #B5838D, #E8D5D0, #F7F3F0" data-colours="#6D6875 #B5838D #E8D5D0 #F7F3F0"><span class="pal__box"><span class="pal__sw"><i style="background:#6D6875"></i><i style="background:#B5838D"></i><i style="background:#E8D5D0"></i><i style="background:#F7F3F0"></i></span><b>Soft &amp; calm</b></span></label>
+                  <label class="pal__opt"><input type="radio" name="palette" data-label="Colour palette" value="Bold tech: #0B1020, #5B5BF7, #00D4B4, #F2F4FF" data-colours="#0B1020 #5B5BF7 #00D4B4 #F2F4FF"><span class="pal__box"><span class="pal__sw"><i style="background:#0B1020"></i><i style="background:#5B5BF7"></i><i style="background:#00D4B4"></i><i style="background:#F2F4FF"></i></span><b>Bold tech</b></span></label>
+                  <label class="pal__opt"><input type="radio" name="palette" data-label="Colour palette" value="Natural green: #344E41, #588157, #A3B18A, #F3F6EE" data-colours="#344E41 #588157 #A3B18A #F3F6EE"><span class="pal__box"><span class="pal__sw"><i style="background:#344E41"></i><i style="background:#588157"></i><i style="background:#A3B18A"></i><i style="background:#F3F6EE"></i></span><b>Natural green</b></span></label>
+                  <label class="pal__opt"><input type="radio" name="palette" data-label="Colour palette" value="Bright & sunny: #023047, #FB8500, #FFB703, #FFF8E7" data-colours="#023047 #FB8500 #FFB703 #FFF8E7"><span class="pal__box"><span class="pal__sw"><i style="background:#023047"></i><i style="background:#FB8500"></i><i style="background:#FFB703"></i><i style="background:#FFF8E7"></i></span><b>Bright &amp; sunny</b></span></label>
+                  <label class="pal__opt"><input type="radio" name="palette" data-label="Colour palette" value="Ocean blues: #082F49, #0369A1, #38BDF8, #E0F2FE" data-colours="#082F49 #0369A1 #38BDF8 #E0F2FE"><span class="pal__box"><span class="pal__sw"><i style="background:#082F49"></i><i style="background:#0369A1"></i><i style="background:#38BDF8"></i><i style="background:#E0F2FE"></i></span><b>Ocean blues</b></span></label>
+                  <label class="pal__opt"><input type="radio" name="palette" data-label="Colour palette" value="Match my logo"><span class="pal__box pal__box--text">{{icon:star}}<b>Match my logo</b></span></label>
+                  <label class="pal__opt"><input type="radio" name="palette" data-label="Colour palette" value="Suggest one for me"><span class="pal__box pal__box--text">{{icon:sparkle}}<b>Suggest one for me</b></span></label>
+                </div>
+                <div class="pal__preview" id="palPreview" aria-hidden="true">
+                  <div class="pal__mock">
+                    <div class="pal__nav"><span></span><i></i><i></i><i></i></div>
+                    <div class="pal__hero"><b>Your business</b><small>Your colours, on a real layout</small><span class="pal__btn">Book now</span></div>
+                    <div class="pal__cards"><span></span><span></span><span></span></div>
+                  </div>
+                  <small id="palName">Pick a palette to preview it</small>
+                </div>
+              </div>
+              <p class="ord__label">Your own colours <em>(optional)</em></p>
+              <div class="pal__custom form__chips" id="palCustom">
+                <button type="button" class="pal__add" id="palAdd">+ Add colour</button>
+              </div>
+              <button type="button" class="ord__next">Next section ↓</button>
+            </div>
+          </section>
+
+          <!-- 3 -->
+          <section class="osec" data-sec="logo">
+            <button type="button" class="osec__head" aria-expanded="false"><span class="osec__n">3</span><b>Logo</b><span class="osec__status"></span><i class="osec__chev" aria-hidden="true"></i></button>
+            <div class="osec__body">
+              <p class="ord__label">Do you need a logo?</p>
+              <div class="bld__grid bld__grid--2 ord__logo">
+                <label class="opt"><input type="radio" name="logo" value="Yes, design a logo for me"><span class="opt__box">{{icon:star}}<b class="opt__t">Yes, design one</b><span class="opt__d">Logo &amp; mini brand kit, {{aud:logo:website}}.</span></span></label>
+                <label class="opt"><input type="radio" name="logo" value="Refresh my current logo"><span class="opt__box">{{icon:sparkle}}<b class="opt__t">Refresh mine</b><span class="opt__d">Modernise the logo you have.</span></span></label>
+                <label class="opt"><input type="radio" name="logo" value="I have a logo"><span class="opt__box">{{icon:shield}}<b class="opt__t">I have one</b><span class="opt__d">Upload it below.</span></span></label>
+                <label class="opt"><input type="radio" name="logo" value="Not sure"><span class="opt__box">{{icon:question}}<b class="opt__t">Not sure</b><span class="opt__d">We'll talk about it.</span></span></label>
+              </div>
+              <div class="ord__cond" data-if-logo="Yes, design a logo for me|Refresh my current logo">
+                <label class="field"><span>What do you see in your logo?</span><textarea name="logoIdea" rows="3" placeholder="Shapes, symbols, a mascot, a feeling, colours, fonts… e.g. 'a friendly dog, rounded letters, coral and navy'"></textarea></label>
+                <div class="field"><span>Logo styles you like <em>(upload examples)</em></span>
+                  <div class="drop" data-zone="logo-styles"><input type="file" multiple accept="image/*,application/pdf" hidden>
+                    <p>{{icon:folder}} <b>Drop logo examples here</b> or <u>choose files</u></p><small>Images or PDFs</small><ul class="drop__list"></ul></div>
+                </div>
+              </div>
+              <div class="ord__cond" data-if-logo="I have a logo|Refresh my current logo">
+                <div class="field"><span>Your current logo <em>(upload)</em></span>
+                  <div class="drop" data-zone="logo"><input type="file" multiple accept="image/*,application/pdf" hidden>
+                    <p>{{icon:folder}} <b>Drop your logo here</b> or <u>choose files</u></p><small>PNG, SVG export as PNG, or PDF</small><ul class="drop__list"></ul></div>
+                </div>
+              </div>
+              <button type="button" class="ord__next">Next section ↓</button>
+            </div>
+          </section>
+
+          <!-- 4 -->
+          <section class="osec" data-sec="business">
+            <button type="button" class="osec__head" aria-expanded="false"><span class="osec__n">4</span><b>Your business</b><span class="osec__status"></span><i class="osec__chev" aria-hidden="true"></i></button>
+            <div class="osec__body">
+              <div class="form__row">
+                <label class="field"><span>Business name</span><input name="business" data-required autocomplete="organization" placeholder="Bondi Dog Spa"></label>
+                <label class="field"><span>What does the business do?</span><input name="industry" data-required placeholder="Dog grooming"></label>
+              </div>
+              <div class="form__row">
+                <label class="field"><span>Where? <em>(suburb, city or online)</em></span><input name="location" placeholder="Bondi, Sydney"></label>
+                <label class="field"><span>ABN <em>(optional)</em></span><input name="abn" placeholder="12 345 678 901"></label>
+              </div>
+              <div class="form__row">
+                <label class="field"><span>Current website <em>(optional)</em></span><input name="currentSite" placeholder="www.example.com.au"></label>
+                <label class="field"><span>Instagram / Facebook <em>(optional)</em></span><input name="social" placeholder="@bondidogspa"></label>
+              </div>
+              <label class="field"><span>What should the project achieve?</span><textarea name="goal" rows="2" placeholder="e.g. More online bookings and fewer Instagram messages"></textarea></label>
+              <button type="button" class="ord__next">Next section ↓</button>
+            </div>
+          </section>
+
+          <!-- 5 -->
+          <section class="osec" data-sec="details">
+            <button type="button" class="osec__head" aria-expanded="false"><span class="osec__n">5</span><b>Features &amp; details</b><span class="osec__status"></span><i class="osec__chev" aria-hidden="true"></i></button>
+            <div class="osec__body">
+              <p class="ord__hint" data-none>Choose what you want to build in section 1 to see the right questions here.</p>
+
+              <div class="ord__group" data-for="landing website store">
+                <h3>{{icon:pin}} Website</h3>
+                <div class="form__row">
+                  <label class="field"><span>About how many pages?</span><input name="pages" type="number" min="1" max="100" placeholder="e.g. 8"></label>
+                  <label class="field"><span>Domain name <em>(if you have or want one)</em></span><input name="domain" placeholder="bondidogspa.com.au"></label>
+                </div>
+                <label class="field"><span>Pages you'd like <em>(optional)</em></span><textarea name="pageList" rows="2" placeholder="Home, services, prices, gallery, about, contact"></textarea></label>
+                <p class="ord__label">Features</p>
+                <div class="form__chips">
+                  <label class="tick"><input type="checkbox" name="features" value="Online booking"><span>Online booking</span></label>
+                  <label class="tick"><input type="checkbox" name="features" value="Payments & deposits"><span>Payments &amp; deposits</span></label>
+                  <label class="tick"><input type="checkbox" name="features" value="Smart quote form"><span>Quote form</span></label>
+                  <label class="tick"><input type="checkbox" name="features" value="Blog"><span>Blog</span></label>
+                  <label class="tick"><input type="checkbox" name="features" value="Business email"><span>Business email</span></label>
+                  <label class="tick"><input type="checkbox" name="features" value="Google reviews on the site"><span>Google reviews</span></label>
+                  <label class="tick"><input type="checkbox" name="features" value="Email marketing"><span>Email marketing</span></label>
+                  <label class="tick"><input type="checkbox" name="features" value="WhatsApp button"><span>WhatsApp button</span></label>
+                  <label class="tick"><input type="checkbox" name="features" value="Ads & conversion tracking"><span>Ads tracking</span></label>
+                  <label class="tick"><input type="checkbox" name="features" value="AI chat assistant"><span>AI chat assistant</span></label>
+                  <label class="tick"><input type="checkbox" name="features" value="CRM"><span>CRM</span></label>
+                </div>
+                <p class="ord__label">What do you already have?</p>
+                <div class="form__chips">
+                  <label class="tick"><input type="checkbox" name="have" value="Photos"><span>Photos</span></label>
+                  <label class="tick"><input type="checkbox" name="have" value="Website text"><span>Website text</span></label>
+                  <label class="tick"><input type="checkbox" name="have" value="Domain"><span>Domain</span></label>
+                  <label class="tick"><input type="checkbox" name="have" value="Hosting"><span>Hosting</span></label>
+                  <label class="tick"><input type="checkbox" name="have" value="Nothing yet"><span>Nothing yet</span></label>
+                </div>
+                <div class="form__row">
+                  <label class="field"><span>Website text</span><select name="text"><option>I'll write it, you edit it</option><option>Please write it for me</option><option>Not sure</option></select></label>
+                  <label class="field"><span>After launch, who updates it?</span><select name="editing"><option>You (Webumi) update it</option><option>I want to edit it myself</option><option>Not sure</option></select></label>
+                </div>
+              </div>
+
+              <div class="ord__group" data-for="store">
+                <h3>{{icon:card}} Online store</h3>
+                <div class="form__row">
+                  <label class="field"><span>How many products?</span><select name="products"><option>Up to 20</option><option>20–100</option><option>100+</option><option>Not sure</option></select></label>
+                  <label class="field"><span>Shipping</span><select name="shipping"><option>Australia only</option><option>Australia &amp; international</option><option>Pickup / local delivery</option><option>Digital products only</option></select></label>
+                </div>
+              </div>
+
+              <div class="ord__group" data-for="pwa mobile platform">
+                <h3>{{icon:phone}} App or platform</h3>
+                <div class="form__row">
+                  <label class="field"><span>Who will use it?</span><select name="users"><option>My customers</option><option>My staff</option><option>Customers and staff</option></select></label>
+                  <label class="field"><span>Platforms</span><select name="platforms"><option>Web / PWA</option><option>iPhone &amp; Android</option><option>All of them</option><option>Not sure</option></select></label>
+                </div>
+                <p class="ord__label">Must-have features</p>
+                <div class="form__chips">
+                  <label class="tick"><input type="checkbox" name="appFeatures" value="Logins & accounts"><span>Logins</span></label>
+                  <label class="tick"><input type="checkbox" name="appFeatures" value="Payments or subscriptions"><span>Payments</span></label>
+                  <label class="tick"><input type="checkbox" name="appFeatures" value="Bookings"><span>Bookings</span></label>
+                  <label class="tick"><input type="checkbox" name="appFeatures" value="Push notifications"><span>Notifications</span></label>
+                  <label class="tick"><input type="checkbox" name="appFeatures" value="Chat / messages"><span>Chat</span></label>
+                  <label class="tick"><input type="checkbox" name="appFeatures" value="Admin dashboard"><span>Admin dashboard</span></label>
+                  <label class="tick"><input type="checkbox" name="appFeatures" value="Connects to other tools"><span>Integrations</span></label>
+                  <label class="tick"><input type="checkbox" name="appFeatures" value="Works offline"><span>Works offline</span></label>
+                </div>
+                <label class="field"><span>Describe the main screens or what people do in it</span><textarea name="appDesc" rows="3" placeholder="e.g. Clients log in, see their bookings, rebook, and get a reminder 6 weeks later"></textarea></label>
+              </div>
+
+              <div class="ord__group" data-for="ai">
+                <h3>{{icon:robot}} AI</h3>
+                <label class="field"><span>What should it do?</span><select name="aiType"><option>Answer customer questions (chat assistant)</option><option>Produce quotes, plans or reports (AI agent)</option><option>Work behind the scenes (automation)</option><option>Not sure</option></select></label>
+                <div class="form__row">
+                  <label class="field"><span>What goes in?</span><input name="aiIn" placeholder="e.g. Job photos and a few answers"></label>
+                  <label class="field"><span>What should come out?</span><input name="aiOut" placeholder="e.g. A quote PDF emailed to the customer"></label>
+                </div>
+                <p class="ord__label">Tools to connect <em>(optional)</em></p>
+                <div class="form__chips">
+                  <label class="tick"><input type="checkbox" name="tools" value="Xero"><span>Xero</span></label>
+                  <label class="tick"><input type="checkbox" name="tools" value="Stripe"><span>Stripe</span></label>
+                  <label class="tick"><input type="checkbox" name="tools" value="Shopify"><span>Shopify</span></label>
+                  <label class="tick"><input type="checkbox" name="tools" value="HubSpot"><span>HubSpot</span></label>
+                  <label class="tick"><input type="checkbox" name="tools" value="Google Sheets"><span>Google Sheets</span></label>
+                  <label class="tick"><input type="checkbox" name="tools" value="Gmail / Outlook"><span>Gmail / Outlook</span></label>
+                  <label class="tick"><input type="checkbox" name="tools" value="Booking system"><span>Booking system</span></label>
+                  <label class="tick"><input type="checkbox" name="tools" value="Other"><span>Other</span></label>
+                </div>
+              </div>
+
+              <div class="ord__group" data-for="fix">
+                <h3>{{icon:wrench}} Fix or redesign</h3>
+                <p class="ord__label">What's wrong now?</p>
+                <div class="form__chips">
+                  <label class="tick"><input type="checkbox" name="problems" value="Slow"><span>Slow</span></label>
+                  <label class="tick"><input type="checkbox" name="problems" value="Not mobile-friendly"><span>Bad on phones</span></label>
+                  <label class="tick"><input type="checkbox" name="problems" value="Looks outdated"><span>Looks outdated</span></label>
+                  <label class="tick"><input type="checkbox" name="problems" value="Broken forms or pages"><span>Broken forms</span></label>
+                  <label class="tick"><input type="checkbox" name="problems" value="Not found on Google"><span>Not on Google</span></label>
+                  <label class="tick"><input type="checkbox" name="problems" value="Hard to update"><span>Hard to update</span></label>
+                </div>
+                <label class="field"><span>Anything else about it?</span><textarea name="fixDesc" rows="2" placeholder="Built on WordPress in 2019, contact form stopped working"></textarea></label>
+              </div>
+
+              <div class="ord__group" data-for="support">
+                <h3>{{icon:shield}} Support plan</h3>
+                <label class="field"><span>Which plan?</span><select name="plan"><option>Care ({{aud:care:monthly}}/month)</option><option>Care Plus ({{aud:care-plus:monthly}}/month)</option><option>Growth ({{aud:care-growth:monthly}}/month)</option><option>Not sure, recommend one</option></select></label>
+              </div>
+
+              <label class="field"><span>Anything else I should know? <em>(optional)</em></span><textarea name="details" rows="3" placeholder="Special requirements, competitors, how you work today…"></textarea></label>
+              <button type="button" class="ord__next">Next section ↓</button>
+            </div>
+          </section>
+
+          <!-- 6 -->
+          <section class="osec" data-sec="timing">
+            <button type="button" class="osec__head" aria-expanded="false"><span class="osec__n">6</span><b>Timing &amp; budget</b><span class="osec__status"></span><i class="osec__chev" aria-hidden="true"></i></button>
+            <div class="osec__body">
+              <div class="form__row">
+                <label class="field"><span>When do you need it?</span><select name="speed"><option>Standard (landing 1–2 weeks, website 2–4 weeks)</option><option>Rush: about half the time (+{{price:rush:percent}}%)</option><option>Express: landing 1–2 business days, website 5 business days (+{{price:express:percent}}%)</option><option>No rush</option></select></label>
+                <label class="field"><span>Ideal go-live date <em>(optional)</em></span><input name="date" type="date"></label>
+              </div>
+              <div class="form__row">
+                <label class="field"><span>Budget</span><select name="budget" data-required><option value="">Choose a range…</option><option>Under $1,000</option><option>$1,000–$2,500</option><option>$2,500–$5,000</option><option>$5,000–$10,000</option><option>$10,000–$20,000</option><option>$20,000+</option><option>Not sure yet</option></select></label>
+                <label class="field"><span>Support after launch?</span><select name="support"><option>Maybe, tell me more</option><option>Yes, a monthly plan</option><option>No, I'll manage it</option></select></label>
+              </div>
+            </div>
+          </section>
+
+          <!-- Contact: always open -->
+          <div class="ord__contact">
+            <h2>Your details</h2>
+            <div class="form__row">
+              <label class="field"><span>Your name</span><input name="name" data-required autocomplete="name" placeholder="Sarah"></label>
+              <label class="field"><span>Email</span><input name="email" type="email" data-required autocomplete="email" placeholder="sarah@example.com"></label>
+            </div>
+            <div class="form__row">
+              <label class="field"><span>Phone <em>(optional)</em></span><input name="phone" type="tel" autocomplete="tel" placeholder="04xx xxx xxx"></label>
+              <label class="field"><span>Best way to reach you</span><select name="contactBy"><option>Email</option><option>Phone call</option><option>SMS / WhatsApp</option></select></label>
+            </div>
+            <label class="ord__consent"><input type="checkbox" name="consent"><span>I understand this is a request for a fixed quote. Nothing is charged until I approve the quote.</span></label>
+            <p class="ord__err" data-err="consent">Please tick the box to continue.</p>
+            <div class="pl__verify" id="ordVerify" data-sitekey="{{turnstileSiteKey}}"></div>
+            <p class="ord__error" id="ordError" hidden></p>
+            <button type="submit" class="btn btn--primary btn--block" id="ordSubmit">Send order →</button>
+            <p class="form__fine">Your details and files are only used for your quote. Prices in AUD.</p>
+          </div>
+
+          <div class="ord__done" id="ordDone" hidden>
+            <div class="form__doneIcon">{{icon:sparkle}}</div>
+            <h2>Order received!</h2>
+            <p class="ord__ref">Reference <b id="ordRef"></b></p>
+            <ol class="checks">
+              <li>A confirmation is on its way to <b id="ordEmail"></b>.</li>
+              <li>I'll send a written, fixed quote within 1 business day.</li>
+              <li>If you're happy with it, you pay a 50% deposit and we book a kick-off call.</li>
+            </ol>
+            <a href="/" class="btn btn--ghost">Back to the home page</a>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
