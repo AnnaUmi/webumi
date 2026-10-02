@@ -96,7 +96,8 @@ function schemaFor(page, body) {
     { "@type": "WebPage", "@id": url + "#webpage", url, name: page.title, description: page.description,
       isPartOf: { "@id": SITE + "/#website" }, about: { "@id": SITE + "/#business" }, inLanguage: "en-AU", dateModified: today },
   ];
-  if (page.url !== "/") {
+  if (page.url === "/404/") graph.pop();   // shown at any missing address: no page or breadcrumb of its own
+  else if (page.url !== "/") {
     const parts = page.url.split("/").filter(Boolean);
     const items = [{ "@type": "ListItem", position: 1, name: "Home", item: SITE + "/" }];
     if (parts.length > 1 && page.parentCrumb) items.push({ "@type": "ListItem", position: 2, name: page.parentCrumb[0], item: SITE + page.parentCrumb[1] });
@@ -143,10 +144,13 @@ function build() {
     })
       // personal pages (e.g. a visitor's plan) stay out of Google
       .replace("</head>", page.noindex ? '  <meta name="robots" content="noindex">\n</head>' : "</head>")
+      // the 404 page is shown at whatever address was mistyped, so it can't name its own URL
+      .replace(page.url === "/404/" ? /\s*<link rel="canonical"[^>]*>|\s*<meta property="og:url"[^>]*>/g : /$^/, "")
       // mark the current page in the navigation
       .replace(new RegExp(`(<nav class="nav__links"[\\s\\S]*?)<a href="${page.url}"`), `$1<a href="${page.url}" aria-current="page"`);
 
-    const out = path.join(DIST, page.url, "index.html");
+    // hosts serve /404.html for missing pages
+    const out = page.url === "/404/" ? path.join(DIST, "404.html") : path.join(DIST, page.url, "index.html");
     fs.mkdirSync(path.dirname(out), { recursive: true });
     fs.writeFileSync(out, html);
     if (!page.noindex) urls.push({ url: page.url, priority: page.url === "/" ? "1.0" : page.url.split("/").length > 3 ? "0.7" : "0.8" });
@@ -165,15 +169,24 @@ build();
 
 if (process.argv[2] === "serve") {
   const types = { ".html": "text/html; charset=utf-8", ".css": "text/css", ".js": "text/javascript", ".svg": "image/svg+xml",
-    ".png": "image/png", ".txt": "text/plain; charset=utf-8", ".xml": "application/xml", ".webmanifest": "application/manifest+json" };
+    ".png": "image/png", ".txt": "text/plain; charset=utf-8", ".xml": "application/xml", ".webmanifest": "application/manifest+json",
+    ".mp4": "video/mp4", ".webm": "video/webm" };
   http.createServer((req, res) => {
     const api = req.method === "POST" && req.url.match(/^\/api\/(chat|order)\.php/);
     if (api) return devPhp(req, res, api[1]);
     let p = decodeURIComponent(req.url.split("?")[0]);
     if (p.endsWith("/")) p += "index.html";
     const file = path.join(DIST, p);
-    if (!file.startsWith(DIST) || !fs.existsSync(file)) { res.writeHead(404); return res.end("Not found"); }
-    res.writeHead(200, { "Content-Type": types[path.extname(file)] || "application/octet-stream" });
+    if (!file.startsWith(DIST) || !fs.existsSync(file)) { res.writeHead(404, { "Content-Type": types[".html"] }); return res.end(fs.readFileSync(path.join(DIST, "404.html"))); }
+    const type = types[path.extname(file)] || "application/octet-stream";
+    // byte ranges: Safari won't play a video without them
+    const size = fs.statSync(file).size, range = (req.headers.range || "").match(/^bytes=(\d*)-(\d*)$/);
+    if (range) {
+      const start = range[1] ? +range[1] : Math.max(0, size - +range[2]), end = range[1] && range[2] ? Math.min(+range[2], size - 1) : size - 1;
+      res.writeHead(206, { "Content-Type": type, "Accept-Ranges": "bytes", "Content-Range": `bytes ${start}-${end}/${size}`, "Content-Length": end - start + 1 });
+      return fs.createReadStream(file, { start, end }).pipe(res);
+    }
+    res.writeHead(200, { "Content-Type": type, "Accept-Ranges": "bytes", "Content-Length": size });
     fs.createReadStream(file).pipe(res);
   }).listen(8080, () => console.log("Preview: http://localhost:8080"));
 

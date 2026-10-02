@@ -514,6 +514,24 @@ input[type="range"]:focus-visible { outline: 3px solid var(--sun); outline-offse
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
 .reveal.is-in { opacity: 1; transform: none; }
 
+/* ---------- 404 ---------- */
+.nf {
+  position: relative; overflow: hidden; display: grid; place-items: center;
+  --nav-h: calc(72px + env(safe-area-inset-top));
+  height: 100svh; min-height: 480px; margin-top: calc(-1 * var(--nav-h) - 1px);   /* runs up under the menu (and its 1px border) */
+  background: linear-gradient(180deg, var(--sand) 0%, var(--coral-soft) 30%, #ffab92 65%, var(--coral) 100%);
+}
+.nf__num { position: absolute; inset: -16% -8% -3%; width: 116%; height: 119%; max-width: none; pointer-events: none; }   /* bigger than the screen, cropped at the sides and top */
+/* menu sits see-through on top of the 404 until you scroll */
+body:has(.nf) .nav:not(.is-scrolled) { background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; }
+@media (max-width: 1080px) { .nf { --nav-h: calc(68px + env(safe-area-inset-top)); } }
+/* the walking bear: see-through video, fitted to the height, feet on the bottom edge */
+.nf__bear {
+  position: absolute; left: 50%; bottom: 0; height: min(80%, 100vw); width: auto; max-width: none; transform: translateX(-50%);
+  aspect-ratio: 16 / 9; pointer-events: none;
+}
+.nf__num text { font-family: var(--display); font-weight: 800; font-size: 1500px; }
+
 /* ---------- Inner pages ---------- */
 .phero { position: relative; padding: clamp(28px, 5vw, 56px) 0 clamp(56px, 7vw, 88px); overflow: hidden; }
 .phero__grid { position: relative; display: grid; grid-template-columns: 1.15fr .85fr; gap: clamp(32px, 5vw, 64px); align-items: center; }

@@ -1323,6 +1323,24 @@
     }
   }
 
+  /* 404: the bear walks in once, then stays. Apple browsers get HEVC (their only see-through video),
+     everyone else VP9 WebM; phones get the 960px version. Reduced motion, or autoplay blocked
+     (iPhone Low Power Mode): straight to the last frame. */
+  const bear = $(".nf__bear");
+  if (bear) {
+    const ua = navigator.userAgent;
+    const apple = /iP(hone|ad|od)/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1) ||
+      (/Safari\//.test(ua) && !/Chrom|Edg|Firefox|OPR/.test(ua));
+    const small = bear.getBoundingClientRect().width < 900;
+    bear.src = `/video/bear-404${small ? "-960" : ""}.${apple ? "mp4" : "webm"}`;
+    const rest = () => {
+      const end = () => { bear.currentTime = Math.max(0, bear.duration - 0.05); };
+      bear.readyState ? end() : bear.addEventListener("loadedmetadata", end, { once: true });
+    };
+    if (reduceMotion) rest();
+    else bear.play().catch(rest);
+  }
+
   const year = $("#year");
   if (year) year.textContent = new Date().getFullYear();
 })();

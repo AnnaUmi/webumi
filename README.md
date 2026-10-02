@@ -32,6 +32,12 @@ node build.js serve    # build + preview at http://localhost:8080 (rebuilds when
 3. Build. The page gets its own SEO tags, breadcrumb, sitemap entry, and FAQ structured data
    from any `<details><summary>Question</summary><p>Answer</p></details>` blocks.
 
+## 404 page
+
+`src/pages/404.html` builds to `dist/404.html`, which Netlify, Cloudflare Pages and Hostinger (via `.htaccess`) show for missing pages.
+The walking bear is a see-through video in `src/static/video/`: `.webm` for Chrome/Firefox, `.mp4` (HEVC with alpha) for Safari
+and iPhone, each in full size and `-960` for phones. `script.js` picks the right one.
+
 ## Prices
 
 All prices live in `src/static/api/catalog.json`. The price builder (`/pricing/`) and the AI planner (`/plan/`) both read it, so change a price there and rebuild.
