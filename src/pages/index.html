@@ -10,8 +10,8 @@
       <div class="hero__glow" aria-hidden="true"></div>
       <div class="wrap hero__grid">
         <div class="hero__copy">
-          <p class="eyebrow reveal"><span class="dot"></span> Web, AI &amp; Automation for Small Business · Australia</p>
-          <h1 class="hero__title reveal">More customers.<br><span class="squiggle">Less admin.</span><svg class="tw" viewBox="124 104 54 54" aria-hidden="true"><g class="tw__star"><path d="M147.5 115 L151.5 127 L163.5 131 L151.5 135 L147.5 147 L143.5 135 L131.5 131 L143.5 127 Z" transform="translate(3 3)" fill="#111" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/><path d="M147.5 115 L151.5 127 L163.5 131 L151.5 135 L147.5 147 L143.5 135 L131.5 131 L143.5 127 Z" fill="#1ee3ff" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/></g><circle class="tw__dot" cx="170" cy="116" r="3.5" fill="#ffd23f" stroke="#111" stroke-width="1.2"/><circle class="tw__dot tw__dot--2" cx="130" cy="113" r="2.5" fill="#ff6b4a" stroke="#111" stroke-width="1.2"/><circle class="tw__dot tw__dot--3" cx="172" cy="146" r="2.5" fill="#1ee3ff" stroke="#111" stroke-width="1.2"/></svg></h1>
+          <p class="eyebrow reveal"><span class="dot"></span> <span><span class="eyebrow__what">Web, AI &amp; Automation for </span>Small &amp; Mid-size Businesses · Australia</span></p>
+          <h1 class="hero__title reveal">More customers.<br><span class="hero__last"><span class="squiggle">Less admin.</span><svg class="tw" viewBox="124 104 54 54" aria-hidden="true"><g class="tw__star"><path d="M147.5 115 L151.5 127 L163.5 131 L151.5 135 L147.5 147 L143.5 135 L131.5 131 L143.5 127 Z" transform="translate(3 3)" fill="#111" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/><path d="M147.5 115 L151.5 127 L163.5 131 L151.5 135 L147.5 147 L143.5 135 L131.5 131 L143.5 127 Z" fill="#1ee3ff" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/></g><circle class="tw__dot" cx="170" cy="116" r="3.5" fill="#ffd23f" stroke="#111" stroke-width="1.2"/><circle class="tw__dot tw__dot--2" cx="130" cy="113" r="2.5" fill="#ff6b4a" stroke="#111" stroke-width="1.2"/><circle class="tw__dot tw__dot--3" cx="172" cy="146" r="2.5" fill="#1ee3ff" stroke="#111" stroke-width="1.2"/></svg></span></h1>
           <p class="hero__lead reveal">Websites, apps, automations and AI assistants that help your business <strong>get found, get booked and get paid</strong>.</p>
           <div class="hero__ctas reveal">
             <a href="#contact" class="btn btn--primary">Tell me about your business <span class="arrow">→</span></a>
@@ -24,40 +24,30 @@
           </ul>
         </div>
 
-        <!-- Live phone demo -->
-        <div class="hero__demo reveal">
-          <div class="industry" role="tablist" aria-label="Pick your type of business">
-            <button class="chip is-active" data-industry="trade" role="tab" aria-selected="true"><svg class="ic" aria-hidden="true"><use href="#i-wrench"/></svg> Tradie</button>
-            <button class="chip" data-industry="beauty" role="tab" aria-selected="false"><svg class="ic" aria-hidden="true"><use href="#i-polish"/></svg> Beauty</button>
-            <button class="chip" data-industry="pets" role="tab" aria-selected="false"><svg class="ic" aria-hidden="true"><use href="#i-paw"/></svg> Pet care</button>
-            <button class="chip" data-industry="clean" role="tab" aria-selected="false"><svg class="ic" aria-hidden="true"><use href="#i-spray"/></svg> Cleaning</button>
-            <button class="chip" data-industry="coach" role="tab" aria-selected="false"><svg class="ic" aria-hidden="true"><use href="#i-cap"/></svg> Coach</button>
-          </div>
-          <div class="phone" aria-live="polite">
-            <div class="phone__notch"></div>
-            <div class="phone__screen">
-              <div class="phone__time"><span id="clock">9:41</span><span>●●● 5G</span></div>
-              <div class="search">
-                <span class="search__g">G</span>
-                <span class="search__q" id="searchQuery"></span><span class="caret"></span>
-              </div>
-              <div class="feed" id="feed"></div>
+        <!-- The bear's spell: walks in, then the cursor (or a tap) turns the problems into results -->
+        <!-- no .reveal here: its fade would isolate the video and show the white box while fading -->
+        <div class="hero__demo">
+          <div class="spell" id="spell">
+            <p class="sr-only">A bear with a magic star turns “No website, No new customers, No online booking, Low revenue, Admin by hand, No reviews” into “Website live, New inquiries, Customers booked, Payments received, Admin on autopilot, Reviews coming in”.</p>
+            <div class="spell__side" aria-hidden="true">
+              <p class="spell__label" id="spellLabel">Your business today</p>
+              <ul class="spell__list">
+                <li><span class="spell__no">No website</span><span class="spell__yes">Website live</span></li>
+                <li><span class="spell__no">No new customers</span><span class="spell__yes">New inquiries</span></li>
+                <li><span class="spell__no">No online booking</span><span class="spell__yes">Customers booked</span></li>
+                <li><span class="spell__no">Low revenue</span><span class="spell__yes">Payments received</span></li>
+                <li><span class="spell__no">Admin by hand</span><span class="spell__yes">Admin on autopilot</span></li>
+                <li><span class="spell__no">No reviews</span><span class="spell__yes">Reviews coming in</span></li>
+              </ul>
             </div>
-          </div>
-          <div class="demo__caption">
-            <span class="pulse"></span> What your phone could look like on a Tuesday morning
+            <div class="spell__stage">
+              <video class="spell__video" muted playsinline preload="none" disablepictureinpicture aria-hidden="true"></video>
+              <p class="spell__bubble" id="spellBubble" hidden></p>
+            </div>
           </div>
         </div>
       </div>
     </section>
-
-    <!-- ============ TICKER ============ -->
-    <div class="ticker" aria-hidden="true">
-      <div class="ticker__track">
-        <span>Websites</span><span>AI assistants</span><span>Online bookings</span><span>Deposits &amp; payments</span><span>AI integrations</span><span>Automatic replies</span><span>Apps for iPhone &amp; Android</span><span>Client portals</span><span>SMS reminders</span><span>Document processing</span><span>Google Business Profile</span><span>CRM integrations</span>
-        <span>Websites</span><span>AI assistants</span><span>Online bookings</span><span>Deposits &amp; payments</span><span>AI integrations</span><span>Automatic replies</span><span>Apps for iPhone &amp; Android</span><span>Client portals</span><span>SMS reminders</span><span>Document processing</span><span>Google Business Profile</span><span>CRM integrations</span>
-      </div>
-    </div>
 
     <!-- ============ PAIN POINTS ============ -->
     <section class="section pains" id="pains">
@@ -65,22 +55,22 @@
         <div class="section__head reveal">
           <p class="kicker">Sound familiar?</p>
           <h2>Which of these sound like <em>your</em> business?</h2>
+          <p class="section__sub">Tick yours and I'll tell you where to start.</p>
         </div>
         <div class="pains__grid">
-          <button class="pain reveal" aria-pressed="false"><span class="pain__tick"></span>My website looks nice but doesn't bring in work</button>
-          <button class="pain reveal" aria-pressed="false"><span class="pain__tick"></span>Clients DM me on Instagram asking prices &amp; times — all day</button>
-          <button class="pain reveal" aria-pressed="false"><span class="pain__tick"></span>I miss calls while I'm on the job</button>
-          <button class="pain reveal" aria-pressed="false"><span class="pain__tick"></span>No-shows cost me money every week</button>
-          <button class="pain reveal" aria-pressed="false"><span class="pain__tick"></span>I copy enquiries from email into a spreadsheet by hand</button>
-          <button class="pain reveal" aria-pressed="false"><span class="pain__tick"></span>People can't find me on Google</button>
-          <button class="pain reveal" aria-pressed="false"><span class="pain__tick"></span>I forget to follow up quotes</button>
-          <button class="pain reveal" aria-pressed="false"><span class="pain__tick"></span>I answer the same questions 20 times a day</button>
-          <button class="pain reveal" aria-pressed="false"><span class="pain__tick"></span>I have 6 apps and none of them talk to each other</button>
+          <button class="pain reveal" data-goal="customers" aria-pressed="false"><span class="pain__tick"></span>My website doesn't bring in enquiries</button>
+          <button class="pain reveal" data-goal="customers" aria-pressed="false"><span class="pain__tick"></span>People can't find me on Google</button>
+          <button class="pain reveal" data-goal="ai" aria-pressed="false"><span class="pain__tick"></span>I miss calls and messages while I work</button>
+          <button class="pain reveal" data-goal="bookings" aria-pressed="false"><span class="pain__tick"></span>Booking a time takes five messages</button>
+          <button class="pain reveal" data-goal="bookings" aria-pressed="false"><span class="pain__tick"></span>No-shows cost me money</button>
+          <button class="pain reveal" data-goal="admin" aria-pressed="false"><span class="pain__tick"></span>I type the same details into three places</button>
+          <button class="pain reveal" data-goal="admin" aria-pressed="false"><span class="pain__tick"></span>Quotes go out late or never get followed up</button>
+          <button class="pain reveal" data-goal="ai" aria-pressed="false"><span class="pain__tick"></span>I answer the same questions every day</button>
+          <button class="pain reveal" data-goal="admin" aria-pressed="false"><span class="pain__tick"></span>Getting paid means chasing people</button>
         </div>
-        <div class="pains__result" id="painsResult" aria-live="polite">
-          <p class="pains__count"><span id="painCount">0</span><span class="pains__of">/9</span></p>
-          <p class="pains__msg" id="painMsg">Tap any that apply.</p>
-          <a href="#solutions" class="btn btn--primary btn--small pains__cta" id="painCta" hidden>Show me the fix →</a>
+        <div class="pains__result" aria-live="polite">
+          <p class="pains__msg" id="painMsg">Tick the ones that are true for you.</p>
+          <a href="#solutions" class="btn btn--primary btn--small pains__cta" id="painCta" hidden>Show me how →</a>
         </div>
       </div>
     </section>

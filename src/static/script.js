@@ -84,162 +84,37 @@
     io.observe(el);
   });
 
-  /* ---------- Hero phone demo ---------- */
-  const scenarios = {
-    trade: {
-      query: "emergency plumber bondi",
-      notes: [
-        ["ink", "search", "Google", "You showed up #2 in Bondi", "“Emergency plumber bondi” · 14 views today"],
-        ["coral", "envelope", "New quote request", "Burst pipe — Jake, Bondi Beach", "Photo attached · wants today if possible"],
-        ["sea", "bolt", "Auto-reply sent", "“Thanks Jake, we'll call in 10 min”", "Sent instantly, while you were on the tools"],
-        ["sun", "card", "Invoice paid", "$420.00 received", "Paid by card from the job link"],
-        ["sea", "star", "New 5-star review", "“Turned up in 40 min. Legend.”", "Review request sent automatically"],
-      ],
-    },
-    beauty: {
-      query: "gel nails near me",
-      notes: [
-        ["coral", "calendar", "New booking", "Mia · Gel extensions", "Thu 2:30pm · booked at 11:48pm"],
-        ["sun", "card", "Deposit paid", "$30.00 deposit received", "Fewer no-shows"],
-        ["sea", "chat", "Reminder sent", "“See you tomorrow at 2:30, Mia!”", "SMS sent automatically"],
-        ["ink", "repeat", "Rebooked", "Mia booked her fill in 3 weeks", "From the “Book again” email"],
-        ["sea", "star", "New 5-star review", "“Obsessed with my nails 😍”", "Asked 2 hours after her visit"],
-      ],
-    },
-    pets: {
-      query: "mobile dog grooming manly",
-      notes: [
-        ["ink", "search", "Google", "New visitor from Manly", "Landed on your Manly suburb page"],
-        ["coral", "calendar", "New booking", "Biscuit the cavoodle 🐶", "Full groom · Sat 9:00am · 42 Pine St"],
-        ["sun", "card", "Deposit paid", "$25.00 deposit received", "Card saved for the balance"],
-        ["sea", "pin", "Route ready", "Saturday: 5 dogs, 3 suburbs", "Added to your calendar automatically"],
-        ["sea", "star", "New 5-star review", "“Biscuit came back fluffy & happy”", "Review request sent automatically"],
-      ],
-    },
-    clean: {
-      query: "end of lease cleaning parramatta",
-      notes: [
-        ["coral", "envelope", "New quote request", "3-bed end of lease · Parramatta", "Priya · needs it before the 14th"],
-        ["sea", "bolt", "Instant estimate sent", "“From $480 — book your date here”", "Priced from your own rate card"],
-        ["ink", "calendar", "Job booked", "Fri 8:00am · 3-bed unit", "Added to your team's calendar"],
-        ["sun", "card", "Paid in full", "$520.00 received", "Invoice synced to Xero"],
-        ["sea", "star", "New 5-star review", "“Got my full bond back!”", "Review request sent automatically"],
-      ],
-    },
-    coach: {
-      query: "maths tutor year 10 brisbane",
-      notes: [
-        ["ink", "search", "Website visit", "Parent viewing “Year 10 Maths”", "From Google · 2 min on page"],
-        ["coral", "calendar", "Free intro call booked", "Tom's mum · Wed 4:00pm", "Booked straight from your site"],
-        ["sea", "envelope", "Follow-up sent", "“Here's what Tom's plan looks like”", "Sent automatically after the call"],
-        ["sun", "card", "Term package paid", "$640.00 · 8 sessions", "Paid online by card"],
-        ["sea", "chart", "This week", "6 new enquiries · 4 booked", "Your whole pipeline, in one place"],
-      ],
-    },
-  };
-
-  const feed = $("#feed");
-  const queryEl = $("#searchQuery");
-  const clockEl = $("#clock");
-  let run = 0;
-
-  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-
-  function noteEl([tone, icon, app, title, text], mins) {
-    const el = document.createElement("div");
-    el.className = "note";
-    el.innerHTML = `
-      <div class="note__icon note__icon--${tone}">${ic(icon)}</div>
-      <div class="note__body">
-        <div class="note__app"><span>${app}</span><span>${mins === 0 ? "now" : mins + "m ago"}</span></div>
-        <div class="note__title">${title}</div>
-        <div class="note__text">${text}</div>
-      </div>`;
-    return el;
-  }
-
-  async function playScenario(key) {
-    const id = ++run;
-    const s = scenarios[key];
-    feed.innerHTML = "";
-    queryEl.textContent = "";
-
-    if (reduceMotion) {
-      queryEl.textContent = s.query;
-      s.notes.slice(0, 4).forEach((n) => feed.appendChild(noteEl(n, 0)));
-      return;
-    }
-
-    for (const ch of s.query) {
-      if (id !== run) return;
-      queryEl.textContent += ch;
-      await sleep(45 + Math.random() * 50);
-    }
-    await sleep(500);
-
-    let t = 41;
-    while (id === run) {
-      for (const n of s.notes) {
-        if (id !== run) return;
-        t += 3 + Math.floor(Math.random() * 7);
-        clockEl.textContent = `${9 + Math.floor(t / 60)}:${String(t % 60).padStart(2, "0")}`;
-        feed.prepend(noteEl(n, 0));
-        const all = $$(".note", feed);
-        all.slice(1).forEach((el, i) => { el.querySelector(".note__app span:last-child").textContent = `${(i + 1) * 4}m ago`; });
-        if (all.length > 4) {
-          const last = all[all.length - 1];
-          last.classList.add("is-leaving");
-          setTimeout(() => last.remove(), 350);
-        }
-        await sleep(2100);
-      }
-      if (t > 180) t = 41;
-    }
-  }
-
-  $$(".industry .chip").forEach((chip) => {
-    chip.addEventListener("click", () => {
-      $$(".industry .chip").forEach((c) => { c.classList.remove("is-active"); c.setAttribute("aria-selected", "false"); });
-      chip.classList.add("is-active");
-      chip.setAttribute("aria-selected", "true");
-      playScenario(chip.dataset.industry);
-    });
-  });
-
-  // Only start the animation once the phone is on screen (saves battery, feels intentional)
-  const phoneIO = new IntersectionObserver((e) => {
-    if (e[0].isIntersecting) { playScenario("trade"); phoneIO.disconnect(); }
-  });
-  if ($(".phone")) phoneIO.observe($(".phone"));
-
-  /* ---------- Pain points ---------- */
+  /* ---------- Pain points ----------
+     Each problem belongs to one of the solutions below (data-goal). Ticking them tells the visitor
+     where to start, and the button opens the solutions panel on that answer. */
   const pains = $$(".pain");
-  const painCount = $("#painCount");
-  const painCountWrap = $(".pains__count");
   const painMsg = $("#painMsg");
   const painCta = $("#painCta");
-  const msgs = [
-    "Tap any that apply.",
-    "One problem. Usually a quick, low-cost fix.",
-    "Two problems. Both can be solved in one project.",
-    "Three. These are the most common problems I see.",
-    "Four. A lot of this work can run automatically.",
-    "Five. The right setup can save you hours every week.",
-    "Six. You need one connected system, not more apps.",
-    "Seven. Let's talk. A free chat will show where to start.",
-    "Eight. There's a lot of time to win back here.",
-    "All nine. This is exactly the kind of business I help.",
-  ];
+  const START = {
+    customers: "a website that brings in enquiries",
+    bookings: "online booking with deposits and reminders",
+    admin: "automating the admin",
+    ai: "an AI assistant that answers for you",
+  };
+  let painGoal = null;
   pains.forEach((p) => p.addEventListener("click", () => {
     p.setAttribute("aria-pressed", p.getAttribute("aria-pressed") !== "true");
-    const n = pains.filter((x) => x.getAttribute("aria-pressed") === "true").length;
-    painCount.textContent = n;
-    painMsg.textContent = msgs[n];
-    painCta.hidden = n === 0;
-    painCountWrap.classList.remove("bump");
-    void painCountWrap.offsetWidth;
-    painCountWrap.classList.add("bump");
+    const ticked = pains.filter((x) => x.getAttribute("aria-pressed") === "true");
+    const n = ticked.length;
+    const per = {};
+    ticked.forEach((x) => { per[x.dataset.goal] = (per[x.dataset.goal] || 0) + 1; });
+    painGoal = Object.keys(START).reduce((best, g) => ((per[g] || 0) > (per[best] || 0) ? g : best), "customers");
+    const k = per[painGoal] || 0;
+    const start = `<strong>Start with ${START[painGoal]}.</strong> `;
+    painMsg.innerHTML = !n ? "Tick the ones that are true for you."
+      : n === 1 ? start + "That's the fix for this one."
+      : k === n ? start + (n === 2 ? "It fixes both." : `It fixes all ${n} you ticked.`)
+      : start + `It fixes ${k} of the ${n} you ticked. ${n - k === 1 ? "The other one fits" : "The rest fit"} in the same project.`;
+    painCta.hidden = !n;
   }));
+  painCta?.addEventListener("click", () => {
+    $(`.choose__btn[data-goal="${painGoal}"]`)?.click();   // the panel below opens on this answer
+  });
 
   /* ---------- Solutions chooser ---------- */
   const goals = {
@@ -1305,11 +1180,11 @@
   });
   if (npForm) $$(".field input, .field textarea", npForm).forEach((i) => i.addEventListener("input", () => i.closest(".field").classList.remove("is-invalid")));
 
-  function confetti(from) {
+  function confetti(from, count = 80) {
     if (reduceMotion) return;
     const colors = ["#ff6b4a", "#ffc857", "#1fa592", "#0f2a3d", "#ffffff"];
     const rect = from.getBoundingClientRect();
-    for (let i = 0; i < 80; i++) {
+    for (let i = 0; i < count; i++) {
       const c = document.createElement("span");
       c.className = "confetti";
       c.style.background = colors[i % colors.length];
@@ -1339,6 +1214,176 @@
     };
     if (reduceMotion) rest();
     else bear.play().catch(rest);
+  }
+
+  /* ---------- Home hero: the bear's spell ----------
+     The video plays the walk-in (frames 0–59), then waits holding the star. From there on the cursor
+     drives it: the closer to the bear, the further the spell goes, frame by frame; moving away undoes
+     it. A click finishes it. Touch screens have no cursor: the spell just plays, a tap replays it.
+     The pills are page elements: each flips when the video reaches the frame where the star hits it.
+     Around it: the bear asks for the cursor (speech bubble, with a nudge if nobody moves), the label
+     counts the fixes ("Fixing… 2 of 6"), and the finish gets a small burst and points to the checklist below. */
+  const spell = $("#spell");
+  if (spell) {
+    const video = $(".spell__video", spell), bubble = $("#spellBubble"), label = $("#spellLabel");
+    const FPS = 24, T_READY = 59 / FPS, T_END = 144 / FPS;
+    const pills = $$(".spell__list li", spell), FLIP = [94, 97, 103, 111, 117, 123].map((f) => f / FPS);   // in step with the star; the last two after the video's own four
+    const canHover = matchMedia("(hover: hover) and (pointer: fine)").matches;
+    const small = video.offsetWidth <= 440 || video.offsetWidth * (devicePixelRatio || 1) <= 640;   // phones always get the light file
+    const ASK = canHover ? "Bring your cursor here" : "Tap me";
+    const KEEP = "Click me to keep it";
+    const CTA = '<a href="#pains">Which are yours? Tick them below ↓</a>';   // the hero teases, the checklist below makes it personal
+    let state = "loading";                 // loading → walk → ready (cursor scrubs) → casting → done
+    let prox = 0, shown = T_READY, seeking = false, seekAt = 0, last = 0, readyAt = 0, nudges = 0, celebrated = false;
+
+    const say = (html) => {
+      bubble.hidden = !html;
+      if (html && bubble.innerHTML !== html) bubble.innerHTML = html;
+    };
+    const nudge = (el) => { el.classList.remove("is-nudge"); void el.offsetWidth; el.classList.add("is-nudge"); };
+    const paint = (t) => {
+      let n = 0;
+      pills.forEach((li, k) => { const on = t >= FLIP[k]; li.classList.toggle("is-fixed", on); n += on; });
+      const text = n === pills.length ? "Your business in 2–4 weeks" : n ? `Fixing… ${n} of ${pills.length}` : "Your business today";
+      if (label.textContent !== text) label.textContent = text;
+    };
+    const finish = () => {
+      state = "done"; video.pause(); spell.classList.add("is-done"); paint(T_END); say(CTA);
+      if (!celebrated) {                    // the payoff, once per visit
+        celebrated = true;
+        confetti($(".spell__list", spell), 26);
+        nudge($(".hero__ctas .btn--primary"));
+      }
+    };
+    const cast = () => { state = "casting"; spell.classList.remove("is-done"); say(""); video.play().then(loop).catch(finish); };
+    const restart = () => {
+      spell.classList.remove("is-done");
+      if (canHover) { state = "ready"; shown = video.currentTime; readyAt = performance.now(); say(ASK); loop(); }
+      else { video.currentTime = T_READY; cast(); }
+    };
+    video.addEventListener("ended", finish);
+    video.addEventListener("seeked", () => { seeking = false; });
+    spell.addEventListener("click", (e) => {
+      if (e.target.closest("a")) return;    // the bubble's link
+      if (state === "ready") cast();
+      else if (state === "done") restart();
+    });
+
+    // only work while the hero is on screen
+    let onScreen = true;
+    new IntersectionObserver(([e]) => { onScreen = e.isIntersecting; if (onScreen) loop(); }).observe(spell);
+
+    // cursor → proximity to the bear
+    addEventListener("mousemove", (e) => {
+      if (!onScreen) return;
+      const r = video.getBoundingClientRect();
+      const d = Math.hypot(e.clientX - (r.left + r.width * 0.55), e.clientY - (r.top + r.height * 0.5));
+      prox = Math.min(1, Math.max(0, 1 - d / Math.max(420, r.width * 1.3)));
+    }, { passive: true });
+    document.addEventListener("mouseout", (e) => { if (!e.relatedTarget) prox = 0; });   // the cursor left the window
+
+    let looping = false;                   // one animation loop at a time
+    const loop = () => { if (!looping) { looping = true; requestAnimationFrame(tick); } };
+    const tick = (now = performance.now()) => {
+      looping = false;
+      const dt = Math.min(0.1, (now - (last || now)) / 1000); last = now;
+      if (state === "walk" && video.currentTime >= T_READY - 0.03) {
+        video.pause(); shown = video.currentTime;
+        if (canHover) { state = "ready"; readyAt = now; say(ASK); }
+        else return setTimeout(cast, 600);
+      }
+      if (state === "ready") {
+        const eased = prox * prox * (3 - 2 * prox);
+        shown += (T_READY + eased * (T_END - T_READY) - shown) * Math.min(1, dt * 7);
+        if (seeking && now - seekAt > 400) seeking = false;          // a lost "seeked" event
+        if (!seeking && Math.abs(video.currentTime - shown) > 0.5 / FPS) { seeking = true; seekAt = now; video.currentTime = shown; }
+        say(prox > 0.25 ? KEEP : ASK);
+        if (prox < 0.08 && nudges < 3 && now - readyAt > 3500 + nudges * 5000) { nudges++; nudge(bubble); }
+        paint(shown);
+      }
+      if (state === "casting") paint(video.currentTime);
+      if (state === "walk" || state === "casting" || (state === "ready" && onScreen)) loop();
+    };
+
+    // load the whole file first (seeking then never waits on the network), after the page itself
+    const start = async () => {
+      const url = `/video/hero-bear${small ? "-small" : ""}.mp4`;
+      try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(res.status);
+        video.src = URL.createObjectURL(await res.blob());
+      } catch { video.preload = "auto"; video.src = url; }
+      const loaded = await new Promise((ok) => {
+        video.addEventListener("loadeddata", () => ok(true), { once: true });
+        video.addEventListener("error", () => ok(false), { once: true });
+      });
+      if (!loaded) { celebrated = true; return finish(); }   // no video: still show the fixed list and the link
+      if (reduceMotion) { video.currentTime = T_END; celebrated = true; return finish(); }
+      state = "walk";
+      video.play().then(loop).catch(() => { video.currentTime = T_END; celebrated = true; finish(); });
+    };
+    document.readyState === "complete" ? start() : addEventListener("load", start, { once: true });
+  }
+
+  /* Projects: stacking cards. While the stack scrolls past, each earlier card shrinks a little
+     (to 1 - 0.03 per card above it) as the ones after it slide over. If a card is too tall to stick
+     inside the screen, the stack stays a plain list. */
+  const stack = $("[data-stack]");
+  if (stack) {
+    const cards = $$(".proj", stack), n = cards.length;
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      if (stack.classList.contains("is-flat") || getComputedStyle(cards[0].parentElement).position !== "sticky") {
+        cards.forEach((c) => { c.style.transform = ""; });
+        return;
+      }
+      const r = stack.getBoundingClientRect();
+      const p = Math.min(1, Math.max(0, -r.top / Math.max(1, r.height - innerHeight)));   // 0 → 1 over the whole stack
+      cards.forEach((c, i) => {
+        const start = i / n, target = 1 - (n - 1 - i) * 0.03;
+        const t = Math.min(1, Math.max(0, (p - start) / (1 - start)));
+        c.style.transform = reduceMotion || t === 0 ? "" : `scale(${1 - t * (1 - target)})`;
+      });
+    };
+    const fit = () => {
+      stack.classList.remove("is-flat");
+      const tooTall = cards.some((c) => c.offsetHeight > innerHeight - parseFloat(getComputedStyle(c.parentElement).top) - 16);
+      stack.classList.toggle("is-flat", tooTall);
+      update();
+    };
+    addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    addEventListener("resize", fit);
+    addEventListener("load", fit, { once: true });
+    document.fonts?.ready.then(fit);
+    fit();
+
+    // phones and tablets: the stack is a swipe carousel; dots above it show (and jump to) the current project
+    const dots = document.createElement("div");
+    dots.className = "stack__dots";
+    dots.setAttribute("role", "group");
+    dots.setAttribute("aria-label", "Projects");
+    cards.forEach((c, i) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.setAttribute("aria-label", `Project ${i + 1}: ${$("h2", c).textContent}`);
+      b.addEventListener("click", () => {          // scroll only the carousel sideways (scrollIntoView would also move the page)
+        const pad = parseFloat(getComputedStyle(stack).paddingLeft) || 0;
+        const left = stack.scrollLeft + c.parentElement.getBoundingClientRect().left - stack.getBoundingClientRect().left - pad;
+        stack.scrollTo({ left, behavior: reduceMotion ? "auto" : "smooth" });
+      });
+      dots.appendChild(b);
+    });
+    stack.before(dots);   // above the cards: they are tall on phones, so dots below would be out of sight
+    const markDot = () => {
+      const items = cards.map((c) => c.parentElement);
+      const step = items.length > 1 ? items[1].offsetLeft - items[0].offsetLeft : 1;
+      const at = Math.max(0, Math.min(n - 1, Math.round(stack.scrollLeft / step)));
+      [...dots.children].forEach((d, i) => d.setAttribute("aria-current", i === at));
+    };
+    let dotTick = false;
+    stack.addEventListener("scroll", () => { if (!dotTick) { dotTick = true; requestAnimationFrame(() => { dotTick = false; markDot(); }); } }, { passive: true });
+    markDot();
   }
 
   const year = $("#year");
