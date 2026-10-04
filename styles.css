@@ -431,7 +431,7 @@ input[type="range"]:focus-visible { outline: 3px solid var(--sun); outline-offse
 .journey__head { position: sticky; top: 120px; margin-bottom: 0; }
 .journey__steps { list-style: none; margin: 0; padding: 0; }
 .journey__step:not(:last-child)::before { content: ""; position: absolute; left: 23px; top: 48px; bottom: 0; border-left: var(--line-w) dashed var(--black); }   /* the path to the next step */
-.journey__step { position: relative; display: grid; grid-template-columns: 48px 1fr; column-gap: 22px; padding-bottom: 34px; }
+.journey__step { position: relative; display: grid; grid-template-columns: 48px minmax(0, 1fr); column-gap: 22px; padding-bottom: 34px; }
 .journey__step:last-child { padding-bottom: 0; }
 .journey__n { grid-row: span 2; position: relative; display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%;
   background: var(--coral); color: #fff; font-family: var(--display); font-weight: 800; font-size: 1.3rem;
@@ -442,6 +442,24 @@ input[type="range"]:focus-visible { outline: 3px solid var(--sun); outline-offse
 .journey__step:last-child .journey__n { background: var(--sea); }
 .journey__step h3 { margin: 10px 0 6px; }
 .journey__step p { color: var(--muted); font-size: .98rem; max-width: 560px; }
+/* step 3, the part most studios skip: three homepage designs to choose from, one picked */
+.journey__hot { background: var(--sun); border: var(--line-w) solid var(--black); border-radius: var(--r); box-shadow: var(--hard); padding: 18px 22px 22px; }
+.journey__step--hot .journey__n { margin-top: 18px; }
+.journey__step--hot h3 { margin-top: 8px; }
+.journey__step--hot p { color: var(--ink-2); }
+.journey__badge { display: inline-block; background: var(--black); color: #fff !important; font-family: var(--display); font-weight: 700; font-size: .8rem; letter-spacing: .04em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; }
+.journey__picks { display: flex; gap: 12px; margin-top: 16px; }
+.journey__picks span { position: relative; flex: 0 1 92px; min-width: 0; height: 62px; border-radius: 8px; background: #fff; border: 2px solid var(--black);
+  background-image: linear-gradient(var(--black), var(--black)), linear-gradient(var(--line), var(--line)), linear-gradient(var(--coral), var(--coral));
+  background-size: 34% 4px, 70% 3px, 100% 34%; background-position: 8px 26px, 8px 36px, 0 0; background-repeat: no-repeat; }
+.journey__picks span:nth-child(2) { background-image: linear-gradient(var(--black), var(--black)), linear-gradient(var(--line), var(--line)), linear-gradient(var(--cyan), var(--cyan)); background-size: 40% 4px, 60% 3px, 45% 100%; background-position: 8px 10px, 8px 20px, 100% 0; }
+.journey__picks span:nth-child(3) { background-image: linear-gradient(var(--black), var(--black)), linear-gradient(var(--line), var(--line)), linear-gradient(var(--sea), var(--sea)); background-size: 50% 4px, 70% 3px, 100% 40%; background-position: 50% 8px, 50% 18px, 0 100%; }
+.journey__picks .is-picked { transform: translateY(-4px); box-shadow: 4px 4px 0 var(--black); }
+.journey__picks .is-picked::after { content: "✓"; position: absolute; top: -10px; right: -10px; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--coral); color: #fff; border: 2px solid var(--black); font-weight: 800; font-size: .8rem; }
+.howto li.howto__hot { background: var(--sun); }
+.howto__hot .howto__when { color: var(--black); }
+.howto__hot p { color: var(--ink-2); }
 
 /* ---------- Why ---------- */
 .why__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 5vw, 72px); align-items: start; }
@@ -1513,7 +1531,7 @@ ol.checks { padding-left: 0; }
   .pkg__grid--4 { grid-template-columns: 1fr 1fr; max-width: none; }
   .offers__extras { grid-template-columns: 1fr; }
   .steps { grid-template-columns: 1fr 1fr; }
-  .journey { grid-template-columns: 1fr; }
+  .journey { grid-template-columns: minmax(0, 1fr); }
   .journey__head { position: static; margin-bottom: 8px; }
   .footer__cols { grid-template-columns: 1fr 1fr; }
   .pains__grid { grid-template-columns: 1fr 1fr; }
