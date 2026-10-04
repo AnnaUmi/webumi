@@ -1330,7 +1330,7 @@
      it. A click finishes it. Touch screens have no cursor: the spell just plays, a tap replays it.
      The pills are page elements: each flips when the video reaches the frame where the star hits it.
      Around it: the bear asks for the cursor (speech bubble, with a nudge if nobody moves), the label
-     counts the fixes ("Fixing… 2 of 6"), and the finish gets a small burst and points to the checklist below. */
+     counts the fixes ("Fixing… 2 of 6"), and the finish gets a small burst. */
   const spell = $("#spell");
   if (spell) {
     const video = $(".spell__video", spell), bubble = $("#spellBubble"), label = $("#spellLabel");
@@ -1340,7 +1340,6 @@
     const small = video.offsetWidth <= 440 || video.offsetWidth * (devicePixelRatio || 1) <= 640;   // phones always get the light file
     const ASK = canHover ? "Bring your cursor here" : "Tap me";
     const KEEP = "Click me to keep it";
-    const CTA = '<a href="#pains">What should yours do? Pick below ↓</a>';   // the hero teases, the choices below make it personal
     let state = "loading";                 // loading → walk → ready (cursor scrubs) → casting → done
     let prox = 0, shown = T_READY, seeking = false, seekAt = 0, last = 0, readyAt = 0, nudges = 0, celebrated = false;
     let onScreen = true, held = null;      // held: the play() waiting for the hero to come back on screen
@@ -1357,7 +1356,7 @@
       if (label.textContent !== text) label.textContent = text;
     };
     const finish = () => {
-      state = "done"; video.pause(); spell.classList.add("is-done"); paint(T_END); say(CTA);
+      state = "done"; video.pause(); spell.classList.add("is-done"); paint(T_END); say("");
       if (!celebrated) {                    // the payoff, once per visit
         celebrated = true;
         confetti($(".spell__list", spell), 26);
