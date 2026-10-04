@@ -1202,9 +1202,10 @@
     const label = btn.textContent;
     btn.disabled = true; btn.textContent = "Sending…";
     try {
+      const turnstile = await humanFor(f)();
       const r = await fetch("/api/contact.php", {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...data, website: f.elements.website?.value || "" }),
+        body: JSON.stringify({ ...data, website: f.elements.website?.value || "", turnstile }),
       });
       if (!r.ok) throw new Error(r.status);
       return "sent";
@@ -1216,6 +1217,21 @@
       btn.disabled = false; btn.textContent = label;
     }
   }
+  /* The human check for a small form. Cloudflare's script is loaded the first time someone starts
+     filling in one of these forms, not on every page view. */
+  function humanFor(f) {
+    if (!f.human) {
+      if (!window.turnstile && !$('script[src*="challenges.cloudflare.com/turnstile"]')) {
+        const s = document.createElement("script");
+        s.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"; s.async = true;
+        document.head.append(s);
+      }
+      f.human = humanCheck($("[data-human]", f));
+    }
+    return f.human;
+  }
+  $$("#bookForm, #contactForm, #npForm").forEach((f) => f.addEventListener("focusin", () => humanFor(f), { once: true }));
+
   function showDone(box, how) {
     $("[data-sent]", box).hidden = how !== "sent";
     $("[data-mailto]", box).hidden = how !== "mailto";
