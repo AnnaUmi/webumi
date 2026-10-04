@@ -8,6 +8,20 @@
  "slogan": "More customers. Less admin.",
  "description": "Webumi builds landing pages, business websites, apps (PWA, iOS and Android), custom platforms, automations and AI assistants for Australian small businesses.",
  "email": "hello@webumi.com.au",
+ "telephone": "+61 493 310 798",
+ "openingHoursSpecification": {
+  "@type": "OpeningHoursSpecification",
+  "dayOfWeek": [
+   "Monday",
+   "Tuesday",
+   "Wednesday",
+   "Thursday",
+   "Friday",
+   "Saturday"
+  ],
+  "opens": "09:00",
+  "closes": "19:00"
+ },
  "taxID": "ABN 42 183 713 603",
  "founder": {
   "@type": "Person",
