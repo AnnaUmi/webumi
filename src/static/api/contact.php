@@ -72,10 +72,12 @@ $details = '';
 foreach ($rows as [$l, $v]) $details .= (strpos($v, "\n") !== false ? "\n$l:\n$v\n" : "$l: $v\n");
 
 $ownerBody = "$prefix $ref" . ($title ? ": $title" : '') . "\n\nFrom: $name <$email>\n$details\nReply to this email to answer $name directly.\n";
+// The confirmation goes to whatever address was typed in, so it never repeats what the visitor wrote
+// (that would let a bot send its text to strangers through us); only the booked time, which we wrote.
 $customerBody = "Hi " . explode(' ', $name)[0] . ",\n\nThanks, we've received your $what" . ($kind === 'book' && $title ? ": $title" : '') . ".\n$nextStep\n\n"
-  . "What you sent:\n$details\nJust reply to this email if you'd like to add anything.\n\nThe Webumi team\nwebumi.com.au\n";
+  . "Just reply to this email if you'd like to add anything.\n\nThe Webumi team\nwebumi.com.au\n";
 
-$sent = send_mail($owner, "$prefix: " . ($title ?: $name), $ownerBody, $from, "$name <$email>", "$ref-to-you");
+$sent = send_mail($owner, "$prefix: " . ($title ?: $name), $ownerBody, $from, mail_addr($name, $email), "$ref-to-you");
 if (!$sent) {
   error_log("Webumi $kind $ref: email to owner failed (saved in webumi-data/messages)");
   fail(502, "Sorry, it didn't send. Please email $owner.", 'mail');

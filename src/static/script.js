@@ -634,8 +634,8 @@
     const book = name === "book";
     $("#tabBook")?.setAttribute("aria-selected", book);
     $("#tabMsg")?.setAttribute("aria-selected", !book);
-    if ($("#bookForm")) $("#bookForm").hidden = !book;
-    if ($("#contactForm")) $("#contactForm").hidden = book;
+    if ($("#bookPanel")) $("#bookPanel").hidden = !book;
+    if ($("#msgPanel")) $("#msgPanel").hidden = book;
   }
   $("#tabBook")?.addEventListener("click", () => contactTab("book"));
   $("#tabMsg")?.addEventListener("click", () => contactTab("message"));
@@ -861,7 +861,7 @@
   // industry tabs: "something goes in, something useful comes out"
   $$(".agen__tab").forEach((tab) => tab.addEventListener("click", () => {
     $$(".agen__tab").forEach((t) => t.setAttribute("aria-selected", t === tab));
-    $$(".agen__panel").forEach((p) => (p.hidden = p.dataset.panel !== tab.dataset.gen));
+    $$(".agen__pane").forEach((p) => (p.hidden = p.dataset.panel !== tab.dataset.gen));
   }));
 
   const abrowser = $("#abrowser");
@@ -1281,7 +1281,7 @@
      Hover or tap replays the catch. Paused off screen. Hidden (and never loaded) on narrow screens;
      reduced motion shows the bear standing with the sparkle. Same format choice as the 404 bear. */
   const catcher = $(".catch__bear");
-  if (catcher && reduceMotion) catcher.poster = "/video/bear-catch.webp";
+  if (catcher && reduceMotion) catcher.poster = catcher.dataset.still;
   const wide = matchMedia("(min-width: 1101px)");   // .catch is hidden below this (styles.css)
   const startCatch = () => {
     if (!wide.matches || catcher.src) return;   // set up once, the first time the screen is wide enough
@@ -1290,11 +1290,11 @@
     const apple = /iP(hone|ad|od)/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1) ||
       (/Safari\//.test(ua) && !/Chrom|Edg|Firefox|OPR/.test(ua));
     const ext = apple ? "mp4" : "webm";
-    catcher.src = `/video/bear-catch.${ext}`;
-    walk.src = `/video/bear-catch-loop.${ext}`;
+    catcher.src = catcher.dataset[ext];   // fingerprinted file names (build.js {{v:…}}): a re-made video is fetched at once
+    walk.src = walk.dataset[ext];
     walk.preload = "auto";
     const walking = () => box.classList.contains("is-walking");
-    const go = (v) => v.play().catch(() => { catcher.poster = "/video/bear-catch.webp"; });   // autoplay blocked: a still
+    const go = (v) => v.play().catch(() => { catcher.poster = catcher.dataset.still; });   // autoplay blocked: a still
     let handed = false;
     const toWalk = () => { if (handed) return; handed = true; walk.currentTime = 0; go(walk); };
     const nearEnd = (t) => t >= catcher.duration - 0.06;   // the last frame is on screen

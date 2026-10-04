@@ -104,6 +104,12 @@ function rate_limited($name, $perHour, $perDay) {
   });
 }
 
+/** "Name" <email> for a From/Reply-To header: quoted, so a name like "Smith, John" stays one address. */
+function mail_addr($name, $email) {
+  $name = trim(str_replace(['"', '\\', "\r", "\n"], '', $name));
+  return $name === '' ? $email : '"' . $name . '" <' . $email . '>';
+}
+
 /** Send a plain-text email (with optional attachments: [['name','mime','path'], ...]).
     The local preview saves it to webumi-data/outbox/ instead (WEBUMI_DEV_OUTBOX). */
 function send_mail($to, $subject, $body, $from, $replyTo, $file, $attachments = []) {
