@@ -304,16 +304,16 @@
       "you": "Pick your favourite and send feedback"
     },
     {
-      "step": "Website plan",
-      "when": "Week 1",
-      "what": "A visual sitemap of each page and what it will include. For a landing page, each section.",
-      "you": "Approve the plan"
-    },
-    {
       "step": "Full design & text",
       "when": "Week 1–2",
       "what": "The remaining pages in your chosen style, with the text written or polished from what you've shared.",
       "you": "Review the designs and text and approve them"
+    },
+    {
+      "step": "Website plan",
+      "when": "Week 2",
+      "what": "A visual sitemap of each page and what it will include. For a landing page, each section.",
+      "you": "Approve the plan before we build"
     },
     {
       "step": "Working website preview",
@@ -355,7 +355,7 @@
       "Bank transfer or card. Invoices under ABN 42 183 713 603."
     ]
   },
-  "communication": "Your approval at each stage (homepage design, website plan, full design and text, launch), a progress email every week, and replies by email or phone within 1 business day.",
+  "communication": "Your approval at each stage (homepage design, full design and text, website plan, launch), a progress email every week, and replies by email or phone within 1 business day.",
   "systems": {
     "crm": [
       "HubSpot (free plan)",
