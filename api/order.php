@@ -63,7 +63,7 @@ $oneLine = fn($v, $max = 200) => str_replace(["\r", "\n"], ' ', $clean($v, $max)
 $name = $oneLine($in['name'] ?? '', 120);
 $email = $oneLine($in['email'] ?? '', 200);
 $business = $oneLine($in['business'] ?? '', 160);
-$types = array_values(array_intersect(array_keys(TYPES), is_array($in['types'] ?? null) ? $in['types'] : []));
+$types = array_slice(array_values(array_intersect(array_keys(TYPES), is_array($in['types'] ?? null) ? $in['types'] : [])), 0, 1);   // one project per order
 if ($name === '') fail(400, 'Please add your name.');
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) fail(400, 'Please check your email address.');
 if (!$types) fail(400, 'Please choose what you need.');
