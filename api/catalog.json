@@ -286,6 +286,7 @@
   "media": [
     {
       "id": "video-ad",
+      "length": "15–30 seconds",
       "group": "video",
       "name": "Video ad",
       "price": 490,
@@ -294,34 +295,38 @@
     },
     {
       "id": "video-test",
+      "length": "15–30 seconds each",
       "group": "video",
       "name": "Ad test pack",
       "price": 990,
       "from": true,
-      "desc": "Three versions of one ad (different hooks or endings) so you can test which brings in more customers."
+      "desc": "Three 15–30 second versions of one ad (different hooks or endings) so you can test which brings in more customers."
     },
     {
       "id": "video-hero",
+      "length": "6–10 second loop",
       "group": "video",
       "name": "Website hero video",
       "price": 590,
-      "desc": "A looping video for the top of your website, sized to load fast. Included in every Signature design."
+      "desc": "A 6–10 second looping video for the top of your website, sized to load fast. Included in every Signature design."
     },
     {
       "id": "video-monthly",
+      "length": "15–30 seconds each",
       "group": "video",
       "name": "Monthly videos",
       "monthly": 990,
       "videos": 4,
-      "desc": "4 short videos a month for your socials or ads, in your brand's style."
+      "desc": "4 videos a month, 15–30 seconds each, for your socials or ads, in your brand's style."
     },
     {
       "id": "video-monthly-plus",
+      "length": "15–30 seconds each",
       "group": "video",
       "name": "Monthly videos Plus",
       "monthly": 1790,
       "videos": 8,
-      "desc": "8 short videos a month for your socials or ads, in your brand's style."
+      "desc": "8 videos a month, 15–30 seconds each, for your socials or ads, in your brand's style."
     },
     {
       "id": "photos-10",
