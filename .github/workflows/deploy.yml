@@ -1,0 +1,34 @@
+# Every push to main: build the site and put the finished dist/ on the `deploy` branch.
+# Hostinger (Websites → Advanced → Git) deploys the `deploy` branch into public_html.
+name: Build site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: deploy
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node build.js
+      - name: Publish dist/ to the deploy branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: deploy
+          force_orphan: true          # the branch holds only the latest build, no history
+          enable_jekyll: true         # don't add a .nojekyll file (not needed on Hostinger)
+          commit_message: "Build from"
