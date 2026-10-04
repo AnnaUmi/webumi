@@ -471,6 +471,16 @@ input[type="range"]:focus-visible { outline: 3px solid var(--sun); outline-offse
 .why__card > span { font-size: 1.8rem; }
 .why__card p { color: var(--muted); font-size: .94rem; margin-top: 4px; }
 .why__card--hot { background: var(--sun) !important; }
+/* home: the six reasons under a full-width heading, three a row, icon next to the title */
+.why__head { max-width: 860px; }
+.why__head h2 { margin-bottom: 0; }
+.why__head p:not(.kicker) { color: var(--muted); font-size: 1.1rem; margin-top: 16px; max-width: 720px; }
+.why .why__cards { grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.why .why__card { grid-template-columns: 46px 1fr; column-gap: 14px; align-items: start; padding: 22px; }
+.why .why__card > span { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 12px; border: 2px solid var(--black); background: var(--sand); font-size: 1.4rem; }
+.why .why__card--hot > span { background: #fff; }
+.why .why__card h3 { font-size: 1.12rem; margin-top: 2px; }
+.why .sky { margin-top: clamp(40px, 6vw, 72px); }
 .why__card--hot p { color: var(--ink-2); }
 .stat {
   margin-top: clamp(48px, 7vw, 88px); display: flex; align-items: center; gap: clamp(20px, 4vw, 48px);
@@ -1533,6 +1543,7 @@ ol.checks { padding-left: 0; }
   .pkg__grid--4 { grid-template-columns: 1fr 1fr; max-width: none; }
   .offers__extras { grid-template-columns: 1fr; }
   .steps { grid-template-columns: 1fr 1fr; }
+  .why .why__cards { grid-template-columns: 1fr 1fr; }
   .journey { grid-template-columns: minmax(0, 1fr); }
   .journey__head { position: static; margin-bottom: 8px; }
   .footer__cols { grid-template-columns: 1fr 1fr; }
@@ -1596,6 +1607,7 @@ ol.checks { padding-left: 0; }
   .footer__cols { grid-template-columns: 1fr; }
   .pkg__grid--4 { grid-template-columns: 1fr; }
   .pains__grid, .steps, .why__cards, .form__row, .ai__list, .choose, .bld__grid--2, .bld__grid--3, .howto, .bk__types { grid-template-columns: 1fr; }
+  .why .why__cards { grid-template-columns: 1fr; }
 
   .stat { flex-direction: column; align-items: flex-start; }
   .footer__small { margin-left: 0; }
