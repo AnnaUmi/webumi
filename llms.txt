@@ -1,15 +1,15 @@
 # Webumi
 
-> Webumi ([webumi.com.au](https://webumi.com.au/)) is an Australian web and AI studio for small businesses. It builds landing pages, business websites, apps (PWA, iOS and Android), custom platforms, automations and AI assistants. Run by a small team of professionals in Australia (ABN 42 183 713 603). Works with clients Australia-wide, online.
+> Webumi ([webumi.com.au](https://webumi.com.au/)) is an Australian web and AI studio for small and mid-sized businesses. It builds landing pages, business websites, apps (PWA, iOS and Android), custom platforms, automations and AI assistants. Run by a small team of professionals in Australia (ABN 42 183 713 603). Works with clients Australia-wide, online.
 
-Tagline: "More customers. Less admin." — Web, AI & Automation for Small Business.
+Tagline: "More customers. Less admin." — Web, AI & Automation for Small & Mid-Sized Business.
 
 ## Who Webumi helps
 - Tradies and home services: plumbers, electricians, builders, landscapers, cleaners, pool, pest control
 - Beauty, hair, nails, massage and wellness
 - Pet grooming and pet care
 - Tutors, coaches, consultants and photographers
-- Any Australian small business that wants more enquiries, online bookings or less admin
+- Any Australian small or mid-sized business that wants more enquiries, online bookings or less admin
 
 ## Services and starting prices (AUD)
 - Two design levels for every landing page, website and app. Essential: a proven layout in the client's logo, colours and fonts with subtle animations. Signature: a custom design with a hero animation or video, scroll effects, interactive sliders and video sections (landing page from $1,190, business website from $2,490, app +$2,900). Same speed and SEO foundation on both.
