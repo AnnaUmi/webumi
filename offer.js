@@ -86,7 +86,7 @@
     "email-marketing": "envelope", reviews: "star", tracking: "chart", whatsapp: "chat", "ai-assistant": "robot", "ai-agent": "robot", automations: "bolt", rush: "clock", express: "bolt",
   };
   // share of the timeline each step takes: [start, end] where 1 = launch
-  const SPANS = [[0, .05], [.05, .12], [.12, .28], [.28, .48], [.48, .86], [.86, 1], [1, 1.2]];
+  const SPANS = [[0, .04], [.04, .1], [.1, .24], [.24, .32], [.32, .58], [.58, .9], [.9, 1], [1, 1.2]];
   const COLORS = ["#0f2a3d", "#ff6b4a", "#1ee3ff", "#ffd23f", "#1fa592", "#8b7cf6", "#ff9fb2", "#6fe3d1", "#f4a261", "#5d6c78"];
 
   function flow(o, p) {
