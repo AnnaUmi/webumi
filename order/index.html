@@ -493,46 +493,8 @@
                 <label class="field"><span>Links to your brief or designs <em>(Google Docs, Notion, Figma, Miro)</em></span><textarea name="specLinks" rows="2" placeholder="https://www.figma.com/…&#10;https://docs.google.com/…"></textarea></label>
                 <label class="field"><span>Who logs in, and what can each role do?</span><textarea name="roles" rows="3" placeholder="e.g. Admin: manages users and prices. Staff: sees today's jobs. Clients: book, pay and see their history."></textarea></label>
                 <label class="field"><span>Systems it must connect to</span><input name="integrations" placeholder="e.g. Stripe, Xero, Google Calendar, HubSpot, your own API"></label>
-                <p class="ord__label">Preferred technologies <em>(optional)</em></p>
-                <div class="form__chips">
-                  <label class="tick"><input type="checkbox" name="tech" value="No preference, recommend the best fit"><span>No preference, recommend the best fit</span></label>
-                </div>
-                <p class="ord__label">Web front end</p>
-                <div class="form__chips">
-                  <label class="tick"><input type="checkbox" name="techWeb" value="React / Next.js"><span>React / Next.js</span></label>
-                  <label class="tick"><input type="checkbox" name="techWeb" value="Vue / Nuxt"><span>Vue / Nuxt</span></label>
-                  <label class="tick"><input type="checkbox" name="techWeb" value="Angular"><span>Angular</span></label>
-                </div>
-                <p class="ord__label">Mobile</p>
-                <div class="form__chips">
-                  <label class="tick"><input type="checkbox" name="techMobile" value="React Native / Expo"><span>React Native / Expo</span></label>
-                  <label class="tick"><input type="checkbox" name="techMobile" value="Flutter"><span>Flutter</span></label>
-                  <label class="tick"><input type="checkbox" name="techMobile" value="Native Swift / Kotlin"><span>Native Swift / Kotlin</span></label>
-                </div>
-                <p class="ord__label">Back end</p>
-                <div class="form__chips">
-                  <label class="tick"><input type="checkbox" name="techBack" value="Node.js"><span>Node.js</span></label>
-                  <label class="tick"><input type="checkbox" name="techBack" value="Python"><span>Python</span></label>
-                  <label class="tick"><input type="checkbox" name="techBack" value="PHP / Laravel"><span>PHP / Laravel</span></label>
-                  <label class="tick"><input type="checkbox" name="techBack" value=".NET"><span>.NET</span></label>
-                </div>
-                <p class="ord__label">Database &amp; backend services</p>
-                <div class="form__chips">
-                  <label class="tick"><input type="checkbox" name="techData" value="PostgreSQL"><span>PostgreSQL</span></label>
-                  <label class="tick"><input type="checkbox" name="techData" value="MySQL"><span>MySQL</span></label>
-                  <label class="tick"><input type="checkbox" name="techData" value="Supabase"><span>Supabase</span></label>
-                  <label class="tick"><input type="checkbox" name="techData" value="Firebase"><span>Firebase</span></label>
-                  <label class="tick"><input type="checkbox" name="techData" value="MongoDB"><span>MongoDB</span></label>
-                </div>
-                <p class="ord__label">Hosting</p>
-                <div class="form__chips">
-                  <label class="tick"><input type="checkbox" name="techHost" value="AWS"><span>AWS</span></label>
-                  <label class="tick"><input type="checkbox" name="techHost" value="Google Cloud"><span>Google Cloud</span></label>
-                  <label class="tick"><input type="checkbox" name="techHost" value="Azure"><span>Azure</span></label>
-                  <label class="tick"><input type="checkbox" name="techHost" value="Vercel"><span>Vercel</span></label>
-                  <label class="tick"><input type="checkbox" name="techHost" value="Our own servers"><span>Our own servers</span></label>
-                </div>
-                <label class="field"><span>Other technologies or constraints</span><input name="techOther" placeholder="e.g. must run on our Microsoft 365 account, TypeScript only"></label>
+                <p class="ord__hint"><b>Our stack:</b> React and Next.js for web, React Native and Expo for iPhone and Android, Node.js, Supabase or Firebase for data and logins, hosted on Vercel or Hostinger.</p>
+                <label class="field"><span>Technical requirements or constraints <em>(optional)</em></span><input name="techOther" placeholder="e.g. must work with our Microsoft 365 account, data stays in Australia"></label>
                 <p class="ord__label">Data &amp; compliance</p>
                 <div class="form__chips">
                   <label class="tick"><input type="checkbox" name="compliance" value="Personal or health data"><span>Personal or health data</span></label>
