@@ -117,7 +117,7 @@ $fileNote = $saved ? "\nFILES (" . count($saved) . ")\n" . implode("\n", array_m
 $ownerBody = "New order $ref\n\nFrom: $name <$email>\nBusiness: " . ($business ?: '-') . "\nNeeds: $typeNames\n$details$fileNote\nReply to this email to answer $name directly.\n";
 $customerBody = "Hi " . explode(' ', $name)[0] . ",\n\nThanks for your order. Your reference is $ref.\n\n"
   . "What happens next:\n1. We'll review your answers and send a written, fixed quote within 1 business day.\n"
-  . "2. If you're happy with it, you sign online, pay a 50% deposit and get the guided form about your business.\n3. Nothing is charged until you approve the quote.\n\n"
+  . "2. If you're happy with it, you sign the agreement online and pay a 50% deposit (Express: paid in full). Then we start on your three homepage designs.\n3. Nothing is charged until you approve the quote.\n\n"
   . "A copy of your answers:\n$details" . ($saved ? "\nFiles received: " . count($saved) . "\n" : '') . "\nJust reply to this email if you'd like to add anything.\n\nThe Webumi team\nwebumi.com.au\n";
 
 $sent = send_mail($owner, "New order $ref: $typeNames" . ($business ? " for $business" : ''), $ownerBody, $from, mail_addr($name, $email), "$ref-to-you", $attachOk ? $saved : []);

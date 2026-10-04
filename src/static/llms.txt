@@ -21,7 +21,7 @@ Tagline: "More customers. Less admin." — Web, AI & Automation for Small & Mid-
 - Platform — from $15,000: client portals, dashboards, internal tools, marketplaces and SaaS products, starting with a focused first version (MVP). Usually 8–16 weeks.
 - Custom AI agents (a chat that asks questions and produces a quote, plan or report as a PDF) and automations (Xero, Stripe, Gmail, Google Sheets, CRMs): quoted per project. AI can be added to existing websites (WordPress, Wix, Squarespace, Shopify).
 - Website fixes and redesigns: quoted after a free review.
-- Support after launch: 30 days of free fixes, then Care $49/month, Care Plus $99/month or Growth $199/month (domain and hosting included, cancel anytime). Care includes 3 updates a month, Care Plus 6 (unused ones carry over), Growth 10 plus a new page or blog post and SEO and AI search optimisation every month. One update = changes to one page (text, photos or prices), done within 3 business days.
+- Support after launch: for 30 days, issues with the agreed functionality are fixed at no extra cost; then Care $49/month, Care Plus $99/month or Growth $199/month (domain and hosting included, cancel anytime). Care includes 3 updates a month, Care Plus 6 (unused ones carry over), Growth 10 plus a new page or blog post and SEO and AI search optimisation every month. One update = changes to one page (text, photos or prices), done within 3 business days.
 - Free website planner: answer a few questions and get a plan with pages and a price: [Plan my website](https://webumi.com.au/plan/)
 
 ## How it works

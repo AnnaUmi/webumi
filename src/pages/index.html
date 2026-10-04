@@ -2,7 +2,7 @@
 {
  "title": "Webumi — Websites, AI & Automation for Small & Mid-Sized Business in Australia",
  "ogTitle": "Webumi — Web, AI & Automation for Small & Mid-Sized Business",
- "description": "Websites, apps, automations and AI assistants for Australian small and mid-sized businesses. Landing pages from $590, business websites from $1,290. Fixed quotes."
+ "description": "Websites, apps, automations and AI assistants for Australian small and mid-sized businesses. Landing pages from $590, business websites from $1,290."
 }
 -->
     <!-- ============ HERO ============ -->
@@ -15,7 +15,7 @@
           <p class="hero__lead reveal">Websites, apps, automations and AI assistants that help your business <strong>get found, get booked and get paid</strong>.</p>
           <div class="hero__ctas reveal">
             <a href="#contact" class="btn btn--primary">Tell us about your business <span class="arrow">→</span></a>
-            <a href="#solutions" class="btn btn--ghost">See what we can fix</a>
+            <a href="#pains" class="btn btn--ghost">See what we can fix</a>
           </div>
         </div>
 
@@ -23,12 +23,12 @@
         <!-- no .reveal here: its fade would isolate the video and show the white box while fading -->
         <div class="hero__demo">
           <div class="spell" id="spell">
-            <p class="sr-only">A bear with a magic star turns “No website, No new customers, No online booking, Low revenue, Admin by hand, No reviews” into “Website live, New inquiries, Customers booked, Payments received, Admin on autopilot, Reviews coming in”.</p>
+            <p class="sr-only">A bear with a magic star turns “No website, No new customers, No online booking, Low revenue, Admin by hand, No reviews” into “Website live, New enquiries, Customers booked, Payments received, Admin on autopilot, Reviews coming in”.</p>
             <div class="spell__side" aria-hidden="true">
               <p class="spell__label" id="spellLabel">Your business today</p>
               <ul class="spell__list">
                 <li><span class="spell__no">No website</span><span class="spell__yes">Website live</span></li>
-                <li><span class="spell__no">No new customers</span><span class="spell__yes">New inquiries</span></li>
+                <li><span class="spell__no">No new customers</span><span class="spell__yes">New enquiries</span></li>
                 <li><span class="spell__no">No online booking</span><span class="spell__yes">Customers booked</span></li>
                 <li><span class="spell__no">Low revenue</span><span class="spell__yes">Payments received</span></li>
                 <li><span class="spell__no">Admin by hand</span><span class="spell__yes">Admin on autopilot</span></li>
@@ -96,12 +96,14 @@
         <div class="pains__grid">
           <button type="button" class="pain reveal" data-goal="first" aria-pressed="false"><span class="pain__tick"></span>Launch my first website</button>
           <button type="button" class="pain reveal" data-goal="refresh" aria-pressed="false"><span class="pain__tick"></span>Refresh my existing website</button>
+          <button type="button" class="pain reveal" data-goal="customers" aria-pressed="false"><span class="pain__tick"></span>Get more customers from Google</button>
           <button type="button" class="pain reveal" data-goal="brand" aria-pressed="false"><span class="pain__tick"></span>Make my brand stand out</button>
-          <button type="button" class="pain reveal" data-goal="booking" aria-pressed="false"><span class="pain__tick"></span>Make booking or buying easier</button>
+          <button type="button" class="pain reveal" data-goal="bookings" aria-pressed="false"><span class="pain__tick"></span>Make booking or buying easier</button>
+          <button type="button" class="pain reveal" data-goal="admin" aria-pressed="false"><span class="pain__tick"></span>Automate my admin</button>
           <button type="button" class="pain reveal" data-goal="ai" aria-pressed="false"><span class="pain__tick"></span>Add an AI assistant</button>
           <button type="button" class="pain reveal" data-goal="app" aria-pressed="false"><span class="pain__tick"></span>Build an app for my business</button>
         </div>
-        <!-- one answer at a time (script.js); "Not sure yet" shows until a card is picked -->
+        <!-- one answer at a time (script.js): a short suggestion, or the detailed panel for customers, bookings, admin and AI; "Not sure yet" until a card is picked -->
         <div class="pains__result" aria-live="polite">
           <div class="pains__answer" data-for="">
             <p class="pains__title">Not sure yet? That's a good place to start too.</p>
@@ -123,58 +125,12 @@
             <p class="pains__msg">Explore Signature: custom visuals, video and interactive details that bring your business's personality to life.</p>
             <a href="/projects/" class="btn btn--primary btn--small">See Signature examples →</a>
           </div>
-          <div class="pains__answer" data-for="booking" hidden>
-            <p class="pains__title">Make booking or buying easier</p>
-            <p class="pains__msg">Online booking with email and SMS reminders from {{aud:booking:website}}, card payments and deposits from {{aud:payments:website}}, or a full online shop from {{aud:store:website}}.</p>
-            <a href="/online-bookings/" class="btn btn--primary btn--small">See online booking →</a>
-          </div>
-          <div class="pains__answer" data-for="ai" hidden>
-            <p class="pains__title">Add an AI assistant</p>
-            <p class="pains__msg">An assistant trained on your services, prices and FAQs. It answers customers 24/7, books appointments and hands tricky questions to you. From {{aud:ai-assistant:website}}.</p>
-            <a href="/ai-assistants/" class="btn btn--primary btn--small">See AI assistants →</a>
-          </div>
           <div class="pains__answer" data-for="app" hidden>
             <p class="pains__title">Build an app for my business</p>
             <p class="pains__msg">A web app from $8,900 or an iOS and Android app from $14,900, for bookings, loyalty, orders or your staff.</p>
             <a href="/apps/" class="btn btn--primary btn--small">See app options →</a>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ SOLUTIONS CHOOSER ============ -->
-    <section class="section solutions" id="solutions">
-      <div class="wrap">
-        <div class="section__head reveal">
-          <p class="kicker">Start with one thing</p>
-          <h2>What would help you most right now?</h2>
-          <p class="section__sub">Pick your biggest problem and see how it gets solved.</p>
-        </div>
-
-        <div class="choose reveal" role="tablist" aria-label="Choose your goal">
-          <button class="choose__btn is-active" data-goal="customers" role="tab" aria-selected="true">
-            <span class="choose__emoji"><svg class="ic" aria-hidden="true"><use href="#i-chart"/></svg></span>
-            <span class="choose__label">I need more customers</span>
-            <span class="choose__hint">Website · Google · Leads</span>
-          </button>
-          <button class="choose__btn" data-goal="bookings" role="tab" aria-selected="false">
-            <span class="choose__emoji"><svg class="ic" aria-hidden="true"><use href="#i-calendar"/></svg></span>
-            <span class="choose__label">I need online bookings</span>
-            <span class="choose__hint">Booking · Deposits · Reminders</span>
-          </button>
-          <button class="choose__btn" data-goal="admin" role="tab" aria-selected="false">
-            <span class="choose__emoji"><svg class="ic" aria-hidden="true"><use href="#i-robot"/></svg></span>
-            <span class="choose__label">I waste too much time on admin</span>
-            <span class="choose__hint">Automations · CRM · Follow-ups</span>
-          </button>
-          <button class="choose__btn" data-goal="ai" role="tab" aria-selected="false">
-            <span class="choose__emoji"><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></span>
-            <span class="choose__label">I want AI working for me</span>
-            <span class="choose__hint">Assistants · Integrations · Docs</span>
-          </button>
-        </div>
-
-        <div class="flowpanel" id="flowPanel">
+          <div class="flowpanel" id="flowPanel" hidden>
           <div class="flowpanel__text">
             <h3 id="goalTitle"></h3>
             <p id="goalDesc"></p>
@@ -184,11 +140,12 @@
           </div>
           <ol class="flow" id="goalFlow"></ol>
         </div>
+        </div>
       </div>
       <div class="wrap">
         <div class="stat reveal">
           <p class="stat__num"><span data-count="32">0</span>%</p>
-          <p class="stat__text">Only about a third of Australian businesses take orders online. Taking bookings and payments online puts you ahead of most competitors.<small>Source: Australian Bureau of Statistics, business use of IT.</small></p>
+          <p class="stat__text">Only about a third of Australian businesses take orders online. Taking bookings and payments online puts you ahead of most competitors.<small>Source: <a href="https://www.abs.gov.au/statistics/industry/technology-and-innovation/characteristics-australian-business/latest-release" rel="noopener">Australian Bureau of Statistics, Characteristics of Australian Business, 2024–25</a>.</small></p>
         </div>
       </div>
     </section>

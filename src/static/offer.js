@@ -127,7 +127,7 @@
       <ul class="pz-legend">${segs.map((s) => `<li><i style="--c:${s.color}"></i><span>${esc(s.name)}</span><b>${s.from ? "from " : ""}${aud(s.value)}</b></li>`).join("")}</ul>
       <div class="pz-total"><span>${p.from ? "Total, from" : "Total"}</span><b data-count="${p.total}">${aud(p.total)}</b></div>
       ${p.monthly ? `<p class="pz-monthly">+ ${aud(p.monthly)}/month for ${esc(p.monthlyLines.map((l) => l.name).join(", "))}, starting 30 days after launch</p>` : ""}
-      ${p.quoted.length ? `<p class="pz-quoted">+ ${esc(p.quoted.map((q) => q.name).join(" and "))}: priced after a free chat</p>` : ""}
+      ${p.quoted.length ? `<p class="pz-quoted">+ ${esc(p.quoted.map((q) => q.name).join(" and "))}: priced once we've discussed your project</p>` : ""}
     </div>`;
   }
 
@@ -238,7 +238,7 @@
         <div>
           <p class="kicker">Price</p>
           <h2>One fixed price. No surprises.</h2>
-          <p class="pz-lead">Every line comes from Webumi's price list. After a free chat you get a written quote, and that's the price you pay.</p>
+          <p class="pz-lead">Every line comes from Webumi's price list. Send it with a few details about your business and you get a written, fixed quote within 1 business day. That's the price you pay.</p>
           <div class="pz-pay" data-anim>
             <h3>Payments</h3>
             ${express
