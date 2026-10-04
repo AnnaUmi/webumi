@@ -120,7 +120,7 @@ $customerBody = "Hi " . explode(' ', $name)[0] . ",\n\nThanks for your order. Yo
   . "2. If you're happy with it, you pay a 50% deposit and we book a kick-off call.\n3. Nothing is charged until you approve the quote.\n\n"
   . "A copy of your answers:\n$details" . ($saved ? "\nFiles received: " . count($saved) . "\n" : '') . "\nJust reply to this email if you'd like to add anything.\n\nThe Webumi team\nwebumi.com.au\n";
 
-$sent = send_mail($owner, "New order $ref: $typeNames" . ($business ? " for $business" : ''), $ownerBody, $from, "$name <$email>", "$ref-to-you", $attachOk ? $saved : []);
+$sent = send_mail($owner, "New order $ref: $typeNames" . ($business ? " for $business" : ''), $ownerBody, $from, mail_addr($name, $email), "$ref-to-you", $attachOk ? $saved : []);
 send_mail($email, "Your Webumi order $ref", $customerBody, $from, $owner, "$ref-to-customer");
 if (!$sent) error_log("Webumi order $ref: owner email failed (saved in webumi-data/orders)");
 

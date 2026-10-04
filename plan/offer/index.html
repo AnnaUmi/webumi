@@ -295,12 +295,13 @@
 
         <div class="contact__panel reveal">
           <div class="ctabs" role="tablist" aria-label="How would you like to get in touch?">
-            <button type="button" role="tab" class="ctabs__btn" id="tabBook" aria-selected="true" aria-controls="bookForm"><svg class="ic" aria-hidden="true"><use href="#i-calendar"/></svg> Book a call</button>
-            <button type="button" role="tab" class="ctabs__btn" id="tabMsg" aria-selected="false" aria-controls="contactForm"><svg class="ic" aria-hidden="true"><use href="#i-envelope"/></svg> Send a message</button>
+            <button type="button" role="tab" class="ctabs__btn" id="tabBook" aria-selected="true" aria-controls="bookPanel"><svg class="ic" aria-hidden="true"><use href="#i-calendar"/></svg> Book a call</button>
+            <button type="button" role="tab" class="ctabs__btn" id="tabMsg" aria-selected="false" aria-controls="msgPanel"><svg class="ic" aria-hidden="true"><use href="#i-envelope"/></svg> Send a message</button>
           </div>
 
           <!-- Booking: visitor picks a slot, the request is emailed; Webumi confirms by email. -->
-          <form class="form" id="bookForm" role="tabpanel" aria-labelledby="tabBook" novalidate>
+          <div role="tabpanel" id="bookPanel" aria-labelledby="tabBook">
+          <form class="form" id="bookForm" novalidate aria-label="Book a call">
             <input class="pl__hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
             <fieldset>
               <legend>How would you like to meet?</legend>
@@ -351,8 +352,10 @@
               <p data-mailto hidden>Your email app opened with your request. Press send, and we'll confirm within one business day.</p>
             </div>
           </form>
+          </div>
 
-          <form class="form" id="contactForm" role="tabpanel" aria-labelledby="tabMsg" novalidate hidden>
+          <div role="tabpanel" id="msgPanel" aria-labelledby="tabMsg" hidden>
+          <form class="form" id="contactForm" novalidate aria-label="Send a message">
             <input class="pl__hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
             <fieldset class="form__need">
               <legend>What do you need? <span>(choose any)</span></legend>
@@ -382,10 +385,11 @@
             <div class="form__done" id="formDone" hidden>
               <div class="form__doneIcon"><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></div>
               <h3>Thanks, <span id="doneName">there</span>!</h3>
-              <p data-sent>Your message is on its way. We'll reply within one business day. Check your inbox for a copy.</p>
+              <p data-sent>Your message is on its way. We'll reply within one business day. We've emailed you a confirmation.</p>
               <p data-mailto hidden>Your email app opened with your message ready to send. If it didn't, email <a href="mailto:hello@webumi.com.au">hello@webumi.com.au</a>.</p>
             </div>
           </form>
+          </div>
         </div>
       </div>
     </section>
@@ -448,6 +452,6 @@
   <a href="#contact" class="sticky-cta" id="stickyCta">Free 15-min chat →</a>
 
   <script src="/offer.js?v=32586b08"></script>
-  <script src="/script.js?v=ef1f0e6d"></script>
+  <script src="/script.js?v=f704739c"></script>
 </body>
 </html>
