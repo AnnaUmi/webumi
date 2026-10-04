@@ -413,6 +413,7 @@ input[type="range"]:focus-visible { outline: 3px solid var(--sun); outline-offse
 /* AI video page: the bear example, and the two monthly plans under the video prices */
 .aiv__demo { display: grid; place-items: center; }
 .aiv__demo video { width: 100%; max-width: 420px; height: auto; display: block; }
+.aiv__reel { max-width: 300px !important; aspect-ratio: 9 / 16; object-fit: cover; border: 3px solid var(--black); border-radius: 28px; box-shadow: 8px 8px 0 var(--cyan); background: #fbfcfa; }   /* a vertical reel, framed like a phone screen */
 .aiv__monthly { grid-template-columns: repeat(2, 1fr); margin-top: 20px; }
 .aiv__monthly .pkg__for { margin-bottom: 0; }
 .pkg__price--two { display: grid; font-size: 1.7rem !important; line-height: 1.1; gap: 2px; }
@@ -1637,7 +1638,7 @@ ol.checks { padding-left: 0; }
   .pkg__grid--4 { grid-template-columns: 1fr; }
   .pains__grid, .steps, .why__cards, .form__row, .ai__list, .choose, .bld__grid--2, .bld__grid--3, .howto, .bk__types { grid-template-columns: 1fr; }
   .why .why__cards { grid-template-columns: 1fr; }
-  .aiv__demo video { max-width: 260px; }
+  .aiv__demo .aiv__reel { max-width: 240px !important; }
   .journey__demo { flex-direction: column; align-items: stretch; }
   .demo--big { max-width: none; }
   .journey__picks { flex-direction: row; }
