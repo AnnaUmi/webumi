@@ -85,8 +85,9 @@ foreach (array_slice(is_array($in['summary'] ?? null) ? $in['summary'] : [], 0, 
 // ---------- save a backup, then email ----------
 $ref = 'W-' . gmdate('md', time() + 10 * 3600) . '-' . strtoupper(bin2hex(random_bytes(2)));
 $typeNames = implode(', ', array_map(fn($t) => TYPES[$t], $types));
+$nda = !empty($in['nda']);   // the customer wants an NDA signed before sharing details
 $order = ['ref' => $ref, 'received' => gmdate('c'), 'name' => $name, 'email' => $email, 'business' => $business,
-  'types' => $types, 'sections' => $sections, 'plan' => $oneLine($in['plan'] ?? '', 4000)];
+  'nda' => $nda, 'types' => $types, 'sections' => $sections, 'plan' => $oneLine($in['plan'] ?? '', 4000)];
 
 // uploaded files: check the real type from the file's contents, not what the browser claims
 $saved = []; $total = 0;
@@ -117,13 +118,14 @@ $attachOk = $saved && $total <= MAX_ATTACH;
 $fileNote = $saved ? "\nFILES (" . count($saved) . ")\n" . implode("\n", array_map(fn($x) => "- " . $x['name'], $saved)) . "\n"
   . ($attachOk ? "Attached to this email.\n" : "Too big to attach: download them from webumi-data/orders/$ref/ in File Manager.\n") : '';
 
-$ownerBody = "New order $ref\n\nFrom: $name <$email>\nBusiness: " . ($business ?: '-') . "\nNeeds: $typeNames\n$details$fileNote\nReply to this email to answer $name directly.\n";
+$ownerBody = "New order $ref\n\n" . ($nda ? "NDA REQUESTED: sign theirs or send ours (private/nda-template.html) before they share the details.\n\n" : '') . "From: $name <$email>\nBusiness: " . ($business ?: '-') . "\nNeeds: $typeNames\n$details$fileNote\nReply to this email to answer $name directly.\n";
 $customerBody = "Hi " . explode(' ', $name)[0] . ",\n\nThanks for your order. Your reference is $ref.\n\n"
   . "What happens next:\n1. We'll review your answers and send a written, fixed quote within 1 business day.\n"
   . "2. If you're happy with it, you sign the agreement online and pay a 50% deposit (Express: paid in full). Then we start on your three homepage designs.\n3. Nothing is charged until you approve the quote.\n\n"
+  . ($nda ? "You asked for an NDA. We're happy to sign yours, or we'll send our standard mutual NDA. Either way it's signed before you share the details.\n\n" : '')
   . "A copy of your answers:\n$details" . ($saved ? "\nFiles received: " . count($saved) . "\n" : '') . "\nJust reply to this email if you'd like to add anything.\n\nThe Webumi team\nwebumi.com.au\n";
 
-$sent = send_mail($owner, "New order $ref: $typeNames" . ($business ? " for $business" : ''), $ownerBody, $from, mail_addr($name, $email), "$ref-to-you", $attachOk ? $saved : []);
+$sent = send_mail($owner, ($nda ? "[NDA] " : '') . "New order $ref: $typeNames" . ($business ? " for $business" : ''), $ownerBody, $from, mail_addr($name, $email), "$ref-to-you", $attachOk ? $saved : []);
 send_mail($email, "Your Webumi order $ref", $customerBody, $from, $owner, "$ref-to-customer");
 if (!$sent) error_log("Webumi order $ref: owner email failed (saved in webumi-data/orders)");
 

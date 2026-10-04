@@ -1137,6 +1137,7 @@
       const payload = {
         types: selectedTypes(), name: ord.elements.name.value.trim(), email: ord.elements.email.value.trim(),
         business: ord.elements.business.value.trim(), consent: true, summary: summary(), plan: attached,
+        nda: !!(ord.elements.nda?.checked && shown(ord.elements.nda)),
         website: ord.elements.website.value,
         files: Object.entries(files).flatMap(([zone, list]) => list.map((f) => ({ zone, name: f.name, type: f.type, data: f.data }))),
       };
