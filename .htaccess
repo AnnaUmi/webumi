@@ -1,1 +1,5 @@
 ErrorDocument 404 /404.html
+
+# Hostinger doesn't know these types and sends them as text/plain, which some browsers won't play or read
+AddType video/webm .webm
+AddType application/manifest+json .webmanifest
