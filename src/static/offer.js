@@ -80,7 +80,7 @@
   function $id(id) { return document.getElementById(id); }
 
   const ICONS = {
-    base: "doc", pages: "doc", "design-unique": "sparkle", "text-written": "doc", "images-stock": "camera", "images-unique": "camera",
+    base: "doc", pages: "doc", "design-signature": "sparkle", "text-written": "doc", "images-stock": "camera", "images-unique": "camera", photoshoot: "camera",
     "cms-simple": "doc", "cms-wordpress": "folder", "hosting-year": "search", care: "shield", "care-plus": "lifebuoy", "care-growth": "chart",
     booking: "calendar", payments: "card", logo: "star", blog: "doc", email: "envelope", "quote-form": "inbox", crm: "user", store: "card",
     "email-marketing": "envelope", reviews: "star", tracking: "chart", whatsapp: "chat", "ai-assistant": "robot", "ai-agent": "robot", automations: "bolt", rush: "clock", express: "bolt",

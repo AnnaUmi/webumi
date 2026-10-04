@@ -93,10 +93,11 @@
                 "id": {
                   "type": "string",
                   "enum": [
-                    "design-unique",
+                    "design-signature",
                     "text-written",
                     "images-stock",
                     "images-unique",
+                    "photoshoot",
                     "cms-simple",
                     "cms-wordpress",
                     "hosting-year",

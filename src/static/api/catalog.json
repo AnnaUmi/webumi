@@ -4,6 +4,7 @@
     "landing": {
       "name": "Landing page",
       "price": 590,
+      "signature": 1190,
       "pages": 1,
       "time": "1–2 weeks",
       "desc": "One page with one goal: calls, bookings or sign-ups. For new businesses, one main service or an ad campaign."
@@ -11,6 +12,7 @@
     "website": {
       "name": "Business website",
       "price": 1290,
+      "signature": 2490,
       "pages": 10,
       "maxPages": 40,
       "extraPage": 120,
@@ -20,20 +22,22 @@
   },
   "options": [
     {
-      "id": "design-unique",
+      "id": "design-signature",
       "group": "design",
-      "name": "Unique design",
-      "landing": 290,
-      "website": 590,
-      "desc": "Designed from scratch for the brand, mockup approved before the build. Default (free) is a proven layout in their logo, colours and fonts."
+      "name": "Signature design",
+      "landing": 600,
+      "website": 1200,
+      "app": 2900,
+      "desc": "Custom design with motion and interactive sections: a design mockup approved before the build, an animated video hero, up to 10 sections with scroll effects, sliders or carousels, up to 4 video sections, custom icons, 2 rounds of design changes. Same speed and SEO foundation as Essential; respects reduced-motion settings. Default (free) is Essential: a proven layout in their logo, colours and fonts with subtle animations.",
+      "explain": "A design made for your brand, with motion, video and interactive sections that make your business stand out from competitors."
     },
     {
       "id": "text-written",
       "group": "text",
-      "name": "Unique text, written for you",
+      "name": "Persuasive copy & slogan",
       "landing": 190,
       "website": 390,
-      "desc": "Anna writes every page after a 30-minute call, targeted at what customers search for. Default (free): client sends text, Anna edits it."
+      "desc": "We write every page: a memorable slogan, attention-grabbing headlines and persuasive text using buyer psychology, also targeted at what customers search for. Default (free): client sends their text or notes, we polish it or writes clear, professional text from the notes."
     },
     {
       "id": "images-stock",
@@ -41,15 +45,24 @@
       "name": "Stock photos",
       "landing": 70,
       "website": 150,
-      "desc": "Licensed photos picked to match the business. Default (free): client's own photos, optimised."
+      "desc": "Real licensed photos picked to match the business. Default (free): client's own photos, optimised, or natural, realistic AI photos made to match the business if they have none."
     },
     {
       "id": "images-unique",
       "group": "images",
-      "name": "Unique images",
+      "name": "Custom art & illustrations",
       "landing": 190,
       "website": 390,
-      "desc": "Images made for this business only."
+      "desc": "Artwork created only for this brand: illustrations, characters and scenes in its own style."
+    },
+    {
+      "id": "photoshoot",
+      "group": "images",
+      "name": "Professional photoshoot",
+      "landing": 590,
+      "website": 590,
+      "desc": "A professional photographer shoots the team, work and premises, then edits and retouches the best shots for the website and social media. Price from $590; the final price depends on the city and is confirmed after a chat.",
+      "from": true
     },
     {
       "id": "cms-simple",
@@ -82,27 +95,30 @@
       "group": "hosting",
       "name": "Care plan",
       "monthly": 49,
-      "desc": "Domain (.com.au in the client's name), hosting, SSL, security updates, weekly backups, uptime monitoring, up to 30 min of changes a month, email support (reply within 2 business days). Cancel anytime.",
+      "updates": 3,
+      "desc": "For sites that rarely change. Domain (.com.au in the client's name), hosting, SSL, monthly security checks and vulnerability updates, weekly backups, uptime monitoring, fixes if something breaks, and 3 updates a month. One update = changes to one page (new or edited text, new photos, or changed prices or opening hours), sent in one request and done within 3 business days. Cancel anytime.",
       "features": [
-        "Domain, hosting, SSL & security updates",
+        "Domain, hosting & SSL",
+        "Monthly security checks & vulnerability updates",
         "Weekly backups & uptime monitoring",
-        "Up to 30 min of changes a month",
-        "Email support, reply within 2 business days"
+        "If something breaks, we fix it",
+        "3 updates a month: text, photos or prices"
       ],
-      "explain": "Hosting, security updates, backups and small changes every month, so the site keeps working and stays up to date without you thinking about it."
+      "explain": "Hosting, security updates, backups and 3 updates a month, so the site stays online, secure and up to date without you thinking about it."
     },
     {
       "id": "care-plus",
       "group": "hosting",
       "name": "Care Plus plan",
       "monthly": 99,
-      "desc": "Everything in Care, plus up to 2 hours of changes a month, monthly report (visitors, enquiries, Google), booking and integrations checked, reply within 1 business day.",
+      "updates": 6,
+      "desc": "For businesses that update prices, photos or offers. Everything in Care, plus 6 updates a month (unused updates carry over to the next month), booking, forms and payments checked monthly, and a monthly report (visitors, enquiries, Google). One update = changes to one page (new or edited text, new photos, or changed prices or opening hours), sent in one request and done within 3 business days. Cancel anytime.",
       "features": [
         "Everything in Care",
-        "Up to 2 hours of changes a month",
-        "Monthly report: visitors, enquiries, Google",
-        "Bookings & integrations checked",
-        "Reply within 1 business day"
+        "6 updates a month: text, photos or prices",
+        "Unused updates carry over to next month",
+        "Booking, forms & payments checked monthly",
+        "Monthly report: visitors, enquiries, Google"
       ]
     },
     {
@@ -110,14 +126,14 @@
       "group": "hosting",
       "name": "Growth plan",
       "monthly": 199,
-      "desc": "Everything in Care Plus, plus up to 4 hours of changes, 1 new page or blog post a month, 2 Google Business Profile posts a month, quarterly 30-min strategy call, same-day replies.",
+      "updates": 10,
+      "desc": "For businesses that want more customers from Google and AI search. Everything in Care Plus, plus 10 updates a month, 1 new page or blog post written each month, monthly SEO and AI search optimisation (page titles, keywords and structured data improved so Google and AI tools like ChatGPT understand the business), and a written list of improvement ideas every 3 months. One update = changes to one page (new or edited text, new photos, or changed prices or opening hours), sent in one request and done within 3 business days. Cancel anytime.",
       "features": [
         "Everything in Care Plus",
-        "Up to 4 hours of changes a month",
-        "1 new page or blog post a month",
-        "2 Google Business Profile posts a month",
-        "Quarterly strategy call",
-        "Same-day replies on business days"
+        "10 updates a month: text, photos or prices",
+        "1 new page or blog post written for you each month",
+        "Monthly SEO & AI search optimisation",
+        "Every 3 months: a written list of improvement ideas"
       ]
     },
     {
@@ -266,14 +282,14 @@
   "support": {
     "freeDays": 30,
     "hourly": 95,
-    "note": "30 days of free fixes after launch are included with every website. After that: a monthly plan, or pay as you go at $95/hour in 15-minute blocks."
+    "note": "30 days of free fixes after launch are included with every website. After that: a monthly plan with a set number of updates a month. One update = changes to one page (new or edited text, new photos, or changed prices or opening hours), sent in one request and done within 3 business days."
   },
   "process": [
     {
       "step": "Free call",
       "when": "Day 1",
       "what": "15-minute video call, or meet in person in Sydney. We talk about your business, customers and goals.",
-      "you": "Tell me what you need"
+      "you": "Tell us what you need"
     },
     {
       "step": "Plan & fixed quote",
@@ -308,8 +324,8 @@
     {
       "step": "After launch",
       "when": "30 days",
-      "what": "Free fixes for 30 days. Then a monthly support plan, or pay as you go at $95/hour.",
-      "you": "Tell me if anything needs fixing"
+      "what": "Free fixes for 30 days. Then a monthly support plan with updates included.",
+      "you": "Tell us if anything needs fixing"
     }
   ],
   "payment": {

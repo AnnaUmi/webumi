@@ -125,9 +125,9 @@ $fileNote = $saved ? "\nFILES (" . count($saved) . ")\n" . implode("\n", array_m
 
 $ownerBody = "New order $ref\n\nFrom: $name <$email>\nBusiness: " . ($business ?: '-') . "\nNeeds: $typeNames\n$details$fileNote\nReply to this email to answer $name directly.\n";
 $customerBody = "Hi " . explode(' ', $name)[0] . ",\n\nThanks for your order. Your reference is $ref.\n\n"
-  . "What happens next:\n1. I'll review your answers and send a written, fixed quote within 1 business day.\n"
+  . "What happens next:\n1. We'll review your answers and send a written, fixed quote within 1 business day.\n"
   . "2. If you're happy with it, you pay a 50% deposit and we book a kick-off call.\n3. Nothing is charged until you approve the quote.\n\n"
-  . "A copy of your answers:\n$details" . ($saved ? "\nFiles received: " . count($saved) . "\n" : '') . "\nJust reply to this email if you'd like to add anything.\n\nAnna\nWebumi · webumi.com.au\n";
+  . "A copy of your answers:\n$details" . ($saved ? "\nFiles received: " . count($saved) . "\n" : '') . "\nJust reply to this email if you'd like to add anything.\n\nThe Webumi team\nwebumi.com.au\n";
 
 function send_mail($to, $subject, $body, $from, $replyTo, $file, $attachments = []) {
   $subject = function_exists('mb_encode_mimeheader') ? mb_encode_mimeheader($subject, 'UTF-8') : $subject;

@@ -11,7 +11,7 @@
       <div class="wrap">
         <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span>Order</span></nav>
         <p class="kicker">Order</p>
-        <h1>What do you want to build? <em>Tell me everything.</em></h1>
+        <h1>What do you want to build? <em>Tell us everything.</em></h1>
         <p class="hero__lead">Open any section to fill it in. Share your ideas, links and files. You'll get a written, fixed quote within 1 business day, and nothing is charged until you approve it.</p>
       </div>
     </section>
@@ -39,6 +39,12 @@
                 <label class="opt opt--check"><input type="checkbox" name="types" value="support"><span class="opt__box">{{icon:shield}}<b class="opt__t">Support plan</b><span class="opt__d">Care from {{aud:care:monthly}}/month.</span></span></label>
               </div>
               <p class="ord__err" data-err="types">Choose at least one option.</p>
+              <p class="ord__label">Design level <em>(<a href="/pricing/#levels" target="_blank">compare</a>)</em></p>
+              <div class="bld__grid bld__grid--3">
+                <label class="opt"><input type="radio" name="design" value="Essential"><span class="opt__box">{{icon:doc}}<b class="opt__t">Essential</b><span class="opt__d">A proven layout in your brand colours. Landing from {{aud:landing:price}}, website from {{aud:website:price}}.</span></span></label>
+                <label class="opt"><input type="radio" name="design" value="Signature"><span class="opt__box">{{icon:sparkle}}<b class="opt__t">Signature</b><span class="opt__d">Custom design with motion, video and interactive sections. Landing from {{aud:landing:signature}}, website from {{aud:website:signature}}, app +{{aud:design-signature:app}}.</span></span></label>
+                <label class="opt"><input type="radio" name="design" value="Not sure"><span class="opt__box">{{icon:question}}<b class="opt__t">Not sure</b><span class="opt__d">We'll recommend one after reading your answers.</span></span></label>
+              </div>
               <button type="button" class="ord__next">Next section ↓</button>
             </div>
           </section>
@@ -254,7 +260,7 @@
                 <label class="field"><span>Which plan?</span><select name="plan"><option>Care ({{aud:care:monthly}}/month)</option><option>Care Plus ({{aud:care-plus:monthly}}/month)</option><option>Growth ({{aud:care-growth:monthly}}/month)</option><option>Not sure, recommend one</option></select></label>
               </div>
 
-              <label class="field"><span>Anything else I should know? <em>(optional)</em></span><textarea name="details" rows="3" placeholder="Special requirements, competitors, how you work today…"></textarea></label>
+              <label class="field"><span>Anything else we should know? <em>(optional)</em></span><textarea name="details" rows="3" placeholder="Special requirements, competitors, how you work today…"></textarea></label>
               <button type="button" class="ord__next">Next section ↓</button>
             </div>
           </section>
@@ -299,7 +305,7 @@
             <p class="ord__ref">Reference <b id="ordRef"></b></p>
             <ol class="checks">
               <li>A confirmation is on its way to <b id="ordEmail"></b>.</li>
-              <li>I'll send a written, fixed quote within 1 business day.</li>
+              <li>We'll send a written, fixed quote within 1 business day.</li>
               <li>If you're happy with it, you pay a 50% deposit and we book a kick-off call.</li>
             </ol>
             <a href="/" class="btn btn--ghost">Back to the home page</a>

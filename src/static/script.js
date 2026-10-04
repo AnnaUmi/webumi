@@ -121,7 +121,7 @@
     customers: {
       more: ["/websites/", "More about websites →"],
       title: "Get found on Google, turn visitors into enquiries.",
-      desc: "Many small business websites look fine but don't bring in work. I build yours around one goal: more enquiries.",
+      desc: "Many small business websites look fine but don't bring in work. We build yours around one goal: more enquiries.",
       list: [
         "A fast, mobile-first website that says what you do in 5 seconds",
         "Service + suburb pages so you show up where people search",
@@ -455,7 +455,7 @@
       set(v) { try { sessionStorage.setItem("webumiPlan", JSON.stringify(v)); } catch {} },
       clear() { try { sessionStorage.removeItem("webumiPlan"); } catch {} },
     };
-    const greeting = { text: "Hi! I'll help you plan your website and show you what it costs. What do you need?", choices: ["I need a website", "I need a landing page", "Not sure yet"] };
+    const greeting = { text: "Hi! We'll help you plan your website and show you what it costs. What do you need?", choices: ["I need a website", "I need a landing page", "Not sure yet"] };
     const afterOffer = ["Open my presentation →", "Make it cheaper", "Add a feature"];
     let state = { messages: [], bubbles: [], offer: null, choices: greeting.choices };
     let catalog, busy = false, planText = "";
@@ -569,7 +569,7 @@
             <a class="btn btn--primary btn--block" href="${link}" id="ofOpen">Open your presentation →</a>
             <a class="btn btn--dark btn--block" href="/order/?type=${p.t}">Order this plan</a>
             <button type="button" class="btn btn--ghost btn--block" id="ofBook">${ic("calendar")} Book a free call</button>
-            <button type="button" class="btn btn--ghost btn--block" id="ofSend">Email this plan to Anna</button>
+            <button type="button" class="btn btn--ghost btn--block" id="ofSend">Email this plan to us</button>
             <p class="ofc__hint">The presentation shows how it all works, your pages, the timeline and payments. You can share its link.</p>
           </div>
         </article>`;
@@ -1215,6 +1215,53 @@
     if (reduceMotion) rest();
     else bear.play().catch(rest);
   }
+
+  /* Pricing header: the sparkle falls, the bear catches it and walks on the spot holding it, for good.
+     Two videos (tools/make-catch-video.sh): the catch plays once, then the short walk clip loops natively
+     (no seeking, so no stall). The walk starts on the frame that follows the catch's last one; the swap
+     happens when the walk is actually playing, and the catch is hidden then (both are see-through).
+     Hover or tap replays the catch. Paused off screen. Hidden (and never loaded) on narrow screens;
+     reduced motion shows the bear standing with the sparkle. Same format choice as the 404 bear. */
+  const catcher = $(".catch__bear");
+  if (catcher && reduceMotion) catcher.poster = "/video/bear-catch.webp";
+  const wide = matchMedia("(min-width: 1101px)");   // .catch is hidden below this (styles.css)
+  const startCatch = () => {
+    if (!wide.matches || catcher.src) return;   // set up once, the first time the screen is wide enough
+    const box = catcher.parentElement, walk = $(".catch__walk", box);
+    const ua = navigator.userAgent;
+    const apple = /iP(hone|ad|od)/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1) ||
+      (/Safari\//.test(ua) && !/Chrom|Edg|Firefox|OPR/.test(ua));
+    const ext = apple ? "mp4" : "webm";
+    catcher.src = `/video/bear-catch.${ext}`;
+    walk.src = `/video/bear-catch-loop.${ext}`;
+    walk.preload = "auto";
+    const walking = () => box.classList.contains("is-walking");
+    const go = (v) => v.play().catch(() => { catcher.poster = "/video/bear-catch.webp"; });   // autoplay blocked: a still
+    let handed = false;
+    const toWalk = () => { if (handed) return; handed = true; walk.currentTime = 0; go(walk); };
+    const nearEnd = (t) => t >= catcher.duration - 0.06;   // the last frame is on screen
+    const watch = (now, m) => (nearEnd(m.mediaTime) ? toWalk() : catcher.requestVideoFrameCallback(watch));
+    catcher.addEventListener("play", () => {
+      handed = false;
+      if ("requestVideoFrameCallback" in catcher) catcher.requestVideoFrameCallback(watch);
+    });
+    catcher.addEventListener("timeupdate", () => nearEnd(catcher.currentTime) && toWalk());   // browsers without rVFC
+    catcher.addEventListener("ended", toWalk);
+    walk.addEventListener("playing", () => { if (handed) { box.classList.add("is-walking"); catcher.pause(); } });
+    const replay = () => {
+      if (!walking()) return;
+      box.classList.remove("is-walking"); walk.pause();
+      catcher.currentTime = 0; go(catcher);
+    };
+    box.addEventListener("pointerenter", replay);
+    box.addEventListener("click", replay);
+    new IntersectionObserver(([e]) => {
+      const v = walking() ? walk : catcher;
+      if (!e.isIntersecting) v.pause();
+      else if (walking() || !handed) go(v);
+    }).observe(box);
+  };
+  if (catcher && !reduceMotion) { startCatch(); wide.addEventListener("change", startCatch); }
 
   /* ---------- Home hero: the bear's spell ----------
      The video plays the walk-in (frames 0–59), then waits holding the star. From there on the cursor

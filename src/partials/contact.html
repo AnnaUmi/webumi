@@ -20,7 +20,7 @@
             <button type="button" role="tab" class="ctabs__btn" id="tabMsg" aria-selected="false" aria-controls="contactForm">{{icon:envelope}} Send a message</button>
           </div>
 
-          <!-- Booking: visitor picks a slot, the request is emailed; Anna confirms by email. -->
+          <!-- Booking: visitor picks a slot, the request is emailed; Webumi confirms by email. -->
           <form class="form" id="bookForm" role="tabpanel" aria-labelledby="tabBook" novalidate>
             <fieldset>
               <legend>How would you like to meet?</legend>
@@ -62,11 +62,11 @@
             <label class="field"><span>What would you like to talk about? <em>(optional)</em></span><textarea name="note" rows="2" placeholder="e.g. A website with online booking"></textarea></label>
             <p class="bk__pick" id="bkPick">Pick a day and time above.</p>
             <button type="submit" class="btn btn--primary btn--block">Request this time →</button>
-            <p class="form__fine">I'll confirm by email within one business day, with a calendar invite.</p>
+            <p class="form__fine">We'll confirm by email within one business day, with a calendar invite.</p>
             <div class="form__done" id="bookDone" hidden>
               <div class="form__doneIcon"><svg class="ic" aria-hidden="true"><use href="#i-calendar"/></svg></div>
               <h3>Almost done, <span id="bookName">there</span>!</h3>
-              <p>Your email app opened with your request for <b id="bookWhen"></b>. Press send, and I'll confirm with a calendar invite within one business day.</p>
+              <p>Your email app opened with your request for <b id="bookWhen"></b>. Press send, and we'll confirm with a calendar invite within one business day.</p>
             </div>
           </form>
 

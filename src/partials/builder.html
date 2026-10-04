@@ -13,9 +13,9 @@
               <legend><span class="bld__n">1</span> What kind of website?</legend>
               <div class="bld__grid bld__grid--2">
                 <label class="opt"><input type="radio" name="type" value="landing" data-landing="{{price:landing:price}}" data-website="{{price:landing:price}}">
-                  <span class="opt__box">{{icon:doc}}<b class="opt__t">Landing page</b><span class="opt__d">One page with one goal: calls, bookings or sign-ups.</span><span class="opt__p">{{aud:landing:price}}</span></span></label>
+                  <span class="opt__box">{{icon:doc}}<b class="opt__t">Landing page</b><span class="opt__d">One page with one goal. Introduce your business or promote a specific offer, and encourage visitors to call, book or sign up.</span><span class="opt__p">{{aud:landing:price}}</span></span></label>
                 <label class="opt"><input type="radio" name="type" value="website" data-landing="{{price:website:price}}" data-website="{{price:website:price}}" checked>
-                  <span class="opt__box">{{icon:pin}}<b class="opt__t">Business website</b><span class="opt__d">Up to {{price:website:pages}} pages: home, services, areas, about, contact.</span><span class="opt__p">{{aud:website:price}}</span></span></label>
+                  <span class="opt__box">{{icon:pin}}<b class="opt__t">Business website</b><span class="opt__d">Give customers room to explore what you offer. Up to {{price:website:pages}} pages to showcase your services, share your story, build trust and make getting in touch easy.</span><span class="opt__p">{{aud:website:price}}</span></span></label>
               </div>
             </fieldset>
 
@@ -33,61 +33,92 @@
             <fieldset class="bld__step">
               <legend><span class="bld__n" data-num></span> Design</legend>
               <div class="bld__grid bld__grid--2">
-                <label class="opt"><input type="radio" name="design" value="Proven layout in your brand colours" data-landing="0" data-website="0" checked>
-                  <span class="opt__box"><b class="opt__t">Proven layout</b><span class="opt__d">A tested layout set up with your logo, colours and fonts.</span><span class="opt__p">Included</span></span></label>
-                <label class="opt"><input type="radio" name="design" value="Unique design" data-landing="{{price:design-unique:landing}}" data-website="{{price:design-unique:website}}">
-                  <span class="opt__box"><b class="opt__t">Unique design</b><span class="opt__d">Designed from scratch for your brand. You approve a mockup before the build.</span><span class="opt__p" data-price></span></span></label>
+                <label class="opt"><input type="radio" name="design" value="Essential design" data-landing="0" data-website="0" checked>
+                  <span class="opt__box lvl">
+                    {{icon:doc}}
+                    <span class="lvl__for" data-for="landing">
+                      <b class="opt__t">Essential landing page</b>
+                      <span class="lvl__line">One page. Everything customers need to get started.</span>
+                      <span class="opt__d">A beautiful, focused page that introduces your business, shows what you offer and makes it easy to enquire, book or buy. Clear design and subtle animations create a polished first impression.</span>
+                      <span class="lvl__list"><span>Your services, story, reviews and contact details in one place</span><span>Gentle animations and hover effects</span><span>A clear path from first visit to getting in touch</span></span>
+                    </span>
+                    <span class="lvl__for" data-for="website">
+                      <b class="opt__t">Essential business website</b>
+                      <span class="lvl__line">Give customers the full picture.</span>
+                      <span class="opt__d">A polished website with dedicated pages for your services, your story and your work. Clear navigation and subtle animations make it easy for visitors to explore, build confidence and get in touch.</span>
+                      <span class="lvl__list"><span>Dedicated pages for the information your customers need</span><span>Easy navigation between services, work and contact details</span><span>Gentle animations for a modern, welcoming feel</span><span>Clear enquiry, booking or purchase options</span></span>
+                    </span>
+                    <span class="opt__p">Included</span></span></label>
+                <label class="opt"><input type="radio" name="design" value="Signature design" data-landing="{{price:design-signature:landing}}" data-website="{{price:design-signature:website}}">
+                  <span class="opt__box lvl lvl--sig">
+                    {{icon:sparkle}}
+                    <span class="lvl__for" data-for="landing">
+                      <b class="opt__t">Signature landing page <span class="lvl__tag">Stand out</span></b>
+                      <span class="lvl__line">Grab attention. Be remembered.</span>
+                      <span class="opt__d">A bold, modern page built to capture attention from the first second. Interactive video, expressive animation and elements that respond as visitors explore make yours the business they remember.</span>
+                      <span class="lvl__list"><span>An attention-grabbing video opening</span><span>Interactive sliders and elements that respond as visitors explore</span><span>Scroll animations that reveal your story</span><span>Video throughout the page to showcase your business in action</span></span>
+                    </span>
+                    <span class="lvl__for" data-for="website">
+                      <b class="opt__t">Signature business website <span class="lvl__tag">Stand out</span></b>
+                      <span class="lvl__line">Grab attention. Be remembered.</span>
+                      <span class="opt__d">A bold, modern website experience built to capture attention, from the first screen to the final scroll. Interactive video, expressive animation and elements that respond as visitors explore make yours the business customers remember.</span>
+                      <span class="lvl__list"><span>An attention-grabbing video opening</span><span>Interactive sliders and elements that respond as visitors explore</span><span>Scroll animations that reveal your story</span><span>Video throughout the site to showcase your business in action</span></span>
+                    </span>
+                    <span class="opt__p" data-price></span></span></label>
               </div>
             </fieldset>
 
             <fieldset class="bld__step">
               <legend><span class="bld__n" data-num></span> Text</legend>
               <div class="bld__grid bld__grid--2">
-                <label class="opt"><input type="radio" name="content" value="I send the text, you edit it" data-landing="0" data-website="0" checked>
-                  <span class="opt__box"><b class="opt__t">You send the text</b><span class="opt__d">I edit it for clarity and Google keywords, then lay it out.</span><span class="opt__p">Included</span></span></label>
-                <label class="opt"><input type="radio" name="content" value="Unique text written for me" data-landing="{{price:text-written:landing}}" data-website="{{price:text-written:website}}">
-                  <span class="opt__box"><b class="opt__t">Unique text, written for you</b><span class="opt__d">After a 30-minute call I write every page, targeted at what your customers search for.</span><span class="opt__p" data-price></span></span></label>
+                <label class="opt"><input type="radio" name="content" value="Professional text from my notes" data-landing="0" data-website="0" checked>
+                  <span class="opt__box">{{icon:doc}}<b class="opt__t">Professional text</b><span class="opt__d">Send the text you have and we'll polish it, or send notes and we'll write clear, professional text from them. Optimised for Google and AI search tools like ChatGPT, so they understand what you offer.</span><span class="opt__p">Included</span></span></label>
+                <label class="opt"><input type="radio" name="content" value="Persuasive copy and slogan" data-landing="{{price:text-written:landing}}" data-website="{{price:text-written:website}}">
+                  <span class="opt__box">{{icon:sparkle}}<b class="opt__t">Persuasive copy &amp; slogan</b><span class="opt__d">Words that win hearts and minds. A memorable slogan, headlines that stop the scroll and text built on buyer psychology, so visitors feel understood and want to get in touch.</span><span class="opt__p" data-price></span></span></label>
               </div>
             </fieldset>
 
             <fieldset class="bld__step">
               <legend><span class="bld__n" data-num></span> Pictures</legend>
-              <div class="bld__grid bld__grid--3">
-                <label class="opt"><input type="radio" name="images" value="My own photos" data-landing="0" data-website="0" checked>
-                  <span class="opt__box">{{icon:camera}}<b class="opt__t">Your photos</b><span class="opt__d">I crop, resize and compress them so pages load fast.</span><span class="opt__p">Included</span></span></label>
+              <div class="bld__grid bld__grid--2">
+                <label class="opt"><input type="radio" name="images" value="My own photos or realistic AI photos" data-landing="0" data-website="0" checked>
+                  <span class="opt__box">{{icon:camera}}<b class="opt__t">Your photos or AI photos</b><span class="opt__d">Send your photos and we'll crop, resize and compress them so pages load fast. No photos? We'll create natural, realistic AI photos that match your business.</span><span class="opt__p">Included</span></span></label>
                 <label class="opt"><input type="radio" name="images" value="Licensed stock photos" data-landing="{{price:images-stock:landing}}" data-website="{{price:images-stock:website}}">
                   <span class="opt__box">{{icon:folder}}<b class="opt__t">Stock photos</b><span class="opt__d">Licensed photos picked to match your business and area.</span><span class="opt__p" data-price></span></span></label>
-                <label class="opt"><input type="radio" name="images" value="Unique images made for my business" data-landing="{{price:images-unique:landing}}" data-website="{{price:images-unique:website}}">
-                  <span class="opt__box">{{icon:sparkle}}<b class="opt__t">Unique images</b><span class="opt__d">Images made for your business only. No other website has them.</span><span class="opt__p" data-price></span></span></label>
+                <label class="opt"><input type="radio" name="images" value="Custom art and illustrations" data-landing="{{price:images-unique:landing}}" data-website="{{price:images-unique:website}}">
+                  <span class="opt__box">{{icon:sparkle}}<b class="opt__t">Custom art &amp; illustrations</b><span class="opt__d">Artwork created only for your brand: illustrations, characters and scenes in your own style. No other website has them.</span><span class="opt__p" data-price></span></span></label>
+                <label class="opt"><input type="radio" name="images" value="Professional photoshoot (from)" data-landing="{{price:photoshoot:landing}}" data-website="{{price:photoshoot:website}}">
+                  <span class="opt__box">{{icon:star}}<b class="opt__t">Professional photoshoot</b><span class="opt__d">A professional photographer shoots your team, work and space, then edits and retouches the best shots, ready for your website and social media. The price depends on your city; we confirm it after a quick chat.</span><span class="opt__p" data-price data-from></span></span></label>
               </div>
             </fieldset>
 
             <fieldset class="bld__step">
               <legend><span class="bld__n" data-num></span> Editing your website</legend>
+              <p class="bld__hint bld__hint--top">After launch, how do you want to change photos, text or prices on your site?</p>
               <div class="bld__grid bld__grid--3">
-                <label class="opt"><input type="radio" name="cms" value="Anna makes changes for me" data-landing="0" data-website="0" checked>
-                  <span class="opt__box">{{icon:chat}}<b class="opt__t">I'll ask you</b><span class="opt__d">Email me what to change. Included for 30 days, then with a support plan.</span><span class="opt__p">Included</span></span></label>
+                <label class="opt"><input type="radio" name="cms" value="Webumi makes changes for me" data-landing="0" data-website="0" checked>
+                  <span class="opt__box">{{icon:chat}}<b class="opt__t">We update it for you</b><span class="opt__d">Email us what to change: a new photo, text or price. Free for the first {{price:support:freeDays}} days, then {{price:care:updates}}–{{price:care-growth:updates}} updates a month with a <a href="/pricing/#support" class="opt__link">support plan</a>.</span><span class="opt__p">Included</span></span></label>
                 <label class="opt"><input type="radio" name="cms" value="Simple content editor" data-landing="{{price:cms-simple:landing}}" data-website="{{price:cms-simple:website}}">
-                  <span class="opt__box">{{icon:doc}}<b class="opt__t">Simple editor</b><span class="opt__d">Change text, photos, prices and hours yourself. Free to run, with a training video.</span><span class="opt__p" data-price></span></span></label>
+                  <span class="opt__box">{{icon:doc}}<b class="opt__t">Edit it yourself</b><span class="opt__d">Log in to a simple editor and change text, photos, prices and opening hours whenever you like. No monthly fees, with a training video.</span><span class="opt__p" data-price></span></span></label>
                 <label class="opt"><input type="radio" name="cms" value="WordPress" data-landing="{{price:cms-wordpress:landing}}" data-website="{{price:cms-wordpress:website}}">
-                  <span class="opt__box">{{icon:folder}}<b class="opt__t">WordPress</b><span class="opt__d">The WordPress dashboard with blog and plugins. Best with a support plan for updates.</span><span class="opt__p" data-price></span></span></label>
+                  <span class="opt__box">{{icon:folder}}<b class="opt__t">WordPress</b><span class="opt__d">The full WordPress dashboard, with a blog and plugins. It needs regular updates, so a support plan is recommended.</span><span class="opt__p" data-price></span></span></label>
               </div>
             </fieldset>
 
             <fieldset class="bld__step">
               <legend><span class="bld__n" data-num></span> Hosting &amp; support after launch</legend>
-              <p class="bld__hint bld__hint--top">Every website includes {{price:support:freeDays}} days of free fixes after launch. After that, choose a plan or pay as you go ({{aud:support:hourly}}/hour).</p>
+              <p class="bld__hint bld__hint--top">Every website includes {{price:support:freeDays}} days of free fixes after launch. After that, choose a support plan with monthly updates included.</p>
               <div class="bld__grid bld__grid--3">
                 <label class="opt"><input type="radio" name="hosting" value="I have my own domain and hosting" data-landing="0" data-website="0">
-                  <span class="opt__box"><b class="opt__t">I have my own</b><span class="opt__d">I set the site up on your existing domain and hosting.</span><span class="opt__p">$0</span></span></label>
+                  <span class="opt__box"><b class="opt__t">I have my own</b><span class="opt__d">We set the site up on your existing domain and hosting.</span><span class="opt__p">$0</span></span></label>
                 <label class="opt"><input type="radio" name="hosting" value="Domain + hosting for 1 year" data-landing="{{price:hosting-year:landing}}" data-website="{{price:hosting-year:website}}" checked>
                   <span class="opt__box">{{icon:search}}<b class="opt__t">Domain + hosting, 1 year</b><span class="opt__d">Your .com.au address in your name, plus 12 months of hosting and SSL.</span><span class="opt__p">{{aud:hosting-year:website}}</span></span></label>
                 <label class="opt"><input type="radio" name="hosting" value="Care plan" data-monthly="{{price:care:monthly}}">
-                  <span class="opt__box">{{icon:shield}}<b class="opt__t">Care</b><span class="opt__d">Domain, hosting, security updates, weekly backups, up to 30 min of changes a month.</span><span class="opt__p">{{aud:care:monthly}}/month</span></span></label>
+                  <span class="opt__box">{{icon:shield}}<b class="opt__t">Care</b><span class="opt__d">Hosting, security updates, backups and {{price:care:updates}} updates a month.</span><span class="opt__p">{{aud:care:monthly}}/month</span></span></label>
                 <label class="opt"><input type="radio" name="hosting" value="Care Plus plan" data-monthly="{{price:care-plus:monthly}}">
-                  <span class="opt__box">{{icon:lifebuoy}}<b class="opt__t">Care Plus</b><span class="opt__d">Everything in Care, up to 2 hours of changes, monthly report, reply within 1 business day.</span><span class="opt__p">{{aud:care-plus:monthly}}/month</span></span></label>
+                  <span class="opt__box">{{icon:lifebuoy}}<b class="opt__t">Care Plus</b><span class="opt__d">Everything in Care, {{price:care-plus:updates}} updates a month (unused ones carry over) and a monthly report.</span><span class="opt__p">{{aud:care-plus:monthly}}/month</span></span></label>
                 <label class="opt"><input type="radio" name="hosting" value="Growth plan" data-monthly="{{price:care-growth:monthly}}">
-                  <span class="opt__box">{{icon:chart}}<b class="opt__t">Growth</b><span class="opt__d">Everything in Care Plus, a new page or blog post and 2 Google posts every month.</span><span class="opt__p">{{aud:care-growth:monthly}}/month</span></span></label>
+                  <span class="opt__box">{{icon:chart}}<b class="opt__t">Growth</b><span class="opt__d">Everything in Care Plus, {{price:care-growth:updates}} updates a month, a new page or blog post and SEO &amp; AI search optimisation every month.</span><span class="opt__p">{{aud:care-growth:monthly}}/month</span></span></label>
               </div>
               <p class="bld__hint bld__hint--top">Monthly plans include your domain and hosting and start after the free {{price:support:freeDays}} days. Cancel anytime.</p>
             </fieldset>
@@ -143,7 +174,7 @@
                 <label class="opt"><input type="radio" name="speed" value="Express" data-rush="{{price:express:percent}}" data-landing-time="{{price:express:landingTime}}" data-website-time="{{price:express:websiteTime}}">
                   <span class="opt__box">{{icon:bolt}}<b class="opt__t">Express</b><span class="opt__d" data-time></span><span class="opt__p">+{{price:express:percent}}%</span></span></label>
               </div>
-              <p class="bld__hint bld__hint--top">Rush and Express times start once I have your text and photos.</p>
+              <p class="bld__hint bld__hint--top">Rush and Express times start once we have your text and photos.</p>
             </fieldset>
 
             <div class="bld__bar">
