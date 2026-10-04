@@ -5,7 +5,7 @@
   a backup copy in webumi-data/messages/ (outside public_html).
 
   Request: { "kind": "book" | "message" | "nonprofit", "name", "email", "title": "one line for the subject",
-             "rows": [["Label", "value"], ...], "website": "" (honeypot) }
+             "rows": [["Label", "value"], ...], "website": "" (honeypot), "turnstile": "token" }
   Response: { "ok": true, "ref": "M-1004-7F3A" }  or  { "error": "...", "code": "..." }
 
   Uses the same settings as order.php (webumi-config.php): 'order_email' (where it's sent, default
@@ -29,6 +29,7 @@ const KINDS = [
 
 $in = request_json();
 check_origin_and_honeypot($in);
+verify_turnstile($in['turnstile'] ?? '');   // Cloudflare "are you human?" (skipped if no secret is configured)
 
 $config = webumi_config();
 $owner = $config['order_email'] ?? 'hello@webumi.com.au';
