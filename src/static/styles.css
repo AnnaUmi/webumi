@@ -526,12 +526,13 @@ input[type="range"]:focus-visible { outline: 3px solid var(--sun); outline-offse
   font-family: var(--display); font-weight: 700; font-size: 1.1rem; color: var(--ink);
 }
 .faq summary::-webkit-details-marker { display: none; }
-.faq summary::after {
-  content: "+"; position: absolute; right: 20px; top: 50%; translate: 0 -50%;
-  width: 32px; height: 32px; border-radius: 50%; background: var(--sand); display: grid; place-items: center;
-  font-size: 1.3rem; font-weight: 500; transition: transform .3s var(--spring), background .2s;
+.faq summary::after {   /* a drawn plus (two bars), so it sits exactly in the middle in every font */
+  content: ""; position: absolute; right: 20px; top: 50%; translate: 0 -50%;
+  width: 32px; height: 32px; border-radius: 50%; color: var(--ink);
+  background: linear-gradient(currentColor, currentColor) center / 12px 2px no-repeat, linear-gradient(currentColor, currentColor) center / 2px 12px no-repeat;
+  background-color: var(--sand); transition: transform .3s var(--spring), background-color .2s;
 }
-.faq details[open] summary::after { transform: rotate(45deg); background: var(--coral); color: #fff; }
+.faq details[open] summary::after { transform: rotate(45deg); background-color: var(--coral); color: #fff; }
 .faq details p { padding: 0 24px 22px; color: var(--muted); }
 
 /* ---------- Contact ---------- */
