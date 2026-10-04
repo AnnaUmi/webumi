@@ -25,13 +25,13 @@ Tagline: "More customers. Less admin." — Web, AI & Automation for Small & Mid-
 - Free website planner: answer a few questions and get a plan with pages and a price: [Plan my website](https://webumi.com.au/plan/)
 
 ## How it works
-1. Tell us about your business in a guided form and send your logo, photos or text. Webumi can design a logo and brand colours, write the text, and source photos or arrange a photoshoot.
+1. Tell us about your business in a guided form and share any branding, photos or text you already have. Webumi identifies anything else the project needs, such as a logo, copywriting or photos.
 2. A fixed quote within 1 business day. Sign the agreement online and pay the 50% deposit.
-3. Three homepage design options; the client picks one and it is refined with their feedback.
-4. The remaining pages designed and the text written or polished, for approval.
-5. A visual sitemap of every page (or each section of a landing page), approved before building.
-6. The working website on a private preview link, tested on phones and computers, usually 2–4 weeks from the start.
-7. Launch on the client's domain (final 50%), 30-minute handover and 30 days of free fixes. The client owns everything — domain, website and accounts.
+3. Three homepage design concepts around the brand and goals; the client chooses one and it is refined together.
+4. A visual sitemap of every page (or each section of a landing page) for approval.
+5. The remaining pages designed and the copy written or polished, approved before building.
+6. A preview of the working website on phones and computers for final feedback, usually 2–4 weeks from the start.
+7. Launch on the client's domain (final 50%) and a 30-minute handover. For 30 days, issues with the agreed functionality are fixed at no extra cost. The client owns everything — domain, website and accounts.
 
 ## Pages
 - [Home](https://webumi.com.au/)
