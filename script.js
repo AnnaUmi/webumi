@@ -121,6 +121,17 @@
     if (detailed) showGoal(goal);
   }));
 
+  /* ---------- Videos further down a page: load and play only when they come into view ----------
+     (preload="none" in the HTML, so the file isn't downloaded with the page). Reduced motion keeps the poster. */
+  const lazyVideos = $$("video[data-play-in-view]");
+  if (lazyVideos.length && !reduceMotion) {
+    const vio = new IntersectionObserver((entries) => entries.forEach(({ target: v, isIntersecting }) => {
+      if (isIntersecting) v.play().catch(() => {});   // autoplay blocked (Low Power Mode): the poster stays
+      else v.pause();
+    }), { rootMargin: "200px 0px" });
+    lazyVideos.forEach((v) => vio.observe(v));
+  }
+
   /* ---------- How it works: the three homepage directions ----------
      Picking a direction shows it in the bigger preview. */
   const demo = $(".demo--big");
