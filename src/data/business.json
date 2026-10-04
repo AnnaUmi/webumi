@@ -35,7 +35,7 @@
   "@type": "PostalAddress",
   "addressCountry": "AU"
  },
- "priceRange": "$590+ AUD",
+ "priceRange": "$590–$15,000+ AUD",
  "knowsAbout": [
   "AI assistants",
   "AI chatbots",
@@ -133,11 +133,11 @@
    {
     "@type": "Offer",
     "priceCurrency": "AUD",
-    "price": "2490",
+    "price": "15000",
     "url": "https://webumi.com.au/platforms/",
     "priceSpecification": {
      "@type": "PriceSpecification",
-     "minPrice": "2490",
+     "minPrice": "15000",
      "priceCurrency": "AUD"
     },
     "itemOffered": {
