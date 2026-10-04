@@ -1363,6 +1363,7 @@
     const CTA = '<a href="#pains">Which are yours? Tick them below ↓</a>';   // the hero teases, the checklist below makes it personal
     let state = "loading";                 // loading → walk → ready (cursor scrubs) → casting → done
     let prox = 0, shown = T_READY, seeking = false, seekAt = 0, last = 0, readyAt = 0, nudges = 0, celebrated = false;
+    let onScreen = true, held = null;      // held: the play() waiting for the hero to come back on screen
 
     const say = (html) => {
       bubble.hidden = !html;
@@ -1383,7 +1384,18 @@
         nudge($(".hero__ctas .btn--primary"));
       }
     };
-    const cast = () => { state = "casting"; spell.classList.remove("is-done"); say(""); video.play().then(loop).catch(finish); };
+    // plays only while the hero is on screen: a phone refresh lands where the page was scrolled to,
+    // and the bear would do its whole spell out of sight
+    const play = (fail) => {
+      if (!onScreen) { held = fail; return; }
+      video.play().then(loop).catch(fail);
+    };
+    // autoplay blocked (iPhone Low Power Mode): the bear waits holding the star, a tap starts it
+    const blocked = () => {
+      video.currentTime = shown = T_READY;
+      state = "ready"; readyAt = performance.now(); say(ASK); loop();
+    };
+    const cast = () => { state = "casting"; spell.classList.remove("is-done"); say(""); play(finish); };
     const restart = () => {
       spell.classList.remove("is-done");
       if (canHover) { state = "ready"; shown = video.currentTime; readyAt = performance.now(); say(ASK); loop(); }
@@ -1398,8 +1410,15 @@
     });
 
     // only work while the hero is on screen
-    let onScreen = true;
-    new IntersectionObserver(([e]) => { onScreen = e.isIntersecting; if (onScreen) loop(); }).observe(spell);
+    new IntersectionObserver(([e]) => {
+      onScreen = e.isIntersecting;
+      if (onScreen) {
+        if (held) { const fail = held; held = null; play(fail); }
+        loop();
+      } else if ((state === "walk" || state === "casting") && !video.paused) {
+        video.pause(); held = state === "walk" ? blocked : finish;
+      }
+    }).observe(spell);
 
     // cursor → proximity to the bear
     addEventListener("mousemove", (e) => {
@@ -1430,7 +1449,7 @@
         paint(shown);
       }
       if (state === "casting") paint(video.currentTime);
-      if (state === "walk" || state === "casting" || (state === "ready" && onScreen)) loop();
+      if ((state === "walk" || state === "casting" || state === "ready") && onScreen) loop();
     };
 
     // load the whole file first (seeking then never waits on the network), after the page itself
@@ -1449,7 +1468,7 @@
       if (!loaded) { celebrated = true; return finish(); }   // no video: still show the fixed list and the link
       if (reduceMotion) { video.currentTime = T_END; celebrated = true; return finish(); }
       state = "walk";
-      video.play().then(loop).catch(() => { video.currentTime = T_END; celebrated = true; finish(); });
+      play(blocked);
     };
     document.readyState === "complete" ? start() : addEventListener("load", start, { once: true });
   }
