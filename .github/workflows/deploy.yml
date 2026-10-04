@@ -29,6 +29,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
           publish_branch: deploy
-          force_orphan: true          # the branch holds only the latest build, no history
+          # no force_orphan: Hostinger updates with a git pull, which needs normal (fast-forward) history
           enable_jekyll: true         # don't add a .nojekyll file (not needed on Hostinger)
           commit_message: "Build from"
