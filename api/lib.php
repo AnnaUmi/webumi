@@ -1,6 +1,6 @@
 <?php
 /*
-  Shared helpers for chat.php and order.php.
+  Shared helpers for chat.php, order.php and contact.php.
   Settings come from webumi-config.php one folder above public_html (see README), or from
   environment variables when running locally.
 */
@@ -87,4 +87,42 @@ function visitor_key($salt) {
 /** Today's date in Sydney (AEST), used to name daily counter files. */
 function sydney_today() {
   return gmdate('Y-m-d', time() + 10 * 3600);
+}
+
+/** True when this visitor already sent $perHour requests in the last hour or $perDay today (then stop);
+    otherwise counts this one. $name keeps separate counters per form. */
+function rate_limited($name, $perHour, $perDay) {
+  $key = visitor_key((webumi_config()['app_secret'] ?? '') . $name);
+  return with_json(data_dir() . "/$name-rate.json", function ($d) use ($key, $perHour, $perDay) {
+    $now = time();
+    $hits = array_values(array_filter($d[$key] ?? [], fn($t) => $t > $now - 86400));
+    if (count($hits) >= $perDay || count(array_filter($hits, fn($t) => $t > $now - 3600)) >= $perHour) return [$d, true];
+    $hits[] = $now;
+    $d[$key] = $hits;
+    foreach ($d as $k => $v) if (!array_filter($v, fn($t) => $t > $now - 86400)) unset($d[$k]);   // forget old visitors
+    return [$d, false];
+  });
+}
+
+/** Send a plain-text email (with optional attachments: [['name','mime','path'], ...]).
+    The local preview saves it to webumi-data/outbox/ instead (WEBUMI_DEV_OUTBOX). */
+function send_mail($to, $subject, $body, $from, $replyTo, $file, $attachments = []) {
+  $subject = function_exists('mb_encode_mimeheader') ? mb_encode_mimeheader($subject, 'UTF-8') : $subject;
+  $headers = "From: Webumi <$from>\r\nReply-To: $replyTo\r\nMIME-Version: 1.0\r\n";
+  if ($attachments) {
+    $b = 'webumi-' . bin2hex(random_bytes(8));
+    $headers .= "Content-Type: multipart/mixed; boundary=\"$b\"\r\n";
+    $msg = "--$b\r\nContent-Type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: 8bit\r\n\r\n$body\r\n";
+    foreach ($attachments as $a) {
+      $msg .= "--$b\r\nContent-Type: {$a['mime']}; name=\"{$a['name']}\"\r\nContent-Transfer-Encoding: base64\r\n"
+        . "Content-Disposition: attachment; filename=\"{$a['name']}\"\r\n\r\n" . chunk_split(base64_encode(file_get_contents($a['path']))) . "\r\n";
+    }
+    $body = $msg . "--$b--";
+  } else {
+    $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+  }
+  if (getenv('WEBUMI_DEV_OUTBOX')) {   // local preview: save instead of sending
+    return (bool)file_put_contents(data_dir('outbox') . "/$file.eml", "To: $to\r\nSubject: $subject\r\n$headers\r\n$body");
+  }
+  return mail($to, $subject, $body, $headers, "-f$from");
 }

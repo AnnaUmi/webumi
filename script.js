@@ -641,12 +641,13 @@
   $("#tabMsg")?.addEventListener("click", () => contactTab("message"));
   $$('a[href="#contact"]').forEach((a) => a.addEventListener("click", () => { if (!a.hasAttribute("data-choose")) contactTab("book"); }));
 
-  /* ---------- Booking calendar (requests are emailed, then confirmed by hand) ---------- */
+  /* ---------- Booking calendar (requests are sent through /api/contact.php, then confirmed by hand) ---------- */
   const bookForm = $("#bookForm");
   if (bookForm) {
     const SLOTS = {
-      video: ["9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30"],
-      person: ["10:00", "11:30", "14:00", "15:30"],
+      video: ["9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30",
+        "16:00", "16:30", "17:00", "17:30", "18:00", "18:30"],   // hours: Mon–Sat, 9am–7pm Sydney (data/contact.json)
+      person: ["10:00", "11:30", "14:00", "15:30", "17:00"],
     };
     const DAYS_AHEAD = 60, LEAD_MINUTES = 180;       // bookable up to 60 days out, at least 3 hours ahead
     const syd = Object.fromEntries(new Intl.DateTimeFormat("en-AU", { timeZone: "Australia/Sydney", year: "numeric", month: "numeric", day: "numeric", hour: "numeric", minute: "numeric", hourCycle: "h23" })
@@ -658,7 +659,7 @@
     const mtype = () => $('input[name="mtype"]:checked', bookForm).value;
     const slotsFor = (d) => {
       const wd = new Date(d).getUTCDay();
-      if (wd === 0 || wd === 6 || d < today || d > today + DAYS_AHEAD * DAY) return [];
+      if (wd === 0 || d < today || d > today + DAYS_AHEAD * DAY) return [];
       return SLOTS[mtype()].filter((t) => d > today || toMin(t) >= nowMin + LEAD_MINUTES);
     };
     let view = { y: syd.year, m: syd.month - 1 }, picked = { day: null, time: null };
@@ -713,7 +714,7 @@
     }
     drawCal(); drawSlots();
 
-    bookForm.addEventListener("submit", (e) => {
+    bookForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       if (!picked.time) { $("#bkPick").classList.add("is-error"); setTimeout(() => $("#bkPick").classList.remove("is-error"), 600); $("#cal").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" }); return; }
       let ok = true;
@@ -733,11 +734,15 @@
         "", `Name: ${fd.get("name")}`, `Business: ${fd.get("business") || "-"}`, `Email: ${fd.get("email")}`, `Phone: ${fd.get("phone") || "-"}`,
         "", fd.get("note") || "",
       ].join("\n");
-      const to = $("#ctEmail")?.textContent || "hello@webumi.com.au";
-      location.href = `mailto:${to}?subject=${encodeURIComponent(`${video ? "Call" : "Meeting"} request: ${when}`)}&body=${encodeURIComponent(body)}`;
+      const how = await sendForm(bookForm, {
+        kind: "book", name: fd.get("name"), email: fd.get("email"), title: `${video ? "Video call" : "In-person meeting"}, ${when}`,
+        rows: [["Meeting", video ? `${mins}-minute video call` : `${mins}-minute in-person meeting`], ["When", when],
+          ...(video ? [] : [["Where", fd.get("suburb")]]), ["Business", fd.get("business")], ["Phone", fd.get("phone")], ["About", fd.get("note")]],
+      }, `${video ? "Call" : "Meeting"} request: ${when}`, body);
+      if (!how) return;
       $("#bookName").textContent = String(fd.get("name")).split(" ")[0];
       $("#bookWhen").textContent = when;
-      $("#bookDone").hidden = false;
+      showDone($("#bookDone"), how);
       confetti(bookForm);
     });
     $$(".field input", bookForm).forEach((i) => i.addEventListener("input", () => i.closest(".field").classList.remove("is-invalid")));
@@ -745,7 +750,7 @@
 
   /* ---------- Contact form ---------- */
   const form = $("#contactForm");
-  form?.addEventListener("submit", (e) => {
+  form?.addEventListener("submit", async (e) => {
     e.preventDefault();
     const fd = new FormData(form);
     let ok = true;
@@ -768,10 +773,14 @@
       fd.get("message") || "",
     ].join("\n");
     const subject = `New enquiry from ${fd.get("name")}${fd.get("business") ? " — " + fd.get("business") : ""}`;
-    location.href = `mailto:hello@webumi.com.au?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
+    const how = await sendForm(form, {
+      kind: "message", name: fd.get("name"), email: fd.get("email"),
+      title: `${fd.get("name")}${fd.get("business") ? " — " + fd.get("business") : ""}`,
+      rows: [["Business", fd.get("business")], ["Phone", fd.get("phone")], ["Looking for", needs], ["Message", fd.get("message")]],
+    }, subject, body);
+    if (!how) return;
     $("#doneName").textContent = String(fd.get("name")).split(" ")[0];
-    $("#formDone").hidden = false;
+    showDone($("#formDone"), how);
     confetti(form);
   });
   if (form) $$(".field input", form).forEach((i) => i.addEventListener("input", () => i.closest(".field").classList.remove("is-invalid")));
@@ -1151,7 +1160,7 @@
 
   /* ---------- Non-profit application form ---------- */
   const npForm = $("#npForm");
-  npForm?.addEventListener("submit", (e) => {
+  npForm?.addEventListener("submit", async (e) => {
     e.preventDefault();
     let ok = true;
     ["org", "name", "email", "about"].forEach((n) => {
@@ -1172,13 +1181,46 @@
       `Would help: ${fd.getAll("need").join(", ") || "Not specified"}`,
       "", fd.get("about"),
     ].join("\n");
-    const to = $("#ctEmail")?.textContent || "hello@webumi.com.au";
-    location.href = `mailto:${to}?subject=${encodeURIComponent(`Non-profit application: ${fd.get("org")}`)}&body=${encodeURIComponent(body)}`;
+    const how = await sendForm(npForm, {
+      kind: "nonprofit", name: fd.get("name"), email: fd.get("email"), title: fd.get("org"),
+      rows: [["Organisation", fd.get("org")], ["Phone", fd.get("phone")], ["Website / social", fd.get("site")], ["ABN / ACNC", fd.get("abn")],
+        ["Would help", fd.getAll("need").join(", ") || "Not specified"], ["About", fd.get("about")]],
+    }, `Non-profit application: ${fd.get("org")}`, body);
+    if (!how) return;
     $("#npName").textContent = String(fd.get("name")).split(" ")[0];
-    $("#npDone").hidden = false;
+    showDone($("#npDone"), how);
     confetti(npForm);
   });
   if (npForm) $$(".field input, .field textarea", npForm).forEach((i) => i.addEventListener("input", () => i.closest(".field").classList.remove("is-invalid")));
+
+  /* Small forms (booking, message, non-profit): send through /api/contact.php, which emails us and the visitor.
+     If that fails (offline, server down, too many tries), fall back to the visitor's email app with everything
+     filled in, so nothing is lost. Returns "sent", "mailto", or "" while a send is already running. */
+  async function sendForm(f, data, subject, body) {
+    const btn = $('button[type="submit"]', f);
+    if (btn.disabled) return "";
+    const label = btn.textContent;
+    btn.disabled = true; btn.textContent = "Sending…";
+    try {
+      const r = await fetch("/api/contact.php", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...data, website: f.elements.website?.value || "" }),
+      });
+      if (!r.ok) throw new Error(r.status);
+      return "sent";
+    } catch {
+      const to = $("#ctEmail")?.textContent || "hello@webumi.com.au";
+      location.href = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      return "mailto";
+    } finally {
+      btn.disabled = false; btn.textContent = label;
+    }
+  }
+  function showDone(box, how) {
+    $("[data-sent]", box).hidden = how !== "sent";
+    $("[data-mailto]", box).hidden = how !== "mailto";
+    box.hidden = false;
+  }
 
   function confetti(from, count = 80) {
     if (reduceMotion) return;

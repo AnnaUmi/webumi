@@ -306,6 +306,7 @@
 
           <!-- Booking: visitor picks a slot, the request is emailed; Webumi confirms by email. -->
           <form class="form" id="bookForm" role="tabpanel" aria-labelledby="tabBook" novalidate>
+            <input class="pl__hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
             <fieldset>
               <legend>How would you like to meet?</legend>
               <div class="bk__types">
@@ -349,12 +350,14 @@
             <p class="form__fine">We'll confirm by email within one business day, with a calendar invite.</p>
             <div class="form__done" id="bookDone" hidden>
               <div class="form__doneIcon"><svg class="ic" aria-hidden="true"><use href="#i-calendar"/></svg></div>
-              <h3>Almost done, <span id="bookName">there</span>!</h3>
-              <p>Your email app opened with your request for <b id="bookWhen"></b>. Press send, and we'll confirm with a calendar invite within one business day.</p>
+              <h3>Request sent, <span id="bookName">there</span>!</h3>
+              <p data-sent>We've got your request for <b id="bookWhen"></b>. We'll confirm by email within one business day, with a calendar invite.</p>
+              <p data-mailto hidden>Your email app opened with your request. Press send, and we'll confirm within one business day.</p>
             </div>
           </form>
 
           <form class="form" id="contactForm" role="tabpanel" aria-labelledby="tabMsg" novalidate hidden>
+            <input class="pl__hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
             <fieldset class="form__need">
               <legend>What do you need? <span>(choose any)</span></legend>
               <div class="form__chips">
@@ -382,7 +385,8 @@
             <div class="form__done" id="formDone" hidden>
               <div class="form__doneIcon"><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></div>
               <h3>Thanks, <span id="doneName">there</span>!</h3>
-              <p>Your email app should have opened with your message ready to send. If it didn't, just email <a href="mailto:hello@webumi.com.au">hello@webumi.com.au</a>.</p>
+              <p data-sent>Your message is on its way. We'll reply within one business day. Check your inbox for a copy.</p>
+              <p data-mailto hidden>Your email app opened with your message ready to send. If it didn't, email <a href="mailto:hello@webumi.com.au">hello@webumi.com.au</a>.</p>
             </div>
           </form>
         </div>
