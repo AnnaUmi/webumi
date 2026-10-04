@@ -186,7 +186,10 @@ if (process.argv[2] === "serve") {
     let p = decodeURIComponent(req.url.split("?")[0]);
     if (p.endsWith("/")) p += "index.html";
     const file = path.join(DIST, p);
-    if (!file.startsWith(DIST) || !fs.existsSync(file)) { res.writeHead(404, { "Content-Type": types[".html"] }); return res.end(fs.readFileSync(path.join(DIST, "404.html"))); }
+    if (!file.startsWith(DIST) || !fs.existsSync(file)) {
+      res.writeHead(404, { "Content-Type": types[".html"] });
+      try { return res.end(fs.readFileSync(path.join(DIST, "404.html"))); } catch { return res.end("Not found (rebuilding?)"); }   // dist/ is briefly empty during a rebuild
+    }
     const type = types[path.extname(file)] || "application/octet-stream";
     // byte ranges: Safari won't play a video without them
     const size = fs.statSync(file).size, range = (req.headers.range || "").match(/^bytes=(\d*)-(\d*)$/);

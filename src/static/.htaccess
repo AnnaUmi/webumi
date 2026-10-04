@@ -3,3 +3,14 @@ ErrorDocument 404 /404.html
 # Hostinger doesn't know these types and sends them as text/plain, which some browsers won't play or read
 AddType video/webm .webm
 AddType application/manifest+json .webmanifest
+
+# Browsers keep videos, images and fonts for 30 days (CSS and JS are versioned with ?v= and cached by the host)
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType video/mp4 "access plus 30 days"
+  ExpiresByType video/webm "access plus 30 days"
+  ExpiresByType image/webp "access plus 30 days"
+  ExpiresByType image/png "access plus 30 days"
+  ExpiresByType image/jpeg "access plus 30 days"
+  ExpiresByType image/svg+xml "access plus 30 days"
+</IfModule>
