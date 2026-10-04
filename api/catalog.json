@@ -288,8 +288,8 @@
     {
       "step": "Tell us about your business",
       "when": "Day 1",
-      "what": "A guided form about your services, customers and goals. Send what you already have: logo, photos or text. Missing something? We can design your logo and brand colours, write your text, and source photos or arrange a photoshoot.",
-      "you": "Fill in the form and send your logo, photos or text"
+      "what": "A guided form about your business, customers and goals. Share any branding, photos or text you already have. We'll identify anything else your project needs.",
+      "you": "Fill in the form and share what you already have"
     },
     {
       "step": "Fixed quote & agreement",
@@ -300,26 +300,26 @@
     {
       "step": "Homepage design",
       "when": "Week 1",
-      "what": "Three homepage options for your business and goals. We refine your favourite with your feedback.",
-      "you": "Pick your favourite and send feedback"
-    },
-    {
-      "step": "Full design & text",
-      "when": "Week 1–2",
-      "what": "The remaining pages in your chosen style, with the text written or polished from what you've shared.",
-      "you": "Review the designs and text and approve them"
+      "what": "Three homepage design concepts created around your brand and goals. We refine your favourite together before designing the rest.",
+      "you": "Choose your favourite and send feedback"
     },
     {
       "step": "Website plan",
-      "when": "Week 2",
+      "when": "Week 1",
       "what": "A visual sitemap of each page and what it will include. For a landing page, each section.",
-      "you": "Approve the plan before we build"
+      "you": "Approve the plan"
     },
     {
-      "step": "Working website preview",
+      "step": "Design & copy",
+      "when": "Week 1–2",
+      "what": "The remaining pages in your chosen style, with the text written or polished from what you've shared.",
+      "you": "Review the designs and text and approve them before we build"
+    },
+    {
+      "step": "Preview before launch",
       "when": "Week 2–3",
-      "what": "The working website on a private link, for your phone and computer. We test mobile layouts, forms, links and interactive features. Short progress update by email every week.",
-      "you": "Try it, send your final changes and approve the launch"
+      "what": "Your website on a private link, for your phone and computer. We check the layouts, forms, links and interactions. Short progress update by email every week.",
+      "you": "Explore it, share your final feedback and approve the launch"
     },
     {
       "step": "Go live",
@@ -330,7 +330,7 @@
     {
       "step": "After launch",
       "when": "30 days",
-      "what": "Free fixes for 30 days. Then a monthly support plan with updates included.",
+      "what": "For 30 days, we fix any issues with the agreed functionality at no extra cost. Then a monthly support plan with updates included.",
       "you": "Tell us if anything needs fixing"
     }
   ],
@@ -355,7 +355,7 @@
       "Bank transfer or card. Invoices under ABN 42 183 713 603."
     ]
   },
-  "communication": "Your approval at each stage (homepage design, full design and text, website plan, launch), a progress email every week, and replies by email or phone within 1 business day.",
+  "communication": "Your approval at each stage (homepage design, website plan, design and copy, launch), a progress email every week, and replies by email or phone within 1 business day.",
   "systems": {
     "crm": [
       "HubSpot (free plan)",

@@ -118,6 +118,15 @@
     answers.forEach((a) => { a.hidden = a.dataset.for !== goal; });
   }));
 
+  /* ---------- How it works: the three homepage directions ----------
+     Picking a direction shows it in the bigger preview. */
+  const demo = $(".demo--big");
+  const picks = $$(".journey__pick");
+  picks.forEach((b) => b.addEventListener("click", () => {
+    picks.forEach((x) => x.setAttribute("aria-pressed", x === b));
+    demo.dataset.dir = b.dataset.dir;
+  }));
+
   /* ---------- Solutions chooser ---------- */
   const goals = {
     customers: {
