@@ -44,28 +44,59 @@
       </div>
     </section>
 
-    <!-- ============ PAIN POINTS ============ -->
+    <!-- ============ STARTING POINT ============ -->
     <section class="section pains" id="pains">
       <div class="wrap">
         <div class="section__head reveal">
-          <p class="kicker">Sound familiar?</p>
-          <h2>Which of these sound like <em>your</em> business?</h2>
-          <p class="section__sub">Tick yours and we'll tell you where to start.</p>
+          <p class="kicker">Let's start with you</p>
+          <h2>What would you like your business to do online?</h2>
+          <p class="section__sub">Starting fresh or ready for an upgrade? Choose what matters most to you.</p>
         </div>
         <div class="pains__grid">
-          <button class="pain reveal" data-goal="customers" aria-pressed="false"><span class="pain__tick"></span>My website doesn't bring in enquiries</button>
-          <button class="pain reveal" data-goal="customers" aria-pressed="false"><span class="pain__tick"></span>People can't find me on Google</button>
-          <button class="pain reveal" data-goal="ai" aria-pressed="false"><span class="pain__tick"></span>I miss calls and messages while I work</button>
-          <button class="pain reveal" data-goal="bookings" aria-pressed="false"><span class="pain__tick"></span>Booking a time takes five messages</button>
-          <button class="pain reveal" data-goal="bookings" aria-pressed="false"><span class="pain__tick"></span>No-shows cost me money</button>
-          <button class="pain reveal" data-goal="admin" aria-pressed="false"><span class="pain__tick"></span>I type the same details into three places</button>
-          <button class="pain reveal" data-goal="admin" aria-pressed="false"><span class="pain__tick"></span>Quotes go out late or never get followed up</button>
-          <button class="pain reveal" data-goal="ai" aria-pressed="false"><span class="pain__tick"></span>I answer the same questions every day</button>
-          <button class="pain reveal" data-goal="admin" aria-pressed="false"><span class="pain__tick"></span>Getting paid means chasing people</button>
+          <button type="button" class="pain reveal" data-goal="first" aria-pressed="false"><span class="pain__tick"></span>Launch my first website</button>
+          <button type="button" class="pain reveal" data-goal="refresh" aria-pressed="false"><span class="pain__tick"></span>Refresh my existing website</button>
+          <button type="button" class="pain reveal" data-goal="brand" aria-pressed="false"><span class="pain__tick"></span>Make my brand stand out</button>
+          <button type="button" class="pain reveal" data-goal="booking" aria-pressed="false"><span class="pain__tick"></span>Make booking or buying easier</button>
+          <button type="button" class="pain reveal" data-goal="ai" aria-pressed="false"><span class="pain__tick"></span>Add an AI assistant</button>
+          <button type="button" class="pain reveal" data-goal="app" aria-pressed="false"><span class="pain__tick"></span>Build an app for my business</button>
         </div>
+        <!-- one answer at a time (script.js); "Not sure yet" shows until a card is picked -->
         <div class="pains__result" aria-live="polite">
-          <p class="pains__msg" id="painMsg">Tick the ones that are true for you.</p>
-          <a href="#solutions" class="btn btn--primary btn--small pains__cta" id="painCta" hidden>Show me how →</a>
+          <div class="pains__answer" data-for="">
+            <p class="pains__title">Not sure yet? That's a good place to start too.</p>
+            <p class="pains__msg">Tell us about your business and we'll help you explore the options.</p>
+            <a href="#contact" class="btn btn--primary btn--small">Find my starting point →</a>
+          </div>
+          <div class="pains__answer" data-for="first" hidden>
+            <p class="pains__title">Launch my first website</p>
+            <p class="pains__msg">A landing page from {{aud:landing:price}}, live in 1–2 weeks, or a business website with up to 10 pages from {{aud:website:price}}, live in 2–4 weeks. Built for phones and Google.</p>
+            <a href="/websites/" class="btn btn--primary btn--small">See website options →</a>
+          </div>
+          <div class="pains__answer" data-for="refresh" hidden>
+            <p class="pains__title">Refresh my existing website</p>
+            <p class="pains__msg">We review your current site for free and tell you what's worth fixing, what it would cost, and whether a new website would be better value.</p>
+            <a href="/websites/#rescue" class="btn btn--primary btn--small">Get a free website review →</a>
+          </div>
+          <div class="pains__answer" data-for="brand" hidden>
+            <p class="pains__title">Make my brand stand out</p>
+            <p class="pains__msg">Explore Signature: custom visuals, video and interactive details that bring your business's personality to life.</p>
+            <a href="/projects/" class="btn btn--primary btn--small">See Signature examples →</a>
+          </div>
+          <div class="pains__answer" data-for="booking" hidden>
+            <p class="pains__title">Make booking or buying easier</p>
+            <p class="pains__msg">Online booking with email and SMS reminders from {{aud:booking:website}}, card payments and deposits from {{aud:payments:website}}, or a full online shop from {{aud:store:website}}.</p>
+            <a href="/online-bookings/" class="btn btn--primary btn--small">See online booking →</a>
+          </div>
+          <div class="pains__answer" data-for="ai" hidden>
+            <p class="pains__title">Add an AI assistant</p>
+            <p class="pains__msg">An assistant trained on your services, prices and FAQs. It answers customers 24/7, books appointments and hands tricky questions to you. From {{aud:ai-assistant:website}}.</p>
+            <a href="/ai-assistants/" class="btn btn--primary btn--small">See AI assistants →</a>
+          </div>
+          <div class="pains__answer" data-for="app" hidden>
+            <p class="pains__title">Build an app for my business</p>
+            <p class="pains__msg">A web app from $8,900 or an iOS and Android app from $14,900, for bookings, loyalty, orders or your staff.</p>
+            <a href="/apps/" class="btn btn--primary btn--small">See app options →</a>
+          </div>
         </div>
       </div>
     </section>
