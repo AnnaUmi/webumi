@@ -410,6 +410,11 @@ input[type="range"]:focus-visible { outline: 3px solid var(--sun); outline-offse
 .pkg__grid--4 .pkg__name { font-size: 1.45rem; }
 .pkg__grid--4 .pkg__for { min-height: 4.5em; font-size: .92rem; }
 .pkg__grid--4 .pkg__price { font-size: 2.2rem; }
+/* AI video page: the bear example, and the two monthly plans under the video prices */
+.aiv__demo { display: grid; place-items: center; }
+.aiv__demo video { width: 100%; max-width: 420px; height: auto; display: block; }
+.aiv__monthly { grid-template-columns: repeat(2, 1fr); margin-top: 20px; }
+.aiv__monthly .pkg__for { margin-bottom: 0; }
 .pkg__price--two { display: grid; font-size: 1.7rem !important; line-height: 1.1; gap: 2px; }
 .pkg__price--two span { display: block; margin-top: 4px; }
 .offers__extras { margin-top: 26px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
@@ -1594,6 +1599,11 @@ ol.checks { padding-left: 0; }
   .bld__bar b { font-family: var(--display); font-size: 1.4rem; }
   .bld__bar small { margin-left: 8px; opacity: .75; font-size: .85rem; }
 }
+/* small laptops: nine menu links fit next to the logo */
+@media (max-width: 1240px) {
+  .nav__links { gap: 18px; }
+  .nav__links a { font-size: .9rem; }
+}
 @media (max-width: 1080px) {
   .nav__links {
     position: fixed; inset: 72px 0 auto 0; flex-direction: column; gap: 0; padding: 12px 16px 24px;
@@ -1627,6 +1637,7 @@ ol.checks { padding-left: 0; }
   .pkg__grid--4 { grid-template-columns: 1fr; }
   .pains__grid, .steps, .why__cards, .form__row, .ai__list, .choose, .bld__grid--2, .bld__grid--3, .howto, .bk__types { grid-template-columns: 1fr; }
   .why .why__cards { grid-template-columns: 1fr; }
+  .aiv__demo video { max-width: 260px; }
   .journey__demo { flex-direction: column; align-items: stretch; }
   .demo--big { max-width: none; }
   .journey__picks { flex-direction: row; }

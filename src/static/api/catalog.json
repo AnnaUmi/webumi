@@ -283,6 +283,92 @@
     "hourly": 95,
     "note": "For 30 days after launch, issues with the agreed functionality are fixed at no extra cost. After that: a monthly plan with a set number of updates a month. One update = changes to one page (new or edited text, new photos, or changed prices or opening hours), sent in one request and done within 3 business days."
   },
+  "media": [
+    {
+      "id": "video-ad",
+      "group": "video",
+      "name": "Video ad",
+      "price": 490,
+      "from": true,
+      "desc": "A 15–30 second ad for Instagram, Facebook or TikTok: script, voiceover, music and captions, delivered vertical, square and wide."
+    },
+    {
+      "id": "video-test",
+      "group": "video",
+      "name": "Ad test pack",
+      "price": 990,
+      "from": true,
+      "desc": "Three versions of one ad (different hooks or endings) so you can test which brings in more customers."
+    },
+    {
+      "id": "video-hero",
+      "group": "video",
+      "name": "Website hero video",
+      "price": 590,
+      "desc": "A looping video for the top of your website, sized to load fast. Included in every Signature design."
+    },
+    {
+      "id": "video-monthly",
+      "group": "video",
+      "name": "Monthly videos",
+      "monthly": 990,
+      "videos": 4,
+      "desc": "4 short videos a month for your socials or ads, in your brand's style."
+    },
+    {
+      "id": "video-monthly-plus",
+      "group": "video",
+      "name": "Monthly videos Plus",
+      "monthly": 1790,
+      "videos": 8,
+      "desc": "8 short videos a month for your socials or ads, in your brand's style."
+    },
+    {
+      "id": "photos-10",
+      "group": "photos",
+      "name": "AI photos, 10 images",
+      "price": 290,
+      "desc": "10 product or lifestyle images made from your product photos or your brief, ready for your website, socials and ads."
+    },
+    {
+      "id": "photos-25",
+      "group": "photos",
+      "name": "AI photos, 25 images",
+      "price": 590,
+      "desc": "25 product or lifestyle images for a shop, a menu or a full campaign."
+    },
+    {
+      "id": "headshots",
+      "group": "photos",
+      "name": "Team headshots",
+      "price": 49,
+      "per": "person",
+      "desc": "Professional headshots made from a few selfies, in one consistent style for the whole team."
+    },
+    {
+      "id": "art-single",
+      "group": "art",
+      "name": "Illustration",
+      "price": 120,
+      "desc": "One illustration for a website section, poster, menu or social post, in your brand colours."
+    },
+    {
+      "id": "art-set",
+      "group": "art",
+      "name": "Illustration set",
+      "price": 390,
+      "pieces": 5,
+      "desc": "5 illustrations in one matching style, for a website, a campaign or a menu."
+    },
+    {
+      "id": "character",
+      "group": "art",
+      "name": "Brand character",
+      "price": 690,
+      "from": true,
+      "desc": "A mascot designed for your brand, with a character sheet and 5 poses, so it looks the same in every image and video."
+    }
+  ],
   "process": [
     {
       "step": "Tell us about your business",

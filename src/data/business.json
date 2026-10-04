@@ -146,6 +146,23 @@
      "description": "Client portals, dashboards, internal tools, marketplaces and SaaS products, starting with a focused first version.",
      "areaServed": "AU"
     }
+   },
+   {
+    "@type": "Offer",
+    "priceCurrency": "AUD",
+    "price": "120",
+    "url": "https://webumi.com.au/ai-video/",
+    "priceSpecification": {
+     "@type": "PriceSpecification",
+     "minPrice": "120",
+     "priceCurrency": "AUD"
+    },
+    "itemOffered": {
+     "@type": "Service",
+     "name": "AI video, photos and art",
+     "description": "AI video ads, website hero videos, monthly social videos, AI product and lifestyle photos, team headshots, illustrations and brand characters.",
+     "areaServed": "AU"
+    }
    }
   ]
  }

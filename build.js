@@ -52,7 +52,7 @@ function walk(dir) {
 
 const catalog = () => JSON.parse(read(path.join(SRC, "static", "api", "catalog.json")));
 function priceOf(cat, id, field) {
-  const item = id === "support" ? cat.support : cat.types[id] || cat.options.find((o) => o.id === id);
+  const item = id === "support" ? cat.support : cat.types[id] || cat.options.find((o) => o.id === id) || (cat.media || []).find((o) => o.id === id);
   const v = item && item[field];
   if (v === undefined) throw new Error(`Unknown price {{price:${id}:${field}}}`);
   return v;
