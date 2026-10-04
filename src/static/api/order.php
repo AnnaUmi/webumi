@@ -46,16 +46,7 @@ $owner = $config['order_email'] ?? 'hello@webumi.com.au';
 $from = $config['mail_from'] ?? $owner;
 
 // ---------- limits: stop anyone flooding your inbox ----------
-$key = visitor_key(($config['app_secret'] ?? '') . 'orders');
-$blocked = with_json(data_dir() . '/orders-rate.json', function ($d) use ($key) {
-  $now = time();
-  $hits = array_values(array_filter($d[$key] ?? [], fn($t) => $t > $now - 86400));
-  if (count($hits) >= MAX_PER_DAY || count(array_filter($hits, fn($t) => $t > $now - 3600)) >= MAX_PER_HOUR) return [$d, true];
-  $hits[] = $now;
-  $d[$key] = $hits;
-  foreach ($d as $k => $v) if (!array_filter($v, fn($t) => $t > $now - 86400)) unset($d[$k]);   // forget old visitors
-  return [$d, false];
-});
+$blocked = rate_limited('orders', MAX_PER_HOUR, MAX_PER_DAY);
 if ($blocked) fail(429, 'Too many orders from this connection. Please try again later, or email us directly.', 'limit');
 
 // ---------- validate ----------
@@ -128,27 +119,6 @@ $customerBody = "Hi " . explode(' ', $name)[0] . ",\n\nThanks for your order. Yo
   . "What happens next:\n1. We'll review your answers and send a written, fixed quote within 1 business day.\n"
   . "2. If you're happy with it, you pay a 50% deposit and we book a kick-off call.\n3. Nothing is charged until you approve the quote.\n\n"
   . "A copy of your answers:\n$details" . ($saved ? "\nFiles received: " . count($saved) . "\n" : '') . "\nJust reply to this email if you'd like to add anything.\n\nThe Webumi team\nwebumi.com.au\n";
-
-function send_mail($to, $subject, $body, $from, $replyTo, $file, $attachments = []) {
-  $subject = function_exists('mb_encode_mimeheader') ? mb_encode_mimeheader($subject, 'UTF-8') : $subject;
-  $headers = "From: Webumi <$from>\r\nReply-To: $replyTo\r\nMIME-Version: 1.0\r\n";
-  if ($attachments) {
-    $b = 'webumi-' . bin2hex(random_bytes(8));
-    $headers .= "Content-Type: multipart/mixed; boundary=\"$b\"\r\n";
-    $msg = "--$b\r\nContent-Type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: 8bit\r\n\r\n$body\r\n";
-    foreach ($attachments as $a) {
-      $msg .= "--$b\r\nContent-Type: {$a['mime']}; name=\"{$a['name']}\"\r\nContent-Transfer-Encoding: base64\r\n"
-        . "Content-Disposition: attachment; filename=\"{$a['name']}\"\r\n\r\n" . chunk_split(base64_encode(file_get_contents($a['path']))) . "\r\n";
-    }
-    $body = $msg . "--$b--";
-  } else {
-    $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
-  }
-  if (getenv('WEBUMI_DEV_OUTBOX')) {   // local preview: save instead of sending
-    return (bool)file_put_contents(data_dir('outbox') . "/$file.eml", "To: $to\r\nSubject: $subject\r\n$headers\r\n$body");
-  }
-  return mail($to, $subject, $body, $headers, "-f$from");
-}
 
 $sent = send_mail($owner, "New order $ref: $typeNames" . ($business ? " for $business" : ''), $ownerBody, $from, "$name <$email>", "$ref-to-you", $attachOk ? $saved : []);
 send_mail($email, "Your Webumi order $ref", $customerBody, $from, $owner, "$ref-to-customer");

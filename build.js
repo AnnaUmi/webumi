@@ -172,7 +172,7 @@ if (process.argv[2] === "serve") {
     ".png": "image/png", ".txt": "text/plain; charset=utf-8", ".xml": "application/xml", ".webmanifest": "application/manifest+json",
     ".mp4": "video/mp4", ".webm": "video/webm" };
   http.createServer((req, res) => {
-    const api = req.method === "POST" && req.url.match(/^\/api\/(chat|order)\.php/);
+    const api = req.method === "POST" && req.url.match(/^\/api\/(chat|order|contact)\.php/);
     if (api) return devPhp(req, res, api[1]);
     let p = decodeURIComponent(req.url.split("?")[0]);
     if (p.endsWith("/")) p += "index.html";
@@ -198,10 +198,10 @@ if (process.argv[2] === "serve") {
 }
 
 /*
-  Local preview of the PHP files in api/ (chat.php, order.php). PHP isn't installed on a Mac, so the
+  Local preview of the PHP files in api/ (chat.php, order.php, contact.php). PHP isn't installed on a Mac, so the
   real files run through PHP compiled to WebAssembly (npx @php-wasm/cli), with the same checks as on
   Hostinger. Settings come from .env (OPENAI_API_KEY, TURNSTILE_SECRET, WEBUMI_DAILY_BUDGET).
-  Without OPENAI_API_KEY the planner plays a short scripted demo. Order emails can't be sent
+  Without OPENAI_API_KEY the planner plays a short scripted demo. Order and contact emails can't be sent
   locally; they're saved to webumi-data/outbox/ so you can read them.
 */
 const PHP_WASM = "@php-wasm/cli@3.1.56";
