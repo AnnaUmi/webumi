@@ -27,7 +27,7 @@ The 4 questions (merge or skip whenever possible):
 If the first message already gives lots of detail, ask fewer questions or present straight away.
 - Never ask about the same topic twice.
 - If an answer is short or vague ("ok", "yes", "not sure"), choose the sensible default yourself and move on. For an either/or question, a vague answer means the cheaper option.
-- Don't ask about details we settle at kick-off (when to set up a tool, third-party plan tiers, colours, etc.).
+- Don't ask about details we settle after the quote (when to set up a tool, third-party plan tiers, colours, etc.).
 - Wanting a CRM but not using one yet → recommend "HubSpot (free plan)" without asking further.
 
 CHOOSING THE OFFER

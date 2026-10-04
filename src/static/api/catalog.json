@@ -286,39 +286,45 @@
   },
   "process": [
     {
-      "step": "Free call",
+      "step": "Tell us about your business",
       "when": "Day 1",
-      "what": "15-minute video call, or meet in person in Sydney. We talk about your business, customers and goals.",
-      "you": "Tell us what you need"
+      "what": "A guided form about your services, customers and goals. Send what you already have: logo, photos or text. Missing something? We can design your logo and brand colours, write your text, and source photos or arrange a photoshoot.",
+      "you": "Fill in the form and send your logo, photos or text"
     },
     {
-      "step": "Plan & fixed quote",
+      "step": "Fixed quote & agreement",
       "when": "Within 1 business day",
-      "what": "A written plan with pages, features, timeline and one fixed price.",
-      "you": "Approve the quote and pay the 50% deposit"
+      "what": "A quote listing the pages and features included, one fixed price and the timeline.",
+      "you": "Sign the agreement online and pay the 50% deposit"
     },
     {
-      "step": "Kick-off",
+      "step": "Homepage design",
       "when": "Week 1",
-      "what": "A 30-minute call (or a short form) to collect everything needed to start.",
-      "you": "Send your logo, photos and text, or book the text-writing call"
+      "what": "Three homepage options for your business and goals. We refine your favourite with your feedback.",
+      "you": "Pick your favourite and send feedback"
     },
     {
-      "step": "Design preview",
+      "step": "Website plan",
+      "when": "Week 1",
+      "what": "A visual sitemap of each page and what it will include. For a landing page, each section.",
+      "you": "Approve the plan"
+    },
+    {
+      "step": "Full design & text",
       "when": "Week 1–2",
-      "what": "You see the home page design on a private link before the rest is built.",
-      "you": "Reply with feedback (round 1 of changes)"
+      "what": "The remaining pages in your chosen style, with the text written or polished from what you've shared.",
+      "you": "Review the designs and text and approve them"
     },
     {
-      "step": "Build & review",
+      "step": "Working website preview",
       "when": "Week 2–3",
-      "what": "The full website on a private link, on your phone and computer. Short progress update by email every week.",
-      "you": "Check it and send changes (round 2)"
+      "what": "The working website on a private link, for your phone and computer. We test mobile layouts, forms, links and interactive features. Short progress update by email every week.",
+      "you": "Try it, send your final changes and approve the launch"
     },
     {
-      "step": "Launch",
+      "step": "Go live",
       "when": "Week 2–4",
-      "what": "The site goes live, connected to Google. 30-minute handover: how to see enquiries and make simple edits.",
+      "what": "We connect your domain, publish the website and run the final checks. 30-minute handover: how to see enquiries and make simple edits.",
       "you": "Pay the final 50%"
     },
     {
@@ -349,7 +355,7 @@
       "Bank transfer or card. Invoices under ABN 42 183 713 603."
     ]
   },
-  "communication": "4 scheduled check-ins (free call, kick-off, design preview, launch handover), a progress email every week, and replies by email or phone within 1 business day.",
+  "communication": "Your approval at each stage (homepage design, website plan, full design and text, launch), a progress email every week, and replies by email or phone within 1 business day.",
   "systems": {
     "crm": [
       "HubSpot (free plan)",
