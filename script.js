@@ -107,37 +107,16 @@
     skyIO.observe(sky);
   });
 
-  /* ---------- Pain points ----------
-     Each problem belongs to one of the solutions below (data-goal). Ticking them tells the visitor
-     where to start, and the button opens the solutions panel on that answer. */
+  /* ---------- Starting point ----------
+     One card at a time: picking it shows its suggestion below, picking it again goes back to "Not sure yet". */
   const pains = $$(".pain");
-  const painMsg = $("#painMsg");
-  const painCta = $("#painCta");
-  const START = {
-    customers: "a website that brings in enquiries",
-    bookings: "online booking with deposits and reminders",
-    admin: "automating the admin",
-    ai: "an AI assistant that answers for you",
-  };
-  let painGoal = null;
+  const answers = $$(".pains__answer");
   pains.forEach((p) => p.addEventListener("click", () => {
-    p.setAttribute("aria-pressed", p.getAttribute("aria-pressed") !== "true");
-    const ticked = pains.filter((x) => x.getAttribute("aria-pressed") === "true");
-    const n = ticked.length;
-    const per = {};
-    ticked.forEach((x) => { per[x.dataset.goal] = (per[x.dataset.goal] || 0) + 1; });
-    painGoal = Object.keys(START).reduce((best, g) => ((per[g] || 0) > (per[best] || 0) ? g : best), "customers");
-    const k = per[painGoal] || 0;
-    const start = `<strong>Start with ${START[painGoal]}.</strong> `;
-    painMsg.innerHTML = !n ? "Tick the ones that are true for you."
-      : n === 1 ? start + "That's the fix for this one."
-      : k === n ? start + (n === 2 ? "It fixes both." : `It fixes all ${n} you ticked.`)
-      : start + `It fixes ${k} of the ${n} you ticked. ${n - k === 1 ? "The other one fits" : "The rest fit"} in the same project.`;
-    painCta.hidden = !n;
+    const on = p.getAttribute("aria-pressed") !== "true";
+    pains.forEach((x) => x.setAttribute("aria-pressed", x === p && on));
+    const goal = on ? p.dataset.goal : "";
+    answers.forEach((a) => { a.hidden = a.dataset.for !== goal; });
   }));
-  painCta?.addEventListener("click", () => {
-    $(`.choose__btn[data-goal="${painGoal}"]`)?.click();   // the panel below opens on this answer
-  });
 
   /* ---------- Solutions chooser ---------- */
   const goals = {
@@ -1360,7 +1339,7 @@
     const small = video.offsetWidth <= 440 || video.offsetWidth * (devicePixelRatio || 1) <= 640;   // phones always get the light file
     const ASK = canHover ? "Bring your cursor here" : "Tap me";
     const KEEP = "Click me to keep it";
-    const CTA = '<a href="#pains">Which are yours? Tick them below ↓</a>';   // the hero teases, the checklist below makes it personal
+    const CTA = '<a href="#pains">What should yours do? Pick below ↓</a>';   // the hero teases, the choices below make it personal
     let state = "loading";                 // loading → walk → ready (cursor scrubs) → casting → done
     let prox = 0, shown = T_READY, seeking = false, seekAt = 0, last = 0, readyAt = 0, nudges = 0, celebrated = false;
     let onScreen = true, held = null;      // held: the play() waiting for the hero to come back on screen

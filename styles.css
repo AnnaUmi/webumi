@@ -243,14 +243,20 @@ em { font-style: normal; color: var(--coral); }
   box-shadow: var(--shadow); transition: transform .3s var(--spring), border-color .2s, background .2s;
 }
 .pain:hover { transform: translateY(-3px) rotate(-.4deg); }
-.pain__tick { flex: none; width: 26px; height: 26px; border-radius: 8px; border: 2px solid var(--line); display: grid; place-items: center; transition: all .3s var(--spring); }
-.pain[aria-pressed="true"] { border-color: var(--coral); background: #fff7f4; }
-.pain[aria-pressed="true"] .pain__tick { background: var(--coral); border-color: var(--coral); transform: rotate(-8deg) scale(1.1); }
+.pain__tick { flex: none; width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--line); display: grid; place-items: center; transition: all .3s var(--spring); }
+.pain { font-family: var(--display); font-weight: 700; font-size: 1.08rem; color: var(--ink); }
+.pain[aria-pressed="true"] { background: var(--cyan); }
+.pain[aria-pressed="true"] .pain__tick { background: var(--black); transform: rotate(-8deg) scale(1.1); }
 .pain[aria-pressed="true"] .pain__tick::after { content: "✓"; color: #fff; font-weight: 800; font-size: .9rem; }
-.pains__result { margin-top: 32px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
-@keyframes bump { 40% { transform: scale(1.35); color: var(--coral); } }
-.pains__msg { font-size: 1.15rem; font-weight: 500; color: var(--ink-2); max-width: 620px; }
-.pains__msg strong { color: var(--ink); font-weight: 700; }
+/* the answer to the picked card (or "Not sure yet"): text on the left, its next step on the right */
+.pains__result { margin-top: 28px; }
+.pains__answer { display: grid; grid-template-columns: 1fr auto; grid-template-areas: "title btn" "msg btn"; align-items: center; column-gap: 28px; row-gap: 4px;
+  background: var(--paper); border: var(--line-w) solid var(--black); border-radius: var(--r); box-shadow: var(--hard); padding: 20px 24px; }
+.pains__answer:not([hidden]) { animation: rise .35s var(--ease); }
+@keyframes rise { from { opacity: 0; transform: translateY(8px); } }
+.pains__title { grid-area: title; font-family: var(--display); font-weight: 700; font-size: 1.15rem; color: var(--ink); }
+.pains__msg { grid-area: msg; font-size: 1.02rem; color: var(--ink-2); max-width: 640px; }
+.pains__answer .btn { grid-area: btn; white-space: nowrap; }
 
 /* ---------- Solutions ---------- */
 /* the problems get their own warm sheet, sliding over the hero like the white solutions sheet slides over it */
@@ -636,7 +642,7 @@ a.card:hover { transform: translate(-2px, -2px); box-shadow: var(--hard-lg); }
   border: var(--line-w) solid var(--black); box-shadow: var(--hard);
 }
 .pain:hover, .why__card:hover { transform: translate(-2px, -2px); box-shadow: var(--hard-lg); }
-.pain[aria-pressed="true"] { border-color: var(--black); background: #fff3ee; box-shadow: 4px 4px 0 var(--coral); }
+.pain[aria-pressed="true"] { border-color: var(--black); background: var(--cyan); transform: translate(-2px, -2px); box-shadow: var(--hard-lg); }
 .pain__tick { border-color: var(--black); }
 .pain[aria-pressed="true"] .pain__tick { border-color: var(--black); }
 
@@ -1546,7 +1552,9 @@ ol.checks { padding-left: 0; }
   .eyebrow__what { display: none; }   /* the badge fits on one line: "Small & Mid-size Businesses · Australia" */
   .pains__grid { gap: 10px; }
   .pain { padding: 13px 16px; font-size: .95rem; gap: 12px; line-height: 1.35; }
-  .pains__result { margin-top: 20px; gap: 14px; }
+  .pains__result { margin-top: 20px; }
+  .pains__answer { grid-template-columns: 1fr; grid-template-areas: "title" "msg" "btn"; row-gap: 8px; padding: 18px; }
+  .pains__answer .btn { justify-self: start; margin-top: 6px; white-space: normal; }
   .footer__cols { grid-template-columns: 1fr; }
   .pkg__grid--4 { grid-template-columns: 1fr; }
   .pains__grid, .steps, .why__cards, .form__row, .ai__list, .choose, .bld__grid--2, .bld__grid--3, .howto, .bk__types { grid-template-columns: 1fr; }
