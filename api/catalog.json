@@ -28,7 +28,7 @@
       "landing": 600,
       "website": 1200,
       "app": 2900,
-      "desc": "Custom design with motion and interactive sections: a design mockup approved before the build, an animated video hero, up to 10 sections with scroll effects, sliders or carousels, up to 4 video sections, custom icons, 2 rounds of design changes. Same speed and SEO foundation as Essential; respects reduced-motion settings. Default (free) is Essential: a proven layout in their logo, colours and fonts with subtle animations.",
+      "desc": "Custom design with motion and interactive sections: an animated video hero, up to 10 sections with scroll effects, sliders or carousels, up to 4 video sections, custom icons, 2 rounds of design changes. Same speed and SEO foundation as Essential; respects reduced-motion settings. Default (free) is Essential: a proven layout in their logo, colours and fonts with subtle animations.",
       "explain": "A design made for your brand, with motion, video and interactive sections that make your business stand out from competitors."
     },
     {
@@ -155,7 +155,7 @@
       "name": "Logo & mini brand kit",
       "landing": 390,
       "website": 390,
-      "desc": "Logo, icon and favicon, 4–6 brand colours, 2 fonts, button and photo style, social profile image. 3 concepts, 2 rounds of changes."
+      "desc": "Logo, icon and favicon, 4–6 brand colours, 2 fonts, button and photo style, social profile image. 3 concepts to choose from."
     },
     {
       "id": "blog",
@@ -276,13 +276,12 @@
     "Visitor stats (Google Analytics) and Search Console",
     "Accessible design (WCAG basics) and a privacy page",
     "Your domain and accounts stay in your name",
-    "2 rounds of changes",
-    "30 days of free fixes after launch"
+    "Issues with the agreed functionality fixed free for 30 days after launch"
   ],
   "support": {
     "freeDays": 30,
     "hourly": 95,
-    "note": "30 days of free fixes after launch are included with every website. After that: a monthly plan with a set number of updates a month. One update = changes to one page (new or edited text, new photos, or changed prices or opening hours), sent in one request and done within 3 business days."
+    "note": "For 30 days after launch, issues with the agreed functionality are fixed at no extra cost. After that: a monthly plan with a set number of updates a month. One update = changes to one page (new or edited text, new photos, or changed prices or opening hours), sent in one request and done within 3 business days."
   },
   "process": [
     {

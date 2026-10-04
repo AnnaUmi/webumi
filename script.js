@@ -108,14 +108,17 @@
   });
 
   /* ---------- Starting point ----------
-     One card at a time: picking it shows its suggestion below, picking it again goes back to "Not sure yet". */
+     One card at a time: picking it shows its suggestion (or the detailed panel below) and picking it again goes back to "Not sure yet". */
   const pains = $$(".pain");
   const answers = $$(".pains__answer");
   pains.forEach((p) => p.addEventListener("click", () => {
     const on = p.getAttribute("aria-pressed") !== "true";
     pains.forEach((x) => x.setAttribute("aria-pressed", x === p && on));
     const goal = on ? p.dataset.goal : "";
-    answers.forEach((a) => { a.hidden = a.dataset.for !== goal; });
+    const detailed = goal in goals;          // customers, bookings, admin, AI: the panel with the customer's journey
+    answers.forEach((a) => { a.hidden = detailed || a.dataset.for !== goal; });
+    panel.hidden = !detailed;
+    if (detailed) showGoal(goal);
   }));
 
   /* ---------- How it works: the three homepage directions ----------
@@ -127,7 +130,7 @@
     demo.dataset.dir = b.dataset.dir;
   }));
 
-  /* ---------- Solutions chooser ---------- */
+  /* ---------- Starting point: the detailed answers ---------- */
   const goals = {
     customers: {
       more: ["/websites/", "More about websites →"],
@@ -139,7 +142,7 @@
         "Google Business Profile polished, with reviews front and centre",
         "One-tap call, quote form and instant auto-reply",
       ],
-      pkg: ["Business website — from $2,490", "website"],
+      pkg: ["Business website — from $1,290", "website"],
       flow: [
         ["search", "Customer searches Google", "“landscaper eastern suburbs”"],
         ["pin", "Finds your Google profile", "Reviews, photos, hours"],
@@ -152,14 +155,14 @@
     bookings: {
       more: ["/online-bookings/", "More about online bookings →"],
       title: "Let customers book (and pay) while you sleep.",
-      desc: "No more back-and-forth messages. Customers pick a time, pay a deposit and get a reminder.",
+      desc: "No more back-and-forth messages. Customers pick a time, pay a deposit and get a reminder. Selling products? We add an online shop, from $1,290.",
       list: [
         "Booking built into your site, using Square, Fresha or Calendly",
         "Deposits that make no-shows basically disappear",
         "Automatic confirmations and SMS reminders",
         "Review requests and “book again” nudges after every visit",
       ],
-      pkg: ["Business website with online booking — from $2,490", "website"],
+      pkg: ["Business website with online booking — from $1,680", "website"],
       flow: [
         ["camera", "Sees you on Instagram", "Taps the link in your bio"],
         ["polish", "Chooses a service", "Clear prices, no DMs needed"],
@@ -229,13 +232,6 @@
     void panel.offsetWidth;
     panel.classList.add("is-swapping");
   }
-  $$(".choose__btn").forEach((b) => b.addEventListener("click", () => {
-    $$(".choose__btn").forEach((x) => { x.classList.remove("is-active"); x.setAttribute("aria-selected", "false"); });
-    b.classList.add("is-active");
-    b.setAttribute("aria-selected", "true");
-    showGoal(b.dataset.goal);
-  }));
-  if (panel) showGoal("customers");
 
   // Highlight the recommended package when jumping to it
   $("#goalPkg")?.addEventListener("click", (e) => {
@@ -431,7 +427,7 @@
       $("#bldMonthly").textContent = `+ ${aud(monthly)}/month`;
       $("#bldDeposit").textContent = rush.value === "Express" ? "Paid upfront, because Express work starts straight away." : `Pay 50% (${aud(half(total))}) to start and the rest at launch.`;
       $("#bldQuote").hidden = !quotes.length;
-      $("#bldQuote").textContent = `+ ${quotes.join(" and ")}: priced after a free chat.`;
+      $("#bldQuote").textContent = `+ ${quotes.join(" and ")}: priced once we've discussed your project.`;
       $("#bldBarTotal").textContent = (from ? "from " : "") + aud(total);
       $("#bldBarMonthly").textContent = monthly ? `+ ${aud(monthly)}/mo` : "";
 
