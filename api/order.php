@@ -25,10 +25,19 @@ const TYPES = [
   'fix' => 'Fix or redesign a website', 'support' => 'Support plan',
 ];
 
+/** Whether a zip archive lists exactly this file name in its central directory (no zip extension needed). */
+function zip_has($bytes, $name) {
+  for ($p = strpos($bytes, "PK\x01\x02"); $p !== false; $p = strpos($bytes, "PK\x01\x02", $p + 4)) {
+    $len = unpack('v', substr($bytes, $p + 28, 2))[1] ?? 0;
+    if (substr($bytes, $p + 46, $len) === $name) return true;
+  }
+  return false;
+}
+
 /** The file's real type, from its contents. Falls back to checking the first bytes if fileinfo isn't installed. */
 function detect_mime($bytes) {
-  // Word files are zip archives with a word/ folder; some servers' fileinfo only says "zip"
-  if (strncmp($bytes, "PK\x03\x04", 4) === 0 && strpos($bytes, 'word/') !== false) return 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+  // Word files are zip archives holding word/document.xml; some servers' fileinfo only says "zip"
+  if (strncmp($bytes, "PK\x03\x04", 4) === 0 && zip_has($bytes, 'word/document.xml')) return 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
   if (function_exists('finfo_buffer')) return finfo_buffer(finfo_open(FILEINFO_MIME_TYPE), $bytes);
   $head = substr($bytes, 0, 16);
   if (strncmp($head, "\xFF\xD8\xFF", 3) === 0) return 'image/jpeg';
@@ -63,7 +72,7 @@ $oneLine = fn($v, $max = 200) => str_replace(["\r", "\n"], ' ', $clean($v, $max)
 $name = $oneLine($in['name'] ?? '', 120);
 $email = $oneLine($in['email'] ?? '', 200);
 $business = $oneLine($in['business'] ?? '', 160);
-$types = array_slice(array_values(array_intersect(array_keys(TYPES), is_array($in['types'] ?? null) ? $in['types'] : [])), 0, 1);   // one project per order
+$types = array_slice(array_values(array_intersect(array_filter(is_array($in['types'] ?? null) ? $in['types'] : [], 'is_string'), array_keys(TYPES))), 0, 1);   // one project per order: the one the customer chose
 if ($name === '') fail(400, 'Please add your name.');
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) fail(400, 'Please check your email address.');
 if (!$types) fail(400, 'Please choose what you need.');

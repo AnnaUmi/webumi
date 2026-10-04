@@ -182,7 +182,7 @@
         "Jobs → invoices → payments → Xero, without retyping",
         "A weekly snapshot of how the business is actually going",
       ],
-      pkg: ["Automations added to any website, app or platform", "platform"],
+      pkg: ["Automations added to any website, app or platform", "website"],
       flow: [
         ["envelope", "Enquiry comes in", "Website, email or Facebook"],
         ["folder", "Customer added to your CRM", "Automatically, no typing"],
@@ -202,7 +202,7 @@
         "Details pulled from emails, forms and PDFs automatically",
         "Plugged into your CRM, calendar, payments or Xero",
       ],
-      pkg: ["An AI assistant added to any website, app or platform", "app"],
+      pkg: ["An AI assistant added to any website, app or platform", "website"],
       flow: [
         ["moon", "Customer asks a question at 11pm", "“How much for a large dog?”"],
         ["sparkle", "AI answers from your price list", "Accurate, friendly, in your tone"],
@@ -1347,7 +1347,7 @@
     const small = video.offsetWidth <= 440 || video.offsetWidth * (devicePixelRatio || 1) <= 640;   // phones always get the light file
     const ASK = canHover ? "Bring your cursor here" : "Tap me";
     const KEEP = "Click me to keep it";
-    let state = "loading";                 // loading → walk → ready (cursor scrubs) → casting → done
+    let state = "loading";                 // loading → walk → ready (cursor scrubs) or wait (touch) → casting → done
     let prox = 0, shown = T_READY, seeking = false, seekAt = 0, last = 0, readyAt = 0, nudges = 0, celebrated = false;
     let onScreen = true, held = null;      // held: the play() waiting for the hero to come back on screen
 
@@ -1374,7 +1374,7 @@
     // and the bear would do its whole spell out of sight
     const play = (fail) => {
       if (!onScreen) { held = fail; return; }
-      video.play().then(loop).catch(fail);
+      video.play().then(loop).catch(() => { if (!held) fail(); });   // scrolled away while starting: the pause cancelled it, it resumes later
     };
     // autoplay blocked (iPhone Low Power Mode): the bear waits holding the star, a tap starts it
     const blocked = () => {
@@ -1423,7 +1423,7 @@
       if (state === "walk" && video.currentTime >= T_READY - 0.03) {
         video.pause(); shown = video.currentTime;
         if (canHover) { state = "ready"; readyAt = now; say(ASK); }
-        else return setTimeout(cast, 600);
+        else { state = "wait"; return setTimeout(cast, 600); }   // "wait": a second tick can't queue another cast
       }
       if (state === "ready") {
         const eased = prox * prox * (3 - 2 * prox);

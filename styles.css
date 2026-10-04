@@ -404,7 +404,7 @@ input[type="range"]:focus-visible { outline: 3px solid var(--sun); outline-offse
 .rescue.is-highlight { border-color: var(--coral); }
 .pkg__note { margin-top: 18px; font-size: .88rem; color: var(--muted); text-align: center; }
 
-.pkg__grid--4 { grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.pkg__grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }   /* minmax: four cards never push past the screen */
 .pkg > .ic { width: 34px; height: 34px; margin-bottom: 10px; }
 .pkg__grid--4 .pkg { padding: 28px 22px; }
 .pkg__grid--4 .pkg__name { font-size: 1.45rem; }
