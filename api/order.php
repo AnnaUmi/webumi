@@ -17,7 +17,8 @@ const MAX_PER_HOUR = 5;
 const MAX_PER_DAY  = 10;
 const MAX_FILES = 12, MAX_FILE = 8e6, MAX_TOTAL = 20e6, MAX_ATTACH = 15e6;   // bytes
 const FILE_TYPES = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/webp' => 'webp', 'image/gif' => 'gif',
-  'image/heic' => 'heic', 'image/heif' => 'heif', 'application/pdf' => 'pdf'];
+  'image/heic' => 'heic', 'image/heif' => 'heif', 'application/pdf' => 'pdf',
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => 'docx'];
 const TYPES = [
   'landing' => 'Landing page', 'website' => 'Business website', 'store' => 'Online store', 'pwa' => 'Web app (PWA)',
   'mobile' => 'iOS & Android app', 'platform' => 'Platform / client portal', 'ai' => 'AI agent or assistant',
@@ -26,6 +27,8 @@ const TYPES = [
 
 /** The file's real type, from its contents. Falls back to checking the first bytes if fileinfo isn't installed. */
 function detect_mime($bytes) {
+  // Word files are zip archives with a word/ folder; some servers' fileinfo only says "zip"
+  if (strncmp($bytes, "PK\x03\x04", 4) === 0 && strpos($bytes, 'word/') !== false) return 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
   if (function_exists('finfo_buffer')) return finfo_buffer(finfo_open(FILEINFO_MIME_TYPE), $bytes);
   $head = substr($bytes, 0, 16);
   if (strncmp($head, "\xFF\xD8\xFF", 3) === 0) return 'image/jpeg';

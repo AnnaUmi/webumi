@@ -481,6 +481,74 @@
                 <label class="field"><span>Describe the main screens or what people do in it</span><textarea name="appDesc" rows="3" placeholder="e.g. Clients log in, see their bookings, rebook, and get a reminder 6 weeks later"></textarea></label>
               </div>
 
+              <!-- apps and platforms: a technical brief instead of "describe your ideal website" -->
+              <div class="ord__group" data-for="pwa mobile platform">
+                <h3><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg> Technical brief</h3>
+                <p class="ord__hint">Share as much or as little as you have. If it's just an idea, that's enough to quote the first version.</p>
+                <label class="field"><span>Where are you at?</span><select name="stage"><option>Just an idea</option><option>A written brief or spec</option><option>Designs or wireframes ready</option><option>An existing product to rebuild or extend</option></select></label>
+                <div class="field"><span>Upload your technical brief <em>(spec, user stories, wireframes or screenshots)</em></span>
+                  <div class="drop" data-zone="spec"><input type="file" multiple accept="image/*,application/pdf,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" hidden>
+                    <p><svg class="ic" aria-hidden="true"><use href="#i-folder"/></svg> <b>Drop files here</b> or <u>choose files</u></p><small>PDF, Word (.docx) or images</small><ul class="drop__list"></ul></div>
+                </div>
+                <label class="field"><span>Links to your brief or designs <em>(Google Docs, Notion, Figma, Miro)</em></span><textarea name="specLinks" rows="2" placeholder="https://www.figma.com/…&#10;https://docs.google.com/…"></textarea></label>
+                <label class="field"><span>Who logs in, and what can each role do?</span><textarea name="roles" rows="3" placeholder="e.g. Admin: manages users and prices. Staff: sees today's jobs. Clients: book, pay and see their history."></textarea></label>
+                <label class="field"><span>Systems it must connect to</span><input name="integrations" placeholder="e.g. Stripe, Xero, Google Calendar, HubSpot, your own API"></label>
+                <p class="ord__label">Preferred technologies <em>(optional)</em></p>
+                <div class="form__chips">
+                  <label class="tick"><input type="checkbox" name="tech" value="No preference, recommend the best fit"><span>No preference, recommend the best fit</span></label>
+                </div>
+                <p class="ord__label">Web front end</p>
+                <div class="form__chips">
+                  <label class="tick"><input type="checkbox" name="techWeb" value="React / Next.js"><span>React / Next.js</span></label>
+                  <label class="tick"><input type="checkbox" name="techWeb" value="Vue / Nuxt"><span>Vue / Nuxt</span></label>
+                  <label class="tick"><input type="checkbox" name="techWeb" value="Angular"><span>Angular</span></label>
+                </div>
+                <p class="ord__label">Mobile</p>
+                <div class="form__chips">
+                  <label class="tick"><input type="checkbox" name="techMobile" value="React Native / Expo"><span>React Native / Expo</span></label>
+                  <label class="tick"><input type="checkbox" name="techMobile" value="Flutter"><span>Flutter</span></label>
+                  <label class="tick"><input type="checkbox" name="techMobile" value="Native Swift / Kotlin"><span>Native Swift / Kotlin</span></label>
+                </div>
+                <p class="ord__label">Back end</p>
+                <div class="form__chips">
+                  <label class="tick"><input type="checkbox" name="techBack" value="Node.js"><span>Node.js</span></label>
+                  <label class="tick"><input type="checkbox" name="techBack" value="Python"><span>Python</span></label>
+                  <label class="tick"><input type="checkbox" name="techBack" value="PHP / Laravel"><span>PHP / Laravel</span></label>
+                  <label class="tick"><input type="checkbox" name="techBack" value=".NET"><span>.NET</span></label>
+                </div>
+                <p class="ord__label">Database &amp; backend services</p>
+                <div class="form__chips">
+                  <label class="tick"><input type="checkbox" name="techData" value="PostgreSQL"><span>PostgreSQL</span></label>
+                  <label class="tick"><input type="checkbox" name="techData" value="MySQL"><span>MySQL</span></label>
+                  <label class="tick"><input type="checkbox" name="techData" value="Supabase"><span>Supabase</span></label>
+                  <label class="tick"><input type="checkbox" name="techData" value="Firebase"><span>Firebase</span></label>
+                  <label class="tick"><input type="checkbox" name="techData" value="MongoDB"><span>MongoDB</span></label>
+                </div>
+                <p class="ord__label">Hosting</p>
+                <div class="form__chips">
+                  <label class="tick"><input type="checkbox" name="techHost" value="AWS"><span>AWS</span></label>
+                  <label class="tick"><input type="checkbox" name="techHost" value="Google Cloud"><span>Google Cloud</span></label>
+                  <label class="tick"><input type="checkbox" name="techHost" value="Azure"><span>Azure</span></label>
+                  <label class="tick"><input type="checkbox" name="techHost" value="Vercel"><span>Vercel</span></label>
+                  <label class="tick"><input type="checkbox" name="techHost" value="Our own servers"><span>Our own servers</span></label>
+                </div>
+                <label class="field"><span>Other technologies or constraints</span><input name="techOther" placeholder="e.g. must run on our Microsoft 365 account, TypeScript only"></label>
+                <p class="ord__label">Data &amp; compliance</p>
+                <div class="form__chips">
+                  <label class="tick"><input type="checkbox" name="compliance" value="Personal or health data"><span>Personal or health data</span></label>
+                  <label class="tick"><input type="checkbox" name="compliance" value="Data hosted in Australia"><span>Data hosted in Australia</span></label>
+                  <label class="tick"><input type="checkbox" name="compliance" value="Single sign-on (SSO)"><span>Single sign-on (SSO)</span></label>
+                  <label class="tick"><input type="checkbox" name="compliance" value="Multiple languages"><span>Multiple languages</span></label>
+                  <label class="tick"><input type="checkbox" name="compliance" value="Accessibility (WCAG AA)"><span>Accessibility (WCAG AA)</span></label>
+                  <label class="tick"><input type="checkbox" name="compliance" value="Audit log"><span>Audit log</span></label>
+                </div>
+                <div class="form__row">
+                  <label class="field"><span>Existing code?</span><select name="codebase"><option>No, starting fresh</option><option>Yes, extend it (we'll share access)</option><option>Yes, rebuild it</option></select></label>
+                  <label class="field"><span>Expected users in the first year</span><select name="scale"><option>Not sure</option><option>Under 100</option><option>100–1,000</option><option>1,000–10,000</option><option>Over 10,000</option></select></label>
+                </div>
+                <label class="tick"><input type="checkbox" name="nda" value="Yes" data-label="NDA needed before sharing details"><span>I need an NDA before sharing the details</span></label>
+              </div>
+
               <div class="ord__group" data-for="ai">
                 <h3><svg class="ic" aria-hidden="true"><use href="#i-robot"/></svg> AI</h3>
                 <label class="field"><span>What should it do?</span><select name="aiType"><option>Answer customer questions (chat assistant)</option><option>Produce quotes, plans or reports (AI agent)</option><option>Work behind the scenes (automation)</option><option>Not sure</option></select></label>
@@ -751,6 +819,6 @@
   <a href="/order/" class="sticky-cta" id="stickyCta">Get a fixed quote →</a>
 
   <script src="/offer.js?v=9c312f08"></script>
-  <script src="/script.js?v=3bab329a"></script>
+  <script src="/script.js?v=0edbf5ca"></script>
 </body>
 </html>

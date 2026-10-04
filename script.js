@@ -985,7 +985,7 @@
       list.innerHTML = "";
       (files[zone] || []).forEach((f, i) => {
         const li = document.createElement("li");
-        li.innerHTML = f.type.startsWith("image/") ? `<img src="${f.url}" alt="">` : `<span class="drop__pdf">PDF</span>`;
+        li.innerHTML = f.type.startsWith("image/") ? `<img src="${f.url}" alt="">` : `<span class="drop__pdf">${/\.docx$/i.test(f.name) ? "DOC" : "PDF"}</span>`;
         const name = document.createElement("span"); name.textContent = f.name; li.append(name);
         const rm = document.createElement("button"); rm.type = "button"; rm.textContent = "×"; rm.setAttribute("aria-label", "Remove " + f.name);
         rm.addEventListener("click", (e) => { e.stopPropagation(); files[zone].splice(i, 1); drawList(zone); refresh(); });
@@ -995,7 +995,8 @@
     async function addFiles(zone, list) {
       const err = $("#ordError");
       for (const file of list) {
-        if (!/^image\//.test(file.type) && file.type !== "application/pdf") { err.textContent = `${file.name}: only images and PDFs can be uploaded.`; err.hidden = false; continue; }
+        const docx = file.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document" || /\.docx$/i.test(file.name);
+        if (!/^image\//.test(file.type) && file.type !== "application/pdf" && !docx) { err.textContent = `${file.name}: only images, PDFs and Word (.docx) files can be uploaded.`; err.hidden = false; continue; }
         if (Object.values(files).flat().length >= MAX_FILES) { err.textContent = `Up to ${MAX_FILES} files. For more, add a Google Drive or Dropbox link in the description.`; err.hidden = false; break; }
         const p = await prepare(file);
         if (p.blob.size > 8e6 || totalSize() + p.blob.size > MAX_TOTAL) { err.textContent = `${file.name} is too big. Please add a Google Drive or Dropbox link instead.`; err.hidden = false; continue; }
