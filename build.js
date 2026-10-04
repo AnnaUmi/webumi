@@ -17,6 +17,8 @@
     {{key}}         insert a meta value
     {{price:id:field}} / {{aud:id:field}}   a price from src/static/api/catalog.json, raw or as "$1,234"
                     (id = a type like "website" or an option id; field = price, landing, website, monthly, extraPage…)
+    {{v:file}}      "/file?v=1a2b3c4d": a file from src/static/ with a fingerprint of its contents, so browsers
+                    and Hostinger's CDN (which keep files for 7 days) fetch the new one after every change
   <details><summary>Q</summary><p>A</p></details> blocks become FAQ structured data automatically.
 */
 const fs = require("fs");
@@ -70,6 +72,11 @@ function aiCatalog(cat = catalog()) {
   };
 }
 
+const fingerprints = {};
+function fingerprint(file) {
+  return (fingerprints[file] ??= require("crypto").createHash("md5").update(fs.readFileSync(path.join(SRC, "static", file))).digest("hex").slice(0, 8));
+}
+
 function render(tpl, vars, depth = 0) {
   if (depth > 5) throw new Error("Partials nested too deep");
   return tpl
@@ -79,6 +86,7 @@ function render(tpl, vars, depth = 0) {
       return kind === "aud" ? "$" + v.toLocaleString("en-AU") : v;
     })
     .replace(/\{\{icon:([\w-]+)\}\}/g, (_, n) => `<svg class="ic" aria-hidden="true"><use href="#i-${n}"/></svg>`)
+    .replace(/\{\{v:([\w./-]+)\}\}/g, (_, f) => `/${f}?v=${fingerprint(f)}`)
     .replace(/\{\{(\w+)\}\}/g, (m, k) => (k in vars ? vars[k] : m));
 }
 
@@ -112,6 +120,7 @@ function schemaFor(page, body) {
 }
 
 function build() {
+  for (const f in fingerprints) delete fingerprints[f];   // files may have changed since the last build (preview server)
   fs.rmSync(DIST, { recursive: true, force: true });
   fs.mkdirSync(DIST, { recursive: true });
   fs.cpSync(path.join(SRC, "static"), DIST, { recursive: true });
