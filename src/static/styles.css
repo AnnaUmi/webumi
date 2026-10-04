@@ -1561,5 +1561,47 @@ ol.checks { padding-left: 0; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
   .reveal { opacity: 1; transform: none; }
+  .sky *, .sky *::before { animation-delay: 0s !important; transition-delay: 0s !important; }
 }
 .opt__link { color: var(--coral); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+
+/* Why Webumi: four stars joined like Ursa Minor, ending at the cyan "Polaris" (your goal) */
+.sky {
+  position: relative; margin: clamp(40px, 6vw, 72px) 0 clamp(32px, 5vw, 56px); padding: clamp(28px, 4vw, 48px);
+  background: radial-gradient(1.5px 1.5px at 12% 18%, rgba(255,255,255,.7), transparent),
+    radial-gradient(1px 1px at 34% 8%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.5px 1.5px at 58% 26%, rgba(255,255,255,.5), transparent),
+    radial-gradient(1px 1px at 81% 44%, rgba(255,255,255,.6), transparent),
+    radial-gradient(1px 1px at 92% 12%, rgba(255,255,255,.5), transparent),
+    radial-gradient(1.5px 1.5px at 6% 62%, rgba(255,255,255,.4), transparent),
+    linear-gradient(160deg, #0f2a3d 0%, #173d57 100%);
+  color: #fff; border: var(--line-w) solid var(--black); border-radius: var(--r-lg); box-shadow: var(--hard-lg); overflow: hidden;
+}
+.sky__lines { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+.sky__path { fill: none; stroke: var(--sun); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; opacity: .75; }
+.sky.is-armed .sky__path { stroke-dashoffset: 1; }
+.sky.is-on .sky__path { stroke-dashoffset: 0; transition: stroke-dashoffset 2s var(--ease) .2s; }
+.sky__stars { position: relative; list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(20px, 3vw, 36px); }
+.sky__spot { display: block; position: relative; height: 150px; }
+.sky__star { position: absolute; left: 0; top: var(--y, 0); width: 46px; height: 46px; overflow: visible; }
+.sky.is-armed .sky__star { transform: scale(0); }
+.sky__node:nth-child(1) { --y: 92px; }
+.sky__node:nth-child(2) { --y: 40px; }
+.sky__node:nth-child(3) { --y: 100px; }
+.sky__node:nth-child(4) { --y: 0px; }
+.sky__node--goal .sky__star { width: 64px; height: 64px; left: -8px; filter: drop-shadow(0 0 14px rgba(30,227,255,.55)); }
+.sky.is-on .sky__star { animation: tw-in .7s cubic-bezier(.34,1.8,.64,1) calc(.2s + var(--i) * .5s) both; }
+.sky.is-on .sky__node--goal .sky__star { animation: tw-in .7s cubic-bezier(.34,1.8,.64,1) 1.7s both, tw-twinkle 4s cubic-bezier(.34,1.56,.64,1) 2.6s infinite; }
+.sky.is-armed .sky__text { opacity: 0; transform: translateY(12px); }
+.sky.is-on .sky__text { opacity: 1; transform: none; transition: opacity .6s var(--ease), transform .6s var(--ease); transition-delay: calc(.45s + var(--i) * .5s); }
+.sky__n { font-size: .74rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--sun); }
+.sky__node--goal .sky__n { color: var(--cyan); }
+.sky__text h3 { color: #fff; margin-top: 8px; font-size: 1.12rem; line-height: 1.25; }
+.sky__text h3 + p { color: rgba(255,255,255,.72); font-size: .95rem; margin-top: 8px; }
+@media (max-width: 860px) {
+  .sky__stars { grid-template-columns: 1fr; gap: 28px; }
+  .sky__node { display: grid; grid-template-columns: 56px 1fr; gap: 14px; align-items: start; }
+  .sky__spot { height: 56px; }
+  .sky__node .sky__star, .sky__node--goal .sky__star { top: 4px; left: 2px; }
+  .sky__node--goal .sky__star { width: 54px; height: 54px; left: -2px; top: 0; }
+}

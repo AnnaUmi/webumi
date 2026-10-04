@@ -84,6 +84,29 @@
     io.observe(el);
   });
 
+  /* ---------- Why Webumi star path ----------
+     Joins the star centres with one line, redrawn when the layout changes, and plays once in view. */
+  $$("[data-sky]").forEach((sky) => {
+    const svg = $(".sky__lines", sky), path = $(".sky__path", sky), stars = $$(".sky__star", sky);
+    const draw = () => {
+      const box = sky.getBoundingClientRect();
+      svg.setAttribute("viewBox", `0 0 ${box.width} ${box.height}`);
+      path.setAttribute("d", stars.map((s, i) => {
+        const r = s.getBoundingClientRect();
+        return `${i ? "L" : "M"}${(r.left - box.left + r.width / 2).toFixed(1)} ${(r.top - box.top + r.height / 2).toFixed(1)}`;
+      }).join(" "));
+    };
+    sky.classList.add("is-armed");
+    draw();
+    new ResizeObserver(draw).observe(sky);
+    const skyIO = new IntersectionObserver((entries) => {
+      if (!entries[0].isIntersecting) return;
+      sky.classList.add("is-on");
+      skyIO.disconnect();
+    }, { threshold: 0.3 });
+    skyIO.observe(sky);
+  });
+
   /* ---------- Pain points ----------
      Each problem belongs to one of the solutions below (data-goal). Ticking them tells the visitor
      where to start, and the button opens the solutions panel on that answer. */
@@ -1417,10 +1440,11 @@
         const res = await fetch(url);
         if (!res.ok) throw new Error(res.status);
         video.src = URL.createObjectURL(await res.blob());
-      } catch { video.preload = "auto"; video.src = url; }
+      } catch { video.src = url; }
       const loaded = await new Promise((ok) => {
         video.addEventListener("loadeddata", () => ok(true), { once: true });
         video.addEventListener("error", () => ok(false), { once: true });
+        video.preload = "auto"; video.load();   // iPhone Safari buffers nothing until told to, so "loadeddata" never came
       });
       if (!loaded) { celebrated = true; return finish(); }   // no video: still show the fixed list and the link
       if (reduceMotion) { video.currentTime = T_END; celebrated = true; return finish(); }
