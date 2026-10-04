@@ -497,7 +497,8 @@ input[type="range"]:focus-visible { outline: 3px solid var(--sun); outline-offse
 .why .why__card > span { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 12px; border: 2px solid var(--black); background: var(--sand); font-size: 1.4rem; }
 .why .why__card--hot > span { background: #fff; }
 .why .why__card h3 { font-size: 1.12rem; margin-top: 2px; }
-.why .sky { margin-top: clamp(40px, 6vw, 72px); }
+.why .sky { margin-top: 0; }
+.why__cards--after { margin-top: 18px; }
 .why__card--hot p { color: var(--ink-2); }
 .stat {
   margin-top: clamp(48px, 7vw, 88px); display: flex; align-items: center; gap: clamp(20px, 4vw, 48px);
