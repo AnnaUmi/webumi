@@ -466,10 +466,12 @@ input[type="range"]:focus-visible { outline: 3px solid var(--sun); outline-offse
 .why__copy h2 { margin-bottom: 24px; }
 .why__copy p { color: var(--muted); font-size: 1.08rem; margin-top: 14px; }
 .why__cards { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.why__card { background: var(--paper); border-radius: var(--r); padding: 24px; box-shadow: var(--shadow); display: grid; gap: 12px; transition: transform .3s var(--spring); }
+.why__card { background: var(--paper); border-radius: var(--r); padding: 24px; box-shadow: var(--shadow); display: grid; gap: 12px; align-content: start; transition: transform .3s var(--spring); }
 .why__card:hover { transform: translateY(-4px) rotate(.5deg); }
 .why__card > span { font-size: 1.8rem; }
 .why__card p { color: var(--muted); font-size: .94rem; margin-top: 4px; }
+.why__card--hot { background: var(--sun) !important; }
+.why__card--hot p { color: var(--ink-2); }
 .stat {
   margin-top: clamp(48px, 7vw, 88px); display: flex; align-items: center; gap: clamp(20px, 4vw, 48px);
   padding: clamp(24px, 4vw, 40px); border-radius: var(--r-lg); background: var(--sea); color: #fff;
