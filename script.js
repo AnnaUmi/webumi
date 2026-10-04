@@ -247,6 +247,7 @@
     ["bot", "Done! You're booked for Sat 9:00am. Confirmation is on its way to your phone 📲"],
   ];
   let chatRun = 0;
+  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   function bubble(who, text) {
     const b = document.createElement("div");
     b.className = `bubble bubble--${who}`;
