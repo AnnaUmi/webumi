@@ -426,6 +426,22 @@ input[type="range"]:focus-visible { outline: 3px solid var(--sun); outline-offse
 .step:nth-child(4) .step__n { background: var(--ink); }
 .step h3 { margin-bottom: 8px; }
 .step p { color: var(--muted); font-size: .96rem; }
+/* home: the 7 steps as one path. Heading on the left (stays in view), numbered steps on the right joined by a line */
+.journey { display: grid; grid-template-columns: minmax(260px, 2fr) 3fr; gap: clamp(32px, 6vw, 88px); align-items: start; }
+.journey__head { position: sticky; top: 120px; margin-bottom: 0; }
+.journey__steps { list-style: none; margin: 0; padding: 0; }
+.journey__step:not(:last-child)::before { content: ""; position: absolute; left: 23px; top: 48px; bottom: 0; border-left: var(--line-w) dashed var(--black); }   /* the path to the next step */
+.journey__step { position: relative; display: grid; grid-template-columns: 48px 1fr; column-gap: 22px; padding-bottom: 34px; }
+.journey__step:last-child { padding-bottom: 0; }
+.journey__n { grid-row: span 2; position: relative; display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%;
+  background: var(--coral); color: #fff; font-family: var(--display); font-weight: 800; font-size: 1.3rem;
+  border: var(--line-w) solid var(--black); box-shadow: 3px 3px 0 var(--black); }
+.journey__step:nth-child(4n+2) .journey__n { background: var(--cyan); color: var(--black); }
+.journey__step:nth-child(4n+3) .journey__n { background: var(--sun); color: var(--black); }
+.journey__step:nth-child(4n+4) .journey__n { background: var(--ink); }
+.journey__step:last-child .journey__n { background: var(--sea); }
+.journey__step h3 { margin: 10px 0 6px; }
+.journey__step p { color: var(--muted); font-size: .98rem; max-width: 560px; }
 
 /* ---------- Why ---------- */
 .why__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 5vw, 72px); align-items: start; }
@@ -1497,6 +1513,8 @@ ol.checks { padding-left: 0; }
   .pkg__grid--4 { grid-template-columns: 1fr 1fr; max-width: none; }
   .offers__extras { grid-template-columns: 1fr; }
   .steps { grid-template-columns: 1fr 1fr; }
+  .journey { grid-template-columns: 1fr; }
+  .journey__head { position: static; margin-bottom: 8px; }
   .footer__cols { grid-template-columns: 1fr 1fr; }
   .pains__grid { grid-template-columns: 1fr 1fr; }
   .choose { grid-template-columns: 1fr 1fr; }
