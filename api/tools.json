@@ -1,0 +1,174 @@
+[
+  {
+    "type": "function",
+    "function": {
+      "name": "ask",
+      "description": "Reply to the visitor and ask the next question, with quick-reply choices.",
+      "strict": true,
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Max 25 words: optionally one useful fact, then one question. No praise or filler, never repeat the visitor's answer."
+          },
+          "choices": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "2–5 quick replies, 1–4 words each."
+          }
+        },
+        "required": [
+          "message",
+          "choices"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "present_offer",
+      "description": "Present a personal website offer built from catalog options. Prices are calculated by the page.",
+      "strict": true,
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "One short sentence: the plan is below and they can ask for changes."
+          },
+          "business_name": {
+            "type": "string",
+            "description": "Their business name, or a short description like 'Your dog grooming business' if unknown."
+          },
+          "headline": {
+            "type": "string",
+            "description": "Max 10 words: what the website will do for their business."
+          },
+          "summary": {
+            "type": "string",
+            "description": "2–3 sentences based only on what the visitor said: their goal and how this website reaches it. No invented problems or details."
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "landing",
+              "website"
+            ]
+          },
+          "pages": {
+            "type": "integer",
+            "description": "1 for a landing page; for a website, the number of pages in the sitemap (10 included, maximum 40)."
+          },
+          "sitemap": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Page (or section) name. Use the visitor's own words; if they didn't name a service or suburb, use generic names like 'Service 1'. Never invent names."
+                },
+                "purpose": {
+                  "type": "string",
+                  "description": "One short, general sentence on what the page is for. No invented details."
+                }
+              },
+              "required": [
+                "name",
+                "purpose"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "enum": [
+                    "design-signature",
+                    "text-written",
+                    "images-stock",
+                    "images-unique",
+                    "photoshoot",
+                    "cms-simple",
+                    "cms-wordpress",
+                    "hosting-year",
+                    "care",
+                    "care-plus",
+                    "care-growth",
+                    "booking",
+                    "payments",
+                    "logo",
+                    "blog",
+                    "email",
+                    "quote-form",
+                    "crm",
+                    "store",
+                    "email-marketing",
+                    "reviews",
+                    "tracking",
+                    "whatsapp",
+                    "ai-assistant",
+                    "ai-agent",
+                    "automations",
+                    "rush",
+                    "express"
+                  ]
+                },
+                "why": {
+                  "type": "string",
+                  "description": "One sentence tied to what they told you."
+                }
+              },
+              "required": [
+                "id",
+                "why"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "ideas": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "3 general ideas for this type of business (a section, call to action or feature), one sentence each. No invented specifics about their business."
+          },
+          "crm_system": {
+            "type": "string",
+            "enum": [
+              "none",
+              "HubSpot (free plan)",
+              "Zoho CRM",
+              "Pipedrive",
+              "The CRM I already use",
+              "Not sure, recommend one"
+            ],
+            "description": "Which CRM enquiries go into, if the 'crm' option is included; otherwise 'none'."
+          }
+        },
+        "required": [
+          "message",
+          "business_name",
+          "headline",
+          "summary",
+          "type",
+          "pages",
+          "sitemap",
+          "options",
+          "ideas",
+          "crm_system"
+        ],
+        "additionalProperties": false
+      }
+    }
+  }
+]
