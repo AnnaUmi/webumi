@@ -35,7 +35,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css?v=a1aa4e36">
+  <link rel="stylesheet" href="/styles.css?v=0f57b8e0">
 
   <script type="application/ld+json">
 {
@@ -189,6 +189,23 @@
        "description": "Client portals, dashboards, internal tools, marketplaces and SaaS products, starting with a focused first version.",
        "areaServed": "AU"
       }
+     },
+     {
+      "@type": "Offer",
+      "priceCurrency": "AUD",
+      "price": "120",
+      "url": "https://webumi.com.au/ai-video/",
+      "priceSpecification": {
+       "@type": "PriceSpecification",
+       "minPrice": "120",
+       "priceCurrency": "AUD"
+      },
+      "itemOffered": {
+       "@type": "Service",
+       "name": "AI video, photos and art",
+       "description": "AI video ads, website hero videos, monthly social videos, AI product and lifestyle photos, team headshots, illustrations and brand characters.",
+       "areaServed": "AU"
+      }
      }
     ]
    }
@@ -254,6 +271,7 @@
         <a href="/apps/">Apps</a>
         <a href="/platforms/">Platforms</a>
         <a href="/ai-agents/">AI</a>
+        <a href="/ai-video/">AI Video</a>
         <a href="/automation/">Automation</a>
         <a href="/pricing/">Pricing</a>
         <a href="/projects/">Projects</a>
@@ -295,6 +313,7 @@
                 <label class="opt"><input type="radio" name="types" value="mobile"><span class="opt__box"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg><b class="opt__t">iOS &amp; Android app</b><span class="opt__d">App Store and Google Play. From $14,900.</span></span></label>
                 <label class="opt"><input type="radio" name="types" value="platform"><span class="opt__box"><svg class="ic" aria-hidden="true"><use href="#i-puzzle"/></svg><b class="opt__t">Platform or portal</b><span class="opt__d">Logins, dashboards, SaaS. From $15,000.</span></span></label>
                 <label class="opt"><input type="radio" name="types" value="ai"><span class="opt__box"><svg class="ic" aria-hidden="true"><use href="#i-robot"/></svg><b class="opt__t">AI agent or assistant</b><span class="opt__d">Chat, quotes, documents. From $390.</span></span></label>
+                <label class="opt"><input type="radio" name="types" value="media"><span class="opt__box"><svg class="ic" aria-hidden="true"><use href="#i-camera"/></svg><b class="opt__t">AI video, photos &amp; art</b><span class="opt__d">Ads, photos, illustrations. From $120.</span></span></label>
                 <label class="opt"><input type="radio" name="types" value="fix"><span class="opt__box"><svg class="ic" aria-hidden="true"><use href="#i-wrench"/></svg><b class="opt__t">Fix or redesign</b><span class="opt__d">Improve the website you have.</span></span></label>
                 <label class="opt"><input type="radio" name="types" value="support"><span class="opt__box"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg><b class="opt__t">Support plan</b><span class="opt__d">Care from $49/month.</span></span></label>
               </div>
@@ -479,6 +498,32 @@
                   <label class="tick"><input type="checkbox" name="appFeatures" value="Works offline"><span>Works offline</span></label>
                 </div>
                 <label class="field"><span>Describe the main screens or what people do in it</span><textarea name="appDesc" rows="3" placeholder="e.g. Clients log in, see their bookings, rebook, and get a reminder 6 weeks later"></textarea></label>
+              </div>
+
+              <div class="ord__group" data-for="media">
+                <h3><svg class="ic" aria-hidden="true"><use href="#i-camera"/></svg> AI video, photos &amp; art</h3>
+                <p class="ord__label">What do you need?</p>
+                <div class="form__chips">
+                  <label class="tick"><input type="checkbox" name="mediaWhat" value="Video ad"><span>Video ad</span></label>
+                  <label class="tick"><input type="checkbox" name="mediaWhat" value="Ad test pack (3 versions)"><span>Ad test pack (3 versions)</span></label>
+                  <label class="tick"><input type="checkbox" name="mediaWhat" value="Website hero video"><span>Website hero video</span></label>
+                  <label class="tick"><input type="checkbox" name="mediaWhat" value="Monthly videos"><span>Monthly videos</span></label>
+                  <label class="tick"><input type="checkbox" name="mediaWhat" value="AI product or lifestyle photos"><span>AI product or lifestyle photos</span></label>
+                  <label class="tick"><input type="checkbox" name="mediaWhat" value="Team headshots"><span>Team headshots</span></label>
+                  <label class="tick"><input type="checkbox" name="mediaWhat" value="Illustrations"><span>Illustrations</span></label>
+                  <label class="tick"><input type="checkbox" name="mediaWhat" value="Brand character"><span>Brand character</span></label>
+                </div>
+                <p class="ord__label">Where will it be used?</p>
+                <div class="form__chips">
+                  <label class="tick"><input type="checkbox" name="mediaWhere" value="Instagram & Facebook"><span>Instagram & Facebook</span></label>
+                  <label class="tick"><input type="checkbox" name="mediaWhere" value="TikTok"><span>TikTok</span></label>
+                  <label class="tick"><input type="checkbox" name="mediaWhere" value="YouTube"><span>YouTube</span></label>
+                  <label class="tick"><input type="checkbox" name="mediaWhere" value="Website"><span>Website</span></label>
+                  <label class="tick"><input type="checkbox" name="mediaWhere" value="Paid ads"><span>Paid ads</span></label>
+                  <label class="tick"><input type="checkbox" name="mediaWhere" value="Print"><span>Print</span></label>
+                </div>
+                <label class="field"><span>Describe what you'd like</span><textarea name="mediaDesc" rows="3" placeholder="e.g. A 20-second ad showing a dog's grooming before and after, ending with our booking link"></textarea></label>
+                <p class="ord__hint">Add photos of your product, team or logo, and examples you like, in "Your idea &amp; inspiration" above.</p>
               </div>
 
               <!-- apps and platforms: a technical brief on top of the general questions -->
@@ -745,6 +790,7 @@
           <li><a href="/ai-assistants/">AI assistants &amp; chatbots</a></li>
           <li><a href="/ai-agents/">Custom AI agents</a></li>
           <li><a href="/automation/">Business automation</a></li>
+          <li><a href="/ai-video/">AI video, photos &amp; art</a></li>
           <li><a href="/websites/#rescue">Website fixes &amp; redesigns</a></li>
           <li><a href="/pricing/">Pricing</a></li>
           <li><a href="/order/">Order</a></li>

@@ -22,7 +22,7 @@ const FILE_TYPES = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/webp' =>
 const TYPES = [
   'landing' => 'Landing page', 'website' => 'Business website', 'store' => 'Online store', 'pwa' => 'Web app (PWA)',
   'mobile' => 'iOS & Android app', 'platform' => 'Platform / client portal', 'ai' => 'AI agent or assistant',
-  'fix' => 'Fix or redesign a website', 'support' => 'Support plan',
+  'media' => 'AI video, photos & art', 'fix' => 'Fix or redesign a website', 'support' => 'Support plan',
 ];
 
 /** Whether a zip archive lists exactly this file name in its central directory (no zip extension needed). */
