@@ -1702,3 +1702,6 @@ ol.checks { padding-left: 0; }
   .sky__node .sky__star, .sky__node--goal .sky__star { top: 4px; left: 2px; }
   .sky__node--goal .sky__star { width: 54px; height: 54px; left: -2px; top: 0; }
 }
+
+/* shown above the Cloudflare box when it asks for a tick */
+.human__hint { margin: 8px 0 4px; font-weight: 600; color: var(--ink); }

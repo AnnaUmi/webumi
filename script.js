@@ -12,32 +12,47 @@
   /* Cloudflare Turnstile: an invisible "are you human?" check. Returns a function that resolves to a
      fresh token ("" if there's no site key or Cloudflare's script is blocked, e.g. by an ad blocker). */
   function humanCheck(box) {
-    const ts = { widget: null, token: null, waiters: [] };
+    const ts = { widget: null, token: null, waiters: [], asking: false, error: "" };
+    // when Cloudflare wants a tick, say so above the box (and wait for it, instead of giving up)
+    const hint = document.createElement("p");
+    hint.className = "human__hint"; hint.hidden = true;
+    hint.textContent = "Please tick the box below to confirm you're human.";
+    box?.before(hint);
     const reset = () => setTimeout(() => ts.widget !== null && window.turnstile.reset(ts.widget), 0);
     const init = () => {
       if (ts.widget !== null || !box?.dataset.sitekey || !window.turnstile) return;
       ts.widget = window.turnstile.render(box, {
         sitekey: box.dataset.sitekey,
         appearance: "interaction-only",
-        callback: (t) => { ts.token = t; ts.waiters.splice(0).forEach((f) => f(t)); },
+        callback: (t) => { ts.token = t; ts.error = ""; ts.waiters.splice(0).forEach((f) => f(t)); },
         "expired-callback": () => { ts.token = null; },
-        "error-callback": () => { ts.waiters.splice(0).forEach((f) => f("")); return true; },
+        "before-interactive-callback": () => { ts.asking = true; hint.hidden = false; box.scrollIntoView({ behavior: "smooth", block: "center" }); },
+        "after-interactive-callback": () => { ts.asking = false; hint.hidden = true; },
+        "error-callback": (code) => { ts.error = String(code || "error"); ts.waiters.splice(0).forEach((f) => f("")); return true; },
       });
     };
     const poll = setInterval(() => { if (window.turnstile) { clearInterval(poll); init(); } }, 300);
     setTimeout(() => clearInterval(poll), 30000);
-    return async () => {
+    const get = async () => {
       if (!box?.dataset.sitekey) return "";
       for (let i = 0; i < 16 && !window.turnstile; i++) await new Promise((r) => setTimeout(r, 250));
-      if (!window.turnstile) return "";
+      if (!window.turnstile) { ts.error = "script not loaded"; return ""; }
       init();
       if (ts.token) { const t = ts.token; ts.token = null; reset(); return t; }
       return new Promise((resolve) => {
+        let timer;
         const done = (t) => { clearTimeout(timer); ts.token = null; reset(); resolve(t); };
-        const timer = setTimeout(() => { ts.waiters = ts.waiters.filter((f) => f !== done); resolve(""); }, 12000);
+        // 12 s for the invisible check; while the tick box is showing, keep waiting (up to 2 minutes)
+        const wait = (ms) => (timer = setTimeout(() => {
+          if (ts.asking && ms < 120000) return wait(120000);
+          ts.waiters = ts.waiters.filter((f) => f !== done); if (!ts.error) ts.error = "timeout"; resolve("");
+        }, ms));
+        wait(12000);
         ts.waiters.push(done);
       });
     };
+    Object.defineProperty(get, "error", { get: () => ts.error });   // why the last check failed, for the error message
+    return get;
   }
 
   /* ---------- Nav ---------- */
@@ -1160,6 +1175,7 @@
           data = await r.json().catch(() => ({ error: r.status === 413 ? "The files are too big. Please remove some, or add a Google Drive link." : "Something went wrong. Please try again in a moment." }));
           if (data.code !== "verify") break;
         }
+        if (data.code === "verify") throw new Error(`We couldn't confirm you're human${humanToken.error ? ` (${humanToken.error})` : ""}. If a tick box appears above the button, tick it and send again.`);
         if (!data.ok) throw new Error(data.error || "Something went wrong.");
         try { sessionStorage.removeItem(DRAFT); sessionStorage.removeItem("webumiEstimate"); } catch {}
         $("#ordRef").textContent = data.ref;
@@ -1174,6 +1190,7 @@
         err.append(`${x instanceof TypeError ? "Can't reach the server. Check your internet connection." : x.message} You can also email your order to `);
         const a = document.createElement("a"); a.href = `mailto:${to}?subject=${encodeURIComponent("Order request")}`; a.textContent = to; err.append(a, ".");
         err.hidden = false;
+        err.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
       }
       btn.disabled = false; btn.textContent = "Send order →";
     });
