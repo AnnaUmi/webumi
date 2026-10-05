@@ -1,6 +1,6 @@
 # Webumi
 
-> Webumi ([webumi.com.au](https://webumi.com.au/)) is an Australian web and AI studio for small and mid-sized businesses. It builds landing pages, business websites, apps (PWA, iOS and Android), custom platforms, automations and AI assistants. Run by a small team of professionals in Australia (ABN 42 183 713 603). Works with clients Australia-wide, online.
+> Webumi ([webumi.com.au](https://webumi.com.au/)) is a Sydney web and AI studio for small and mid-sized businesses: website design, app development (PWA, iOS and Android), web app and custom software development (client portals, SaaS products, MVPs), AI video production, automations and AI assistants. Run by a small team in Sydney (ABN 42 183 713 603). Meets Sydney clients in person and works with clients Australia-wide online.
 
 Tagline: "More customers. Less admin." — Web, AI & Automation for Small & Mid-Sized Business.
 

@@ -6,7 +6,7 @@
  "logo": "https://webumi.com.au/icon-512.png",
  "image": "https://webumi.com.au/og-image.png",
  "slogan": "More customers. Less admin.",
- "description": "Webumi builds landing pages, business websites, apps (PWA, iOS and Android), custom platforms, automations and AI assistants for Australian small and mid-sized businesses.",
+ "description": "Webumi is a Sydney web and AI studio: website design, app development (PWA, iOS and Android), web app and custom software development, AI video production, automations and AI assistants for small and mid-sized businesses Australia-wide.",
  "email": "hello@webumi.com.au",
  "telephone": "+61 493 310 798",
  "openingHoursSpecification": {
@@ -27,36 +27,37 @@
   "@type": "Person",
   "name": "Anna"
  },
- "areaServed": {
-  "@type": "Country",
-  "name": "Australia"
- },
+ "areaServed": [
+  {
+   "@type": "City",
+   "name": "Sydney"
+  },
+  {
+   "@type": "Country",
+   "name": "Australia"
+  }
+ ],
  "address": {
   "@type": "PostalAddress",
+  "addressLocality": "Sydney",
+  "addressRegion": "NSW",
   "addressCountry": "AU"
  },
  "priceRange": "$590–$15,000+ AUD",
  "knowsAbout": [
-  "AI assistants",
-  "AI chatbots",
-  "AI integrations",
-  "Android apps",
-  "Business automation",
-  "CRM integrations",
-  "Client portals",
-  "Google Business Profile",
-  "Internal tools",
-  "Landing pages",
-  "Local SEO",
-  "Online booking systems",
-  "Progressive web apps",
-  "React Native",
+  "Website design",
+  "Small business website design",
+  "App development",
+  "Mobile app development",
+  "Web app development",
+  "Custom software development",
   "SaaS development",
-  "Small and mid-sized business websites",
-  "Web apps",
-  "Web design",
-  "Xero integration",
-  "iOS apps"
+  "MVP development",
+  "Client portal development",
+  "AI video production",
+  "AI video ads",
+  "Business automation",
+  "AI assistants"
  ],
  "hasOfferCatalog": {
   "@type": "OfferCatalog",
