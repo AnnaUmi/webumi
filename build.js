@@ -18,7 +18,8 @@
     {{price:id:field}} / {{aud:id:field}}   a price from src/static/api/catalog.json, raw or as "$1,234"
                     (id = a type like "website" or an option id; field = price, landing, website, monthly, extraPage…)
     {{v:file}}      "/file?v=1a2b3c4d": a file from src/static/ with a fingerprint of its contents, so browsers
-                    and Hostinger's CDN (which keep files for 7 days) fetch the new one after every change
+                    and Hostinger's CDN (which keep files for 7 days) fetch the new one after every change.
+                    Also works in the plain concept pages under src/static/projects/.
   <details><summary>Q</summary><p>A</p></details> blocks become FAQ structured data automatically.
 */
 const fs = require("fs");
@@ -124,6 +125,12 @@ function build() {
   fs.rmSync(DIST, { recursive: true, force: true });
   fs.mkdirSync(DIST, { recursive: true });
   fs.cpSync(path.join(SRC, "static"), DIST, { recursive: true });
+  // the concept sites in projects/ are plain pages, but can fingerprint their files the same way: {{v:file}}
+  const projects = path.join(DIST, "projects");
+  for (const f of fs.existsSync(projects) ? walk(projects).filter((f) => f.endsWith(".html")) : []) {
+    const html = read(f);
+    if (html.includes("{{v:")) fs.writeFileSync(f, html.replace(/\{\{v:([\w./-]+)\}\}/g, (_, x) => `/${x}?v=${fingerprint(x)}`));
+  }
   fs.writeFileSync(path.join(DIST, "api", "catalog-ai.json"), JSON.stringify(aiCatalog()));
 
   const layout = read(path.join(SRC, "layout.html"));
@@ -178,7 +185,7 @@ build();
 
 if (process.argv[2] === "serve") {
   const types = { ".html": "text/html; charset=utf-8", ".css": "text/css", ".js": "text/javascript", ".svg": "image/svg+xml",
-    ".png": "image/png", ".txt": "text/plain; charset=utf-8", ".xml": "application/xml", ".webmanifest": "application/manifest+json",
+    ".png": "image/png", ".jpg": "image/jpeg", ".webp": "image/webp", ".txt": "text/plain; charset=utf-8", ".xml": "application/xml", ".webmanifest": "application/manifest+json",
     ".mp4": "video/mp4", ".webm": "video/webm" };
   http.createServer((req, res) => {
     const api = req.method === "POST" && req.url.match(/^\/api\/(chat|order|contact)\.php/);
