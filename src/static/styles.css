@@ -1057,7 +1057,8 @@ input[type="range"]::-moz-range-thumb { border-color: var(--black); background: 
 
 /* ---------- Projects page ---------- */
 /* Large showcase cards. On wide screens they stack: each card sticks a little lower than the one
-   before (20px), the next slides up over it, and the earlier ones shrink slightly (script.js). */
+   before (12px, so five tall cards still fit a laptop window), the next slides up over it, and
+   the earlier ones shrink slightly (script.js). */
 .section--stack { background: var(--sand); }
 .stack { display: grid; gap: clamp(28px, 5vw, 48px); }
 .proj {
@@ -1108,7 +1109,7 @@ input[type="range"]::-moz-range-thumb { border-color: var(--black); background: 
 @media (min-width: 1081px) and (hover: hover) and (pointer: fine) {
   .stack:not(.is-flat) { display: block; }
   /* the wrapper sticks (inside the whole stack), so each card stays until the stack ends */
-  .stack:not(.is-flat) .stack__item { position: sticky; top: calc(96px + var(--i) * 20px); height: 85vh; }
+  .stack:not(.is-flat) .stack__item { position: sticky; top: calc(96px + var(--i) * 12px); height: 85vh; }
   .stack:not(.is-flat) .stack__item:last-child { height: auto; }
   .stack:not(.is-flat) .proj { will-change: transform; padding: 28px 32px; }
   /* compact enough that a card fits under the menu on a laptop screen */
