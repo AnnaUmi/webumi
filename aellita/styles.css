@@ -679,7 +679,6 @@ html:not(.js) .about { margin-top: 0; }
 /* a little pile of cushions rolls in from the left and settles on the floor of "Tři kroky" */
 .process { padding-bottom: clamp(170px, 16vw, 220px); }
 .pile { position: absolute; bottom: 0; left: calc(max(0px, (100vw - var(--max) - 2 * var(--gutter)) / 2) + var(--gutter)); width: 37em; height: 15em; font-size: clamp(8px, .75vw, 10.5px); z-index: 3; pointer-events: none; }
-.js .pile.reveal { opacity: 1; transform: none; }
 .pile::before { content: ""; position: absolute; left: -2em; right: -1em; bottom: -.6em; height: 2.4em; background: radial-gradient(closest-side, rgba(58, 18, 41, .28), transparent); opacity: 0; transition: opacity 1s 1.2s; }
 .pile.is-in::before { opacity: 1; }
 .pile img { position: absolute; bottom: 0; height: auto; transform-origin: 50% 60%; filter: drop-shadow(0 10px 10px rgba(58, 18, 41, .22));

@@ -469,6 +469,20 @@
   }, { rootMargin: "0px 0px -8% 0px" });
   document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
 
+  // the cushion pile rolls in only once it is fully on screen and above the bottom quarter, so it is seen;
+  // once it drops back below the screen it resets, and rolls in again next time
+  const pile = $("pile");
+  if (pile) {
+    new IntersectionObserver(([e]) => { if (e.isIntersecting) pile.classList.add("is-in"); },
+      { rootMargin: "0px 0px -25% 0px", threshold: 1 }).observe(pile);
+    new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting && e.boundingClientRect.top > 0) {   // gone off the bottom: get ready to roll again
+        pile.classList.remove("is-in");
+        for (const img of pile.querySelectorAll("img")) { img.style.animation = "none"; void img.offsetWidth; img.style.animation = ""; }
+      }
+    }).observe(pile);
+  }
+
   // ---------- pictures that drift a little against the page (data-drift: % of their height, over the screen) ----------
   const drifters = [...document.querySelectorAll("[data-drift]"), $("bandImg")].filter(Boolean);
   if (drifters.length && !reduceMotion) {
