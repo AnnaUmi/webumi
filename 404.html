@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Page not found | Webumi</title>
   <meta name="description" content="This page doesn't exist. Use the menu to find what you need.">
-  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="robots" content="noindex, follow">
   <meta name="author" content="Webumi">
   <meta name="geo.region" content="AU">
 
@@ -30,10 +30,9 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <link rel="alternate" type="text/plain" href="/llms.txt" title="Webumi summary for AI assistants">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css?v=a7c873a3">
+  <link rel="preload" href="/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/styles.css?v=73d2632d">
 
   <script type="application/ld+json">
 {
@@ -47,9 +46,18 @@
    "logo": "https://webumi.com.au/icon-512.png",
    "image": "https://webumi.com.au/og-image.png",
    "slogan": "More customers. Less admin.",
-   "description": "Webumi is a Sydney web and AI studio: website design Sydney, online shops, app development (PWA, iOS and Android), web app and custom software development, AI video production, automations and AI assistants for small and mid-sized businesses Australia-wide.",
+   "description": "Webumi is a Sydney web and AI studio. We design websites and online shops, develop apps (PWA, iOS and Android), web apps and custom software, and make AI videos, automations and AI assistants for small and mid-sized businesses in Sydney and Australia-wide.",
    "email": "hello@webumi.com.au",
    "telephone": "+61 493 310 798",
+   "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer service",
+    "telephone": "+61 493 310 798",
+    "email": "hello@webumi.com.au",
+    "areaServed": "AU",
+    "availableLanguage": "en-AU",
+    "url": "https://webumi.com.au/contact/"
+   },
    "openingHoursSpecification": {
     "@type": "OpeningHoursSpecification",
     "dayOfWeek": [
@@ -64,14 +72,26 @@
     "closes": "19:00"
    },
    "taxID": "ABN 42 183 713 603",
+   "sameAs": [
+    "https://abr.business.gov.au/ABN/View?abn=42183713603"
+   ],
    "founder": {
     "@type": "Person",
-    "name": "Anna"
+    "@id": "https://webumi.com.au/about/#founder",
+    "name": "Anna",
+    "url": "https://webumi.com.au/about/",
+    "worksFor": {
+     "@id": "https://webumi.com.au/#business"
+    }
    },
    "areaServed": [
     {
      "@type": "City",
      "name": "Sydney"
+    },
+    {
+     "@type": "State",
+     "name": "New South Wales"
     },
     {
      "@type": "Country",
@@ -223,7 +243,6 @@
  ]
 }
   </script>
-  <meta name="robots" content="noindex">
 </head>
 <body>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><symbol id="i-wrench" viewBox="0 0 24 24"><g fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94z" fill="#ffd23f"/></g></symbol><symbol id="i-polish" viewBox="0 0 24 24"><g fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="7" rx="1" fill="#111"/><rect x="5.5" y="9" width="13" height="13" rx="3.5" fill="#ff6b4a"/><path d="M9 13v4" stroke="#ffffff"/></g></symbol><symbol id="i-paw" viewBox="0 0 24 24"><g fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12.5c-3 0-6 3.5-6 6 0 2 1.5 3 3 3 1.2 0 1.8-.8 3-.8s1.8.8 3 .8c1.5 0 3-1 3-3 0-2.5-3-6-6-6z" fill="#ffd23f"/><circle cx="5" cy="10" r="2" fill="#ff6b4a"/><circle cx="9.3" cy="5.5" r="2" fill="#ff6b4a"/><circle cx="14.7" cy="5.5" r="2" fill="#ff6b4a"/><circle cx="19" cy="10" r="2" fill="#ff6b4a"/></g></symbol><symbol id="i-spray" viewBox="0 0 24 24"><g fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 10h7.5l1.5 3v7a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-7z" fill="#1ee3ff"/><rect x="8.5" y="6.5" width="6" height="3.5" fill="#ffffff"/><rect x="6" y="3" width="10" height="3.5" rx="1" fill="#ffd23f"/><path d="M16 5h2.5M20.5 3v.01M20.5 7v.01M22 5v.01"/></g></symbol><symbol id="i-cap" viewBox="0 0 24 24"><g fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 11.5V16c0 1.5 3 3 6 3s6-1.5 6-3v-4.5" fill="#ffd23f"/><path d="M2 9l10-5 10 5-10 5z" fill="#1ee3ff"/><path d="M22 9v5"/></g></symbol><symbol id="i-chart" viewBox="0 0 24 24"><g fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="13" width="4.5" height="8" rx="1" fill="#1ee3ff"/><rect x="9.75" y="9" width="4.5" height="12" rx="1" fill="#ffd23f"/><rect x="16" y="4" width="4.5" height="17" rx="1" fill="#ff6b4a"/></g></symbol><symbol id="i-calendar" viewBox="0 0 24 24"><g fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2.5" fill="#ffffff"/><path d="M3 7.5A2.5 2.5 0 0 1 5.5 5h13A2.5 2.5 0 0 1 21 7.5V10H3z" fill="#ff6b4a"/><path d="M8 3v4M16 3v4M9 15.5l2 2 4-4"/></g></symbol><symbol id="i-robot" viewBox="0 0 24 24"><g fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4.5"/><circle cx="12" cy="3.5" r="1.6" fill="#ff6b4a"/><rect x="4" y="8" width="16" height="12" rx="3.5" fill="#1ee3ff"/><circle cx="9" cy="13.5" r="1.4" fill="#111"/><circle cx="15" cy="13.5" r="1.4" fill="#111"/><path d="M10 17h4M2 12.5v3M22 12.5v3"/></g></symbol><symbol id="i-sparkle" viewBox="0 0 24 24"><g fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z" fill="#1ee3ff"/></g></symbol><symbol id="i-chat" viewBox="0 0 24 24"><g fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-8l-5 4v-4H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z" fill="#ffd23f"/><circle cx="8" cy="10.5" r="1" fill="#111"/><circle cx="12" cy="10.5" r="1" fill="#111"/><circle cx="16" cy="10.5" r="1" fill="#111"/></g></symbol><symbol id="i-inbox" viewBox="0 0 24 24"><g fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13l3-8.5h12L21 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" fill="#ffffff"/><path d="M3 13h5l1.5 3h5l1.5-3h5v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" fill="#ff6b4a"/><path d="M9 8.5h6"/></g></symbol><symbol id="i-doc" viewBox="0 0 24 24"><g fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h8l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z" fill="#ffffff"/><path d="M14 2v5h5z" fill="#ffd23f"/><path d="M8 12h8M8 16h6"/></g></symbol><symbol id="i-plug" viewBox="0 0 24 24"><g fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2.5V8M15 2.5V8M12 17v5"/><path d="M6.5 8h11v3.5a5.5 5.5 0 0 1-11 0z" fill="#ffd23f"/></g></symbol><symbol id="i-lifebuoy" viewBox="0 0 24 24"><g fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5" fill="#ff6b4a"/><path d="M5.3 5.3l4 4M18.7 5.3l-4 4M5.3 18.7l4-4M18.7 18.7l-4-4" stroke="#ffffff" stroke-width="3.2"/><circle cx="12" cy="12" r="9.5"/><circle cx="12" cy="12" r="4" fill="#ffffff"/></g></symbol><symbol id="i-key" viewBox="0 0 24 24"><g fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.5 11.5L20 3M17 6l3 3M14.5 8.5l2 2"/><circle cx="8" cy="16" r="5.5" fill="#ffd23f"/><circle cx="7" cy="17" r="1.5" fill="#ffffff"/></g></symbol><symbol id="i-puzzle" viewBox="0 0 24 24"><g fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h4.5a2.5 2.5 0 1 1 5 0H18v4.5a2.5 2.5 0 1 1 0 5V21H4z" fill="#1ee3ff"/></g></symbol><symbol id="i-shield" viewBox="0 0 24 24"><g fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6.5c0 5-3.5 8.5-8 10.5-4.5-2-8-5.5-8-10.5V5z" fill="#ffd23f"/><path d="M8.5 12l2.5 2.5 4.5-5"/></g></symbol><symbol id="i-envelope" viewBox="0 0 24 24"><g fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2.5" fill="#ffd23f"/><path d="M2.5 7l9.5 6.5L21.5 7"/></g></symbol><symbol id="i-pin" viewBox="0 0 24 24"><g fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z" fill="#ff6b4a"/><circle cx="12" cy="10" r="2.6" fill="#ffffff"/></g></symbol><symbol id="i-question" viewBox="0 0 24 24"><g fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" fill="#ffd23f"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .9-1 1.7v.3"/><circle cx="12" cy="17" r="1.1" fill="#111" stroke="none"/></g></symbol><symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 15l6 6" stroke-width="3"/><circle cx="10" cy="10" r="6.5" fill="#1ee3ff"/><path d="M7.5 8.5a3 3 0 0 1 2-2" stroke="#ffffff"/></g></symbol><symbol id="i-phone" viewBox="0 0 24 24"><g fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3" fill="#ffffff"/><path d="M6 6h12M6 17h12" /><rect x="6" y="6" width="12" height="11" fill="#1ee3ff"/><path d="M11 19.5h2"/></g></symbol><symbol id="i-bolt" viewBox="0 0 24 24"><g fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7z" fill="#ffd23f"/></g></symbol><symbol id="i-bell" viewBox="0 0 24 24"><g fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 20a2 2 0 0 0 4 0"/><path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4z" fill="#ffd23f"/></g></symbol><symbol id="i-camera" viewBox="0 0 24 24"><g fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6l1.5-3h5L16 6" fill="#ffffff"/><rect x="2" y="6" width="20" height="15" rx="3" fill="#ff6b4a"/><circle cx="12" cy="13.5" r="4" fill="#ffffff"/></g></symbol><symbol id="i-clock" viewBox="0 0 24 24"><g fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" fill="#ffffff"/><path d="M12 6.5V12l4 2"/></g></symbol><symbol id="i-card" viewBox="0 0 24 24"><g fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2.5" fill="#1ee3ff"/><path d="M2 10h20" stroke-width="2.5"/><path d="M6 15h4"/></g></symbol><symbol id="i-star" viewBox="0 0 24 24"><g fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3l-5.8 3.1 1.1-6.5L2.6 9.3l6.5-.9z" fill="#ffd23f"/></g></symbol><symbol id="i-moon" viewBox="0 0 24 24"><g fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z" fill="#ffd23f"/></g></symbol><symbol id="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.5" fill="#ffd23f"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></g></symbol><symbol id="i-repeat" viewBox="0 0 24 24"><g fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11V9a3 3 0 0 1 3-3h12M16 3l3 3-3 3M20 13v2a3 3 0 0 1-3 3H5M8 21l-3-3 3-3" stroke-width="2.5"/></g></symbol><symbol id="i-user" viewBox="0 0 24 24"><g fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21a8 8 0 0 1 16 0z" fill="#1ee3ff"/><circle cx="12" cy="8" r="4.5" fill="#ff6b4a"/></g></symbol><symbol id="i-folder" viewBox="0 0 24 24"><g fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6a2 2 0 0 1 2-2h4l2 3h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" fill="#ffd23f"/><path d="M3 10h18"/></g></symbol></defs></svg>
@@ -334,7 +353,7 @@
             <p class="bk__pick" id="bkPick">Pick a day and time above.</p>
             <div class="pl__verify" data-human data-sitekey="0x4AAAAAAFJwxAC6iaxU2Q7g"></div>
             <button type="submit" class="btn btn--primary btn--block">Request this time →</button>
-            <p class="form__fine">We'll confirm by email within one business day, with a calendar invite.</p>
+            <p class="form__fine">We'll confirm by email within one business day, with a calendar invite. <a href="/privacy/">Privacy policy</a>.</p>
             <div class="form__done" id="bookDone" hidden>
               <div class="form__doneIcon"><svg class="ic" aria-hidden="true"><use href="#i-calendar"/></svg></div>
               <h3>Request sent, <span id="bookName">there</span>!</h3>
@@ -371,7 +390,7 @@
             <label class="field"><span>What would you like help with?</span><textarea name="message" rows="3" placeholder="e.g. I spend hours each week replying to booking messages"></textarea></label>
             <div class="pl__verify" data-human data-sitekey="0x4AAAAAAFJwxAC6iaxU2Q7g"></div>
             <button type="submit" class="btn btn--primary btn--block">Send enquiry →</button>
-            <p class="form__fine">Your details are only used to reply to your enquiry.</p>
+            <p class="form__fine">Your details are only used to reply to your enquiry. <a href="/privacy/">Privacy policy</a>.</p>
             <div class="form__done" id="formDone" hidden>
               <div class="form__doneIcon"><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></div>
               <h3>Thanks, <span id="doneName">there</span>!</h3>
@@ -393,7 +412,7 @@
           <img class="logo__mark" src="/logo-light.svg" alt="" width="58" height="58">
           <span class="logo__word">webumi</span>
         </a>
-        <p>Website design Sydney, apps, AI &amp; automation for small &amp; mid-sized business. Webumi is a small Sydney team of web and AI professionals, building websites, apps, platforms, automations and AI assistants for small and mid-sized businesses Australia-wide.</p>
+        <p>Website design in Sydney, plus apps, AI &amp; automation. Webumi is a Sydney web and AI studio building websites, apps, platforms, automations and AI assistants for small and mid-sized businesses Australia-wide.</p>
       </div>
       <nav aria-label="Services">
         <h2 class="footer__h">Services</h2>
@@ -419,7 +438,7 @@
           <li><a href="/for/pet-care/">Websites for pet care</a></li>
           <li><a href="/for/cleaners/">Websites for cleaners</a></li>
           <li><a href="/for/coaches/">Websites for tutors &amp; coaches</a></li>
-          <li>Sydney · Melbourne · Brisbane · Perth · Adelaide · Australia-wide</li>
+          <li>Based in Sydney, working Australia-wide</li>
         </ul>
       </nav>
       <div>
@@ -429,12 +448,13 @@
           <li><a href="/projects/">Projects</a></li>
           <li><a href="/non-profits/">Free help for non-profits</a></li>
           <li><a href="/contact/">Contact</a></li>
+          <li><a href="/privacy/">Privacy policy</a></li>
           <li><a href="mailto:hello@webumi.com.au">hello@webumi.com.au</a></li>
         </ul>
       </div>
     </div>
     <div class="wrap footer__inner">
-      <p class="footer__small">© <span id="year">2026</span> Webumi · ABN 42 183 713 603 · Made in Australia</p>
+      <p class="footer__small">© <span id="year">2026</span> Webumi · <a href="https://abr.business.gov.au/ABN/View?abn=42183713603" rel="noopener">ABN 42 183 713 603</a> · Sydney NSW</p>
     </div>
   </footer>
 
@@ -443,6 +463,6 @@
   <a href="/order/" class="sticky-cta" id="stickyCta">Get a fixed quote →</a>
 
   <script src="/offer.js?v=ee001874"></script>
-  <script src="/script.js?v=bd3499a4"></script>
+  <script src="/script.js?v=b7aa80b1"></script>
 </body>
 </html>

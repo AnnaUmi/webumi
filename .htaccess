@@ -5,11 +5,41 @@ ErrorDocument 404 /404.html
   RewriteEngine On
   RewriteCond %{HTTP_HOST} ^www\.webumi\.com\.au$ [NC]
   RewriteRule ^ https://webumi.com.au%{REQUEST_URI} [R=301,L]
+
+  # /index.html and /websites/index.html are copies of / and /websites/: send them to the clean address
+  RewriteCond %{THE_REQUEST} \s/+(.*/)?index\.html[\s?] [NC]
+  RewriteRule ^(.*/)?index\.html$ https://webumi.com.au/$1 [R=301,L]
+
+  # mark versioned CSS/JS requests (see the cache header below)
+  RewriteCond %{QUERY_STRING} (^|&)v=
+  RewriteRule \.(css|js)$ - [E=VERSIONED:1]
+</IfModule>
+
+# Security headers: HTTPS only, no MIME guessing, no framing by other sites, less referrer data sent away
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=31536000"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=(), usb=()"
+
+  # CSS and JS asked for with a ?v= fingerprint change address whenever they change, so browsers can keep them
+  # for a year (VERSIONED is set by the rewrite rule above). Fonts never change.
+  Header set Cache-Control "public, max-age=31536000, immutable" env=VERSIONED
+  <FilesMatch "\.woff2$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # the video folder only holds media files; keep its files out of search results
+  <FilesMatch "\.(mp4|webm)$">
+    Header set X-Robots-Tag "noindex"
+  </FilesMatch>
 </IfModule>
 
 # Hostinger doesn't know these types and sends them as text/plain, which some browsers won't play or read
 AddType video/webm .webm
 AddType application/manifest+json .webmanifest
+AddType font/woff2 .woff2
 
 # Browsers keep videos, images and fonts for 30 days (CSS and JS are versioned with ?v= and cached by the host)
 <IfModule mod_expires.c>
@@ -20,4 +50,5 @@ AddType application/manifest+json .webmanifest
   ExpiresByType image/png "access plus 30 days"
   ExpiresByType image/jpeg "access plus 30 days"
   ExpiresByType image/svg+xml "access plus 30 days"
+  ExpiresByType font/woff2 "access plus 1 year"
 </IfModule>

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Websites for Tutors &amp; Coaches | Website Design Sydney</title>
-  <meta name="description" content="Website design Sydney for tutors, coaches, consultants and photographers: a website that books intro calls, collects intake forms and takes payments.">
+  <meta name="description" content="Websites for Sydney tutors, coaches and consultants: book intro calls, collect intake forms and take payments online. Landing pages from $350.">
   <link rel="canonical" href="https://webumi.com.au/for/coaches/">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
   <meta name="author" content="Webumi">
@@ -16,14 +16,14 @@
   <meta property="og:locale" content="en_AU">
   <meta property="og:url" content="https://webumi.com.au/for/coaches/">
   <meta property="og:title" content="Websites for tutors, coaches and consultants — Webumi">
-  <meta property="og:description" content="Website design Sydney for tutors, coaches, consultants and photographers: a website that books intro calls, collects intake forms and takes payments.">
+  <meta property="og:description" content="Websites for Sydney tutors, coaches and consultants: book intro calls, collect intake forms and take payments online. Landing pages from $350.">
   <meta property="og:image" content="https://webumi.com.au/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Webumi bear logo — More customers. Less admin.">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Websites for tutors, coaches and consultants — Webumi">
-  <meta name="twitter:description" content="Website design Sydney for tutors, coaches, consultants and photographers: a website that books intro calls, collects intake forms and takes payments.">
+  <meta name="twitter:description" content="Websites for Sydney tutors, coaches and consultants: book intro calls, collect intake forms and take payments online. Landing pages from $350.">
   <meta name="twitter:image" content="https://webumi.com.au/og-image.png">
 
   <meta name="theme-color" content="#0f2a3d">
@@ -32,10 +32,9 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <link rel="alternate" type="text/plain" href="/llms.txt" title="Webumi summary for AI assistants">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css?v=a7c873a3">
+  <link rel="preload" href="/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/styles.css?v=73d2632d">
 
   <script type="application/ld+json">
 {
@@ -49,9 +48,18 @@
    "logo": "https://webumi.com.au/icon-512.png",
    "image": "https://webumi.com.au/og-image.png",
    "slogan": "More customers. Less admin.",
-   "description": "Webumi is a Sydney web and AI studio: website design Sydney, online shops, app development (PWA, iOS and Android), web app and custom software development, AI video production, automations and AI assistants for small and mid-sized businesses Australia-wide.",
+   "description": "Webumi is a Sydney web and AI studio. We design websites and online shops, develop apps (PWA, iOS and Android), web apps and custom software, and make AI videos, automations and AI assistants for small and mid-sized businesses in Sydney and Australia-wide.",
    "email": "hello@webumi.com.au",
    "telephone": "+61 493 310 798",
+   "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer service",
+    "telephone": "+61 493 310 798",
+    "email": "hello@webumi.com.au",
+    "areaServed": "AU",
+    "availableLanguage": "en-AU",
+    "url": "https://webumi.com.au/contact/"
+   },
    "openingHoursSpecification": {
     "@type": "OpeningHoursSpecification",
     "dayOfWeek": [
@@ -66,14 +74,26 @@
     "closes": "19:00"
    },
    "taxID": "ABN 42 183 713 603",
+   "sameAs": [
+    "https://abr.business.gov.au/ABN/View?abn=42183713603"
+   ],
    "founder": {
     "@type": "Person",
-    "name": "Anna"
+    "@id": "https://webumi.com.au/about/#founder",
+    "name": "Anna",
+    "url": "https://webumi.com.au/about/",
+    "worksFor": {
+     "@id": "https://webumi.com.au/#business"
+    }
    },
    "areaServed": [
     {
      "@type": "City",
      "name": "Sydney"
+    },
+    {
+     "@type": "State",
+     "name": "New South Wales"
     },
     {
      "@type": "Country",
@@ -227,7 +247,7 @@
    "@id": "https://webumi.com.au/for/coaches/#webpage",
    "url": "https://webumi.com.au/for/coaches/",
    "name": "Websites for Tutors & Coaches | Website Design Sydney",
-   "description": "Website design Sydney for tutors, coaches, consultants and photographers: a website that books intro calls, collects intake forms and takes payments.",
+   "description": "Websites for Sydney tutors, coaches and consultants: book intro calls, collect intake forms and take payments online. Landing pages from $350.",
    "isPartOf": {
     "@id": "https://webumi.com.au/#website"
    },
@@ -235,7 +255,10 @@
     "@id": "https://webumi.com.au/#business"
    },
    "inLanguage": "en-AU",
-   "dateModified": "2026-11-03"
+   "dateModified": "2026-11-03",
+   "breadcrumb": {
+    "@id": "https://webumi.com.au/for/coaches/#breadcrumb"
+   }
   },
   {
    "@type": "BreadcrumbList",
@@ -282,8 +305,56 @@
       "@type": "Answer",
       "text": "For simple course or resource sales, yes. For a full course platform, we'll recommend a dedicated tool that fits and connect it to your website."
      }
+    },
+    {
+     "@type": "Question",
+     "name": "How much does a website for a coach or tutor cost?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "A landing page starts at $350 and a business website at $790. Intro-call booking adds $230 and card payments $170. You get a fixed written quote before you pay anything."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Can I show testimonials from my clients?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes. Client quotes and results go on the page, next to the booking button. We can also show your Google reviews ($90) with a link to leave one."
+     }
     }
    ]
+  },
+  {
+   "@type": "Service",
+   "@id": "https://webumi.com.au/for/coaches/#service",
+   "provider": {
+    "@id": "https://webumi.com.au/#business"
+   },
+   "areaServed": [
+    {
+     "@type": "City",
+     "name": "Sydney"
+    },
+    {
+     "@type": "Country",
+     "name": "Australia"
+    }
+   ],
+   "url": "https://webumi.com.au/for/coaches/",
+   "name": "Website design for tutors, coaches and consultants",
+   "serviceType": "Landing page and website design with booking and payments",
+   "description": "Landing pages and websites for tutors, coaches, personal trainers, consultants and photographers with intro-call booking, intake forms, package payments and session reminders.",
+   "offers": {
+    "@type": "Offer",
+    "url": "https://webumi.com.au/pricing/",
+    "priceCurrency": "AUD",
+    "availability": "https://schema.org/InStock",
+    "priceSpecification": {
+     "@type": "PriceSpecification",
+     "minPrice": "350",
+     "priceCurrency": "AUD"
+    }
+   }
   }
  ]
 }
@@ -323,7 +394,7 @@
           <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span>Tutors &amp; coaches</span></nav>
           <p class="kicker">Website design for tutors, coaches &amp; consultants</p>
           <h1>A website that turns a first click into a <em>paid client</em>.</h1>
-          <p class="hero__lead">For tutors, business and life coaches, personal trainers, consultants and photographers. Prospects book a free intro call, fill in an intake form and pay for a package online, while you focus on the sessions.</p>
+          <p class="hero__lead">For tutors, business and life coaches, personal trainers, consultants and photographers in Sydney and across Australia. Prospects book a free intro call, fill in an intake form and pay for a package online, while you focus on the sessions.</p>
           <div class="hero__ctas">
             <a href="#contact" class="btn btn--primary" data-choose="Landing page">Get a free plan for my business <span class="arrow">→</span></a>
             <a href="/pricing/" class="btn btn--ghost">See pricing</a>
@@ -365,6 +436,7 @@
           <h2>You may only need one great page.</h2>
           <p>Many coaches and consultants don't need a big website. A single, focused landing page that explains who you help, shows results and makes booking easy often works better than ten pages.</p>
           <p>Behind it, <strong>Calendly or a similar tool</strong> handles calls, <strong>Stripe</strong> handles payments, and simple automations send the intake form, reminders and follow-ups.</p>
+          <p>See <a href="/pricing/">landing page and website prices in our price builder</a> and <a href="/projects/">the websites and apps we've built</a>. Run a massage or wellness studio? See <a href="/for/beauty/">websites for salons and wellness businesses</a>.</p>
           <a href="/online-bookings/" class="more-link">More about online bookings →</a>
         </div>
         <aside class="pbox reveal">
@@ -379,6 +451,22 @@
           </ul>
           <a href="#contact" class="btn btn--primary" data-choose="Landing page">Get a free plan</a>
         </aside>
+      </div>
+    </section>
+
+    <section class="section section--white">
+      <div class="wrap">
+        <div class="section__head reveal">
+          <p class="kicker">Typical setup</p>
+          <h2>What a coaching website includes.</h2>
+          <p class="section__sub">A landing page is usually live in 3 days – 1 week, and a business website in 1–2 weeks. These are the parts most coaches and tutors choose.</p>
+        </div>
+        <ul class="cards">
+          <li class="card reveal"><svg class="ic" aria-hidden="true"><use href="#i-cap"/></svg><h3>Landing page: from $350</h3><p>One page for one offer: who you help, how you work, results and a booking button.</p></li>
+          <li class="card reveal"><svg class="ic" aria-hidden="true"><use href="#i-folder"/></svg><h3>Business website: from $790</h3><p>Separate pages for each program, subject or package, plus an about page and blog if you want one.</p></li>
+          <li class="card reveal"><svg class="ic" aria-hidden="true"><use href="#i-calendar"/></svg><h3>Intro-call booking: $230</h3><p>Prospects pick a time for a free call, with a video link and reminders sent automatically.</p></li>
+          <li class="card reveal"><svg class="ic" aria-hidden="true"><use href="#i-card"/></svg><h3>Package payments: $170</h3><p>Clients pay for a session or a package by card through Stripe.</p></li>
+        </ul>
       </div>
     </section>
 
@@ -400,6 +488,14 @@
           <details class="reveal">
             <summary>Can I sell an online course?</summary>
             <p>For simple course or resource sales, yes. For a full course platform, we'll recommend a dedicated tool that fits and connect it to your website.</p>
+          </details>
+          <details class="reveal">
+            <summary>How much does a website for a coach or tutor cost?</summary>
+            <p>A landing page starts at $350 and a business website at $790. Intro-call booking adds $230 and card payments $170. You get a fixed written quote before you pay anything.</p>
+          </details>
+          <details class="reveal">
+            <summary>Can I show testimonials from my clients?</summary>
+            <p>Yes. Client quotes and results go on the page, next to the booking button. We can also show your Google reviews ($90) with a link to leave one.</p>
           </details>
         </div>
       </div>
@@ -472,7 +568,7 @@
             <p class="bk__pick" id="bkPick">Pick a day and time above.</p>
             <div class="pl__verify" data-human data-sitekey="0x4AAAAAAFJwxAC6iaxU2Q7g"></div>
             <button type="submit" class="btn btn--primary btn--block">Request this time →</button>
-            <p class="form__fine">We'll confirm by email within one business day, with a calendar invite.</p>
+            <p class="form__fine">We'll confirm by email within one business day, with a calendar invite. <a href="/privacy/">Privacy policy</a>.</p>
             <div class="form__done" id="bookDone" hidden>
               <div class="form__doneIcon"><svg class="ic" aria-hidden="true"><use href="#i-calendar"/></svg></div>
               <h3>Request sent, <span id="bookName">there</span>!</h3>
@@ -509,7 +605,7 @@
             <label class="field"><span>What would you like help with?</span><textarea name="message" rows="3" placeholder="e.g. I spend hours each week replying to booking messages"></textarea></label>
             <div class="pl__verify" data-human data-sitekey="0x4AAAAAAFJwxAC6iaxU2Q7g"></div>
             <button type="submit" class="btn btn--primary btn--block">Send enquiry →</button>
-            <p class="form__fine">Your details are only used to reply to your enquiry.</p>
+            <p class="form__fine">Your details are only used to reply to your enquiry. <a href="/privacy/">Privacy policy</a>.</p>
             <div class="form__done" id="formDone" hidden>
               <div class="form__doneIcon"><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></div>
               <h3>Thanks, <span id="doneName">there</span>!</h3>
@@ -531,7 +627,7 @@
           <img class="logo__mark" src="/logo-light.svg" alt="" width="58" height="58">
           <span class="logo__word">webumi</span>
         </a>
-        <p>Website design Sydney, apps, AI &amp; automation for small &amp; mid-sized business. Webumi is a small Sydney team of web and AI professionals, building websites, apps, platforms, automations and AI assistants for small and mid-sized businesses Australia-wide.</p>
+        <p>Website design in Sydney, plus apps, AI &amp; automation. Webumi is a Sydney web and AI studio building websites, apps, platforms, automations and AI assistants for small and mid-sized businesses Australia-wide.</p>
       </div>
       <nav aria-label="Services">
         <h2 class="footer__h">Services</h2>
@@ -557,7 +653,7 @@
           <li><a href="/for/pet-care/">Websites for pet care</a></li>
           <li><a href="/for/cleaners/">Websites for cleaners</a></li>
           <li><a href="/for/coaches/" aria-current="page">Websites for tutors &amp; coaches</a></li>
-          <li>Sydney · Melbourne · Brisbane · Perth · Adelaide · Australia-wide</li>
+          <li>Based in Sydney, working Australia-wide</li>
         </ul>
       </nav>
       <div>
@@ -567,12 +663,13 @@
           <li><a href="/projects/">Projects</a></li>
           <li><a href="/non-profits/">Free help for non-profits</a></li>
           <li><a href="/contact/">Contact</a></li>
+          <li><a href="/privacy/">Privacy policy</a></li>
           <li><a href="mailto:hello@webumi.com.au">hello@webumi.com.au</a></li>
         </ul>
       </div>
     </div>
     <div class="wrap footer__inner">
-      <p class="footer__small">© <span id="year">2026</span> Webumi · ABN 42 183 713 603 · Made in Australia</p>
+      <p class="footer__small">© <span id="year">2026</span> Webumi · <a href="https://abr.business.gov.au/ABN/View?abn=42183713603" rel="noopener">ABN 42 183 713 603</a> · Sydney NSW</p>
     </div>
   </footer>
 
@@ -581,6 +678,6 @@
   <a href="/order/" class="sticky-cta" id="stickyCta">Get a fixed quote →</a>
 
   <script src="/offer.js?v=ee001874"></script>
-  <script src="/script.js?v=bd3499a4"></script>
+  <script src="/script.js?v=b7aa80b1"></script>
 </body>
 </html>

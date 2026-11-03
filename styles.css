@@ -1,3 +1,8 @@
+/* Fonts are served from our own domain (no extra connection to Google before the first paint).
+   Both are variable fonts: one file covers every weight. Latin only. */
+@font-face { font-family: "Bricolage Grotesque"; font-style: normal; font-weight: 200 800; font-stretch: 75% 100%; font-display: swap; src: url(/fonts/bricolage-grotesque-latin.woff2) format("woff2"); }
+@font-face { font-family: "Inter"; font-style: normal; font-weight: 100 900; font-display: swap; src: url(/fonts/inter-latin.woff2) format("woff2"); }
+
 /* =========================================================
    Webumi — Digital Solutions for Small Business
    ========================================================= */
@@ -1119,6 +1124,7 @@ input[type="range"]::-moz-range-thumb { border-color: var(--black); background: 
 
 /* ---------- Non-profits page ---------- */
 .cards--3 { grid-template-columns: repeat(auto-fit, minmax(max(240px, 30%), 1fr)); }
+.cards--5 { grid-template-columns: repeat(auto-fit, minmax(max(180px, 18%), 1fr)); }   /* five industry cards in one row on laptops */
 .np__grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(32px, 5vw, 72px); align-items: start; }
 .field textarea { resize: vertical; }
 .field.is-invalid textarea { border-color: var(--coral); animation: shake .35s; }

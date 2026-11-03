@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Website Design Sydney | Small Business Website Designer</title>
-  <meta name="description" content="Website design Sydney for small business: a local website designer building fast, Google-ready websites. Landing pages from $350, business websites from $790.">
+  <meta name="description" content="Small business website design in Sydney: fast, mobile-first websites built to win calls and bookings. Landing pages from $350, business websites from $790.">
   <link rel="canonical" href="https://webumi.com.au/websites/">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
   <meta name="author" content="Webumi">
@@ -16,14 +16,14 @@
   <meta property="og:locale" content="en_AU">
   <meta property="og:url" content="https://webumi.com.au/websites/">
   <meta property="og:title" content="Website design Sydney: websites that bring in enquiries — Webumi">
-  <meta property="og:description" content="Website design Sydney for small business: a local website designer building fast, Google-ready websites. Landing pages from $350, business websites from $790.">
+  <meta property="og:description" content="Small business website design in Sydney: fast, mobile-first websites built to win calls and bookings. Landing pages from $350, business websites from $790.">
   <meta property="og:image" content="https://webumi.com.au/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Webumi bear logo — More customers. Less admin.">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Website design Sydney: websites that bring in enquiries — Webumi">
-  <meta name="twitter:description" content="Website design Sydney for small business: a local website designer building fast, Google-ready websites. Landing pages from $350, business websites from $790.">
+  <meta name="twitter:description" content="Small business website design in Sydney: fast, mobile-first websites built to win calls and bookings. Landing pages from $350, business websites from $790.">
   <meta name="twitter:image" content="https://webumi.com.au/og-image.png">
 
   <meta name="theme-color" content="#0f2a3d">
@@ -32,10 +32,9 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <link rel="alternate" type="text/plain" href="/llms.txt" title="Webumi summary for AI assistants">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css?v=a7c873a3">
+  <link rel="preload" href="/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/styles.css?v=73d2632d">
 
   <script type="application/ld+json">
 {
@@ -49,9 +48,18 @@
    "logo": "https://webumi.com.au/icon-512.png",
    "image": "https://webumi.com.au/og-image.png",
    "slogan": "More customers. Less admin.",
-   "description": "Webumi is a Sydney web and AI studio: website design Sydney, online shops, app development (PWA, iOS and Android), web app and custom software development, AI video production, automations and AI assistants for small and mid-sized businesses Australia-wide.",
+   "description": "Webumi is a Sydney web and AI studio. We design websites and online shops, develop apps (PWA, iOS and Android), web apps and custom software, and make AI videos, automations and AI assistants for small and mid-sized businesses in Sydney and Australia-wide.",
    "email": "hello@webumi.com.au",
    "telephone": "+61 493 310 798",
+   "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer service",
+    "telephone": "+61 493 310 798",
+    "email": "hello@webumi.com.au",
+    "areaServed": "AU",
+    "availableLanguage": "en-AU",
+    "url": "https://webumi.com.au/contact/"
+   },
    "openingHoursSpecification": {
     "@type": "OpeningHoursSpecification",
     "dayOfWeek": [
@@ -66,14 +74,26 @@
     "closes": "19:00"
    },
    "taxID": "ABN 42 183 713 603",
+   "sameAs": [
+    "https://abr.business.gov.au/ABN/View?abn=42183713603"
+   ],
    "founder": {
     "@type": "Person",
-    "name": "Anna"
+    "@id": "https://webumi.com.au/about/#founder",
+    "name": "Anna",
+    "url": "https://webumi.com.au/about/",
+    "worksFor": {
+     "@id": "https://webumi.com.au/#business"
+    }
    },
    "areaServed": [
     {
      "@type": "City",
      "name": "Sydney"
+    },
+    {
+     "@type": "State",
+     "name": "New South Wales"
     },
     {
      "@type": "Country",
@@ -227,7 +247,7 @@
    "@id": "https://webumi.com.au/websites/#webpage",
    "url": "https://webumi.com.au/websites/",
    "name": "Website Design Sydney | Small Business Website Designer",
-   "description": "Website design Sydney for small business: a local website designer building fast, Google-ready websites. Landing pages from $350, business websites from $790.",
+   "description": "Small business website design in Sydney: fast, mobile-first websites built to win calls and bookings. Landing pages from $350, business websites from $790.",
    "isPartOf": {
     "@id": "https://webumi.com.au/#website"
    },
@@ -235,7 +255,10 @@
     "@id": "https://webumi.com.au/#business"
    },
    "inLanguage": "en-AU",
-   "dateModified": "2026-11-03"
+   "dateModified": "2026-11-03",
+   "breadcrumb": {
+    "@id": "https://webumi.com.au/websites/#breadcrumb"
+   }
   },
   {
    "@type": "BreadcrumbList",
@@ -323,10 +346,16 @@
    "provider": {
     "@id": "https://webumi.com.au/#business"
    },
-   "areaServed": {
-    "@type": "Country",
-    "name": "Australia"
-   },
+   "areaServed": [
+    {
+     "@type": "City",
+     "name": "Sydney"
+    },
+    {
+     "@type": "Country",
+     "name": "Australia"
+    }
+   ],
    "url": "https://webumi.com.au/websites/",
    "name": "Small and mid-sized business website design",
    "serviceType": "Website design and development",
@@ -383,7 +412,7 @@
         <div>
           <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span>Websites</span></nav>
           <p class="kicker">Website design · Sydney</p>
-          <h1>Website design that brings in <em>enquiries</em>.</h1>
+          <h1>Website design in Sydney that brings in <em>enquiries</em>.</h1>
           <p class="hero__lead">Small business website design in Sydney and Australia-wide. A fast, mobile-first website with one job: turning people who find you on Google into calls, quote requests and bookings.</p>
           <div class="hero__ctas">
             <a href="#contact" class="btn btn--primary" data-choose="Business website">Get a free website plan <span class="arrow">→</span></a>
@@ -432,8 +461,8 @@
 
           <article class="tier tier--sig reveal">
             <p class="tier__tag"><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg> Signature</p>
-            <h3 class="tier__title">Grab attention. Be remembered.</h3>
-            <p class="tier__lead">A bold, modern website experience built to capture attention, from the first screen to the final scroll. Interactive video, expressive animation and elements that respond as visitors explore make yours the business customers remember.</p>
+            <h3 class="tier__title">A custom design with motion and video.</h3>
+            <p class="tier__lead">A design made for your brand, not a layout set up in your colours: a video opening, scroll animations and sections that respond as visitors explore. Same speed and Google setup as Essential.</p>
             <dl class="tier__prices">
               <div><dt>Landing page</dt><dd><span>from</span> $690</dd></div>
               <div><dt>Business website</dt><dd><span>from</span> $1,490</dd></div>
@@ -461,7 +490,7 @@
         </div>
         <ul class="cards">
           <li class="card reveal"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg><h3>Designed for phones first</h3><p>Most local customers find you on their phone. Big buttons, fast loading and your number one tap away.</p></li>
-          <li class="card reveal"><svg class="ic" aria-hidden="true"><use href="#i-search"/></svg><h3>Service &amp; area pages</h3><p>A page for each main service and the areas you work in, so you show up for what people actually search.</p></li>
+          <li class="card reveal"><svg class="ic" aria-hidden="true"><use href="#i-search"/></svg><h3>Service &amp; area pages</h3><p>A page for each main service and the areas you work in, so you show up for what people search.</p></li>
           <li class="card reveal"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg><h3>Google Business Profile</h3><p>Set up or cleaned up: categories, services, photos, hours and a link to your site. It's what shows on Google Maps.</p></li>
           <li class="card reveal"><svg class="ic" aria-hidden="true"><use href="#i-envelope"/></svg><h3>Quote form with instant reply</h3><p>Customers get an immediate reply, and you get the enquiry on your phone with everything you need to quote.</p></li>
           <li class="card reveal"><svg class="ic" aria-hidden="true"><use href="#i-star"/></svg><h3>Reviews &amp; gallery</h3><p>Your Google reviews and photos of real work, placed where they help people decide.</p></li>
@@ -509,7 +538,7 @@
           <ul class="checks">
             <li>Mobile layout and a clear headline</li>
             <li>Speed: images, scripts and hosting</li>
-            <li>Contact forms that actually reach you</li>
+            <li>Contact forms that reach your inbox</li>
             <li>Click-to-call, Google Maps and reviews</li>
             <li>Page titles and descriptions for Google</li>
           </ul>
@@ -560,6 +589,25 @@
         </div>
       </div>
     </section>
+
+    <!-- Websites by industry: links to the /for/ pages (on the home page and /websites/) -->
+    <section class="section" id="industries">
+      <div class="wrap">
+        <div class="section__head reveal">
+          <p class="kicker">Websites for your industry</p>
+          <h2>Website design for Sydney service businesses.</h2>
+          <p class="section__sub">Each industry gets the features its customers expect: quote forms for tradies, deposits for salons, pet profiles for groomers.</p>
+        </div>
+        <div class="cards cards--5">
+          <a href="/for/tradies/" class="card reveal"><svg class="ic" aria-hidden="true"><use href="#i-wrench"/></svg><h3>Tradies</h3><p>Plumbers, electricians, builders and landscapers: quote forms with photos, area pages and Google reviews.</p><span class="card__go">Tradie websites →</span></a>
+          <a href="/for/beauty/" class="card reveal"><svg class="ic" aria-hidden="true"><use href="#i-polish"/></svg><h3>Salons &amp; beauty</h3><p>Hair, nails, brows and barbers: your price list, online booking, deposits and reminders.</p><span class="card__go">Salon websites →</span></a>
+          <a href="/for/pet-care/" class="card reveal"><svg class="ic" aria-hidden="true"><use href="#i-paw"/></svg><h3>Pet care</h3><p>Groomers, walkers and sitters: bookings with pet details and prices by dog size.</p><span class="card__go">Pet care websites →</span></a>
+          <a href="/for/cleaners/" class="card reveal"><svg class="ic" aria-hidden="true"><use href="#i-spray"/></svg><h3>Cleaners</h3><p>Instant prices from your rate card, online booking and payment upfront.</p><span class="card__go">Cleaning websites →</span></a>
+          <a href="/for/coaches/" class="card reveal"><svg class="ic" aria-hidden="true"><use href="#i-cap"/></svg><h3>Tutors &amp; coaches</h3><p>Intro call booking, intake forms and paid sessions or packages.</p><span class="card__go">Coaching websites →</span></a>
+        </div>
+      </div>
+    </section>
+
 
     <section class="section section--white">
       <div class="wrap">
@@ -639,7 +687,7 @@
             <p class="bk__pick" id="bkPick">Pick a day and time above.</p>
             <div class="pl__verify" data-human data-sitekey="0x4AAAAAAFJwxAC6iaxU2Q7g"></div>
             <button type="submit" class="btn btn--primary btn--block">Request this time →</button>
-            <p class="form__fine">We'll confirm by email within one business day, with a calendar invite.</p>
+            <p class="form__fine">We'll confirm by email within one business day, with a calendar invite. <a href="/privacy/">Privacy policy</a>.</p>
             <div class="form__done" id="bookDone" hidden>
               <div class="form__doneIcon"><svg class="ic" aria-hidden="true"><use href="#i-calendar"/></svg></div>
               <h3>Request sent, <span id="bookName">there</span>!</h3>
@@ -676,7 +724,7 @@
             <label class="field"><span>What would you like help with?</span><textarea name="message" rows="3" placeholder="e.g. I spend hours each week replying to booking messages"></textarea></label>
             <div class="pl__verify" data-human data-sitekey="0x4AAAAAAFJwxAC6iaxU2Q7g"></div>
             <button type="submit" class="btn btn--primary btn--block">Send enquiry →</button>
-            <p class="form__fine">Your details are only used to reply to your enquiry.</p>
+            <p class="form__fine">Your details are only used to reply to your enquiry. <a href="/privacy/">Privacy policy</a>.</p>
             <div class="form__done" id="formDone" hidden>
               <div class="form__doneIcon"><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></div>
               <h3>Thanks, <span id="doneName">there</span>!</h3>
@@ -698,7 +746,7 @@
           <img class="logo__mark" src="/logo-light.svg" alt="" width="58" height="58">
           <span class="logo__word">webumi</span>
         </a>
-        <p>Website design Sydney, apps, AI &amp; automation for small &amp; mid-sized business. Webumi is a small Sydney team of web and AI professionals, building websites, apps, platforms, automations and AI assistants for small and mid-sized businesses Australia-wide.</p>
+        <p>Website design in Sydney, plus apps, AI &amp; automation. Webumi is a Sydney web and AI studio building websites, apps, platforms, automations and AI assistants for small and mid-sized businesses Australia-wide.</p>
       </div>
       <nav aria-label="Services">
         <h2 class="footer__h">Services</h2>
@@ -724,7 +772,7 @@
           <li><a href="/for/pet-care/">Websites for pet care</a></li>
           <li><a href="/for/cleaners/">Websites for cleaners</a></li>
           <li><a href="/for/coaches/">Websites for tutors &amp; coaches</a></li>
-          <li>Sydney · Melbourne · Brisbane · Perth · Adelaide · Australia-wide</li>
+          <li>Based in Sydney, working Australia-wide</li>
         </ul>
       </nav>
       <div>
@@ -734,12 +782,13 @@
           <li><a href="/projects/">Projects</a></li>
           <li><a href="/non-profits/">Free help for non-profits</a></li>
           <li><a href="/contact/">Contact</a></li>
+          <li><a href="/privacy/">Privacy policy</a></li>
           <li><a href="mailto:hello@webumi.com.au">hello@webumi.com.au</a></li>
         </ul>
       </div>
     </div>
     <div class="wrap footer__inner">
-      <p class="footer__small">© <span id="year">2026</span> Webumi · ABN 42 183 713 603 · Made in Australia</p>
+      <p class="footer__small">© <span id="year">2026</span> Webumi · <a href="https://abr.business.gov.au/ABN/View?abn=42183713603" rel="noopener">ABN 42 183 713 603</a> · Sydney NSW</p>
     </div>
   </footer>
 
@@ -748,6 +797,6 @@
   <a href="/order/" class="sticky-cta" id="stickyCta">Get a fixed quote →</a>
 
   <script src="/offer.js?v=ee001874"></script>
-  <script src="/script.js?v=bd3499a4"></script>
+  <script src="/script.js?v=b7aa80b1"></script>
 </body>
 </html>
