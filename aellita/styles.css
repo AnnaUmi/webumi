@@ -316,7 +316,7 @@ html:not(.js) .cover { display: none; }
   .cover__hint { display: none; }   /* the buttons sit there on phones */
 }
 /* ---------- about: an editorial spread, the showroom bleeding off the right edge ---------- */
-.about { padding-top: clamp(90px, 12vw, 170px); overflow: hidden; }
+.about { padding-top: clamp(70px, 8vw, 120px); overflow: hidden; }
 .about__grid {
   display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: clamp(40px, 6vw, 110px); align-items: center;
   padding-left: max(var(--gutter), calc((100vw - var(--max)) / 2));
@@ -629,10 +629,20 @@ html:not(.js) .cover { display: none; }
 }
 
 /* ---------- motion that carries you from one section to the next ---------- */
-/* the page rises over the end of the film like a sheet of fabric */
-.about { position: relative; z-index: 2; margin-top: -34svh; background: var(--ivory); border-radius: 44px 44px 0 0; box-shadow: 0 -40px 80px -20px rgba(26, 10, 18, .55); }
+/* the page meets the film with soft rounded corners, without covering it */
+.about { position: relative; z-index: 2; margin-top: -44px; background: var(--ivory); border-radius: 44px 44px 0 0; box-shadow: 0 -40px 80px -20px rgba(26, 10, 18, .55); }
 html:not(.js) .about { margin-top: 0; }
-@media (max-width: 860px) { .about { margin-top: -22svh; border-radius: 28px 28px 0 0; } }
+/* a brass thread sews itself along the top edge of the sheet as it rises over the film */
+.hem { position: absolute; inset: 0 0 auto 0; width: 100%; height: 120px; pointer-events: none; overflow: visible; z-index: 1; }
+.hem__stitch { stroke: var(--brass); stroke-width: 1.6; stroke-dasharray: 9 6; stroke-linecap: round; }
+.hem__needle { color: var(--plum); transition: opacity .5s var(--ease); }
+.hem.is-done .hem__needle { opacity: 0; }
+html:not(.js) .hem { display: none; }
+.rail.is-gone { opacity: 0 !important; }
+/* the team rises over the band photo the same way the first sheet rises over the film */
+.team { position: relative; z-index: 2; margin-top: -44px; border-radius: 44px 44px 0 0; box-shadow: 0 -40px 80px -20px rgba(26, 10, 18, .5); overflow: hidden; }
+@media (max-width: 860px) { .team { margin-top: -28px; border-radius: 28px 28px 0 0; } }
+@media (max-width: 860px) { .about { margin-top: -28px; border-radius: 28px 28px 0 0; } }
 
 /* pictures open like a pair of curtains, from a slit in the middle */
 .js .curtain { clip-path: inset(0 50% 0 50%); }
@@ -653,17 +663,8 @@ html:not(.js) .about { margin-top: 0; }
 .ribbon span.is-line { color: transparent; -webkit-text-stroke: 1px var(--plum-soft); font-style: normal; }
 .ribbon i { flex: none; width: 14px; height: 14px; border: 1px solid var(--mauve); transform: rotate(45deg); }
 
-/* a stitch runs across the top of each section, a needle leading the thread */
-.seam { position: relative; height: 12px; margin-bottom: clamp(34px, 4vw, 54px); }
-.seam::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1.5px; margin-top: -.75px; background: repeating-linear-gradient(90deg, var(--plum-soft) 0 9px, transparent 9px 17px); clip-path: inset(0 100% 0 0); transition: clip-path 2.4s cubic-bezier(.6, 0, .2, 1); }
-.seam i { position: absolute; top: 50%; left: 0; width: 34px; height: 2px; margin-top: -1px; border-radius: 2px; background: linear-gradient(90deg, #b9b2b6, #f4f1f2 70%, #8f878c); transition: left 2.4s cubic-bezier(.6, 0, .2, 1), opacity .6s 2.2s; }
-.seam i::after { content: ""; position: absolute; left: 4px; top: 50%; width: 6px; height: 1px; margin-top: -.5px; background: rgba(43, 26, 36, .5); border-radius: 1px; }   /* the eye */
-.seam.is-in::before { clip-path: inset(0 0 0 0); }
-.seam.is-in i { left: calc(100% - 34px); opacity: 0; }
-
 @media (prefers-reduced-motion: reduce) {
   .js .curtain, .js .curtain img, .words .w > span { clip-path: none; transform: none; }
-  .seam::before { clip-path: none; } .seam i { display: none; }
 }
 
 /* ---------- decoration: a brass curtain rod slides in from the right edge beside the services heading ---------- */
@@ -676,24 +677,37 @@ html:not(.js) .about { margin-top: 0; }
 .deco--finial img { animation: deco-bob 8s ease-in-out infinite; }
 @keyframes deco-bob { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(8px) rotate(-1.5deg); } }
 .services, .process { position: relative; overflow-x: clip; }   /* clip, not hidden: the sticky service picture keeps working */
-/* a little pile of cushions rolls in from the left and settles on the floor of "Tři kroky" */
-.process { padding-bottom: clamp(170px, 16vw, 220px); }
-.pile { position: absolute; bottom: 0; left: calc(max(0px, (100vw - var(--max) - 2 * var(--gutter)) / 2) + var(--gutter)); width: 37em; height: 15em; font-size: clamp(8px, .75vw, 10.5px); z-index: 3; pointer-events: none; }
-.pile::before { content: ""; position: absolute; left: -2em; right: -1em; bottom: -.6em; height: 2.4em; background: radial-gradient(closest-side, rgba(58, 18, 41, .28), transparent); opacity: 0; transition: opacity 1s 1.2s; }
+/* a little scene in the middle of the floor of "Tři kroky": two cushions roll in from opposite sides and meet,
+   then the ivory one drops onto them and bounces. Each one squishes under the cursor. */
+.process { padding-bottom: clamp(150px, 14vw, 200px); }
+.refs { padding-top: clamp(130px, 15vw, 200px); }
+.pile { position: absolute; bottom: -5.5em; left: 50%; width: 37em; height: 15em; margin-left: -18.5em; font-size: clamp(8.5px, .85vw, 11.5px); z-index: 3; pointer-events: none; }
+.pile::before { content: ""; position: absolute; left: -3em; right: -3em; bottom: -.8em; height: 2.6em; background: radial-gradient(closest-side, rgba(58, 18, 41, .3), transparent); opacity: 0; transition: opacity .8s .9s; }
 .pile.is-in::before { opacity: 1; }
-.pile img { position: absolute; bottom: 0; height: auto; transform-origin: 50% 60%; filter: drop-shadow(0 10px 10px rgba(58, 18, 41, .22));
-  animation: pile-in 1.5s cubic-bezier(.3, .7, .3, 1) both paused; }
+.pile img { position: absolute; height: auto; pointer-events: auto; transform-origin: 50% 90%; filter: drop-shadow(0 10px 10px rgba(58, 18, 41, .22));
+  transition: scale .45s cubic-bezier(.3, 1.6, .5, 1); animation: pile-roll 1.3s cubic-bezier(.3, .7, .3, 1) both paused; }
+.pile img:hover { scale: 1.07 .9; }
 .pile.is-in img { animation-play-state: running; }
-.pile__plum    { left: 0;      width: 15em; z-index: 1; --spin: -200deg; animation-delay: .3s !important; }
-.pile__ivory   { left: 11.5em; width: 12em; z-index: 2; --spin: -290deg; animation-delay: .55s !important; }
-.pile__bolster { left: 20.5em; width: 15.5em; z-index: 3; --spin: -480deg; animation-delay: 0s !important; }
-@keyframes pile-in {
-  0%   { transform: translateX(-60vw) rotate(var(--spin)); }
-  68%  { transform: translateX(.8em) rotate(5deg); }
-  84%  { transform: translateX(-.3em) rotate(-2deg) scale(1.04, .94); }
+.pile__plum    { left: 0;      bottom: 0;     width: 15em;   z-index: 1; --from: -62vw; --spin: -260deg; --lean: 0deg; animation-delay: .1s !important; }
+.pile__bolster { left: 20.5em; bottom: 0;     width: 15.5em; z-index: 3; --from: 62vw;  --spin: 420deg;  --lean: 0deg; animation-delay: .1s !important; }
+.pile .pile__ivory { left: 11.5em; bottom: 0;     width: 12em;   z-index: 2; transform: rotate(-3deg); transform-origin: 50% 100%;
+  animation-name: pile-drop; animation-duration: 1.1s; animation-timing-function: linear; animation-delay: 1.15s !important; }
+@keyframes pile-roll {
+  0%   { transform: translateX(var(--from)) rotate(var(--spin)); }
+  70%  { transform: translateX(calc(var(--from) / -90)) rotate(calc(var(--spin) / -60)); }
+  86%  { transform: translateX(calc(var(--from) / 250)) scale(1.04, .95); }
   100% { transform: none; }
 }
-@media (max-width: 860px) { .pile { display: none; } .process { padding-bottom: clamp(80px, 12vw, 160px); } }
+@keyframes pile-drop {
+  0%   { transform: translateY(-80vh) rotate(-28deg); opacity: 0; animation-timing-function: cubic-bezier(.5, 0, 1, .6); }
+  8%   { opacity: 1; }
+  48%  { transform: translateY(0) rotate(-3deg) scale(1.14, .82); animation-timing-function: cubic-bezier(0, .5, .5, 1); }
+  66%  { transform: translateY(-2.6em) rotate(-6deg) scale(.96, 1.05); animation-timing-function: cubic-bezier(.5, 0, 1, .6); }
+  80%  { transform: translateY(0) rotate(-2deg) scale(1.06, .93); animation-timing-function: ease-out; }
+  90%  { transform: translateY(-.5em) rotate(-3.5deg); }
+  100% { transform: rotate(-3deg); opacity: 1; }
+}
+@media (max-width: 860px) { .pile { font-size: 7px; } .process { padding-bottom: 130px; } .refs { padding-top: 110px; } }
 /* the spool of gold thread floats under the stats heading */
 .deco--spool { position: relative; margin-top: clamp(28px, 4vw, 54px); width: clamp(110px, 10vw, 150px); }
 .deco--spool img { --r: 8deg; animation: deco-float 6s ease-in-out infinite; filter: drop-shadow(0 22px 18px rgba(0, 0, 0, .45)); }
