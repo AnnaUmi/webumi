@@ -503,6 +503,13 @@
     build();
   });
 
+  // the pincushion squishes on a tap too, not only under a mouse
+  const pin = $("pincushion");
+  if (pin) pin.addEventListener("pointerdown", () => {
+    pin.classList.remove("is-poked"); void pin.offsetWidth; pin.classList.add("is-poked");
+  });
+  pin?.addEventListener("animationend", () => pin.classList.remove("is-poked"));
+
   const pile = $("pile");
   if (pile) {
     new IntersectionObserver(([e]) => { if (e.isIntersecting) pile.classList.add("is-in"); },
