@@ -3,20 +3,20 @@
   "types": {
     "landing": {
       "name": "Landing page",
-      "price": 590,
-      "signature": 1190,
+      "price": 350,
+      "signature": 690,
       "pages": 1,
-      "time": "1–2 weeks",
+      "time": "3 days – 1 week",
       "desc": "One page with one goal: calls, bookings or sign-ups. For new businesses, one main service or an ad campaign."
     },
     "website": {
       "name": "Business website",
-      "price": 1290,
-      "signature": 2490,
+      "price": 790,
+      "signature": 1490,
       "pages": 10,
       "maxPages": 40,
-      "extraPage": 120,
-      "time": "2–4 weeks",
+      "extraPage": 70,
+      "time": "1–2 weeks",
       "desc": "Up to 10 pages included (home, services, areas, about, contact). Extra pages for more services or suburbs."
     }
   },
@@ -25,51 +25,51 @@
       "id": "design-signature",
       "group": "design",
       "name": "Signature design",
-      "landing": 600,
-      "website": 1200,
-      "app": 2900,
-      "desc": "Custom design with motion and interactive sections: an animated video hero, up to 10 sections with scroll effects, sliders or carousels, up to 4 video sections, custom icons, 2 rounds of design changes. Same speed and SEO foundation as Essential; respects reduced-motion settings. Default (free) is Essential: a proven layout in their logo, colours and fonts with subtle animations.",
+      "landing": 340,
+      "website": 700,
+      "app": 1990,
+      "desc": "Custom design with motion and interactive sections: an animated video hero, up to 10 sections with scroll effects, sliders or carousels, up to 4 video sections, custom icons, refined together until you approve it. Same speed and SEO foundation as Essential; respects reduced-motion settings. Default (free) is Essential: a proven layout in their logo, colours and fonts with subtle animations.",
       "explain": "A design made for your brand, with motion, video and interactive sections that make your business stand out from competitors."
     },
     {
       "id": "text-written",
       "group": "text",
       "name": "Persuasive copy & slogan",
-      "landing": 190,
-      "website": 390,
+      "landing": 110,
+      "website": 230,
       "desc": "We write every page: a memorable slogan, attention-grabbing headlines and persuasive text using buyer psychology, also targeted at what customers search for. Default (free): client sends their text or notes, we polish it or writes clear, professional text from the notes."
     },
     {
       "id": "images-stock",
       "group": "images",
       "name": "Stock photos",
-      "landing": 70,
-      "website": 150,
+      "landing": 40,
+      "website": 90,
       "desc": "Real licensed photos picked to match the business. Default (free): client's own photos, optimised, or natural, realistic AI photos made to match the business if they have none."
     },
     {
       "id": "images-unique",
       "group": "images",
       "name": "Custom art & illustrations",
-      "landing": 190,
-      "website": 390,
+      "landing": 110,
+      "website": 230,
       "desc": "Artwork created only for this brand: illustrations, characters and scenes in its own style."
     },
     {
       "id": "photoshoot",
       "group": "images",
       "name": "Professional photoshoot",
-      "landing": 590,
-      "website": 590,
-      "desc": "A professional photographer shoots the team, work and premises, then edits and retouches the best shots for the website and social media. Price from $590; the final price depends on the city and is confirmed after a chat.",
+      "landing": 350,
+      "website": 350,
+      "desc": "A professional photographer shoots the team, work and premises, then edits and retouches the best shots for the website and social media. Price from $350; the final price depends on the city and is confirmed after a chat.",
       "from": true
     },
     {
       "id": "cms-simple",
       "group": "cms",
       "name": "Simple content editor",
-      "landing": 190,
-      "website": 390,
+      "landing": 110,
+      "website": 230,
       "desc": "Edit text, photos, prices and opening hours yourself in a simple online editor. Free to run, nothing to update. Includes a 30-minute training video.",
       "explain": "A simple online editor to change text, photos, prices and opening hours yourself, whenever you like, without paying for small updates."
     },
@@ -77,16 +77,16 @@
       "id": "cms-wordpress",
       "group": "cms",
       "name": "WordPress",
-      "landing": 390,
-      "website": 590,
+      "landing": 230,
+      "website": 350,
       "desc": "The WordPress dashboard: pages, blog, media and plugins. Needs WordPress hosting and regular updates, so a support plan is recommended. Includes training."
     },
     {
       "id": "hosting-year",
       "group": "hosting",
       "name": "Domain + hosting, 1 year",
-      "landing": 190,
-      "website": 190,
+      "landing": 110,
+      "website": 110,
       "noRush": true,
       "desc": ".com.au domain registered in the client's name plus 12 months hosting and SSL. Default (free): client already has domain and hosting."
     },
@@ -94,7 +94,7 @@
       "id": "care",
       "group": "hosting",
       "name": "Care plan",
-      "monthly": 49,
+      "monthly": 29,
       "updates": 3,
       "desc": "For sites that rarely change. Domain (.com.au in the client's name), hosting, SSL, monthly security checks and vulnerability updates, weekly backups, uptime monitoring, fixes if something breaks, and 3 updates a month. One update = changes to one page (new or edited text, new photos, or changed prices or opening hours), sent in one request and done within 3 business days. Cancel anytime.",
       "features": [
@@ -110,7 +110,7 @@
       "id": "care-plus",
       "group": "hosting",
       "name": "Care Plus plan",
-      "monthly": 99,
+      "monthly": 59,
       "updates": 6,
       "desc": "For businesses that update prices, photos or offers. Everything in Care, plus 6 updates a month (unused updates carry over to the next month), booking, forms and payments checked monthly, and a monthly report (visitors, enquiries, Google). One update = changes to one page (new or edited text, new photos, or changed prices or opening hours), sent in one request and done within 3 business days. Cancel anytime.",
       "features": [
@@ -125,7 +125,7 @@
       "id": "care-growth",
       "group": "hosting",
       "name": "Growth plan",
-      "monthly": 199,
+      "monthly": 119,
       "updates": 10,
       "desc": "For businesses that want more customers from Google and AI search. Everything in Care Plus, plus 10 updates a month, 1 new page or blog post written each month, monthly SEO and AI search optimisation (page titles, keywords and structured data improved so Google and AI tools like ChatGPT understand the business), and a written list of improvement ideas every 3 months. One update = changes to one page (new or edited text, new photos, or changed prices or opening hours), sent in one request and done within 3 business days. Cancel anytime.",
       "features": [
@@ -139,100 +139,100 @@
     {
       "id": "booking",
       "name": "Online booking",
-      "landing": 390,
-      "website": 390,
+      "landing": 230,
+      "website": 230,
       "desc": "Customers pick a time online and get email/SMS reminders."
     },
     {
       "id": "payments",
       "name": "Payments & deposits",
-      "landing": 290,
-      "website": 290,
+      "landing": 170,
+      "website": 170,
       "desc": "Card payments or deposits with Stripe or Square."
     },
     {
       "id": "logo",
       "name": "Logo & mini brand kit",
-      "landing": 390,
-      "website": 390,
+      "landing": 230,
+      "website": 230,
       "desc": "Logo, icon and favicon, 4–6 brand colours, 2 fonts, button and photo style, social profile image. 3 concepts to choose from."
     },
     {
       "id": "blog",
       "name": "Blog",
-      "landing": 190,
-      "website": 190,
+      "landing": 110,
+      "website": 110,
       "desc": "Client posts news and tips; each post can rank on Google."
     },
     {
       "id": "email",
       "name": "Business email",
-      "landing": 90,
-      "website": 90,
+      "landing": 50,
+      "website": 50,
       "desc": "you@business.com.au on Google Workspace or Microsoft 365 (their subscription paid separately).",
       "explain": "you@yourbusiness.com.au instead of a Gmail address. Customers trust it more, and it stays with the business if staff change. Google or Microsoft charge a small monthly fee per mailbox."
     },
     {
       "id": "quote-form",
       "name": "Smart quote form",
-      "landing": 290,
-      "website": 290,
+      "landing": 170,
+      "website": 170,
       "desc": "A step-by-step questionnaire for your trade (e.g. rooms, suburb, dates, budget) with photo or file upload, so you get qualified leads instead of 'how much?' messages."
     },
     {
       "id": "crm",
       "name": "CRM setup",
-      "landing": 390,
-      "website": 390,
+      "landing": 230,
+      "website": 230,
       "desc": "Every enquiry and booking goes automatically into a CRM (customer list + sales pipeline). HubSpot free plan, Zoho, Pipedrive or the CRM you already use.",
       "explain": "One place for every customer: name, phone, what they asked for and when they last booked. Follow up quotes, rebook regulars and never lose an enquiry in your inbox. HubSpot's free plan is enough for most small businesses."
     },
     {
       "id": "store",
       "name": "Online store",
-      "landing": 1290,
-      "website": 1290,
+      "landing": 790,
+      "website": 790,
       "desc": "Sell products online: up to 20 products, cart and checkout, shipping rules, order emails (Shopify or Stripe).",
       "from": true
     },
     {
       "id": "email-marketing",
       "name": "Email marketing",
-      "landing": 290,
-      "website": 290,
+      "landing": 170,
+      "website": 170,
       "desc": "Newsletter signup on the site, connected to Mailchimp or similar, with an automatic welcome email.",
       "explain": "A newsletter signup on your site, connected to Mailchimp, with an automatic welcome email. Bring past customers back with news and offers."
     },
     {
       "id": "reviews",
       "name": "Google reviews on your site",
-      "landing": 150,
-      "website": 150,
+      "landing": 90,
+      "website": 90,
       "desc": "Your Google reviews shown on the site, plus a review link and QR code to collect more.",
       "explain": "Your Google reviews shown on your site, plus a link and QR code so happy customers can leave one in seconds. Reviews are one of the first things people check before they call."
     },
     {
       "id": "tracking",
       "name": "Ads & conversion tracking",
-      "landing": 290,
-      "website": 290,
+      "landing": 170,
+      "website": 170,
       "desc": "Track calls, forms and bookings as conversions in Google Analytics, Google Ads and Meta (Facebook/Instagram) Pixel, so you see which ads bring customers.",
       "explain": "See which ads and pages bring calls, forms and bookings, so you only keep paying for the ads that work."
     },
     {
       "id": "whatsapp",
       "name": "WhatsApp chat button",
-      "landing": 50,
-      "website": 50,
+      "landing": 30,
+      "website": 30,
       "desc": "A button that opens a WhatsApp chat with you, on every page.",
       "explain": "A button that opens a WhatsApp chat with you. Many customers would rather send a quick message than call or fill in a form."
     },
     {
       "id": "ai-assistant",
       "name": "AI assistant",
-      "desc": "Answers customer questions and takes enquiries 24/7, trained on your services, prices and FAQs. From $390, plus AI usage fees charged by the AI provider.",
-      "landing": 390,
-      "website": 390,
+      "desc": "Answers customer questions and takes enquiries 24/7, trained on your services, prices and FAQs. From $230, plus AI usage fees charged by the AI provider.",
+      "landing": 230,
+      "website": 230,
       "from": true,
       "explain": "A chat on your site that answers customers' questions from your own services, prices and FAQs, day and night, and passes enquiries to you. Most questions get answered before people give up and leave."
     },
@@ -254,8 +254,8 @@
       "group": "speed",
       "name": "Rush delivery",
       "percent": 25,
-      "landingTime": "about 1 week",
-      "websiteTime": "1–2 weeks",
+      "landingTime": "2–3 business days",
+      "websiteTime": "about 1 week",
       "desc": "About half the usual time. +25% on the build (not on domain & hosting)."
     },
     {
@@ -280,7 +280,7 @@
   ],
   "support": {
     "freeDays": 30,
-    "hourly": 95,
+    "hourly": 55,
     "note": "For 30 days after launch, issues with the agreed functionality are fixed at no extra cost. After that: a monthly plan with a set number of updates a month. One update = changes to one page (new or edited text, new photos, or changed prices or opening hours), sent in one request and done within 3 business days."
   },
   "media": [
@@ -289,7 +289,7 @@
       "length": "15–30 seconds",
       "group": "video",
       "name": "Video ad",
-      "price": 490,
+      "price": 290,
       "from": true,
       "desc": "A 15–30 second ad for Instagram, Facebook or TikTok: script, voiceover, music and captions, delivered vertical, square and wide."
     },
@@ -298,7 +298,7 @@
       "length": "15–30 seconds each",
       "group": "video",
       "name": "Ad test pack",
-      "price": 990,
+      "price": 590,
       "from": true,
       "desc": "Three 15–30 second versions of one ad (different hooks or endings) so you can test which brings in more customers."
     },
@@ -307,7 +307,7 @@
       "length": "6–10 second loop",
       "group": "video",
       "name": "Website hero video",
-      "price": 590,
+      "price": 350,
       "desc": "A 6–10 second looping video for the top of your website, sized to load fast. Included in every Signature design."
     },
     {
@@ -315,7 +315,7 @@
       "length": "15–30 seconds each",
       "group": "video",
       "name": "Monthly videos",
-      "monthly": 990,
+      "monthly": 590,
       "videos": 4,
       "desc": "4 videos a month, 15–30 seconds each, for your socials or ads, in your brand's style."
     },
@@ -324,7 +324,7 @@
       "length": "15–30 seconds each",
       "group": "video",
       "name": "Monthly videos Plus",
-      "monthly": 1790,
+      "monthly": 1090,
       "videos": 8,
       "desc": "8 videos a month, 15–30 seconds each, for your socials or ads, in your brand's style."
     },
@@ -332,21 +332,21 @@
       "id": "photos-10",
       "group": "photos",
       "name": "AI photos, 10 images",
-      "price": 290,
+      "price": 170,
       "desc": "10 product or lifestyle images made from your product photos or your brief, ready for your website, socials and ads."
     },
     {
       "id": "photos-25",
       "group": "photos",
       "name": "AI photos, 25 images",
-      "price": 590,
+      "price": 350,
       "desc": "25 product or lifestyle images for a shop, a menu or a full campaign."
     },
     {
       "id": "headshots",
       "group": "photos",
       "name": "Team headshots",
-      "price": 49,
+      "price": 29,
       "per": "person",
       "desc": "Professional headshots made from a few selfies, in one consistent style for the whole team."
     },
@@ -354,14 +354,14 @@
       "id": "art-single",
       "group": "art",
       "name": "Illustration",
-      "price": 120,
+      "price": 70,
       "desc": "One illustration for a website section, poster, menu or social post, in your brand colours."
     },
     {
       "id": "art-set",
       "group": "art",
       "name": "Illustration set",
-      "price": 390,
+      "price": 230,
       "pieces": 5,
       "desc": "5 illustrations in one matching style, for a website, a campaign or a menu."
     },
@@ -369,7 +369,7 @@
       "id": "character",
       "group": "art",
       "name": "Brand character",
-      "price": 690,
+      "price": 410,
       "from": true,
       "desc": "A mascot designed for your brand, with a character sheet and 5 poses, so it looks the same in every image and video."
     }
@@ -389,31 +389,31 @@
     },
     {
       "step": "Homepage design",
-      "when": "Week 1",
+      "when": "Days 2–3",
       "what": "Three homepage design concepts created around your brand and goals. We refine your favourite together before designing the rest.",
       "you": "Choose your favourite and send feedback"
     },
     {
       "step": "Website plan",
-      "when": "Week 1",
+      "when": "Days 2–3",
       "what": "A visual sitemap of each page and what it will include. For a landing page, each section.",
       "you": "Approve the plan"
     },
     {
       "step": "Design & copy",
-      "when": "Week 1–2",
+      "when": "Week 1",
       "what": "The remaining pages in your chosen style, with the text written or polished from what you've shared.",
       "you": "Review the designs and text and approve them before we build"
     },
     {
       "step": "Preview before launch",
-      "when": "Week 2–3",
+      "when": "Week 1–2",
       "what": "Your website on a private link, for your phone and computer. We check the layouts, forms, links and interactions. Short progress update by email every week.",
       "you": "Explore it, share your final feedback and approve the launch"
     },
     {
       "step": "Go live",
-      "when": "Week 2–4",
+      "when": "Week 1–2",
       "what": "We connect your domain, publish the website and run the final checks. 30-minute handover: how to see enquiries and make simple edits.",
       "you": "Pay the final 50%"
     },

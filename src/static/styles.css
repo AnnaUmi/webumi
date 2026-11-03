@@ -170,6 +170,11 @@ em { font-style: normal; color: var(--coral); }
 .hero .hero__lead { font-size: clamp(.98rem, 1.25vw, 1.12rem); max-width: 500px; }   /* home: quieter under the big headline */
 .hero__lead strong { color: var(--ink); font-weight: 600; }
 .hero__ctas { display: flex; flex-wrap: wrap; gap: 12px; margin: 36px 0 0; }
+/* the two facts a visitor asks first: price and time */
+.hero__facts { list-style: none; display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 24px 0 0; padding: 0; font-size: .9rem; color: var(--muted); }
+.hero__facts li { display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; }
+.hero__facts li::before { content: "✓"; display: grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; background: var(--sea); color: #fff; font-size: .68rem; font-weight: 700; }
+.hero__facts b { color: var(--ink); font-weight: 600; }
 
 /* Chips (planner answers) */
 .chip {
