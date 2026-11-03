@@ -372,8 +372,12 @@ html:not(.js) .cover { display: none; }
   cursor: default; position: relative;
 }
 .svc__item:last-child { border-bottom: 1px solid var(--line); }
-.svc__item::before { content: ""; position: absolute; left: 0; top: -1px; height: 1px; width: 100%; background: var(--plum); transform: scaleX(0); transform-origin: left; transition: transform .8s var(--ease); }
-.svc__item.is-on::before { transform: scaleX(1); }
+/* the active line is sewn in brass: a stitch runs across, a needle pulling it */
+.svc__item::before { content: ""; position: absolute; left: 0; top: -1px; height: 1.6px; width: 100%; background: repeating-linear-gradient(90deg, var(--brass) 0 9px, transparent 9px 15px); clip-path: inset(0 100% 0 0); transition: clip-path .9s cubic-bezier(.6, 0, .25, 1); }
+.svc__item.is-on::before { clip-path: inset(0 0 0 0); }
+.svc__item::after { content: ""; position: absolute; top: -7.5px; left: -40px; width: 46px; height: 14px; background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2040%2012%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%235b2140%22%20stroke-width%3D%221.3%22%20stroke-linecap%3D%22round%22%3E%3Cpath%20d%3D%22M6%206h31.5%22/%3E%3Cpath%20d%3D%22M6%204.2h28l4%201.8-4%201.8H6a1.8%201.8%200%200%201%200-3.6z%22%20fill%3D%22%23efe6dc%22/%3E%3Cpath%20d%3D%22M8.5%206h5%22%20stroke-width%3D%221%22/%3E%3C/g%3E%3C/svg%3E") no-repeat center / contain; opacity: 0; pointer-events: none; }
+.svc__item.is-on::after { animation: svc-needle .9s cubic-bezier(.6, 0, .25, 1) both; }
+@keyframes svc-needle { 0% { left: -40px; opacity: 1; } 85% { opacity: 1; } 100% { left: calc(100% - 40px); opacity: 0; } }
 .svc__num { font: 400 18px/1.6 var(--serif); color: var(--mauve); font-variant-numeric: tabular-nums; transition: color .4s; }
 .svc__item h3 { font: 400 clamp(28px, 3vw, 40px)/1.05 var(--serif); margin-bottom: 10px; transition: color .4s, transform .6s var(--ease); }
 .svc__item p { color: var(--ink-2); max-width: 470px; font-size: 16.5px; line-height: 1.6; transition: opacity .4s; }
@@ -560,7 +564,7 @@ html:not(.js) .cover { display: none; }
   .svc__item, .steps3 li { flex: 0 0 min(78%, 360px); scroll-snap-align: start; }
   .svc__item { display: flex; flex-direction: column; gap: 0; padding: 0; border: 0; }
   .svc__item:last-child { border: 0; }
-  .svc__item::before { display: none; }
+  .svc__item::before, .svc__item::after { display: none; }
   .svc__thumb { order: -1; margin: 0 0 20px; aspect-ratio: 4 / 5; border-radius: 22px; }
   .svc__num { position: absolute; top: 14px; left: 14px; z-index: 1; display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; background: rgba(246, 241, 234, .9); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); font-size: 16px; line-height: 1; color: var(--plum); }
   .svc__item h3 { font-size: 28px; color: var(--ink); }
@@ -709,13 +713,27 @@ html:not(.js) .hem { display: none; }
 }
 @media (max-width: 860px) { .pile { font-size: 7px; } .process { padding-bottom: 130px; } .refs { padding-top: 110px; } }
 /* the spool of gold thread floats under the stats heading */
-.deco--spool { position: relative; margin-top: clamp(28px, 4vw, 54px); width: clamp(110px, 10vw, 150px); }
+.stats__toys { display: flex; align-items: flex-end; gap: clamp(14px, 2vw, 30px); margin-top: clamp(28px, 4vw, 54px); }
+.deco--spool { position: relative; width: clamp(110px, 10vw, 150px); }
+/* a velvet pincushion beside the spool: it squishes and wobbles when you poke it */
+.deco--pin { position: relative; width: clamp(120px, 11vw, 160px); pointer-events: auto; cursor: pointer; }
+.deco--pin img { transform-origin: 50% 100%; filter: drop-shadow(0 0 18px rgba(212, 175, 120, .28)) drop-shadow(0 18px 14px rgba(0, 0, 0, .5)); }
+.deco--pin:hover img, .deco--pin.is-poked img { animation: poke .9s cubic-bezier(.3, .7, .4, 1); }
+@keyframes poke {
+  0%   { transform: none; }
+  18%  { transform: scale(1.14, .8); }
+  38%  { transform: scale(.94, 1.1) rotate(-4deg); }
+  56%  { transform: scale(1.04, .95) rotate(3deg); }
+  74%  { transform: scale(.99, 1.02) rotate(-1.5deg); }
+  100% { transform: none; }
+}
 .deco--spool img { --r: 8deg; animation: deco-float 6s ease-in-out infinite; filter: drop-shadow(0 22px 18px rgba(0, 0, 0, .45)); }
 @keyframes deco-float { 0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); } 50% { transform: translateY(-14px) rotate(calc(var(--r, 0deg) + 4deg)); } }
 @media (max-width: 860px) {
   .deco--finial { display: none; }
-  .deco--spool { position: absolute; right: 0; top: 0; margin: 0; width: 84px; }
-  .stats__head { position: relative; padding-right: 96px; }
+  .stats__toys { position: absolute; right: 0; top: 0; margin: 0; gap: 8px; }
+  .deco--pin { width: 76px; }
+  .stats__head { position: relative; padding-right: 92px; }
 }
 
 /* ---------- reveal ---------- */
