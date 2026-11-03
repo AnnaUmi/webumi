@@ -430,15 +430,12 @@
         summary.push(`${name}: ${p ? aud(p) : "included"}`);
         total += p;
       });
-      const rushable = total - priceOf($('input[name="hosting"]:checked', bld)); // rush doesn't apply to domain & hosting
-
-      const rush = $('input[name="speed"]:checked', bld);
-      if (rush.dataset.rush) {
-        const fee = Math.round((rushable * +rush.dataset.rush) / 100 / 10) * 10;
-        lines.push([`${rush.value} delivery (+${rush.dataset.rush}%)`, fee]);
-        summary.push(`${rush.value} delivery, live in ${timeOf(rush)}: ${aud(fee)}`);
-        total += fee;
-      } else summary.push(`Standard delivery (live in ${timeOf(rush)})`);
+      // sooner than standard has no fixed price: 0–50% on the build, agreed once we've discussed the deadline
+      const speed = $('input[name="speed"]:checked', bld);
+      if (speed.value === "Sooner") {
+        quotes.push("Faster delivery (0–50%)");
+        summary.push("Faster delivery: needed sooner than standard, 0–50% to agree after discussing the deadline");
+      } else summary.push(`Standard delivery (live in ${timeOf(speed)})`);
 
       $("#bldLines").innerHTML = lines.map(([n, p, isBase]) =>
         `<li${isBase ? ' class="is-base"' : ""}><span>${n}</span><span>${typeof p === "number" ? aud(p) : p}</span></li>`).join("");
@@ -451,7 +448,7 @@
       lastTotal = total;
       $("#bldMonthly").hidden = !monthly;
       $("#bldMonthly").textContent = `+ ${aud(monthly)}/month`;
-      $("#bldDeposit").textContent = rush.value === "Express" ? "Paid upfront, because Express work starts straight away." : `Pay 50% (${aud(half(total))}) to start and the rest at launch.`;
+      $("#bldDeposit").textContent = `Pay 50% (${aud(half(total))}) to start and the rest at launch.`;
       $("#bldQuote").hidden = !quotes.length;
       $("#bldQuote").textContent = `+ ${quotes.join(" and ")}: priced once we've discussed your project.`;
       $("#bldBarTotal").textContent = (from ? "from " : "") + aud(total);
@@ -1360,70 +1357,46 @@
   if (catcher && !reduceMotion) { startCatch(); wide.addEventListener("change", startCatch); }
 
   /* ---------- Home hero: the bear's spell ----------
-     The video plays the walk-in (frames 0–59), then waits holding the star. From there on the cursor
-     drives it: the closer to the bear, the further the spell goes, frame by frame; moving away undoes
-     it. A click finishes it. If the cursor doesn't come near within a moment, the spell plays by itself:
-     most visitors never hover, and they should still see the fixed list. A click replays it, and
-     from then on the cursor drives it. Touch screens have no cursor: the spell just plays, a tap replays it.
-     The pills are page elements: each flips when the video reaches the frame where the star hits it.
-     Around it: the bear asks for the cursor (speech bubble, with a nudge if nobody moves), the label
-     counts the fixes ("Fixing… 2 of 6"), and the finish gets a small burst. */
+     The video plays the walk-in (frames 0–59), then the bear waves the star (59–144).
+     The first mouse move starts the wave (or a moment after the walk-in, if the mouse stays still,
+     and always on touch screens). All six pills turn to ticks at once, with a small burst, at the
+     frame where the bear's hand is stretched over the list (T_HIT). No scrubbing, no partial
+     states. A click or tap replays the wave. */
   const spell = $("#spell");
   if (spell) {
-    const video = $(".spell__video", spell), bubble = $("#spellBubble"), label = $("#spellLabel");
-    const FPS = 24, T_READY = 59 / FPS, T_END = 144 / FPS;
-    const pills = $$(".spell__list li", spell), FLIP = [94, 97, 103, 111, 117, 123].map((f) => f / FPS);   // in step with the star; the last two after the video's own four
+    const video = $(".spell__video", spell), label = $("#spellLabel");
+    const FPS = 24, T_READY = 59 / FPS, T_HIT = 86 / FPS;   // T_HIT: hand over the list, star glowing
+    const pills = $$(".spell__list li", spell);
     const canHover = matchMedia("(hover: hover) and (pointer: fine)").matches;
     const small = video.offsetWidth <= 440 || video.offsetWidth * (devicePixelRatio || 1) <= 640;   // phones always get the light file
-    const ASK = canHover ? "Bring your cursor here" : "Tap me";
-    const KEEP = "Click me to keep it";
-    let state = "loading";                 // loading → walk → ready (cursor scrubs) or wait (touch) → casting → done
-    let prox = 0, shown = T_READY, seeking = false, seekAt = 0, last = 0, readyAt = 0, nudges = 0, celebrated = false;
+    let state = "loading";                 // loading → walk → ready → casting → done
+    let readyAt = 0, moved = false, fixed = false;
     let onScreen = true, held = null;      // held: the play() waiting for the hero to come back on screen
-    let auto = true;                       // the first wait plays the spell by itself if the cursor stays away
 
-    const say = (html) => {
-      bubble.hidden = !html;
-      if (html && bubble.innerHTML !== html) bubble.innerHTML = html;
-    };
     const nudge = (el) => { el.classList.remove("is-nudge"); void el.offsetWidth; el.classList.add("is-nudge"); };
-    const paint = (t) => {
-      let n = 0;
-      pills.forEach((li, k) => { const on = t >= FLIP[k]; li.classList.toggle("is-fixed", on); n += on; });
-      const text = n === pills.length ? "Your business in 3 days" : n ? `Fixing… ${n} of ${pills.length}` : "Your business today";
-      if (label.textContent !== text) label.textContent = text;
+    // every pill ticked at once, once per visit
+    const fixAll = (quiet) => {
+      if (fixed) return;
+      fixed = true;
+      pills.forEach((li) => li.classList.add("is-fixed"));
+      spell.classList.add("is-done");
+      label.textContent = "Your business in 3 days";
+      if (!quiet) { confetti($(".spell__list", spell), 26); nudge($(".hero__ctas .btn--primary")); }
     };
-    const finish = () => {
-      state = "done"; video.pause(); spell.classList.add("is-done"); paint(T_END); say("");
-      if (!celebrated) {                    // the payoff, once per visit
-        celebrated = true;
-        confetti($(".spell__list", spell), 26);
-        nudge($(".hero__ctas .btn--primary"));
-      }
-    };
+    const finish = () => { state = "done"; video.pause(); fixAll(); };
     // plays only while the hero is on screen: a phone refresh lands where the page was scrolled to,
     // and the bear would do its whole spell out of sight
     const play = (fail) => {
       if (!onScreen) { held = fail; return; }
       video.play().then(loop).catch(() => { if (!held) fail(); });   // scrolled away while starting: the pause cancelled it, it resumes later
     };
-    // autoplay blocked (iPhone Low Power Mode): the bear waits holding the star, a tap starts it
-    const blocked = () => {
-      video.currentTime = shown = T_READY; auto = false;   // play() just failed: wait for a click
-      state = "ready"; readyAt = performance.now(); say(ASK); loop();
-    };
-    const cast = () => { state = "casting"; spell.classList.remove("is-done"); say(""); play(finish); };
-    const restart = () => {
-      spell.classList.remove("is-done");
-      if (canHover) { state = "ready"; shown = video.currentTime; readyAt = performance.now(); say(ASK); loop(); }
-      else { video.currentTime = T_READY; cast(); }
-    };
+    // autoplay blocked (iPhone Low Power Mode): the bear stands holding the star, the list is ticked
+    const blocked = () => { video.currentTime = T_READY; finish(); };
+    const cast = () => { state = "casting"; play(finish); };
     video.addEventListener("ended", finish);
-    video.addEventListener("seeked", () => { seeking = false; });
-    spell.addEventListener("click", (e) => {
-      if (e.target.closest("a")) return;    // the bubble's link
+    spell.addEventListener("click", () => {
       if (state === "ready") cast();
-      else if (state === "done") restart();
+      else if (state === "done") { video.currentTime = T_READY; cast(); }   // replay the wave
     });
 
     // only work while the hero is on screen
@@ -1437,38 +1410,25 @@
       }
     }).observe(spell);
 
-    // cursor → proximity to the bear
-    addEventListener("mousemove", (e) => {
-      if (!onScreen) return;
-      const r = video.getBoundingClientRect();
-      const d = Math.hypot(e.clientX - (r.left + r.width * 0.55), e.clientY - (r.top + r.height * 0.5));
-      prox = Math.min(1, Math.max(0, 1 - d / Math.max(420, r.width * 1.3)));
+    // the first mouse move starts the wave (straight after the walk-in, if it's still walking)
+    addEventListener("mousemove", () => {
+      if (moved || !onScreen) return;
+      moved = true;
+      if (state === "ready") cast();
     }, { passive: true });
-    document.addEventListener("mouseout", (e) => { if (!e.relatedTarget) prox = 0; });   // the cursor left the window
 
     let looping = false;                   // one animation loop at a time
     const loop = () => { if (!looping) { looping = true; requestAnimationFrame(tick); } };
     const tick = (now = performance.now()) => {
       looping = false;
-      const dt = Math.min(0.1, (now - (last || now)) / 1000); last = now;
       if (state === "walk" && video.currentTime >= T_READY - 0.03) {
-        video.pause(); shown = video.currentTime;
-        if (canHover) { state = "ready"; readyAt = now; say(auto ? "" : ASK); }
-        else { state = "wait"; return setTimeout(cast, 600); }   // "wait": a second tick can't queue another cast
+        video.pause();
+        if (moved) return cast();
+        state = "ready"; readyAt = now;
       }
-      if (state === "ready") {
-        const eased = prox * prox * (3 - 2 * prox);
-        shown += (T_READY + eased * (T_END - T_READY) - shown) * Math.min(1, dt * 7);
-        if (seeking && now - seekAt > 400) seeking = false;          // a lost "seeked" event
-        if (!seeking && Math.abs(video.currentTime - shown) > 0.5 / FPS) { seeking = true; seekAt = now; video.currentTime = shown; }
-        if (auto && prox < 0.08 && now - readyAt > 1200) { auto = false; return cast(); }
-        if (prox > 0.08) auto = false;                                 // they found the bear: it's theirs to drive
-        say(prox > 0.25 ? KEEP : auto ? "" : ASK);
-        if (!auto && prox < 0.08 && nudges < 3 && now - readyAt > 3500 + nudges * 5000) { nudges++; nudge(bubble); }
-        paint(shown);
-      }
-      if (state === "casting") paint(video.currentTime);
-      if ((state === "walk" || state === "casting" || state === "ready") && onScreen) loop();
+      if (state === "ready" && now - readyAt > (canHover ? 1200 : 600)) return cast();
+      if (state === "casting" && video.currentTime >= T_HIT) fixAll();
+      if ((state === "walk" || state === "ready" || (state === "casting" && !fixed)) && onScreen) loop();
     };
 
     // load the whole file first (seeking then never waits on the network), after the page itself
@@ -1484,8 +1444,8 @@
         video.addEventListener("error", () => ok(false), { once: true });
         video.preload = "auto"; video.load();   // iPhone Safari buffers nothing until told to, so "loadeddata" never came
       });
-      if (!loaded) { celebrated = true; return finish(); }   // no video: still show the fixed list and the link
-      if (reduceMotion) { video.currentTime = T_END; celebrated = true; return finish(); }
+      if (!loaded) { fixAll(true); state = "done"; return; }   // no video: still show the ticked list
+      if (reduceMotion) { video.currentTime = 144 / FPS; fixAll(true); state = "done"; return; }
       state = "walk";
       play(blocked);
     };

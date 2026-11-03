@@ -23,7 +23,8 @@
     if (extra > 0) lines.push({ id: "pages", name: `${extra} extra page${extra > 1 ? "s" : ""}`, why: "", value: extra * type.extraPage });
 
     // one option per group; monthly plans include domain + hosting, so they win over the one-off hosting option
-    const find = (id) => catalog.options.find((x) => x.id === id);
+    const OLD = { rush: "faster", express: "faster" };   // links shared before speed became "discussed, 0–50%"
+    const find = (id) => catalog.options.find((x) => x.id === (OLD[id] || id));
     const sorted = [...(offer.options || [])].sort((a, b) => !!find(b.id)?.monthly - !!find(a.id)?.monthly);
     const byGroup = {}, picked = [];
     sorted.forEach((o) => {
@@ -33,24 +34,18 @@
       picked.push({ opt, why: o.why });
     });
 
-    let total = lines.reduce((s, l) => s + l.value, 0), monthly = 0, noRush = 0, speed = null;
+    let total = lines.reduce((s, l) => s + l.value, 0), monthly = 0;
     const quoted = [], monthlyLines = [];
     picked.forEach(({ opt, why }) => {
       if (opt.quote) return quoted.push({ id: opt.id, name: opt.name, why });
-      if (opt.group === "speed") return (speed = { opt, why });
       if (opt.monthly) { monthly += opt.monthly; return monthlyLines.push({ id: opt.id, name: opt.name, why, value: opt.monthly }); }
       const name = opt.id === "crm" && offer.crm_system && offer.crm_system !== "none" ? `${opt.name}: ${offer.crm_system}` : opt.name;
-      total += opt[t]; if (opt.noRush) noRush += opt[t];
+      total += opt[t];
       lines.push({ id: opt.id, name, why, value: opt[t], from: !!opt.from });
     });
-    if (speed) {
-      const fee = Math.round(((total - noRush) * speed.opt.percent) / 100 / 10) * 10;
-      lines.push({ id: speed.opt.id, name: `${speed.opt.name} (+${speed.opt.percent}%)`, why: speed.why, value: fee });
-      total += fee;
-    }
     const ids = new Set(picked.map((p) => p.opt.id));
     const from = lines.some((l) => l.from);   // e.g. an online store "from $790": the total is a starting price
-    return { t, type, pages, lines, monthlyLines, quoted, total, monthly, ids, from, speed: speed?.opt.id, time: speed ? speed.opt[t + "Time"] : type.time };
+    return { t, type, pages, lines, monthlyLines, quoted, total, monthly, ids, from, time: type.time };
   }
 
   /* ---------- Share links: the whole plan lives in the URL hash ---------- */
@@ -83,7 +78,7 @@
     base: "doc", pages: "doc", "design-signature": "sparkle", "text-written": "doc", "images-stock": "camera", "images-unique": "camera", photoshoot: "camera",
     "cms-simple": "doc", "cms-wordpress": "folder", "hosting-year": "search", care: "shield", "care-plus": "lifebuoy", "care-growth": "chart",
     booking: "calendar", payments: "card", logo: "star", blog: "doc", email: "envelope", "quote-form": "inbox", crm: "user", store: "card",
-    "email-marketing": "envelope", reviews: "star", tracking: "chart", whatsapp: "chat", "ai-assistant": "robot", "ai-agent": "robot", automations: "bolt", rush: "clock", express: "bolt",
+    "email-marketing": "envelope", reviews: "star", tracking: "chart", whatsapp: "chat", "ai-assistant": "robot", "ai-agent": "robot", automations: "bolt", faster: "clock",
   };
   // share of the timeline each step takes: [start, end] where 1 = launch
   const SPANS = [[0, .04], [.04, .1], [.1, .24], [.24, .32], [.32, .58], [.58, .9], [.9, 1], [1, 1.2]];
@@ -184,7 +179,6 @@
     const p = price(o, catalog);
     const phone = $id("ctPhone")?.textContent || "", email = $id("ctEmail")?.textContent || "";
     const mins = $id("cal")?.dataset.videoMinutes || "15";
-    const express = p.speed === "express";
     const words = esc(o.headline).split(" ").map((w, i) => `<span style="--i:${i}">${w}</span>`).join(" ");
     const sugg = suggestions(o, p, catalog);
     const cards = [...p.lines.filter((l) => l.id !== "base" && l.id !== "pages"), ...p.monthlyLines.map((l) => ({ ...l, monthly: true })), ...p.quoted.map((l) => ({ ...l, quote: true }))];
@@ -241,10 +235,8 @@
           <p class="pz-lead">Every line comes from Webumi's price list. Send it with a few details about your business and you get a written, fixed quote within 1 business day. That's the price you pay.</p>
           <div class="pz-pay" data-anim>
             <h3>Payments</h3>
-            ${express
-              ? `<div class="pz-pay__row"><span style="--w:100%"></span><b>${aud(p.total)}</b><small>Upfront (Express starts straight away)</small></div>`
-              : `<div class="pz-pay__row"><span style="--w:50%"></span><b>${aud(half(p.total))}</b><small>Deposit, after you approve the quote</small></div>
-                 <div class="pz-pay__row"><span style="--a:50%;--w:50%;--d:.3s"></span><b>${aud(p.total - half(p.total))}</b><small>At launch, before the site goes live</small></div>`}
+            <div class="pz-pay__row"><span style="--w:50%"></span><b>${aud(half(p.total))}</b><small>Deposit, after you approve the quote</small></div>
+            <div class="pz-pay__row"><span style="--a:50%;--w:50%;--d:.3s"></span><b>${aud(p.total - half(p.total))}</b><small>At launch, before the site goes live</small></div>
             <p>${esc(catalog.payment.notes[2])}</p>
           </div>
         </div>

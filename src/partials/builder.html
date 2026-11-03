@@ -166,15 +166,13 @@
 
             <fieldset class="bld__step">
               <legend><span class="bld__n" data-num></span> When do you need it?</legend>
-              <div class="bld__grid bld__grid--3">
+              <div class="bld__grid bld__grid--2">
                 <label class="opt"><input type="radio" name="speed" value="Standard" data-landing-time="{{price:landing:time}}" data-website-time="{{price:website:time}}" checked>
                   <span class="opt__box">{{icon:calendar}}<b class="opt__t">Standard</b><span class="opt__d" data-time></span><span class="opt__p">Included</span></span></label>
-                <label class="opt"><input type="radio" name="speed" value="Rush" data-rush="{{price:rush:percent}}" data-landing-time="{{price:rush:landingTime}}" data-website-time="{{price:rush:websiteTime}}">
-                  <span class="opt__box">{{icon:clock}}<b class="opt__t">Rush</b><span class="opt__d" data-time></span><span class="opt__p">+{{price:rush:percent}}%</span></span></label>
-                <label class="opt"><input type="radio" name="speed" value="Express" data-rush="{{price:express:percent}}" data-landing-time="{{price:express:landingTime}}" data-website-time="{{price:express:websiteTime}}">
-                  <span class="opt__box">{{icon:bolt}}<b class="opt__t">Express</b><span class="opt__d" data-time></span><span class="opt__p">+{{price:express:percent}}%</span></span></label>
+                <label class="opt"><input type="radio" name="speed" value="Sooner">
+                  <span class="opt__box">{{icon:clock}}<b class="opt__t">Sooner</b><span class="opt__d">Tell us your deadline and we'll discuss it.</span><span class="opt__p">+0–50%</span></span></label>
               </div>
-              <p class="bld__hint bld__hint--top">Rush and Express times start once we have your text and photos.</p>
+              <p class="bld__hint bld__hint--top">The faster fee depends on how soon you need it, and is agreed before any work starts.</p>
             </fieldset>
 
             <div class="bld__bar">

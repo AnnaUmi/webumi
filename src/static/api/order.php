@@ -130,7 +130,7 @@ $fileNote = $saved ? "\nFILES (" . count($saved) . ")\n" . implode("\n", array_m
 $ownerBody = "New order $ref\n\n" . ($nda ? "NDA REQUESTED: sign theirs or send ours (private/nda-template.html) before they share the details.\n\n" : '') . "From: $name <$email>\nBusiness: " . ($business ?: '-') . "\nNeeds: $typeNames\n$details$fileNote\nReply to this email to answer $name directly.\n";
 $customerBody = "Hi " . explode(' ', $name)[0] . ",\n\nThanks for your order. Your reference is $ref.\n\n"
   . "What happens next:\n1. We'll review your answers and send a written, fixed quote within 1 business day.\n"
-  . "2. If you're happy with it, you sign the agreement online and pay a 50% deposit (Express: paid in full). Then we start on your three homepage designs.\n3. Nothing is charged until you approve the quote.\n\n"
+  . "2. If you're happy with it, you sign the agreement online and pay a 50% deposit. Then we start on your three homepage designs.\n3. Nothing is charged until you approve the quote.\n\n"
   . ($nda ? "You asked for an NDA. We're happy to sign yours, or we'll send our standard mutual NDA. Either way it's signed before you share the details.\n\n" : '')
   . "A copy of your answers:\n$details" . ($saved ? "\nFiles received: " . count($saved) . "\n" : '') . "\nJust reply to this email if you'd like to add anything.\n\nThe Webumi team\nwebumi.com.au\n";
 
