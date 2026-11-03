@@ -168,7 +168,7 @@
         "Google Business Profile polished, with reviews front and centre",
         "One-tap call, quote form and instant auto-reply",
       ],
-      pkg: ["Business website — from $1,290", "website"],
+      pkg: ["Business website — from $790", "website"],
       flow: [
         ["search", "Customer searches Google", "“landscaper eastern suburbs”"],
         ["pin", "Finds your Google profile", "Reviews, photos, hours"],
@@ -181,14 +181,14 @@
     bookings: {
       more: ["/online-bookings/", "More about online bookings →"],
       title: "Let customers book (and pay) while you sleep.",
-      desc: "No more back-and-forth messages. Customers pick a time, pay a deposit and get a reminder. Selling products? We add an online shop, from $1,290.",
+      desc: "No more back-and-forth messages. Customers pick a time, pay a deposit and get a reminder. Selling products? We add an online shop, from $790.",
       list: [
         "Booking built into your site, using Square, Fresha or Calendly",
         "Deposits that make no-shows basically disappear",
         "Automatic confirmations and SMS reminders",
         "Review requests and “book again” nudges after every visit",
       ],
-      pkg: ["Business website with online booking — from $1,680", "website"],
+      pkg: ["Business website with online booking — from $1,020", "website"],
       flow: [
         ["camera", "Sees you on Instagram", "Taps the link in your bio"],
         ["polish", "Chooses a service", "Clear prices, no DMs needed"],
@@ -1362,7 +1362,9 @@
   /* ---------- Home hero: the bear's spell ----------
      The video plays the walk-in (frames 0–59), then waits holding the star. From there on the cursor
      drives it: the closer to the bear, the further the spell goes, frame by frame; moving away undoes
-     it. A click finishes it. Touch screens have no cursor: the spell just plays, a tap replays it.
+     it. A click finishes it. If the cursor doesn't come near within a moment, the spell plays by itself:
+     most visitors never hover, and they should still see the fixed list. A click replays it, and
+     from then on the cursor drives it. Touch screens have no cursor: the spell just plays, a tap replays it.
      The pills are page elements: each flips when the video reaches the frame where the star hits it.
      Around it: the bear asks for the cursor (speech bubble, with a nudge if nobody moves), the label
      counts the fixes ("Fixing… 2 of 6"), and the finish gets a small burst. */
@@ -1378,6 +1380,7 @@
     let state = "loading";                 // loading → walk → ready (cursor scrubs) or wait (touch) → casting → done
     let prox = 0, shown = T_READY, seeking = false, seekAt = 0, last = 0, readyAt = 0, nudges = 0, celebrated = false;
     let onScreen = true, held = null;      // held: the play() waiting for the hero to come back on screen
+    let auto = true;                       // the first wait plays the spell by itself if the cursor stays away
 
     const say = (html) => {
       bubble.hidden = !html;
@@ -1387,7 +1390,7 @@
     const paint = (t) => {
       let n = 0;
       pills.forEach((li, k) => { const on = t >= FLIP[k]; li.classList.toggle("is-fixed", on); n += on; });
-      const text = n === pills.length ? "Your business in 2–4 weeks" : n ? `Fixing… ${n} of ${pills.length}` : "Your business today";
+      const text = n === pills.length ? "Your business in 3 days" : n ? `Fixing… ${n} of ${pills.length}` : "Your business today";
       if (label.textContent !== text) label.textContent = text;
     };
     const finish = () => {
@@ -1406,7 +1409,7 @@
     };
     // autoplay blocked (iPhone Low Power Mode): the bear waits holding the star, a tap starts it
     const blocked = () => {
-      video.currentTime = shown = T_READY;
+      video.currentTime = shown = T_READY; auto = false;   // play() just failed: wait for a click
       state = "ready"; readyAt = performance.now(); say(ASK); loop();
     };
     const cast = () => { state = "casting"; spell.classList.remove("is-done"); say(""); play(finish); };
@@ -1450,7 +1453,7 @@
       const dt = Math.min(0.1, (now - (last || now)) / 1000); last = now;
       if (state === "walk" && video.currentTime >= T_READY - 0.03) {
         video.pause(); shown = video.currentTime;
-        if (canHover) { state = "ready"; readyAt = now; say(ASK); }
+        if (canHover) { state = "ready"; readyAt = now; say(auto ? "" : ASK); }
         else { state = "wait"; return setTimeout(cast, 600); }   // "wait": a second tick can't queue another cast
       }
       if (state === "ready") {
@@ -1458,8 +1461,10 @@
         shown += (T_READY + eased * (T_END - T_READY) - shown) * Math.min(1, dt * 7);
         if (seeking && now - seekAt > 400) seeking = false;          // a lost "seeked" event
         if (!seeking && Math.abs(video.currentTime - shown) > 0.5 / FPS) { seeking = true; seekAt = now; video.currentTime = shown; }
-        say(prox > 0.25 ? KEEP : ASK);
-        if (prox < 0.08 && nudges < 3 && now - readyAt > 3500 + nudges * 5000) { nudges++; nudge(bubble); }
+        if (auto && prox < 0.08 && now - readyAt > 1200) { auto = false; return cast(); }
+        if (prox > 0.08) auto = false;                                 // they found the bear: it's theirs to drive
+        say(prox > 0.25 ? KEEP : auto ? "" : ASK);
+        if (!auto && prox < 0.08 && nudges < 3 && now - readyAt > 3500 + nudges * 5000) { nudges++; nudge(bubble); }
         paint(shown);
       }
       if (state === "casting") paint(video.currentTime);

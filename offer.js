@@ -49,7 +49,7 @@
       total += fee;
     }
     const ids = new Set(picked.map((p) => p.opt.id));
-    const from = lines.some((l) => l.from);   // e.g. an online store "from $1,290": the total is a starting price
+    const from = lines.some((l) => l.from);   // e.g. an online store "from $790": the total is a starting price
     return { t, type, pages, lines, monthlyLines, quoted, total, monthly, ids, from, speed: speed?.opt.id, time: speed ? speed.opt[t + "Time"] : type.time };
   }
 
