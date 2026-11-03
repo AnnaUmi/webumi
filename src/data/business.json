@@ -6,9 +6,18 @@
  "logo": "https://webumi.com.au/icon-512.png",
  "image": "https://webumi.com.au/og-image.png",
  "slogan": "More customers. Less admin.",
- "description": "Webumi is a Sydney web and AI studio: website design Sydney, online shops, app development (PWA, iOS and Android), web app and custom software development, AI video production, automations and AI assistants for small and mid-sized businesses Australia-wide.",
+ "description": "Webumi is a Sydney web and AI studio. We design websites and online shops, develop apps (PWA, iOS and Android), web apps and custom software, and make AI videos, automations and AI assistants for small and mid-sized businesses in Sydney and Australia-wide.",
  "email": "hello@webumi.com.au",
  "telephone": "+61 493 310 798",
+ "contactPoint": {
+  "@type": "ContactPoint",
+  "contactType": "customer service",
+  "telephone": "+61 493 310 798",
+  "email": "hello@webumi.com.au",
+  "areaServed": "AU",
+  "availableLanguage": "en-AU",
+  "url": "https://webumi.com.au/contact/"
+ },
  "openingHoursSpecification": {
   "@type": "OpeningHoursSpecification",
   "dayOfWeek": [
@@ -23,14 +32,26 @@
   "closes": "19:00"
  },
  "taxID": "ABN 42 183 713 603",
+ "sameAs": [
+  "https://abr.business.gov.au/ABN/View?abn=42183713603"
+ ],
  "founder": {
   "@type": "Person",
-  "name": "Anna"
+  "@id": "https://webumi.com.au/about/#founder",
+  "name": "Anna",
+  "url": "https://webumi.com.au/about/",
+  "worksFor": {
+   "@id": "https://webumi.com.au/#business"
+  }
  },
  "areaServed": [
   {
    "@type": "City",
    "name": "Sydney"
+  },
+  {
+   "@type": "State",
+   "name": "New South Wales"
   },
   {
    "@type": "Country",

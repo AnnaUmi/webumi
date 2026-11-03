@@ -62,13 +62,17 @@
   const sticky = $("#stickyCta");
   const contact = $("#contact");
   const build = $("#build");
+  const mainCta = $("main .btn--primary");   // the page's own first button (on the home page it sits below the bear on phones)
 
   const onScroll = () => {
     nav.classList.toggle("is-scrolled", scrollY > 8);
     const contactTop = contact ? contact.getBoundingClientRect().top : Infinity;
     const b = build?.getBoundingClientRect();
     const inBuilder = b && b.top < innerHeight && b.bottom > 0;
-    sticky.classList.toggle("is-shown", scrollY > 600 && contactTop > innerHeight && !inBuilder);
+    // shown whenever the page's own button is out of sight, also before any scrolling
+    const c = mainCta?.getBoundingClientRect();
+    const ctaInView = c ? c.top < innerHeight && c.bottom > 0 : scrollY <= 600;
+    sticky.classList.toggle("is-shown", !ctaInView && contactTop > innerHeight && !inBuilder);
   };
   addEventListener("scroll", onScroll, { passive: true });
   onScroll();
@@ -379,7 +383,8 @@
       statIO.unobserve(el);
     });
   }, { threshold: 0.6 });
-  $$("[data-count]").forEach((el) => statIO.observe(el));
+  // the HTML holds the final number (what search engines and AI tools read); the count-up starts from 0
+  $$("[data-count]").forEach((el) => { el.textContent = "0"; statIO.observe(el); });
 
   /* ---------- Website builder ---------- */
   const bld = $("#builder");

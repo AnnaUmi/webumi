@@ -54,14 +54,14 @@
                     {{icon:sparkle}}
                     <span class="lvl__for" data-for="landing">
                       <b class="opt__t">Signature landing page <span class="lvl__tag">Stand out</span></b>
-                      <span class="lvl__line">Grab attention. Be remembered.</span>
-                      <span class="opt__d">A bold, modern page built to capture attention from the first second. Interactive video, expressive animation and elements that respond as visitors explore make yours the business they remember.</span>
+                      <span class="lvl__line">A custom design with motion and video.</span>
+                      <span class="opt__d">A page designed for your brand, with a video opening, scroll animations and sections that respond as visitors explore.</span>
                       <span class="lvl__list"><span>An attention-grabbing video opening</span><span>Interactive sliders and elements that respond as visitors explore</span><span>Scroll animations that reveal your story</span><span>Video throughout the page to showcase your business in action</span></span>
                     </span>
                     <span class="lvl__for" data-for="website">
                       <b class="opt__t">Signature business website <span class="lvl__tag">Stand out</span></b>
-                      <span class="lvl__line">Grab attention. Be remembered.</span>
-                      <span class="opt__d">A bold, modern website experience built to capture attention, from the first screen to the final scroll. Interactive video, expressive animation and elements that respond as visitors explore make yours the business customers remember.</span>
+                      <span class="lvl__line">A custom design with motion and video.</span>
+                      <span class="opt__d">A website designed for your brand, with a video opening, scroll animations and sections that respond as visitors explore, on every page.</span>
                       <span class="lvl__list"><span>An attention-grabbing video opening</span><span>Interactive sliders and elements that respond as visitors explore</span><span>Scroll animations that reveal your story</span><span>Video throughout the site to showcase your business in action</span></span>
                     </span>
                     <span class="opt__p" data-price></span></span></label>
@@ -74,7 +74,7 @@
                 <label class="opt"><input type="radio" name="content" value="Professional text from my notes" data-landing="0" data-website="0" checked>
                   <span class="opt__box">{{icon:doc}}<b class="opt__t">Professional text</b><span class="opt__d">Send the text you have and we'll polish it, or send notes and we'll write clear, professional text from them. Optimised for Google and AI search tools like ChatGPT, so they understand what you offer.</span><span class="opt__p">Included</span></span></label>
                 <label class="opt"><input type="radio" name="content" value="Persuasive copy and slogan" data-landing="{{price:text-written:landing}}" data-website="{{price:text-written:website}}">
-                  <span class="opt__box">{{icon:sparkle}}<b class="opt__t">Persuasive copy &amp; slogan</b><span class="opt__d">Words that win hearts and minds. A memorable slogan, headlines that stop the scroll and text built on buyer psychology, so visitors feel understood and want to get in touch.</span><span class="opt__p" data-price></span></span></label>
+                  <span class="opt__box">{{icon:sparkle}}<b class="opt__t">Persuasive copy &amp; slogan</b><span class="opt__d">A slogan, headlines and page text written from scratch, based on what your customers search for and why they choose you over competitors.</span><span class="opt__p" data-price></span></span></label>
               </div>
             </fieldset>
 
@@ -176,7 +176,7 @@
             </fieldset>
 
             <div class="bld__bar">
-              <span><b id="bldBarTotal">$0</b><small id="bldBarMonthly"></small></span>
+              <span><b id="bldBarTotal">{{aud:website:price}}</b><small id="bldBarMonthly"></small></span>
               <a href="#bldSummary" class="btn btn--primary btn--small">See summary</a>
             </div>
           </div>
@@ -186,7 +186,7 @@
             <ul class="bld__lines" id="bldLines"></ul>
             <div class="bld__total">
               <span>Total</span>
-              <b id="bldTotal">$0</b>
+              <b id="bldTotal">{{aud:website:price}}</b>
             </div>
             <p class="bld__monthly" id="bldMonthly" hidden></p>
             <p class="bld__deposit" id="bldDeposit"></p>

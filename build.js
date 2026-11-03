@@ -39,6 +39,17 @@ const SRC = path.join(__dirname, "src");
 const DIST = path.join(__dirname, "dist");
 const today = new Date().toISOString().slice(0, 10);
 
+// When a page last really changed: the date of its source file's last commit, or today if it has unsaved edits.
+// Google ignores lastmod dates that change on every build, so the build date is only a fallback.
+const { execFileSync } = require("child_process");
+function changedOn(file) {
+  try {
+    const git = (...a) => execFileSync("git", a, { cwd: __dirname, encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] }).trim();
+    if (git("status", "--porcelain", "--", file)) return today;
+    return git("log", "-1", "--format=%cs", "--", file) || today;
+  } catch { return today; }
+}
+
 const read = (p) => fs.readFileSync(p, "utf8");
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
 const strip = (s) => s.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim()
@@ -102,8 +113,8 @@ function schemaFor(page, body) {
   const graph = [
     business,
     { "@type": "WebSite", "@id": SITE + "/#website", url: SITE + "/", name: "Webumi", inLanguage: "en-AU", publisher: { "@id": SITE + "/#business" } },
-    { "@type": "WebPage", "@id": url + "#webpage", url, name: page.title, description: page.description,
-      isPartOf: { "@id": SITE + "/#website" }, about: { "@id": SITE + "/#business" }, inLanguage: "en-AU", dateModified: today },
+    { "@type": page.url === "/projects/" ? "CollectionPage" : "WebPage", "@id": url + "#webpage", url, name: page.title, description: page.description,
+      isPartOf: { "@id": SITE + "/#website" }, about: { "@id": SITE + "/#business" }, inLanguage: "en-AU", dateModified: page.modified || today },
   ];
   if (page.url === "/404/") graph.pop();   // shown at any missing address: no page or breadcrumb of its own
   else if (page.url !== "/") {
@@ -112,11 +123,23 @@ function schemaFor(page, body) {
     if (parts.length > 1 && page.parentCrumb) items.push({ "@type": "ListItem", position: 2, name: page.parentCrumb[0], item: SITE + page.parentCrumb[1] });
     items.push({ "@type": "ListItem", position: items.length + 1, name: page.crumb || page.title, item: url });
     graph.push({ "@type": "BreadcrumbList", "@id": url + "#breadcrumb", itemListElement: items });
+    graph[2].breadcrumb = { "@id": url + "#breadcrumb" };
   }
   const faqs = [...body.matchAll(/<summary>([\s\S]*?)<\/summary>\s*<p>([\s\S]*?)<\/p>/g)]
     .map(([, q, a]) => ({ "@type": "Question", name: strip(q), acceptedAnswer: { "@type": "Answer", text: strip(a) } }));
   if (faqs.length) graph.push({ "@type": "FAQPage", "@id": url + "#faq", mainEntity: faqs });
-  if (page.service) graph.push({ "@type": "Service", "@id": url + "#service", provider: { "@id": SITE + "/#business" }, areaServed: { "@type": "Country", name: "Australia" }, url, ...page.service });
+  if (page.service) {
+    // "price": a starting price, or a catalog id (e.g. "website") whose price goes into the Service's offer
+    const { price, ...service } = page.service;
+    const from = typeof price === "number" ? price : price && priceOf(catalog(), price, "price");
+    graph.push({ "@type": "Service", "@id": url + "#service", provider: { "@id": SITE + "/#business" },
+      areaServed: [{ "@type": "City", name: "Sydney" }, { "@type": "Country", name: "Australia" }], url, ...service,
+      ...(from && !service.offers && { offers: { "@type": "Offer", url: SITE + "/pricing/", priceCurrency: "AUD", availability: "https://schema.org/InStock",
+        priceSpecification: { "@type": "PriceSpecification", minPrice: String(from), priceCurrency: "AUD" } } }) });
+  }
+  // the price list: the same catalog as the business, as a Service of its own
+  if (page.url === "/pricing/") graph.push({ "@type": "Service", "@id": url + "#service", name: "Websites, apps and platforms: prices",
+    provider: { "@id": SITE + "/#business" }, areaServed: { "@type": "Country", name: "Australia" }, url, hasOfferCatalog: business.hasOfferCatalog });
   return JSON.stringify({ "@context": "https://schema.org", "@graph": graph }, null, 1);
 }
 
@@ -143,12 +166,17 @@ function build() {
     if (!m) throw new Error(`Missing <!--meta --> block in ${file}`);
     const page = JSON.parse(m[1]);
     page.url = urlFor(file);
+    page.modified = changedOn(file);
     for (const k of ["title", "description"]) if (!page[k]) throw new Error(`${file}: meta "${k}" is required`);
     if (page.description.length > 165) console.warn(`  ! ${page.url} description is ${page.description.length} chars (aim for ≤160)`);
 
     const data = (f) => JSON.parse(read(path.join(SRC, "data", f)));
     const vars = { ...data("contact.json"), ...data("site.json"), ...page, site: SITE };
-    const body = render(raw.slice(m[0].length), vars);
+    const body = render(raw.slice(m[0].length), vars)
+      // price builder: write each option's price (for the default, a business website) into the HTML, so search engines
+      // and AI tools can read it; script.js rewrites it when the visitor changes the type
+      .replace(/(<input[^>]*data-website="(\d+)"[^>]*>(?:(?!<\/label>)[\s\S])*?<span class="opt__p" data-price( data-from)?>)<\/span>/g,
+        (_, start, price, from) => `${start}${from ? "from +" : "+"}$${(+price).toLocaleString("en-AU")}</span>`);
     const html = render(layout, {
       ...vars,
       title: esc(page.title),
@@ -158,8 +186,8 @@ function build() {
       content: body,
       schema: schemaFor(page, body),
     })
-      // personal pages (e.g. a visitor's plan) stay out of Google
-      .replace("</head>", page.noindex ? '  <meta name="robots" content="noindex">\n</head>' : "</head>")
+      // personal pages (e.g. a visitor's plan) and the 404 page stay out of Google
+      .replace(/<meta name="robots" content="[^"]*">/, (tag) => (page.noindex ? '<meta name="robots" content="noindex, follow">' : tag))
       // the 404 page is shown at whatever address was mistyped, so it can't name its own URL
       .replace(page.url === "/404/" ? /\s*<link rel="canonical"[^>]*>|\s*<meta property="og:url"[^>]*>/g : /$^/, "")
       // mark the current page in the navigation
@@ -169,13 +197,13 @@ function build() {
     const out = page.url === "/404/" ? path.join(DIST, "404.html") : path.join(DIST, page.url, "index.html");
     fs.mkdirSync(path.dirname(out), { recursive: true });
     fs.writeFileSync(out, html);
-    if (!page.noindex) urls.push({ url: page.url, priority: page.url === "/" ? "1.0" : page.url.split("/").length > 3 ? "0.7" : "0.8" });
+    if (!page.noindex) urls.push({ url: page.url, modified: page.modified });
   }
 
   urls.sort((a, b) => a.url.localeCompare(b.url));
   fs.writeFileSync(path.join(DIST, "sitemap.xml"),
     `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
-    urls.map((u) => `  <url><loc>${SITE}${u.url}</loc><lastmod>${today}</lastmod><priority>${u.priority}</priority></url>`).join("\n") +
+    urls.map((u) => `  <url><loc>${SITE}${u.url}</loc><lastmod>${u.modified}</lastmod></url>`).join("\n") +
     `\n</urlset>\n`);
   console.log(`Built ${urls.length} pages → dist/`);
   return urls;
