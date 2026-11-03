@@ -606,7 +606,11 @@
   const items = [...$("svcList").children], pics = [...document.querySelectorAll(".svc__pic")];
   const pickService = (i) => {
     items.forEach((el, k) => el.classList.toggle("is-on", k === i));
-    pics.forEach((el, k) => el.classList.toggle("is-on", k === i));
+    pics.forEach((el, k) => {
+      el.classList.toggle("is-on", k === i);
+      const v = el.querySelector("video");
+      if (v) { if (k === i && !reduceMotion) v.play().catch(() => {}); else v.pause(); }
+    });
   };
   const svcIo = new IntersectionObserver((entries) => {
     for (const e of entries) if (e.isIntersecting) pickService(items.indexOf(e.target));

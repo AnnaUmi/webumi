@@ -365,6 +365,14 @@ html:not(.js) .cover { display: none; }
 .svc__pic { position: absolute; inset: 0; margin: 0; opacity: 0; transform: scale(1.06); transition: opacity .8s var(--ease), transform 1.4s var(--ease); }
 .svc__pic.is-on { opacity: 1; transform: none; }
 .svc__pic img { width: 100%; height: 100%; object-fit: cover; }
+/* motorised curtains: a real clip of a panoramic window plays while this service is lit */
+.svc__pic video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.motor__chip { position: absolute; left: 50%; bottom: 22px; translate: -50% 0; display: flex; align-items: center; gap: 9px; padding: 9px 16px 9px 12px; border-radius: 99px;
+  background: rgba(26, 10, 18, .62); color: var(--ivory); font: 600 11.5px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase;
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+.motor__chip b { width: 8px; height: 8px; border-radius: 50%; background: var(--brass); box-shadow: 0 0 0 0 rgba(180, 146, 90, .7); }
+.svc__pic--motor.is-on .motor__chip b { animation: motor-ping 1.4s .5s infinite ease-out; background: #9be39b; transition: background .3s .6s; }
+@keyframes motor-ping { to { box-shadow: 0 0 0 10px rgba(155, 227, 155, 0); } }
 .svc__list { list-style: none; margin: 0; padding: 0; counter-reset: s; }
 .svc__item {
   display: grid; grid-template-columns: 56px 1fr; gap: 6px 20px;

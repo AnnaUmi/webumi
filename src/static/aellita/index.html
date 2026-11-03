@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=Josefin+Sans:wght@200;300&amp;family=Manrope:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="media/room-start-1920.jpg" imagesrcset="media/room-start-1280.jpg 1280w, media/room-start-1920.jpg 1920w" imagesizes="(max-aspect-ratio: 1/1) 240vw, 115vw" fetchpriority="high">
-  <link rel="stylesheet" href="styles.css?v=54">
+  <link rel="stylesheet" href="styles.css?v=56">
   <script>document.documentElement.classList.add("js")</script>
 </head>
 <body>
@@ -184,10 +184,11 @@
         <div class="svc">
           <div class="svc__media" aria-hidden="true">
             <figure class="svc__pic is-on" data-i="0"><img src="media/work-bedroom.jpg" alt="" loading="lazy" width="900" height="1200"></figure>
-            <figure class="svc__pic" data-i="1"><img src="media/work-roman.jpg" alt="" loading="lazy" width="1000" height="1250"></figure>
-            <figure class="svc__pic" data-i="2"><img src="media/capitone-bed.jpg" alt="" loading="lazy" width="682" height="853"></figure>
-            <figure class="svc__pic" data-i="3"><img src="media/work-pattern.jpg" alt="" loading="lazy" width="1000" height="1250"></figure>
-            <figure class="svc__pic" data-i="4"><img src="media/work-garden.jpg" alt="" loading="lazy" width="1000" height="1250"></figure>
+            <figure class="svc__pic svc__pic--motor" data-i="1"><video src="media/svc-motor.mp4" poster="media/svc-motor.jpg" muted loop playsinline preload="none" width="600" height="750"></video><span class="motor__chip"><b></b>Jedním kliknutím</span></figure>
+            <figure class="svc__pic" data-i="2"><img src="media/work-roman.jpg" alt="" loading="lazy" width="1000" height="1250"></figure>
+            <figure class="svc__pic" data-i="3"><img src="media/capitone-bed.jpg" alt="" loading="lazy" width="682" height="853"></figure>
+            <figure class="svc__pic" data-i="4"><img src="media/work-pattern.jpg" alt="" loading="lazy" width="1000" height="1250"></figure>
+            <figure class="svc__pic" data-i="5"><img src="media/work-garden.jpg" alt="" loading="lazy" width="1000" height="1250"></figure>
           </div>
           <ol class="svc__list" id="svcList">
             <li class="svc__item is-on reveal" data-i="0">
@@ -201,29 +202,37 @@
             <li class="svc__item reveal" data-i="1">
               <span class="svc__num">02</span>
               <div>
+                <h3>Závěsy na elektrický pohon</h3>
+                <p>Lehké, splývavé závěsy, které se otevřou jedním kliknutím – z ovladače, telefonu nebo hlasem. Ideální pro velká panoramatická okna.</p>
+              </div>
+              <img class="svc__thumb" src="media/svc-motor.jpg" alt="Panoramatické okno se splývavými záclonami na elektrický pohon" loading="lazy" width="600" height="750">
+            </li>
+            <li class="svc__item reveal" data-i="2">
+              <span class="svc__num">03</span>
+              <div>
                 <h3>Garnýže a rolety</h3>
                 <p>Kolejnicové, lankové i tyčové systémy, dřevěné a mosazné tyče. Ovládání ruční, elektrické i časované. Tvarujeme je do arkýře i klenby.</p>
               </div>
               <img class="svc__thumb" src="media/work-roman.jpg" alt="Římská roleta a závěsy na garnýži" loading="lazy" width="1000" height="1250">
             </li>
-            <li class="svc__item reveal" data-i="2">
-              <span class="svc__num">03</span>
+            <li class="svc__item reveal" data-i="3">
+              <span class="svc__num">04</span>
               <div>
                 <h3>Capitone</h3>
                 <p>Čalouněné panely, čela postelí, taburety a zrcadla v technice capitone. Podle vašeho nákresu nebo fotografie.</p>
               </div>
               <img class="svc__thumb" src="media/capitone-bed.jpg" alt="Čalouněné čelo postele v technice capitone" loading="lazy" width="682" height="853">
             </li>
-            <li class="svc__item reveal" data-i="3">
-              <span class="svc__num">04</span>
+            <li class="svc__item reveal" data-i="4">
+              <span class="svc__num">05</span>
               <div>
                 <h3>Tapety</h3>
                 <p>Papírové, vliesové i textilní, ze světových výstav. Vzory, které ladí s vašimi závěsy, i nezávadné tapety do dětských pokojů.</p>
               </div>
               <img class="svc__thumb" src="media/work-pattern.jpg" alt="Vzorovaná římská roleta" loading="lazy" width="1000" height="1250">
             </li>
-            <li class="svc__item reveal" data-i="4">
-              <span class="svc__num">05</span>
+            <li class="svc__item reveal" data-i="5">
+              <span class="svc__num">06</span>
               <div>
                 <h3>Čištění textilu</h3>
                 <p>Šetrné praní závěsů a záclon, které zachová barvu i tvar látky. Odvezeme, vyčistíme a znovu pověsíme.</p>
@@ -447,6 +456,6 @@
     <button class="lightbox__close" id="lightboxClose" type="button" aria-label="Zavřít">×</button>
   </dialog>
 
-  <script src="app.js?v=54" defer></script>
+  <script src="app.js?v=56" defer></script>
 </body>
 </html>
