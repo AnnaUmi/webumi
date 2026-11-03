@@ -87,7 +87,6 @@
       "name": "Domain + hosting, 1 year",
       "landing": 110,
       "website": 110,
-      "noRush": true,
       "desc": ".com.au domain registered in the client's name plus 12 months hosting and SSL. Default (free): client already has domain and hosting."
     },
     {
@@ -250,22 +249,12 @@
       "desc": "Enquiries, invoices and follow-ups sent automatically. Priced after a chat."
     },
     {
-      "id": "rush",
+      "id": "faster",
       "group": "speed",
-      "name": "Rush delivery",
-      "percent": 25,
-      "landingTime": "2–3 business days",
-      "websiteTime": "about 1 week",
-      "desc": "About half the usual time. +25% on the build (not on domain & hosting)."
-    },
-    {
-      "id": "express",
-      "group": "speed",
-      "name": "Express delivery",
-      "percent": 50,
-      "landingTime": "1–2 business days",
-      "websiteTime": "5 business days",
-      "desc": "Top priority: landing page live in 1–2 business days, business website in 5 business days, once text and photos are received. +50% on the build (not on domain & hosting)."
+      "name": "Faster delivery",
+      "quote": true,
+      "range": "0–50%",
+      "desc": "Need it sooner? Tell us your deadline. We discuss what you need and when, then add 0–50% to the build depending on how fast (not on domain & hosting)."
     }
   ],
   "included": [
@@ -440,7 +429,7 @@
       }
     ],
     "notes": [
-      "Express delivery: 100% upfront, because the work starts straight away.",
+      "Faster delivery: 0–50% on the build, agreed once we've discussed your deadline.",
       "Apps and platforms: paid in stages, as each stage is delivered.",
       "Bank transfer or card. Invoices under ABN 42 183 713 603."
     ]
