@@ -503,12 +503,12 @@
     build();
   });
 
-  // the pincushion squishes on a tap too, not only under a mouse
-  const pin = $("pincushion");
-  if (pin) pin.addEventListener("pointerdown", () => {
-    pin.classList.remove("is-poked"); void pin.offsetWidth; pin.classList.add("is-poked");
-  });
-  pin?.addEventListener("animationend", () => pin.classList.remove("is-poked"));
+  // the pincushion and the tape react to a tap too, not only under a mouse
+  for (const toy of [$("pincushion"), $("tape")]) {
+    if (!toy) continue;
+    toy.addEventListener("pointerdown", () => { toy.classList.remove("is-poked"); void toy.offsetWidth; toy.classList.add("is-poked"); });
+    toy.addEventListener("animationend", () => toy.classList.remove("is-poked"));
+  }
 
   const pile = $("pile");
   if (pile) {

@@ -719,6 +719,11 @@ html:not(.js) .hem { display: none; }
 .deco--pin { position: relative; width: clamp(120px, 11vw, 160px); pointer-events: auto; cursor: pointer; }
 .deco--pin img { transform-origin: 50% 100%; filter: drop-shadow(0 0 18px rgba(212, 175, 120, .28)) drop-shadow(0 18px 14px rgba(0, 0, 0, .5)); }
 .deco--pin:hover img, .deco--pin.is-poked img { animation: poke .9s cubic-bezier(.3, .7, .4, 1); }
+/* and a rolled tailor's tape beside it that gives a little wiggle when you point at it */
+.deco--tape { position: relative; width: clamp(84px, 7.4vw, 110px); margin-bottom: 2px; pointer-events: auto; cursor: pointer; }
+.deco--tape img { transform-origin: 50% 90%; filter: drop-shadow(0 0 14px rgba(212, 175, 120, .22)) drop-shadow(0 12px 10px rgba(0, 0, 0, .5)); }
+.deco--tape:hover img, .deco--tape.is-poked img { animation: wiggle .8s ease-in-out; }
+@keyframes wiggle { 0%, 100% { transform: none; } 20% { transform: rotate(-7deg); } 45% { transform: rotate(5deg); } 70% { transform: rotate(-3deg); } 85% { transform: rotate(1.5deg); } }
 @keyframes poke {
   0%   { transform: none; }
   18%  { transform: scale(1.14, .8); }
@@ -732,8 +737,8 @@ html:not(.js) .hem { display: none; }
 @media (max-width: 860px) {
   .deco--finial { display: none; }
   .stats__toys { position: absolute; right: 0; top: 0; margin: 0; gap: 8px; }
-  .deco--pin { width: 76px; }
-  .stats__head { position: relative; padding-right: 92px; }
+  .deco--pin { width: 76px; } .deco--tape { width: 52px; }
+  .stats__head { position: relative; padding-right: 148px; }
 }
 
 /* ---------- reveal ---------- */
