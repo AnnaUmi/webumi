@@ -471,6 +471,38 @@
 
   // the cushion pile rolls in only once it is fully on screen and above the bottom quarter, so it is seen;
   // once it drops back below the screen it resets, and rolls in again next time
+  // ---------- hems: a brass stitch runs along the top of a sheet as it rises over the picture, a needle leading it ----------
+  document.querySelectorAll(".hem").forEach((hem, n) => {
+    const host = hem.parentElement,
+          stitch = hem.querySelector(".hem__stitch"), reveal = hem.querySelector(".hem__reveal"), needle = hem.querySelector(".hem__needle");
+    hem.querySelector("mask").id = "hemMask" + n; stitch.setAttribute("mask", `url(#hemMask${n})`);
+    let len = 0, busy = false;
+    const sew = () => {
+      busy = false;
+      const t = host.getBoundingClientRect().top;
+      if (n === 0 && rail) rail.classList.toggle("is-gone", t < innerHeight * 1.02);
+      if (!len) return;
+      const p = reduceMotion ? 1 : clamp((innerHeight - t) / (innerHeight * 0.7), 0, 1);
+      reveal.style.strokeDashoffset = len * (1 - p);
+      const pt = stitch.getPointAtLength(len * p), ah = stitch.getPointAtLength(Math.min(len, len * p + 2));
+      const ang = Math.atan2(ah.y - pt.y, ah.x - pt.x) * 180 / Math.PI;
+      needle.setAttribute("transform", `translate(${pt.x} ${pt.y}) rotate(${ang - 135})`);
+      hem.classList.toggle("is-done", p >= 1 || p <= 0);
+    };
+    const build = () => {
+      const W = hem.clientWidth, R = parseFloat(getComputedStyle(host).borderTopLeftRadius) || 44,
+            d = R < 36 ? 12 : 18, r = R - d, tail = R + 40;
+      const path = `M${d} ${tail}V${R}A${r} ${r} 0 0 1 ${R} ${d}H${W - R}A${r} ${r} 0 0 1 ${W - d} ${R}V${tail}`;
+      stitch.setAttribute("d", path); reveal.setAttribute("d", path);
+      len = stitch.getTotalLength();
+      reveal.style.strokeDasharray = len;
+      sew();
+    };
+    addEventListener("scroll", () => { if (!busy) { busy = true; requestAnimationFrame(sew); } }, { passive: true });
+    addEventListener("resize", build);
+    build();
+  });
+
   const pile = $("pile");
   if (pile) {
     new IntersectionObserver(([e]) => { if (e.isIntersecting) pile.classList.add("is-in"); },
@@ -546,17 +578,6 @@
     }
     el.classList.add("curtain");
     curtainIo.observe(el);
-  });
-
-  // a stitch at the top of each section, the needle leading the thread
-  const seamIo = new IntersectionObserver((entries) => {
-    for (const e of entries) if (e.isIntersecting) { e.target.classList.add("is-in"); seamIo.unobserve(e.target); }
-  }, { rootMargin: "0px 0px -15% 0px" });
-  document.querySelectorAll(".services > .wrap, .process > .wrap, .refs > .wrap, .team > .wrap").forEach((wrap) => {
-    const seam = document.createElement("div");
-    seam.className = "seam"; seam.setAttribute("aria-hidden", "true"); seam.innerHTML = "<i></i>";
-    wrap.prepend(seam);
-    seamIo.observe(seam);
   });
 
   // the ribbon of what we make drifts sideways as you scroll
