@@ -89,10 +89,10 @@ h1, h2, h3, .brand, .shift__word, .tape, .clip__no {
    Scrolling scales the sheet up around the red 1 until the film fills the screen. */
 .gate { position: relative; height: 100svh; background: #000; }
 .js .gate { height: 320svh; --s: 1; --mo: 1; --go: 1; --co: 1; --to: 0; --vs: 1.22; --mx: 0; --my: 0; }
-.gate__stick { position: sticky; top: 0; height: 100svh; overflow: hidden; isolation: isolate; }
+.gate__stick { position: sticky; top: 0; height: 100svh; overflow: hidden; isolation: isolate; background: #000; }
 .gate__video {
   position: absolute; inset: -2%; width: 104%; height: 104%; object-fit: cover;
-  transform: translate(calc(var(--mx) * -1vw), calc(var(--my) * -.6vw)) scale(var(--vs));
+  transform: translate(calc(var(--mx) * -1vw), calc(var(--my) * -.6vw)) scale(calc(var(--vs) * var(--vk, 1)));
   filter: brightness(1.15) contrast(1.06);
 }
 .gate__mask {
@@ -125,6 +125,9 @@ h1, h2, h3, .brand, .shift__word, .tape, .clip__no {
 }
 .gate__title > span:not(.sr) { display: block; }
 .gate__title b { color: var(--red); font-weight: inherit; }
+/* phones open on the kettlebell clip, so the opening line names the Beast campaign there */
+.gate__title .on-phone { display: none; }
+@media (max-width: 860px) { .gate__title .on-wide { display: none; } .gate__title .on-phone { display: inline; } }
 .js .gate__title { opacity: var(--to); transform: translateY(calc((1 - var(--to)) * 60px)); }
 .gate__cue {
   position: absolute; left: 50%; bottom: 26px; z-index: 2;
@@ -238,6 +241,8 @@ h1, h2, h3, .brand, .shift__word, .tape, .clip__no {
 }
 /* the squat clip is cut wider than tall, so the whole barbell fits */
 .hero[data-mode="power"] .figure { aspect-ratio: 2 / 3; }
+/* the swing puts her body right of centre in her clip (the kettlebell pulls the frame left): bring her back to the middle */
+.hero[data-mode="beast"] .figure { translate: -4% 0; }
 .figure:focus-visible { outline-offset: -6px; }
 .figure { transition: opacity .28s ease, scale .45s var(--ease), filter .28s; }
 .hero.is-switching .figure { opacity: 0; scale: .96; filter: blur(6px); }
@@ -502,9 +507,13 @@ h1, h2, h3, .brand, .shift__word, .tape, .clip__no {
   /* on a tall screen the wordmark stacks, T1ER over ONE, so the letters (and the film inside them) fill the screen */
   .gate__sp { display: block; height: 0; overflow: hidden; }
   .gate__word { text-align: center; line-height: .84; }
-  .gate__mask { align-items: start; padding-top: 22svh; background: #242424; }   /* the film shows faintly round the letters too */
-  .gate__eyebrow { top: calc(22svh - 40px); }
-  .gate__video { filter: brightness(1.45) contrast(1.05) saturate(1.15); }
+  .gate__mask { align-items: start; padding-top: 33svh; background: #242424; }   /* the film shows faintly round the letters too */
+  .gate__eyebrow { top: calc(33svh - 40px); }
+  .gate__video { --vk: .86; filter: brightness(1.45) contrast(1.05) saturate(1.15); }
+  .gate__video {   /* soften the clip's edges into the black page */
+    -webkit-mask-image: radial-gradient(ellipse 62% 56% at 50% 50%, #000 70%, transparent 100%);
+    mask-image: radial-gradient(ellipse 62% 56% at 50% 50%, #000 70%, transparent 100%);
+  }   /* the upright clip has a black backdrop, so it can sit a little smaller: head and feet stay in frame */
   .gate__glow { background: radial-gradient(90vw circle at 50% 40%, rgba(227, 6, 19, .32), transparent 72%); }
   .kit__head { flex-direction: column; align-items: flex-start; gap: 14px; }
   .kit__count { text-align: left; }

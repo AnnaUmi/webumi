@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="media/power.jpg" fetchpriority="high">
-  <link rel="stylesheet" href="/projects/t1er-one/styles.css?v=7a68ee53">
+  <link rel="stylesheet" href="/projects/t1er-one/styles.css?v=87a34ae4">
   <script>document.documentElement.classList.add("js")</script>
 </head>
 <body>
@@ -36,13 +36,18 @@
     <!-- 0. The gate: the film plays inside the letters, scrolling flies through the red 1 -->
     <section class="gate" id="top">
       <div class="gate__stick">
-        <video class="gate__video" muted loop playsinline autoplay preload="auto" poster="media/gate.jpg" src="media/gate.mp4" aria-hidden="true"></video>
+        <video class="gate__video" muted loop playsinline autoplay preload="auto" poster="media/gate.jpg" aria-hidden="true">
+          <!-- phones get the upright kettlebell clip: the wide film would cut off her outstretched arms -->
+          <source media="(max-width: 860px)" src="media/beast-join.mp4" type="video/mp4">
+          <source src="media/gate.mp4" type="video/mp4">
+        </video>
+        <script>if (matchMedia("(max-width: 860px)").matches) document.querySelector(".gate__video").poster = "media/beast-join.jpg";</script>
         <div class="gate__mask" aria-hidden="true">
           <span class="gate__word">T<span class="gate__one">1</span>ER<span class="gate__sp">&nbsp;</span>ONE</span>
         </div>
         <div class="gate__glow" aria-hidden="true"></div>
         <p class="gate__eyebrow eyebrow">Women's activewear · Australia</p>
-        <h1 class="gate__title"><span class="sr">T1ER ONE. </span><span>Unlock</span> <span>the <b>Power</b></span></h1>
+        <h1 class="gate__title"><span class="sr">T1ER ONE. </span><span>Unlock</span> <span>the <b><span class="on-wide">Power</span><span class="on-phone">Beast</span></b></span></h1>
         <p class="gate__cue" aria-hidden="true">Scroll to unlock</p>
       </div>
     </section>
