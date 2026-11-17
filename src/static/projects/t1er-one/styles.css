@@ -239,6 +239,8 @@ h1, h2, h3, .brand, .shift__word, .tape, .clip__no {
 /* the squat clip is cut wider than tall, so the whole barbell fits */
 .hero[data-mode="power"] .figure { aspect-ratio: 2 / 3; }
 .figure:focus-visible { outline-offset: -6px; }
+.figure { transition: opacity .28s ease, scale .45s var(--ease), filter .28s; }
+.hero.is-switching .figure { opacity: 0; scale: .96; filter: blur(6px); }
 .figure canvas { display: block; width: 100%; height: 100%; }
 /* the source clips stay in the page so every browser keeps decoding them */
 .figure video { position: absolute; left: 0; top: 0; width: 2px; height: 2px; opacity: 0; pointer-events: none; }
