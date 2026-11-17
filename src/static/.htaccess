@@ -10,6 +10,15 @@ ErrorDocument 404 /404.html
   RewriteCond %{THE_REQUEST} \s/+(.*/)?index\.html[\s?] [NC]
   RewriteRule ^(.*/)?index\.html$ https://webumi.com.au/$1 [R=301,L]
 
+  # project pages moved to addresses that say what kind of business they are for
+  RewriteRule ^projects/t1er-one-ai-video/?$ https://webumi.com.au/projects/ai-video-for-gyms/ [R=301,L]
+  RewriteRule ^projects/t1er-one/(.*)$ https://webumi.com.au/projects/gym-activewear-website/$1 [R=301,L]
+  RewriteRule ^projects/square-plumb/(.*)$ https://webumi.com.au/projects/furniture-assembly-website/$1 [R=301,L]
+  RewriteRule ^projects/mewco/(.*)$ https://webumi.com.au/projects/pet-food-landing-page/$1 [R=301,L]
+  RewriteRule ^projects/t1er-one\.jpg$ https://webumi.com.au/projects/gym-activewear-website.jpg [R=301,L]
+  RewriteRule ^projects/square-plumb\.jpg$ https://webumi.com.au/projects/furniture-assembly-website.jpg [R=301,L]
+  RewriteRule ^projects/mewco\.jpg$ https://webumi.com.au/projects/pet-food-landing-page.jpg [R=301,L]
+
   # mark versioned CSS/JS requests (see the cache header below)
   RewriteCond %{QUERY_STRING} (^|&)v=
   RewriteRule \.(css|js)$ - [E=VERSIONED:1]

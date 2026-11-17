@@ -48,7 +48,11 @@ Tagline: "More customers. Less admin." — Web, AI & Automation for Small & Mid-
 - [Plan my website](https://webumi.com.au/plan/): free planner
 - [Order](https://webumi.com.au/order/): detailed order form, fixed quote within 1 business day
 - [About Webumi](https://webumi.com.au/about/)
-- [Projects](https://webumi.com.au/projects/): MyTalisman and Wealth Frequency iOS apps, MyGoodLuck web app (PWA)
+- [Projects](https://webumi.com.au/projects/): a live curtain studio website (Prague), website and AI video concepts for a gym and activewear brand, a furniture assembly installer and a pet food brand, the MyTalisman and Wealth Frequency iOS apps, the MyGoodLuck web app (PWA)
+- [AI video for gyms and activewear brands](https://webumi.com.au/projects/ai-video-for-gyms/): case study
+- [Gym and activewear website concept](https://webumi.com.au/projects/gym-activewear-website/)
+- [Furniture assembly and kitchen installer website concept](https://webumi.com.au/projects/furniture-assembly-website/)
+- [Pet food brand landing page concept](https://webumi.com.au/projects/pet-food-landing-page/)
 - [Free help for volunteer-run non-profits](https://webumi.com.au/non-profits/)
 - [Contact](https://webumi.com.au/contact/)
 - [For tradies](https://webumi.com.au/for/tradies/)

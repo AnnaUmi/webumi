@@ -154,6 +154,11 @@ function build() {
     const html = read(f);
     if (html.includes("{{v:")) fs.writeFileSync(f, html.replace(/\{\{v:([\w./-]+)\}\}/g, (_, x) => `/${x}?v=${fingerprint(x)}`));
   }
+  // concept sites that Google may index (no robots noindex) go into the sitemap too
+  const concepts = (fs.existsSync(projects) ? fs.readdirSync(projects, { withFileTypes: true }) : [])
+    .filter((d) => d.isDirectory() && fs.existsSync(path.join(projects, d.name, "index.html")))
+    .filter((d) => !/<meta name="robots" content="[^"]*noindex/.test(read(path.join(projects, d.name, "index.html"))))
+    .map((d) => ({ url: `/projects/${d.name}/`, modified: changedOn(path.join(SRC, "static", "projects", d.name, "index.html")) }));
   fs.writeFileSync(path.join(DIST, "api", "catalog-ai.json"), JSON.stringify(aiCatalog()));
 
   const layout = read(path.join(SRC, "layout.html"));
@@ -200,6 +205,7 @@ function build() {
     if (!page.noindex) urls.push({ url: page.url, modified: page.modified });
   }
 
+  urls.push(...concepts);
   urls.sort((a, b) => a.url.localeCompare(b.url));
   fs.writeFileSync(path.join(DIST, "sitemap.xml"),
     `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
