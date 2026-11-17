@@ -220,17 +220,30 @@
     figure.setAttribute("aria-pressed", on);
     pace();
   }
+  /* switching campaigns: the athlete fades down and out, the clip changes in the dark, the new one fades up */
+  var nextMode = null, swapTimer = 0;
   function setMode(mode) {
-    if (hero.dataset.mode === mode) return;
-    hero.dataset.mode = mode;
     modes.forEach(function (b) {
       var on = b.dataset.mode === mode;
       b.classList.toggle("is-on", on);
       b.setAttribute("aria-pressed", on);
     });
-    if (!calm) S.g = 1;
-    pace();
-    wake();
+    nextMode = mode;
+    if (swapTimer) return;                      // a swap is already under way; it will pick up the latest choice
+    if (hero.dataset.mode === mode) return;
+    if (calm) { apply(); return; }
+    hero.classList.add("is-switching");
+    swapTimer = setTimeout(apply, 280);
+    function apply() {
+      swapTimer = 0;
+      if (hero.dataset.mode !== nextMode) {
+        hero.dataset.mode = nextMode;
+        var v = clip(); try { v.currentTime = 0; } catch (e) {}
+        pace();
+        wake();
+      }
+      requestAnimationFrame(function () { hero.classList.remove("is-switching"); });
+    }
   }
 
   function heroFrame(t) {
