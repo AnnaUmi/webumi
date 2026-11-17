@@ -317,23 +317,18 @@
   <main id="top">
 <style>
       /* page-only pieces: the clip gallery and the two mock-ups */
-      .t1-reels { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 3vw, 40px); margin-top: clamp(28px, 4vw, 48px); }
+      .t1-reels { display: grid; grid-template-columns: repeat(2, minmax(0, 340px)); justify-content: center; gap: clamp(16px, 3vw, 40px); margin-top: clamp(28px, 4vw, 48px); }
       .t1-reel { margin: 0; display: grid; justify-items: center; gap: 14px; text-align: center; }
-      .t1-reel video { width: 100%; max-width: 300px; aspect-ratio: 9 / 16; object-fit: cover; border: 3px solid var(--black); border-radius: 28px; box-shadow: 8px 8px 0 var(--coral); background: #000; }
+      .t1-reel video { width: 100%; max-width: 340px; height: auto; aspect-ratio: 9 / 16; object-fit: cover; border: 3px solid var(--black); border-radius: 28px; box-shadow: 8px 8px 0 var(--coral); background: #000; }
       .t1-reel figcaption b { display: block; font-size: 1.05rem; }
       .t1-reel figcaption span { color: var(--muted, #5b6770); font-size: .92rem; }
       .t1-film { display: grid; justify-items: center; gap: 24px; margin-top: clamp(28px, 4vw, 48px); }
       .t1-wide { width: 100%; max-width: 1100px; height: auto !important; aspect-ratio: 16 / 9; border: 3px solid var(--black); border-radius: 24px; box-shadow: 8px 8px 0 var(--coral); background: #000; object-fit: cover; display: block; }
-      .t1-shots { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(16px, 3vw, 40px); margin-top: clamp(28px, 4vw, 48px); }
-      .t1-shots figure { margin: 0; }
-      .t1-shots img { width: 100%; height: auto; display: block; border: 3px solid var(--black); border-radius: 20px; }
-      .t1-shots figcaption { margin-top: 12px; font-size: .95rem; }
       .t1-logo { width: 100%; height: auto; display: block; border: 3px solid var(--black); border-radius: 20px; box-shadow: 8px 8px 0 var(--sun); }
       @media (max-width: 860px) {
         .t1-reels { grid-template-columns: 1fr; }
         .t1-reel video { max-width: 260px; }
-        .t1-shots { grid-template-columns: 1fr; }
-      }
+        }
     </style>
 
     <section class="phero">
@@ -343,15 +338,15 @@
           <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/projects/">Projects</a><span aria-hidden="true">/</span><span>T1ER ONE AI video</span></nav>
           <p class="kicker">Case study · AI video · Activewear</p>
           <h1>AI athletes in <em>T1ER ONE's own</em> activewear.</h1>
-          <p class="hero__lead">T1ER ONE is an Australian activewear brand getting ready for its women's drop: the Power Crop Tee and the Seamless Sculpt Short. They asked us whether AI video could show their real garments and logos, not generic sportswear. We made a test clip, four more clips for two campaigns, and a concept website to show them in.</p>
+          <p class="hero__lead">T1ER ONE is an Australian activewear brand getting ready for its women's drop: the Power Crop Tee and the Seamless Sculpt Short. They asked us whether AI video could show their real garments and logos, not generic sportswear. We made a test clip, clips for two campaigns, an opening film and a concept website to show them in.</p>
           <div class="hero__ctas">
             <a href="/projects/t1er-one/" class="btn btn--primary" target="_blank" rel="noopener">Open the concept site ↗</a>
             <a href="/order/?type=media" class="btn btn--ghost">Get a quote for AI video</a>
           </div>
         </div>
         <div class="aiv__demo reveal">
-          <video class="aiv__reel" data-play-in-view muted loop playsinline disablepictureinpicture preload="none" poster="/projects/t1er-one/case/swing.jpg?v=d559918d" width="810" height="1440" aria-label="An AI athlete in T1ER ONE activewear swinging a kettlebell">
-            <source src="/projects/t1er-one/case/swing.mp4?v=a44d87af" type="video/mp4">
+          <video class="aiv__reel" data-play-in-view muted loop playsinline disablepictureinpicture preload="none" poster="/projects/t1er-one/case/swing.jpg?v=33c173b5" width="1080" height="1920" aria-label="An AI athlete in T1ER ONE activewear swinging a kettlebell">
+            <source src="/projects/t1er-one/case/swing.mp4?v=3ea92879" type="video/mp4">
           </video>
         </div>
       </div>
@@ -368,6 +363,7 @@
             <li><b>Unlock the Beast:</b> discipline, drive and one more rep</li>
           </ul>
           <p>For the free test clip they asked for a women's office-to-gym scene, with the emblem placed exactly as on the mock-up.</p>
+          <p>The brand's materials carry two versions of the emblem: the tee mock-up uses a muscular figure, the shorts and the emblem file use the women's figure. We followed each mock-up as it was, so both appear in the clips, and the client picks one for the final ads.</p>
         </div>
         <div class="reveal">
           <img class="t1-logo" src="/projects/t1er-one/media/logo.jpg?v=1c236564" alt="The T1ER ONE women's emblem: a woman kneeling with her arms out and her head bowed, a large red 1 and the T1ER ONE wordmark with a red 1" width="1200" height="800" loading="lazy">
@@ -376,31 +372,11 @@
     </section>
 
     <section class="section">
-      <div class="wrap">
-        <div class="section__head reveal">
-          <p class="kicker">Two logos in the brief</p>
-          <h2>One emblem on the tee, another on the shorts.</h2>
-          <p class="section__sub">The brand's materials carry two versions of the emblem. The tee mock-up uses a muscular figure; the shorts and the emblem file use the women's figure. We followed each mock-up as it was, so both appear in the clips, and the client picks one for the final ads.</p>
-        </div>
-        <div class="t1-shots">
-          <figure class="reveal">
-            <img src="/projects/t1er-one/case/tee-mockup.jpg?v=6fe4f773" alt="T1ER ONE Power Crop Tee mock-up: emblem on the left chest and back neck, T1ER ONE on both sleeves, POWER with a red underline across the back" width="1400" height="933" loading="lazy">
-            <figcaption><b>Power Crop Tee.</b> Emblem on the left chest and back neck, wordmark on both sleeves, POWER across the back.</figcaption>
-          </figure>
-          <figure class="reveal">
-            <img src="/projects/t1er-one/case/shorts-mockup.jpg?v=69d4218e" alt="T1ER ONE Seamless Sculpt Short mock-up in five colours, with the women's emblem on the waistband" width="1400" height="933" loading="lazy">
-            <figcaption><b>Seamless Sculpt Short.</b> The women's emblem on the waistband, wordmarks on both legs, five colours.</figcaption>
-          </figure>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section--white">
       <div class="wrap split">
         <div class="prose reveal">
           <p class="kicker">The test clip</p>
           <h2>Office out. Gym in.</h2>
-          <p>She pulls off her blazer in the office corridor, and the scene cuts to her standing in the gym in the T1ER ONE kit. It's the scene the client asked for, with the logos on the chest, sleeves and shorts where the mock-ups put them.</p>
+          <p>She walks through her office in a black suit, and mid-stride the office turns into the gym: same walk, now in the T1ER ONE crop tee and shorts. It's the scene the client asked for, with the logos on the chest, sleeves and shorts where the mock-ups put them.</p>
           <ul class="checks">
             <li>The same face and figure in both scenes</li>
             <li>Logos placed from the client's mock-ups</li>
@@ -408,44 +384,38 @@
           </ul>
         </div>
         <div class="aiv__demo reveal">
-          <video class="aiv__reel" data-play-in-view muted loop playsinline disablepictureinpicture preload="none" poster="/projects/t1er-one/case/office-to-gym.jpg?v=bebb550c" width="480" height="854" aria-label="AI test clip: a woman in office clothes in a corridor, then in the gym in T1ER ONE activewear">
-            <source src="/projects/t1er-one/case/office-to-gym.mp4?v=af2f5c7a" type="video/mp4">
+          <video class="aiv__reel" data-play-in-view muted loop playsinline disablepictureinpicture preload="none" poster="/projects/t1er-one/case/office-to-gym.jpg?v=352cab0a" width="480" height="854" aria-label="AI test clip: a woman walks through an office in a suit, then keeps walking through a gym in T1ER ONE activewear">
+            <source src="/projects/t1er-one/case/office-to-gym.mp4?v=589a16e1" type="video/mp4">
           </video>
         </div>
       </div>
     </section>
 
-    <section class="section">
+    <section class="section section--white">
       <div class="wrap">
         <div class="section__head reveal">
           <p class="kicker">The campaign clips</p>
-          <h2>Three athletes, cut out and ready for any background.</h2>
-          <p class="section__sub">We made each clip on a green screen, cut the athlete out and lit her in the brand's black and red. The same cut-outs run on the concept site, where the cursor lights them.</p>
+          <h2>One athlete for each campaign.</h2>
+          <p class="section__sub">The clips as we made them, in a dark gym with red light, upscaled to 1080p. For the concept site we also made each athlete on a green screen, so she could be cut out and lit by the cursor.</p>
         </div>
         <div class="t1-reels">
           <figure class="t1-reel reveal">
-            <video data-play-in-view muted loop playsinline disablepictureinpicture preload="none" poster="/projects/t1er-one/case/squat.jpg?v=f23944c8" width="810" height="1440" aria-label="AI athlete in T1ER ONE activewear doing a back squat with a loaded barbell">
-              <source src="/projects/t1er-one/case/squat.mp4?v=14ae37fe" type="video/mp4">
+            <video data-play-in-view muted loop playsinline disablepictureinpicture preload="none" poster="/projects/t1er-one/case/squat.jpg?v=60555e1c" width="1080" height="1920" aria-label="AI athlete in T1ER ONE activewear doing a back squat with a loaded barbell">
+              <source src="/projects/t1er-one/case/squat.mp4?v=a14db31a" type="video/mp4">
             </video>
             <figcaption><b>Unlock the Power</b><span>Back squat, POWER across her back</span></figcaption>
           </figure>
           <figure class="t1-reel reveal">
-            <video data-play-in-view muted loop playsinline disablepictureinpicture preload="none" poster="/projects/t1er-one/case/swing.jpg?v=d559918d" width="810" height="1440" aria-label="AI athlete in T1ER ONE activewear swinging a kettlebell">
-              <source src="/projects/t1er-one/case/swing.mp4?v=a44d87af" type="video/mp4">
+            <video data-play-in-view muted loop playsinline disablepictureinpicture preload="none" poster="/projects/t1er-one/case/swing.jpg?v=33c173b5" width="1080" height="1920" aria-label="AI athlete in T1ER ONE activewear swinging a kettlebell">
+              <source src="/projects/t1er-one/case/swing.mp4?v=3ea92879" type="video/mp4">
             </video>
-            <figcaption><b>Unlock the Beast</b><span>Kettlebell swing, one seamless loop</span></figcaption>
-          </figure>
-          <figure class="t1-reel reveal">
-            <video data-play-in-view muted loop playsinline disablepictureinpicture preload="none" poster="/projects/t1er-one/case/walk.jpg?v=0fa95727" width="810" height="1440" aria-label="AI athlete in T1ER ONE activewear walking towards the camera">
-              <source src="/projects/t1er-one/case/walk.mp4?v=353dfe78" type="video/mp4">
-            </video>
-            <figcaption><b>9 to 5, 5 to 9</b><span>A walk straight at the camera</span></figcaption>
+            <figcaption><b>Unlock the Beast</b><span>Kettlebell swing in the gym</span></figcaption>
           </figure>
         </div>
       </div>
     </section>
 
-    <section class="section section--white">
+    <section class="section">
       <div class="wrap">
         <div class="section__head reveal">
           <p class="kicker">The opening film</p>
@@ -461,7 +431,7 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section section--white">
       <div class="wrap">
         <div class="proj__cta reveal">
           <div>
