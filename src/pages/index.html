@@ -6,65 +6,19 @@
 }
 -->
     <!-- ============ HERO ============ -->
-    <!-- The hero is the product: pick a business and a live, animated website rebuilds for it (hero-demo.js).
-         The bear in that trade's work clothes is the owner. Without JavaScript it shows the first business, still. -->
-    <section class="hero hero--live">
-      <div class="hero__glow" aria-hidden="true"></div>
-      <div class="wrap hero__grid">
-        <div class="hero__copy">
-          <p class="eyebrow reveal"><span class="dot"></span> <span>Website design Sydney</span></p>
-          <h1 class="hero__title reveal">Animated websites <span class="squiggle">that get you booked.</span></h1>
-          <p class="hero__lead reveal">Pick a business, type your name and watch your website come to life. We design and build interactive websites in Sydney with video, motion and <strong>online booking and payments built in</strong>, live in days.</p>
-          <div class="hero__ctas reveal">
-            <a href="/order/?type=website" class="btn btn--primary" id="liveCta">Get a website like this <span class="arrow">→</span></a>
-            <a href="#packages" class="btn btn--ghost">See prices</a>
-          </div>
-          <ul class="hero__facts reveal">
-            <li><span>Websites from <b>{{deal:landing:price}}</b></span></li>
-            <li><span>Live in <b>3 days</b></span></li>
-            <li><span>Pay nothing until you approve the quote</span></li>
-          </ul>
+    <!-- An open hero, no frames or cards: the bear building a website on a handmade miniature set fills the
+         whole width (video/hero-set.mp4, a 6-second loop; hero-set.webp is its first frame), the words sit on its empty left side. -->
+    <section class="sethero">
+      <video class="sethero__art" autoplay muted loop playsinline disablepictureinpicture preload="auto" poster="{{v:hero-set.webp}}" width="1920" height="1080" aria-hidden="true"><source src="{{v:video/hero-set.mp4}}" type="video/mp4"></video>
+      <div class="wrap sethero__copy">
+        <p class="sethero__kicker">Website design Sydney</p>
+        <h1 class="hero__title">Animated websites that take <span class="squiggle">bookings and payments.</span></h1>
+        <p class="hero__lead">We design and build your website in Sydney. It shows your work in video and motion, and <strong>customers book a time and pay online</strong>. Live in 3 days to 2 weeks.</p>
+        <div class="hero__ctas">
+          <a href="/order/?type=website" class="btn btn--primary">Get my website <span class="arrow">→</span></a>
+          <a href="#packages" class="sethero__link">See prices</a>
         </div>
-
-        <div class="live reveal" id="live" aria-label="Example websites: pick a business">
-          <div class="live__pick" role="group" aria-label="Pick a business">
-            <button type="button" data-k="cafe" aria-pressed="true">Café</button>
-            <button type="button" data-k="beauty" aria-pressed="false">Salon</button>
-            <button type="button" data-k="barber" aria-pressed="false">Barber</button>
-            <button type="button" data-k="groomer" aria-pressed="false">Dog groomer</button>
-            <button type="button" data-k="cleaner" aria-pressed="false">Cleaner</button>
-            <button type="button" data-k="mechanic" aria-pressed="false">Mechanic</button>
-            <button type="button" data-k="physio" aria-pressed="false">Physio</button>
-            <button type="button" data-k="dentist" aria-pressed="false">Dentist</button>
-            <button type="button" data-k="pilates" aria-pressed="false">Pilates</button>
-          </div>
-          <label class="live__name"><span>Now try yours</span><input id="liveName" type="text" maxlength="28" placeholder="Type your business name" autocomplete="off" spellcheck="false" enterkeyhint="done"></label>
-          <div class="live__tilt">
-            <div class="live__win">
-              <div class="live__bar" aria-hidden="true"><i></i><i></i><i></i><span class="live__url" id="liveUrl">littlebean.com.au</span></div>
-              <div class="site" id="liveSite">
-                <div class="site__nav"><b class="site__logo" data-f="name">Little Bean</b><span class="site__links"><i>Menu</i><i>About</i><i>Find us</i></span><span class="site__btn" data-f="cta">Order ahead</span></div>
-                <div class="site__hero">
-                  <div class="site__copy">
-                    <p class="site__tag" data-f="tag">Surry Hills · from 6:30am</p>
-                    <p class="site__h" data-f="h">Coffee that's ready when you are.</p>
-                    <span class="site__cta" data-f="cta">Order ahead</span>
-                    <p class="site__stars"><span aria-hidden="true">★★★★★</span> <span data-f="reviews">4.9 · 312 Google reviews</span></p>
-                  </div>
-                  <div class="site__art"><span class="site__blob"></span>
-                    <span class="bear bear--stand site__bear" aria-hidden="true"><video muted playsinline preload="none" disablepictureinpicture poster="{{v:video/bears/bear-barista.webp}}"></video></span>
-                  </div>
-                </div>
-                <ul class="site__cards">
-                  <li><span data-f="s0">Flat white</span><b data-f="p0">$5.50</b></li>
-                  <li><span data-f="s1">Brekkie roll</span><b data-f="p1">$14</b></li>
-                  <li><span data-f="s2">Banana bread</span><b data-f="p2">$6.50</b></li>
-                </ul>
-                <p class="site__toast" aria-hidden="true"><span class="site__ping"></span><span data-f="toast">New order · 2 flat whites, pick-up 8:10</span></p>
-              </div>
-            </div>
-          </div>
-        </div>
+        <p class="sethero__facts">From {{deal:landing:price}} · fixed quote in 1 business day · pay nothing until you approve it</p>
       </div>
     </section>
 
