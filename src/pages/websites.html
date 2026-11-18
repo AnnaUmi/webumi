@@ -2,9 +2,9 @@
 {
  "title": "Website Design Sydney | Small Business Website Designer",
  "ogTitle": "Website design Sydney: websites that bring in enquiries — Webumi",
- "description": "Small business website design in Sydney: fast, mobile-first websites built to win calls and bookings. Landing pages from $350, business websites from $790.",
+ "description": "Small business website design in Sydney: fast, mobile-first websites built to win calls and bookings. Landing pages from {{aud:landing:price}}, business websites from {{aud:website:price}}.",
  "crumb": "Websites",
- "service": { "name": "Small and mid-sized business website design", "serviceType": "Website design and development", "description": "Mobile-first websites for Australian small and mid-sized businesses with Google Business Profile setup, quote forms with instant replies, reviews and local SEO.", "offers": [{ "@type": "Offer", "name": "Landing page", "priceCurrency": "AUD", "price": "350" }, { "@type": "Offer", "name": "Business website", "priceCurrency": "AUD", "price": "790" }] }
+ "service": { "name": "Small and mid-sized business website design", "serviceType": "Website design and development", "description": "Mobile-first websites for Australian small and mid-sized businesses with Google Business Profile setup, quote forms with instant replies, reviews and local SEO.", "offers": [{ "@type": "Offer", "name": "Landing page", "priceCurrency": "AUD", "price": "{{price:landing:price}}" }, { "@type": "Offer", "name": "Business website", "priceCurrency": "AUD", "price": "{{price:website:price}}" }] }
 }
 -->
     <section class="phero">
@@ -21,13 +21,14 @@
           </div>
         </div>
         <aside class="pbox reveal">
+          {{#sale}}<p class="sale__tag">{{sale:name}} · until {{sale:ends}}</p>{{/sale}}
           <p class="pkg__name">Landing page</p>
           <p class="pkg__for">One page, one goal. For new businesses, one main service or an ad campaign.</p>
-          <p class="pkg__price pkg__price--two"><span>Essential from</span> {{aud:landing:price}}<span>Signature from</span> {{aud:landing:signature}}</p>
+          <p class="pkg__price pkg__price--two"><span>Essential from</span> {{deal:landing:price}}<span>Signature from</span> {{deal:landing:signature}}</p>
           <hr class="pbox__hr">
           <p class="pkg__name">Business website</p>
           <p class="pkg__for">Up to 10 pages, with service and area pages so you're found on Google.</p>
-          <p class="pkg__price pkg__price--two"><span>Essential from</span> {{aud:website:price}}<span>Signature from</span> {{aud:website:signature}}</p>
+          <p class="pkg__price pkg__price--two"><span>Essential from</span> {{deal:website:price}}<span>Signature from</span> {{deal:website:signature}}</p>
           <a href="/pricing/" class="btn btn--ghost">Compare all options</a>
         </aside>
       </div>

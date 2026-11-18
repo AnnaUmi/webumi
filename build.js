@@ -17,6 +17,9 @@
     {{key}}         insert a meta value
     {{price:id:field}} / {{aud:id:field}}   a price from src/static/api/catalog.json, raw or as "$1,234"
                     (id = a type like "website" or an option id; field = price, landing, website, monthly, extraPage…)
+    {{deal:id:field}}  the same price as "$1,234", with the regular price crossed out before it while a sale is on
+    {{#sale}}…{{/sale}}  shown only while the sale in catalog.json is on; inside it {{sale:name}} and {{sale:ends}}
+                    Prices also work in the <!--meta--> block and src/data/business.json.
     {{v:file}}      "/file?v=1a2b3c4d": a file from src/static/ with a fingerprint of its contents, so browsers
                     and Hostinger's CDN (which keep files for 7 days) fetch the new one after every change.
                     Also works in the plain concept pages under src/static/projects/.
@@ -62,9 +65,23 @@ function walk(dir) {
   });
 }
 
-const catalog = () => JSON.parse(read(path.join(SRC, "static", "api", "catalog.json")));
+// catalog.json keeps the regular prices. While its "sale" hasn't ended, the sale prices replace them everywhere:
+// pages, the price builder, the planner AI and dist/api/catalog.json. The first build after sale.ends goes back by itself.
+const regularCatalog = () => JSON.parse(read(path.join(SRC, "static", "api", "catalog.json")));
+const itemOf = (cat, id) => id === "support" ? cat.support : cat.types[id] || cat.options.find((o) => o.id === id) || (cat.media || []).find((o) => o.id === id);
+const saleOn = (cat) => !!(cat.sale && today <= cat.sale.ends);
+function catalog() {
+  const cat = regularCatalog();
+  if (!saleOn(cat)) { delete cat.sale; return cat; }
+  for (const [id, prices] of Object.entries(cat.sale.prices)) Object.assign(itemOf(cat, id), prices);
+  const { prices, ...sale } = cat.sale;
+  cat.sale = sale;
+  return cat;
+}
+const aud = (v) => "$" + v.toLocaleString("en-AU");
+const saleEnds = (cat) => new Date(cat.sale.ends + "T00:00:00").toLocaleDateString("en-AU", { day: "numeric", month: "long" });
 function priceOf(cat, id, field) {
-  const item = id === "support" ? cat.support : cat.types[id] || cat.options.find((o) => o.id === id) || (cat.media || []).find((o) => o.id === id);
+  const item = itemOf(cat, id);
   const v = item && item[field];
   if (v === undefined) throw new Error(`Unknown price {{price:${id}:${field}}}`);
   return v;
@@ -75,6 +92,7 @@ function aiCatalog(cat = catalog()) {
   return {
     currency: cat.currency,
     types: cat.types,
+    ...(cat.sale && { sale: `${cat.sale.name}: these prices are on until ${saleEnds(cat)}.` }),
     options: cat.options.map(({ features, explain, ...o }) => o),
     support: cat.support.note,
     included: cat.included,
@@ -89,13 +107,21 @@ function fingerprint(file) {
   return (fingerprints[file] ??= require("crypto").createHash("md5").update(fs.readFileSync(path.join(SRC, "static", file))).digest("hex").slice(0, 8));
 }
 
+const catOf = (vars) => vars.catalog || (vars.catalog = catalog());
 function render(tpl, vars, depth = 0) {
   if (depth > 5) throw new Error("Partials nested too deep");
   return tpl
     .replace(/\{\{>\s*([\w-]+)\s*\}\}/g, (_, n) => render(read(path.join(SRC, "partials", n + ".html")), vars, depth + 1))
+    .replace(/\{\{#sale\}\}([\s\S]*?)\{\{\/sale\}\}/g, (_, x) => (catOf(vars).sale ? x : ""))
+    .replace(/\{\{sale:(name|ends)\}\}/g, (_, f) => (f === "name" ? catOf(vars).sale.name : saleEnds(catOf(vars))))
+    .replace(/\{\{deal:([\w-]+):(\w+)\}\}/g, (_, id, f) => {
+      const v = priceOf(catOf(vars), id, f);
+      const was = catOf(vars).sale && priceOf(regularCatalog(), id, f);
+      return was && was !== v ? `<b class="deal"><s class="deal__was">${aud(was)}</s> ${aud(v)}</b>` : aud(v);
+    })
     .replace(/\{\{(price|aud):([\w-]+):(\w+)\}\}/g, (_, kind, id, f) => {
-      const v = priceOf(vars.catalog || (vars.catalog = catalog()), id, f);
-      return kind === "aud" ? "$" + v.toLocaleString("en-AU") : v;
+      const v = priceOf(catOf(vars), id, f);
+      return kind === "aud" ? aud(v) : v;
     })
     .replace(/\{\{icon:([\w-]+)\}\}/g, (_, n) => `<svg class="ic" aria-hidden="true"><use href="#i-${n}"/></svg>`)
     .replace(/\{\{v:([\w./-]+)\}\}/g, (_, f) => `/${f}?v=${fingerprint(f)}`)
@@ -109,7 +135,7 @@ function urlFor(file) {
 
 function schemaFor(page, body) {
   const url = SITE + page.url;
-  const business = JSON.parse(read(path.join(SRC, "data", "business.json")));
+  const business = JSON.parse(render(read(path.join(SRC, "data", "business.json")), {}));
   const graph = [
     business,
     { "@type": "WebSite", "@id": SITE + "/#website", url: SITE + "/", name: "Webumi", inLanguage: "en-AU", publisher: { "@id": SITE + "/#business" } },
@@ -160,6 +186,9 @@ function build() {
     .filter((d) => !/<meta name="robots" content="[^"]*noindex/.test(read(path.join(projects, d.name, "index.html"))))
     .map((d) => ({ url: `/projects/${d.name}/`, modified: changedOn(path.join(SRC, "static", "projects", d.name, "index.html")) }));
   fs.writeFileSync(path.join(DIST, "api", "catalog-ai.json"), JSON.stringify(aiCatalog()));
+  // the price builder, offer pages and planner read this file: give them the prices in force today
+  fs.writeFileSync(path.join(DIST, "api", "catalog.json"), JSON.stringify(catalog(), null, 2));
+  fs.writeFileSync(path.join(DIST, "llms.txt"), render(read(path.join(SRC, "static", "llms.txt")), {}));
 
   const layout = read(path.join(SRC, "layout.html"));
   const pages = walk(path.join(SRC, "pages")).filter((f) => f.endsWith(".html") && !path.basename(f).startsWith("_"));
@@ -169,7 +198,7 @@ function build() {
     const raw = read(file);
     const m = raw.match(/^<!--meta\s*([\s\S]*?)-->\s*/);
     if (!m) throw new Error(`Missing <!--meta --> block in ${file}`);
-    const page = JSON.parse(m[1]);
+    const page = JSON.parse(render(m[1], {}));
     page.url = urlFor(file);
     page.modified = changedOn(file);
     for (const k of ["title", "description"]) if (!page[k]) throw new Error(`${file}: meta "${k}" is required`);

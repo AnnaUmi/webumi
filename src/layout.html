@@ -35,6 +35,18 @@
   <link rel="preload" href="/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="{{v:styles.css}}">
+  <link rel="stylesheet" href="{{v:bears.css}}">
+  <link rel="stylesheet" href="{{v:hero-demo.css}}">
+  <style>
+    /* sale prices: build.js "deal" tokens and partials/sale.html */
+    .deal { font: inherit; }
+    .deal__was { font-size: .55em; font-weight: 600; opacity: .55; text-decoration-thickness: 2px; margin-right: .15em; vertical-align: .2em; }
+    .sale { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin: 0 0 28px; padding: 14px 18px; background: var(--sun, #ffd23f); color: #111; border: 3px solid #111; border-radius: 16px; box-shadow: 5px 5px 0 #111; font-weight: 500; line-height: 1.45; }
+    .sale__tag { display: inline-block; padding: 4px 10px; background: #111; color: var(--sun, #ffd23f); border-radius: 999px; font-size: .8rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+    .pbox .sale__tag { margin-bottom: 10px; }
+    .sale .deal { font-weight: 800; }
+    .sale .deal__was { font-size: .85em; vertical-align: 0; }
+  </style>
 
   <script type="application/ld+json">
 {{schema}}
@@ -42,6 +54,7 @@
 </head>
 <body>
   {{> icons}}
+  {{> salebar}}
   {{> header}}
 
   <main id="top">
@@ -56,5 +69,7 @@
 
   <script src="{{v:offer.js}}"></script>
   <script src="{{v:script.js}}"></script>
+{{> bear-list}}  <script src="{{v:bears.js}}" defer></script>
+  <script src="{{v:hero-demo.js}}" defer></script>
 </body>
 </html>

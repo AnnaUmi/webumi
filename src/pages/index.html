@@ -2,50 +2,71 @@
 {
  "title": "Website Design Sydney | Small Business Websites | Webumi",
  "ogTitle": "Website design Sydney for small business — Webumi",
- "description": "Website design in Sydney for small business: websites and online shops from $350, live in days. Plus apps, platforms, AI, automation and AI video."
+ "description": "Website design in Sydney for small business: websites and online shops from {{aud:landing:price}}, live in days. Plus apps, platforms, AI, automation and AI video."
 }
 -->
     <!-- ============ HERO ============ -->
-    <section class="hero">
+    <!-- The hero is the product: pick a business and a live, animated website rebuilds for it (hero-demo.js).
+         The bear in that trade's work clothes is the owner. Without JavaScript it shows the first business, still. -->
+    <section class="hero hero--live">
       <div class="hero__glow" aria-hidden="true"></div>
       <div class="wrap hero__grid">
         <div class="hero__copy">
           <p class="eyebrow reveal"><span class="dot"></span> <span>Website design Sydney</span></p>
-          <h1 class="hero__title reveal">More customers.<br><span class="hero__last"><span class="squiggle">Less admin.</span><svg class="tw" viewBox="124 104 54 54" aria-hidden="true"><g class="tw__star"><path d="M147.5 115 L151.5 127 L163.5 131 L151.5 135 L147.5 147 L143.5 135 L131.5 131 L143.5 127 Z" transform="translate(3 3)" fill="#111" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/><path d="M147.5 115 L151.5 127 L163.5 131 L151.5 135 L147.5 147 L143.5 135 L131.5 131 L143.5 127 Z" fill="#1ee3ff" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/></g><circle class="tw__dot" cx="170" cy="116" r="3.5" fill="#ffd23f" stroke="#111" stroke-width="1.2"/><circle class="tw__dot tw__dot--2" cx="130" cy="113" r="2.5" fill="#ff6b4a" stroke="#111" stroke-width="1.2"/><circle class="tw__dot tw__dot--3" cx="172" cy="146" r="2.5" fill="#1ee3ff" stroke="#111" stroke-width="1.2"/></svg></span></h1>
-          <p class="hero__lead reveal">Website design in Sydney, plus apps, AI and automation, that help your business <strong>get found, get booked and get paid</strong>. Based in Sydney, working with businesses Australia-wide.</p>
+          <h1 class="hero__title reveal">Animated websites <span class="squiggle">that get you booked.</span></h1>
+          <p class="hero__lead reveal">Pick a business and watch its website come to life. We design and build interactive websites in Sydney with video, motion and <strong>online booking and payments built in</strong>, live in days.</p>
           <div class="hero__ctas reveal">
-            <a href="/order/" class="btn btn--primary">Tell us about your business <span class="arrow">→</span></a>
+            <a href="/order/?type=website" class="btn btn--primary" id="liveCta">Get a website like this <span class="arrow">→</span></a>
             <a href="#packages" class="btn btn--ghost">See prices</a>
           </div>
           <ul class="hero__facts reveal">
-            <li><span>Websites from <b>{{aud:landing:price}}</b></span></li>
+            <li><span>Websites from <b>{{deal:landing:price}}</b></span></li>
             <li><span>Live in <b>3 days</b></span></li>
           </ul>
         </div>
 
-        <!-- The bear's spell: walks in, then the first mouse move (or a moment later) ticks every problem off at once -->
-        <!-- no .reveal here: its fade would isolate the video and show the white box while fading -->
-        <div class="hero__demo">
-          <div class="spell" id="spell">
-            <p class="sr-only">A bear with a magic star turns “No website, No new customers, No online booking, Low revenue, Admin by hand, No reviews” into “Website live, New enquiries, Customers booked, Payments received, Admin on autopilot, Reviews coming in”.</p>
-            <div class="spell__side" aria-hidden="true">
-              <p class="spell__label" id="spellLabel">Your business today</p>
-              <ul class="spell__list">
-                <li><span class="spell__no">No website</span><span class="spell__yes">Website live</span></li>
-                <li><span class="spell__no">No new customers</span><span class="spell__yes">New enquiries</span></li>
-                <li><span class="spell__no">No online booking</span><span class="spell__yes">Customers booked</span></li>
-                <li><span class="spell__no">Low revenue</span><span class="spell__yes">Payments received</span></li>
-                <li><span class="spell__no">Admin by hand</span><span class="spell__yes">Admin on autopilot</span></li>
-                <li><span class="spell__no">No reviews</span><span class="spell__yes">Reviews coming in</span></li>
-              </ul>
-            </div>
-            <div class="spell__stage">
-              <video class="spell__video" muted playsinline preload="none" disablepictureinpicture aria-hidden="true"></video>
+        <div class="live reveal" id="live" aria-label="Example websites: pick a business">
+          <div class="live__pick" role="group" aria-label="Pick a business">
+            <button type="button" data-k="cafe" aria-pressed="true">Café</button>
+            <button type="button" data-k="beauty" aria-pressed="false">Salon</button>
+            <button type="button" data-k="barber" aria-pressed="false">Barber</button>
+            <button type="button" data-k="groomer" aria-pressed="false">Dog groomer</button>
+            <button type="button" data-k="cleaner" aria-pressed="false">Cleaner</button>
+            <button type="button" data-k="mechanic" aria-pressed="false">Mechanic</button>
+            <button type="button" data-k="physio" aria-pressed="false">Physio</button>
+            <button type="button" data-k="dentist" aria-pressed="false">Dentist</button>
+            <button type="button" data-k="pilates" aria-pressed="false">Pilates</button>
+          </div>
+          <div class="live__tilt">
+            <div class="live__win">
+              <div class="live__bar" aria-hidden="true"><i></i><i></i><i></i><span class="live__url" id="liveUrl">littlebean.com.au</span></div>
+              <div class="site" id="liveSite">
+                <div class="site__nav"><b class="site__logo" data-f="name">Little Bean</b><span class="site__links"><i>Menu</i><i>About</i><i>Find us</i></span><span class="site__btn" data-f="cta">Order ahead</span></div>
+                <div class="site__hero">
+                  <div class="site__copy">
+                    <p class="site__tag" data-f="tag">Surry Hills · from 6:30am</p>
+                    <p class="site__h" data-f="h">Coffee that's ready when you are.</p>
+                    <span class="site__cta" data-f="cta">Order ahead</span>
+                    <p class="site__stars"><span aria-hidden="true">★★★★★</span> <span data-f="reviews">4.9 · 312 Google reviews</span></p>
+                  </div>
+                  <div class="site__art"><span class="site__blob"></span>
+                    <span class="bear bear--stand site__bear" aria-hidden="true"><video muted playsinline preload="none" disablepictureinpicture poster="{{v:video/bears/bear-barista.webp}}"></video></span>
+                  </div>
+                </div>
+                <ul class="site__cards">
+                  <li><span data-f="s0">Flat white</span><b data-f="p0">$5.50</b></li>
+                  <li><span data-f="s1">Brekkie roll</span><b data-f="p1">$14</b></li>
+                  <li><span data-f="s2">Banana bread</span><b data-f="p2">$6.50</b></li>
+                </ul>
+                <p class="site__toast" aria-hidden="true"><span class="site__ping"></span><span data-f="toast">New order · 2 flat whites, pick-up 8:10</span></p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
+
+{{> sale-banner}}
 
     <!-- ============ WHY ============ -->
     <section class="section why" id="why">

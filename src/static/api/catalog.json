@@ -1,9 +1,18 @@
 {
   "currency": "AUD",
+  "sale": {
+    "name": "End-of-year sale",
+    "ends": "2026-12-31",
+    "prices": {
+      "landing": { "price": 90, "signature": 290 },
+      "website": { "price": 150, "signature": 490 },
+      "design-signature": { "landing": 200, "website": 340 }
+    }
+  },
   "types": {
     "landing": {
       "name": "Landing page",
-      "price": 350,
+      "price": 150,
       "signature": 690,
       "pages": 1,
       "time": "3 days – 1 week",
@@ -11,7 +20,7 @@
     },
     "website": {
       "name": "Business website",
-      "price": 790,
+      "price": 190,
       "signature": 1490,
       "pages": 10,
       "maxPages": 40,
@@ -25,8 +34,8 @@
       "id": "design-signature",
       "group": "design",
       "name": "Signature design",
-      "landing": 340,
-      "website": 700,
+      "landing": 540,
+      "website": 1300,
       "app": 1990,
       "desc": "Custom design with motion and interactive sections: an animated video hero, up to 10 sections with scroll effects, sliders or carousels, up to 4 video sections, custom icons, refined together until you approve it. Same speed and SEO foundation as Essential; respects reduced-motion settings. Default (free) is Essential: a proven layout in their logo, colours and fonts with subtle animations.",
       "explain": "A design made for your brand, with motion, video and interactive sections that make your business stand out from competitors."

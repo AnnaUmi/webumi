@@ -64,7 +64,7 @@
   "addressRegion": "NSW",
   "addressCountry": "AU"
  },
- "priceRange": "$350–$10,500+ AUD",
+ "priceRange": "{{aud:landing:price}}–$10,500+ AUD",
  "knowsAbout": [
   "Website design",
   "Small business website design",
@@ -88,11 +88,11 @@
    {
     "@type": "Offer",
     "priceCurrency": "AUD",
-    "price": "350",
+    "price": "{{price:landing:price}}",
     "url": "https://webumi.com.au/websites/",
     "priceSpecification": {
      "@type": "PriceSpecification",
-     "minPrice": "350",
+     "minPrice": "{{price:landing:price}}",
      "priceCurrency": "AUD"
     },
     "itemOffered": {
@@ -105,11 +105,11 @@
    {
     "@type": "Offer",
     "priceCurrency": "AUD",
-    "price": "790",
+    "price": "{{price:website:price}}",
     "url": "https://webumi.com.au/websites/",
     "priceSpecification": {
      "@type": "PriceSpecification",
-     "minPrice": "790",
+     "minPrice": "{{price:website:price}}",
      "priceCurrency": "AUD"
     },
     "itemOffered": {

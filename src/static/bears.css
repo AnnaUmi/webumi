@@ -1,0 +1,43 @@
+/* Bears in work clothes (src/static/video/bears, see bears.js): transparent videos, first frame as the poster.
+   In each clip the soles are at 94.4% of the frame's height; .bear--stand lines them up with what it stands on. */
+.bear { display: block; pointer-events: none; }
+.bear video { display: block; width: 100%; height: 100%; object-fit: contain; object-position: bottom; }
+.bear--stand video { transform: translateY(5.6%); clip-path: inset(-20% -20% 5.6% -20%); }
+
+/* "Sent!" screens: the bear replaces the icon and jumps for joy */
+.form__doneIcon .bear { width: 132px; height: 220px; margin: -12px auto -6px; }
+
+/* ---------- End-of-year sale (partials/sale-banner.html, salebar.html) ---------- */
+.salebar { display: block; padding: 8px 16px; text-align: center; background: var(--black); color: #fff; font-size: .92rem; text-decoration: none; }
+.salebar b:first-child { color: var(--sun); margin-right: 6px; }
+.salebar .deal { font-weight: 800; }
+.salebar .deal__was { opacity: .6; }
+.salebar:hover span { display: inline-block; transform: translateX(3px); }
+@media (max-width: 600px) {
+  .salebar { font-size: .84rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .salebar b:first-child, .salebar .deal__was { display: none; }
+}
+
+.salebn { padding: clamp(40px, 6vw, 72px) 0; }
+.salebn__card { position: relative; display: grid; grid-template-columns: 1fr clamp(220px, 26vw, 340px); gap: 24px;
+  padding: clamp(28px, 4vw, 52px); background: var(--paper); color: var(--ink);
+  border: var(--line-w) solid var(--black); border-radius: var(--r-lg); box-shadow: 8px 8px 0 var(--sun);
+  background-image: radial-gradient(ellipse at 82% 100%, rgba(255,210,63,.55), transparent 55%); }
+.salebn__tag { display: inline-block; padding: 5px 12px; background: var(--black); color: var(--sun); border-radius: 999px; font-size: .8rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; }
+.salebn h2 { color: var(--ink); font-size: clamp(2rem, 4.4vw, 3.4rem); letter-spacing: -.035em; margin: 14px 0 12px; }
+.salebn__price { color: var(--coral); white-space: nowrap; }
+.salebn__price .deal__was { color: var(--ink); opacity: .4; font-size: .45em; vertical-align: .55em; }
+.salebn__lead { color: var(--muted); max-width: 600px; font-size: 1.08rem; }
+.salebn__more { list-style: none; padding: 0; margin: 18px 0 0; display: flex; flex-wrap: wrap; gap: 10px 28px; color: var(--ink); }
+.salebn__more b { font-family: var(--display); font-size: 1.35rem; margin-right: 6px; }
+.salebn__more .deal__was { opacity: .5; }
+.salebn__cta { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; margin-top: 28px; }
+.salebn__link { color: var(--ink); font-size: .95rem; }
+/* the bear stands on the card's bottom edge, its head just over the top */
+.salebn__bear { position: absolute; right: clamp(24px, 5vw, 80px); bottom: 0; height: calc(100% + 40px); aspect-ratio: 3 / 5; pointer-events: auto; }
+@media (max-width: 860px) {
+  .salebn__card { grid-template-columns: 1fr; padding-bottom: 28px; }
+  .salebn { padding-top: 150px; }
+  .salebn__cta { flex-direction: column; align-items: flex-start; }
+  .salebn__bear { right: 14px; bottom: 100%; height: 156px; }   /* on phones it stands on the card's top edge */
+}
