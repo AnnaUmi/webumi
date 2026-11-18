@@ -1238,6 +1238,7 @@ ol.checks { padding-left: 0; }
 .adoc__total b { font-family: var(--display); font-size: 2rem; }
 .adoc__stamp { position: absolute; right: 22px; bottom: 76px; font-family: var(--display); font-weight: 800; font-size: 1.3rem; color: #1fa592; border: 4px solid #1fa592; border-radius: 10px;
   padding: 4px 12px; transform: rotate(-12deg) scale(2.2); opacity: 0; transition: transform .45s var(--spring), opacity .2s; }
+.ademo__doc { overflow: clip; overflow-clip-margin: 12px; }   /* the stamp starts 2.2x big: without this it made phones scroll sideways */
 .adoc__stamp.is-on { opacity: 1; transform: rotate(-12deg) scale(1); }
 .adoc__toast { position: absolute; left: 50%; bottom: -18px; display: flex; align-items: center; gap: 8px; white-space: nowrap; background: var(--ink); color: #fff; font-weight: 600; font-size: .88rem;
   padding: 9px 16px; border-radius: 999px; border: 2px solid var(--black); box-shadow: 3px 3px 0 var(--coral); transform: translate(-50%, 16px); opacity: 0; transition: transform .45s var(--spring), opacity .3s; }
