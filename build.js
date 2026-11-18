@@ -18,7 +18,7 @@
     {{price:id:field}} / {{aud:id:field}}   a price from src/static/api/catalog.json, raw or as "$1,234"
                     (id = a type like "website" or an option id; field = price, landing, website, monthly, extraPage…)
     {{deal:id:field}}  the same price as "$1,234", with the regular price crossed out before it while a sale is on
-    {{#sale}}…{{/sale}}  shown only while the sale in catalog.json is on; inside it {{sale:name}} and {{sale:ends}}
+    {{#sale}}…{{/sale}}  shown only while the sale in catalog.json is on; inside it {{sale:name}}, {{sale:ends}} ("31 December") and {{sale:iso}} ("2026-12-31")
                     Prices also work in the <!--meta--> block and src/data/business.json.
     {{v:file}}      "/file?v=1a2b3c4d": a file from src/static/ with a fingerprint of its contents, so browsers
                     and Hostinger's CDN (which keep files for 7 days) fetch the new one after every change.
@@ -113,7 +113,7 @@ function render(tpl, vars, depth = 0) {
   return tpl
     .replace(/\{\{>\s*([\w-]+)\s*\}\}/g, (_, n) => render(read(path.join(SRC, "partials", n + ".html")), vars, depth + 1))
     .replace(/\{\{#sale\}\}([\s\S]*?)\{\{\/sale\}\}/g, (_, x) => (catOf(vars).sale ? x : ""))
-    .replace(/\{\{sale:(name|ends)\}\}/g, (_, f) => (f === "name" ? catOf(vars).sale.name : saleEnds(catOf(vars))))
+    .replace(/\{\{sale:(name|ends|iso)\}\}/g, (_, f) => (f === "name" ? catOf(vars).sale.name : f === "iso" ? catOf(vars).sale.ends : saleEnds(catOf(vars))))
     .replace(/\{\{deal:([\w-]+):(\w+)\}\}/g, (_, id, f) => {
       const v = priceOf(catOf(vars), id, f);
       const was = catOf(vars).sale && priceOf(regularCatalog(), id, f);

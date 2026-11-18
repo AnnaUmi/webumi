@@ -20,6 +20,14 @@
 .live__pick button[aria-pressed="true"] { background: var(--black); color: #fff; box-shadow: 2px 2px 0 var(--coral); }
 .live__pick button:focus-visible { outline: 3px solid var(--cyan); outline-offset: 2px; }
 
+/* "Now try yours": the visitor's business name goes onto the demo */
+.live__name { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; padding: 6px 6px 6px 16px; background: var(--sun);
+  border: 2px solid var(--black); border-radius: 999px; box-shadow: 3px 3px 0 var(--black); }
+.live__name span { font: 700 .88rem/1 var(--display); white-space: nowrap; }
+.live__name input { flex: 1; min-width: 0; padding: 9px 14px; border: 2px solid var(--black); border-radius: 999px; background: #fff; font: 500 1rem/1.2 var(--body); color: var(--ink); }
+.live__name input:focus { outline: 3px solid var(--cyan); outline-offset: 1px; }
+.site__logo { max-width: 60%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
 /* the browser window, tilting a little towards the mouse */
 .live__tilt { perspective: 1400px; }
 .live__win { position: relative; border: 3px solid var(--black); border-radius: 22px; overflow: hidden; background: var(--paper);

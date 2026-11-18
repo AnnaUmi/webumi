@@ -2,12 +2,22 @@
    Example businesses only (made-up names). Each change: colours fade, the address types itself, the words and
    cards slide in, the trade's bear jumps, then a booking pops up. Until the visitor picks one, the businesses
    change on their own every few seconds (not with reduced motion, and never while the mouse is over it).
-   The "Get a website like this" button carries the picked business type to the order form (?industry=…). */
+   "Now try yours": the visitor types their business name and the demo becomes their website (name, address,
+   button). The button then carries the name and the business type to the order form (?business=…&industry=…).
+   Also here, for every page: the sale's "N days left" ([data-sale-ends], from catalog.json's sale). */
 (() => {
-  // the order form: fill "What does the business do?" from ?industry=, if it's still empty
-  const ind = new URLSearchParams(location.search).get("industry");
-  const field = document.querySelector('#orderForm [name="industry"]');
-  if (ind && field && !field.value) { field.value = ind.slice(0, 60); field.dispatchEvent(new Event("input", { bubbles: true })); }
+  // the sale deadline, counted in the visitor's own time
+  document.querySelectorAll("[data-sale-ends]").forEach((el) => {
+    const days = Math.ceil((new Date(el.dataset.saleEnds + "T23:59:59") - Date.now()) / 864e5);
+    if (days >= 1 && days <= 60) el.textContent = ` · ${days === 1 ? "last day" : days + " days left"}`;
+  });
+
+  // the order form: fill the business name and "What does the business do?" from the link, if they're still empty
+  const q = new URLSearchParams(location.search);
+  [["business", 40], ["industry", 60]].forEach(([name, max]) => {
+    const v = q.get(name), field = document.querySelector(`#orderForm [name="${name}"]`);
+    if (v && field && !field.value) { field.value = v.slice(0, max); field.dispatchEvent(new Event("input", { bubbles: true })); }
+  });
 
   const live = document.getElementById("live");
   if (!live) return;
@@ -55,7 +65,18 @@
   // the posters of every bear, so a switch never shows an empty frame
   Object.values(SITES).forEach((d) => { const b = bears[d.bear]; if (b) new Image().src = b.poster; });
 
-  let current = "cafe", typing, toastTimer, cycle, picked = false;
+  let current = "cafe", typing, toastTimer, cycle, picked = false, mine = "";
+  const nameBox = document.getElementById("liveName");
+  const slug = (t) => t.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "").slice(0, 24);
+  // the visitor's own name on the demo: logo, address and the order button
+  const brand = (animate) => {
+    const d = SITES[current];
+    set("name", mine || d.name);
+    const address = mine && slug(mine) ? slug(mine) + ".com.au" : d.url;
+    if (animate) typeUrl(address); else { clearInterval(typing); url.textContent = address; }
+    cta.firstChild.textContent = mine ? `Get this website for ${mine} ` : "Get a website like this ";
+    cta.href = `/order/?type=website&industry=${encodeURIComponent(d.industry)}${mine ? "&business=" + encodeURIComponent(mine) : ""}`;
+  };
   const set = (f, v) => site.querySelectorAll(`[data-f="${f}"]`).forEach((el) => (el.textContent = v));
   const typeUrl = (text) => {
     clearInterval(typing);
@@ -75,17 +96,22 @@
     current = k;
     buttons.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.k === k)));
     [["--s-bg", 0], ["--s-soft", 1], ["--s-accent", 2], ["--s-ink", 3]].forEach(([v, i]) => site.style.setProperty(v, d.c[i]));
-    ["name", "tag", "h", "cta", "reviews", "toast"].forEach((f) => set(f, d[f]));
+    ["tag", "h", "cta", "reviews", "toast"].forEach((f) => set(f, d[f]));
     d.s.forEach(([name, price], i) => { set(`s${i}`, name); set(`p${i}`, price); });
-    typeUrl(d.url);
+    brand(true);
     site.classList.remove("is-swap"); void site.offsetWidth; site.classList.add("is-swap");
     const b = bears[d.bear];
     if (b) { video.poster = b.poster; video.src = b[ext]; video.load(); jump(); }
     toast.classList.remove("is-on");
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => toast.classList.add("is-on"), still ? 0 : 1300);
-    cta.href = `/order/?type=website&industry=${encodeURIComponent(d.industry)}`;
   }
+  nameBox?.addEventListener("input", () => {
+    picked = true; clearInterval(cycle);   // it's their website now: no more switching on its own
+    mine = nameBox.value.replace(/\s+/g, " ").trim();
+    brand(false);
+  });
+  nameBox?.addEventListener("keydown", (e) => { if (e.key === "Enter") nameBox.blur(); });
 
   buttons.forEach((b) => b.addEventListener("click", () => { picked = true; clearInterval(cycle); show(b.dataset.k); }));
 
