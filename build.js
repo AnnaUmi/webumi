@@ -17,6 +17,7 @@
     {{key}}         insert a meta value
     {{price:id:field}} / {{aud:id:field}}   a price from src/static/api/catalog.json, raw or as "$1,234"
                     (id = a type like "website" or an option id; field = price, landing, website, monthly, extraPage…)
+    {{save:id:field}}  how much the sale takes off that price, as "$1,000"
     {{deal:id:field}}  the same price as "$1,234", with the regular price crossed out before it while a sale is on
     {{#sale}}…{{/sale}}  shown only while the sale in catalog.json is on; inside it {{sale:name}}, {{sale:ends}} ("31 December") and {{sale:iso}} ("2026-12-31")
                     Prices also work in the <!--meta--> block and src/data/business.json.
@@ -119,6 +120,7 @@ function render(tpl, vars, depth = 0) {
       const was = catOf(vars).sale && priceOf(regularCatalog(), id, f);
       return was && was !== v ? `<b class="deal"><s class="deal__was">${aud(was)}</s> ${aud(v)}</b>` : aud(v);
     })
+    .replace(/\{\{save:([\w-]+):(\w+)\}\}/g, (_, id, f) => aud(priceOf(regularCatalog(), id, f) - priceOf(catOf(vars), id, f)))
     .replace(/\{\{(price|aud):([\w-]+):(\w+)\}\}/g, (_, kind, id, f) => {
       const v = priceOf(catOf(vars), id, f);
       return kind === "aud" ? aud(v) : v;

@@ -7,9 +7,10 @@
 -->
     <!-- ============ HERO ============ -->
     <!-- An open hero, no frames or cards: the bear building a website on a handmade miniature set fills the
-         whole width (video/hero-set.mp4, a 6-second loop; hero-set.webp is its first frame), the words sit on its empty left side. -->
-    <section class="sethero">
-      <video class="sethero__art" autoplay muted loop playsinline disablepictureinpicture preload="auto" poster="{{v:hero-set.webp}}" width="1920" height="1080" aria-hidden="true"><source src="{{v:video/hero-set.mp4}}" type="video/mp4"></video>
+         whole width (video/hero-set.mp4, a 6-second 1080p loop; hero-set.webp is its first frame), the words sit on
+         its empty left side. The scene shifts a few pixels against the mouse (hero-demo.js). -->
+    <section class="sethero" id="setHero">
+      <video class="sethero__art" id="setArt" autoplay muted loop playsinline disablepictureinpicture preload="auto" poster="{{v:hero-set.webp}}" width="1920" height="1080" aria-hidden="true"><source src="{{v:video/hero-set.mp4}}" type="video/mp4"></video>
       <div class="wrap sethero__copy">
         <p class="sethero__kicker">Website design Sydney</p>
         <h1 class="hero__title">Animated websites that take <span class="squiggle">bookings and payments.</span></h1>

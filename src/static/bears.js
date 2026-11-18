@@ -1,6 +1,7 @@
 /* Bears in work clothes (video/bears; the list with fingerprinted file names is in partials/bear-list.html).
    Safari only shows the transparent HEVC (mp4), everyone else the VP9 WebM (same choice as the 404 bear).
-   - A .bear <video> on a page (the sale banner) loads when it's near the screen, waves once, and again on hover.
+   - A .bear <video> on a page (the sale banner, the bear on a page's hero box) loads when it's near the screen,
+     plays once, and again on hover.
    - When an order or contact form is sent, the icon on the "sent" screen becomes a bear jumping for joy:
      on the order form, the bear of the visitor's industry (from "What does the business do?").
    Reduced motion: the bear's first frame, still. */
@@ -23,7 +24,7 @@
   }), { threshold: 0.6 });
   document.querySelectorAll(".bear video[data-webm]").forEach((v) => {
     io.observe(v);
-    const host = v.closest(".salebn__card") || v;
+    const host = v.closest(".salebn__card, .pbox, .example, .contact__head") || v;
     host.addEventListener("mouseenter", () => play(v));
   });
 

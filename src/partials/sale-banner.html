@@ -1,21 +1,22 @@
-{{#sale}}<!-- The sale offer: shown only while catalog.json's sale is on (build.js). The bear stands inside the card, on its bottom edge. -->
+{{#sale}}<!-- The sale offer: shown only while catalog.json's sale is on (build.js). One message: the animated website's sale price, as big as a poster;
+     the other two sale prices sit under it. The bear stands inside the card, on its bottom edge. -->
     <section class="salebn" id="sale" aria-labelledby="saleTitle">
       <div class="wrap">
         <div class="salebn__card reveal">
           <div class="salebn__copy">
             <p class="salebn__tag">{{sale:name}} · until {{sale:ends}}<span data-sale-ends="{{sale:iso}}"></span></p>
-            <h2 id="saleTitle">An animated website for <span class="salebn__price">{{deal:website:signature}}</span></h2>
+            <h2 id="saleTitle"><span class="salebn__what">An animated website for</span> <span class="salebn__price">{{deal:website:signature}}</span></h2>
             <p class="salebn__lead">Up to {{price:website:pages}} pages with a video opening, scroll animation and interactive sections, built for phones and Google.</p>
-            <ul class="salebn__more">
-              <li><b>{{deal:landing:signature}}</b> animated landing page</li>
-              <li><b>{{deal:website:price}}</b> Essential website</li>
-            </ul>
             <div class="salebn__cta">
-              <a href="/order/" class="btn btn--primary">Get the sale price <span class="arrow">→</span></a>
+              <a href="/order/?type=website" class="btn btn--primary">Get the sale price <span class="arrow">→</span></a>
               <a href="/websites/#levels" class="salebn__link">What's in an animated website</a>
             </div>
+            <ul class="salebn__more">
+              <li><a href="/order/?type=landing">Animated landing page <b>{{deal:landing:signature}}</b></a></li>
+              <li><a href="/order/?type=website">Essential website <b>{{deal:website:price}}</b></a></li>
+            </ul>
           </div>
-          <span class="bear bear--stand salebn__bear" aria-hidden="true"><video muted playsinline preload="none" disablepictureinpicture poster="{{v:video/bears/bear-wave.webp}}" data-webm="{{v:video/bears/bear-wave.webm}}" data-mp4="{{v:video/bears/bear-wave.mp4}}"></video></span>
+          <span class="bear bear--stand salebn__bear" aria-hidden="true"><video muted playsinline preload="none" disablepictureinpicture poster="{{v:video/bears/bear-wave-lg.webp}}" data-webm="{{v:video/bears/bear-wave-lg.webm}}" data-mp4="{{v:video/bears/bear-wave-lg.mp4}}"></video></span>
         </div>
       </div>
     </section>

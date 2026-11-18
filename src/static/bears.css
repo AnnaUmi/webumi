@@ -4,6 +4,19 @@
 .bear video { display: block; width: 100%; height: 100%; object-fit: contain; object-position: bottom; }
 .bear--stand video { transform: translateY(5.6%); clip-path: inset(-20% -20% 5.6% -20%); }
 
+/* one bear per page: it stands on the top edge of the price box or example card in the page's hero */
+.example, .pbox { position: relative; }
+.bear--peek { position: absolute; right: 10px; bottom: 100%; width: 108px; height: 180px; z-index: 1; }
+@media (min-width: 861px) { .phero:has(.bear--peek) .phero__grid { padding-top: 90px; } }
+/* contact: the bear stands next to the heading */
+.contact__head { display: flex; align-items: flex-end; gap: 12px; }
+.bear--hello { position: relative; flex: none; width: 108px; height: 180px; margin-bottom: 8px; }
+@media (max-width: 860px) {
+  .example:has(.bear--peek), .pbox:has(.bear--peek) { margin-top: 128px; }
+  .bear--peek { width: 96px; height: 160px; }
+  .bear--hello { width: 84px; height: 140px; }
+}
+
 /* "Sent!" screens: the bear replaces the icon and jumps for joy */
 .form__doneIcon .bear { width: 132px; height: 220px; margin: -12px auto -6px; }
 
@@ -20,26 +33,37 @@
   .salebar:has(.salebar__left:not(:empty)) .salebar__until { display: none; }   /* "43 days left" says it shorter */
 }
 
-.salebn { padding: clamp(40px, 6vw, 72px) 0; }
-.salebn__card { position: relative; display: grid; grid-template-columns: 1fr clamp(220px, 26vw, 340px); gap: 24px;
-  padding: clamp(28px, 4vw, 52px); background: var(--paper); color: var(--ink);
-  border: var(--line-w) solid var(--black); border-radius: var(--r-lg); box-shadow: 8px 8px 0 var(--sun);
-  background-image: radial-gradient(ellipse at 82% 100%, rgba(255,210,63,.55), transparent 55%); }
-.salebn__tag { display: inline-block; padding: 5px 12px; background: var(--black); color: var(--sun); border-radius: 999px; font-size: .8rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; }
-.salebn h2 { color: var(--ink); font-size: clamp(2rem, 4.4vw, 3.4rem); letter-spacing: -.035em; margin: 14px 0 12px; }
-.salebn__price { color: var(--coral); white-space: nowrap; }
-.salebn__price .deal__was { color: var(--ink); opacity: .4; font-size: .45em; vertical-align: .55em; }
-.salebn__lead { color: var(--muted); max-width: 600px; font-size: 1.08rem; }
-.salebn__more { list-style: none; padding: 0; margin: 18px 0 0; display: flex; flex-wrap: wrap; gap: 10px 28px; color: var(--ink); }
-.salebn__more b { font-family: var(--display); font-size: 1.35rem; margin-right: 6px; }
-.salebn__more .deal__was { opacity: .5; }
-.salebn__cta { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; margin-top: 28px; }
-.salebn__link { color: var(--ink); font-size: .95rem; }
-/* the bear stands on the card's bottom edge, its head just over the top */
-.salebn__bear { position: absolute; right: clamp(24px, 5vw, 80px); bottom: 0; height: calc(100% + 40px); aspect-ratio: 3 / 5; pointer-events: auto; }
+.salebn { padding: clamp(72px, 8vw, 110px) 0 clamp(40px, 6vw, 72px); }
+.salebn__card { position: relative; padding: clamp(28px, 4vw, 52px); padding-right: clamp(260px, 36%, 460px); background: var(--sun); color: var(--black);
+  border: var(--line-w) solid var(--black); border-radius: var(--r-lg); box-shadow: 8px 8px 0 var(--black); }
+.salebn__tag { display: inline-block; padding: 6px 13px; background: var(--black); color: var(--sun); border-radius: 999px; font-size: .8rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; }
+.salebn h2 { color: var(--black); margin: 18px 0 6px; line-height: 1; }
+.salebn__what { display: block; font-size: clamp(1.35rem, 2.3vw, 1.9rem); letter-spacing: -.02em; }
+/* the price is the poster: the sale price huge, the regular one crossed out beside it */
+.salebn__price { display: block; margin-top: 4px; }
+.salebn__price .deal { display: inline-flex; flex-direction: row-reverse; align-items: flex-start; gap: .12em; font-size: clamp(5rem, 12vw, 10rem); line-height: .86; letter-spacing: -.05em; }
+.salebn__price .deal__was { font-size: .2em; letter-spacing: -.02em; line-height: 1; margin: .5em 0 0; opacity: .6; text-decoration-thickness: 3px; }
+.salebn__lead { max-width: 520px; margin-top: 14px; font-size: 1.08rem; color: var(--black); opacity: .82; }
+.salebn__cta { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; margin-top: 24px; }
+.salebn__link { color: var(--black); font-size: .95rem; }
+.salebn__more { list-style: none; padding: 20px 0 0; margin: 26px 0 0; display: flex; flex-wrap: wrap; gap: 10px 12px; border-top: 2px solid rgba(17, 17, 17, .18); }
+.salebn__more a { display: inline-flex; align-items: baseline; gap: 10px; padding: 9px 16px; background: var(--paper); color: var(--black); text-decoration: none; font-weight: 500;
+  border: 2px solid var(--black); border-radius: 999px; transition: transform .2s var(--ease), box-shadow .2s var(--ease); }
+.salebn__more a:hover { transform: translate(-2px, -2px); box-shadow: 3px 3px 0 var(--black); }
+.salebn__more .deal { font-family: var(--display); font-weight: 800; font-size: 1.15rem; }
+.salebn__more .deal__was { font-size: .8em; vertical-align: 0; opacity: .5; }
+/* the bear stands on the card's bottom edge, its head over the top */
+.salebn__bear { position: absolute; right: clamp(16px, 4vw, 70px); bottom: 0; height: calc(100% + 56px); max-height: 600px; aspect-ratio: 3 / 5; pointer-events: auto; }
+.salebn__bear { z-index: 0; }
+.salebn__bear video { -webkit-mask-image: linear-gradient(#000 86%, transparent 86%), linear-gradient(90deg, transparent 17%, #000 22%, #000 81%, transparent 86%); mask-image: linear-gradient(#000 86%, transparent 86%), linear-gradient(90deg, transparent 17%, #000 22%, #000 81%, transparent 86%); }   /* below the knees only the feet show: no floor marks beside them */
+.salebn__bear::before { content: ""; position: absolute; z-index: -1; left: 50%; top: 54%; width: 112%; aspect-ratio: 1; transform: translate(-50%, -50%);
+  background: var(--paper); border: var(--line-w) solid var(--black); border-radius: 50%; }   /* a paper disc, so the yellow bear reads on the yellow card */
 @media (max-width: 860px) {
-  .salebn__card { grid-template-columns: 1fr; padding-bottom: 28px; }
+  .salebn__card { padding-right: clamp(20px, 5vw, 28px); padding-left: clamp(20px, 5vw, 28px); }
   .salebn { padding-top: 150px; }
   .salebn__cta { flex-direction: column; align-items: flex-start; }
   .salebn__bear { right: 14px; bottom: 100%; height: 156px; }   /* on phones it stands on the card's top edge */
+  .salebn__bear::before { display: none; }
+  .salebn__more li { flex: 1 1 100%; }
+  .salebn__more a { width: 100%; justify-content: space-between; }
 }
