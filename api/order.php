@@ -7,6 +7,9 @@
     'order_email' => 'you@webumi.com.au',     // where orders are sent
     'mail_from'   => 'orders@webumi.com.au',  // a real mailbox on your domain (create it in hPanel → Emails)
 
+  Also receives the AI video brief from /ai-video/brief/ ("kind": "brief"): same checks and files, its own
+  reference (B-…), backup in webumi-data/briefs/ and its own confirmation email.
+
   Response: { "ok": true, "ref": "W-1001-7F3A" }  or  { "error": "...", "code": "..." }
 */
 header('Content-Type: application/json; charset=utf-8');
@@ -15,7 +18,7 @@ require __DIR__ . '/lib.php';
 
 const MAX_PER_HOUR = 5;
 const MAX_PER_DAY  = 10;
-const MAX_FILES = 12, MAX_FILE = 8e6, MAX_TOTAL = 20e6, MAX_ATTACH = 15e6;   // bytes
+const MAX_FILES = 20, MAX_FILE = 8e6, MAX_TOTAL = 20e6, MAX_ATTACH = 15e6;   // bytes
 const FILE_TYPES = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/webp' => 'webp', 'image/gif' => 'gif',
   'image/heic' => 'heic', 'image/heif' => 'heif', 'application/pdf' => 'pdf',
   'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => 'docx'];
@@ -50,6 +53,7 @@ function detect_mime($bytes) {
 }
 
 $in = request_json();
+$brief = ($in['kind'] ?? '') === 'brief';
 check_origin_and_honeypot($in);
 verify_turnstile($in['turnstile'] ?? '');
 
@@ -73,26 +77,31 @@ $name = $oneLine($in['name'] ?? '', 120);
 $email = $oneLine($in['email'] ?? '', 200);
 $business = $oneLine($in['business'] ?? '', 160);
 $types = array_slice(array_values(array_intersect(array_filter(is_array($in['types'] ?? null) ? $in['types'] : [], 'is_string'), array_keys(TYPES))), 0, 1);   // one project per order: the one the customer chose
-if ($name === '') fail(400, 'Please add your name.');
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) fail(400, 'Please check your email address.');
-if (!$types) fail(400, 'Please choose what you need.');
-if (empty($in['consent'])) fail(400, 'Please tick the box to confirm.');
+if ($brief) {   // every brief question is optional: take whatever the client sent
+  if (!filter_var($email, FILTER_VALIDATE_EMAIL)) $email = '';
+  if ($name === '') $name = $business ?: 'A client';
+} else {
+  if ($name === '') fail(400, 'Please add your name.');
+  if (!filter_var($email, FILTER_VALIDATE_EMAIL)) fail(400, 'Please check your email address.');
+  if (!$types) fail(400, 'Please choose what you need.');
+  if (empty($in['consent'])) fail(400, 'Please tick the box to confirm.');
+}
 
 // the review summary the customer saw: [{ title, rows: [[label, value], ...] }, ...]
 $sections = [];
-foreach (array_slice(is_array($in['summary'] ?? null) ? $in['summary'] : [], 0, 12) as $sec) {
+foreach (array_slice(is_array($in['summary'] ?? null) ? $in['summary'] : [], 0, 20) as $sec) {
   if (!is_array($sec)) continue;
   $rows = [];
-  foreach (array_slice(is_array($sec['rows'] ?? null) ? $sec['rows'] : [], 0, 40) as $r) {
+  foreach (array_slice(is_array($sec['rows'] ?? null) ? $sec['rows'] : [], 0, 400) as $r) {   // a brief can describe many videos
     if (!is_array($r) || count($r) < 2) continue;
-    $label = $oneLine($r[0], 80); $value = $clean($r[1], 3000);
+    $label = $oneLine($r[0], 80); $value = $clean($r[1], 10000);
     if ($label !== '' && $value !== '') $rows[] = [$label, $value];
   }
   if ($rows) $sections[] = ['title' => $oneLine($sec['title'] ?? '', 80), 'rows' => $rows];
 }
 
 // ---------- save a backup, then email ----------
-$ref = 'W-' . gmdate('md', time() + 10 * 3600) . '-' . strtoupper(bin2hex(random_bytes(2)));
+$ref = ($brief ? 'B-' : 'W-') . gmdate('md', time() + 10 * 3600) . '-' . strtoupper(bin2hex(random_bytes(2)));
 $typeNames = implode(', ', array_map(fn($t) => TYPES[$t], $types));
 $nda = !empty($in['nda']);   // the customer wants an NDA signed before sharing details
 $order = ['ref' => $ref, 'received' => gmdate('c'), 'name' => $name, 'email' => $email, 'business' => $business,
@@ -100,7 +109,8 @@ $order = ['ref' => $ref, 'received' => gmdate('c'), 'name' => $name, 'email' => 
 
 // uploaded files: check the real type from the file's contents, not what the browser claims
 $saved = []; $total = 0;
-foreach (array_slice(is_array($in['files'] ?? null) ? $in['files'] : [], 0, MAX_FILES) as $i => $f) {
+$store = $brief ? 'briefs' : 'orders';
+foreach (array_slice(is_array($in['files'] ?? null) ? $in['files'] : [], 0, $brief ? MAX_FILES : 12) as $i => $f) {
   if (!is_array($f) || !is_string($f['data'] ?? null)) continue;
   $bytes = base64_decode($f['data'], true);
   if ($bytes === false || strlen($bytes) > MAX_FILE || $total + strlen($bytes) > MAX_TOTAL) continue;
@@ -109,13 +119,13 @@ foreach (array_slice(is_array($in['files'] ?? null) ? $in['files'] : [], 0, MAX_
   $zone = preg_replace('/[^a-z-]/', '', strtolower((string)($f['zone'] ?? 'file'))) ?: 'file';
   $base = preg_replace('/[^A-Za-z0-9._-]+/', '-', pathinfo((string)($f['name'] ?? 'file'), PATHINFO_FILENAME)) ?: 'file';
   $fileName = sprintf('%s-%02d-%s.%s', $zone, $i + 1, substr($base, 0, 60), FILE_TYPES[$mime]);
-  $dir = data_dir("orders/$ref");
+  $dir = data_dir("$store/$ref");
   if (@file_put_contents("$dir/$fileName", $bytes) === false) continue;
   $saved[] = ['name' => $fileName, 'mime' => $mime, 'path' => "$dir/$fileName", 'size' => strlen($bytes)];
   $total += strlen($bytes);
 }
 $order['files'] = array_map(fn($x) => $x['name'], $saved);
-@file_put_contents(data_dir('orders') . "/$ref.json", json_encode($order, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+@file_put_contents(data_dir($store) . "/$ref.json", json_encode($order, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
 
 $details = '';
 foreach ($sections as $sec) {
@@ -125,7 +135,7 @@ foreach ($sections as $sec) {
 if ($order['plan']) $details .= "\nATTACHED PLAN / ESTIMATE\n" . $order['plan'] . "\n";
 $attachOk = $saved && $total <= MAX_ATTACH;
 $fileNote = $saved ? "\nFILES (" . count($saved) . ")\n" . implode("\n", array_map(fn($x) => "- " . $x['name'], $saved)) . "\n"
-  . ($attachOk ? "Attached to this email.\n" : "Too big to attach: download them from webumi-data/orders/$ref/ in File Manager.\n") : '';
+  . ($attachOk ? "Attached to this email.\n" : "Too big to attach: download them from webumi-data/$store/$ref/ in File Manager.\n") : '';
 
 $ownerBody = "New order $ref\n\n" . ($nda ? "NDA REQUESTED: sign theirs or send ours (private/nda-template.html) before they share the details.\n\n" : '') . "From: $name <$email>\nBusiness: " . ($business ?: '-') . "\nNeeds: $typeNames\n$details$fileNote\nReply to this email to answer $name directly.\n";
 $customerBody = "Hi " . explode(' ', $name)[0] . ",\n\nThanks for your order. Your reference is $ref.\n\n"
@@ -133,6 +143,19 @@ $customerBody = "Hi " . explode(' ', $name)[0] . ",\n\nThanks for your order. Yo
   . "2. If you're happy with it, you sign the agreement online and pay a 50% deposit. Then we start on your three homepage designs.\n3. Nothing is charged until you approve the quote.\n\n"
   . ($nda ? "You asked for an NDA. We're happy to sign yours, or we'll send our standard mutual NDA. Either way it's signed before you share the details.\n\n" : '')
   . "A copy of your answers:\n$details" . ($saved ? "\nFiles received: " . count($saved) . "\n" : '') . "\nJust reply to this email if you'd like to add anything.\n\nThe Webumi team\nwebumi.com.au\n";
+
+if ($brief) {
+  $quote = $oneLine($in['quoteRef'] ?? '', 20);
+  $ownerBody = "New AI video brief $ref" . ($quote ? " (quote $quote)" : '') . "\n\nFrom: $name" . ($email ? " <$email>" : ' (no email given)') . "\nBusiness: " . ($business ?: '-') . "\n$details$fileNote\nReply to this email to answer $name directly.\n";
+  $customerBody = "Hi " . explode(' ', $name)[0] . ",\n\nThanks for your video brief. Your reference is $ref.\n\n"
+    . "What happens next:\n1. We write the script and show you the look of each video.\n2. Once you approve them, we make the first versions for your feedback.\n\n"
+    . "A copy of your answers:\n$details" . ($saved ? "\nFiles received: " . count($saved) . "\n" : '') . "\nJust reply to this email if you'd like to add anything or send more files.\n\nThe Webumi team\nwebumi.com.au\n";
+  $sent = send_mail($owner, "New video brief $ref" . ($business ? " for $business" : ''), $ownerBody, $from, $email ? mail_addr($name, $email) : $owner, "$ref-to-you", $attachOk ? $saved : []);
+  if ($email) send_mail($email, "Your Webumi video brief $ref", $customerBody, $from, $owner, "$ref-to-customer");
+  if (!$sent) error_log("Webumi brief $ref: owner email failed (saved in webumi-data/briefs)");
+  echo json_encode(['ok' => true, 'ref' => $ref]);
+  exit;
+}
 
 $sent = send_mail($owner, ($nda ? "[NDA] " : '') . "New order $ref: $typeNames" . ($business ? " for $business" : ''), $ownerBody, $from, mail_addr($name, $email), "$ref-to-you", $attachOk ? $saved : []);
 send_mail($email, "Your Webumi order $ref", $customerBody, $from, $owner, "$ref-to-customer");
