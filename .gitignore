@@ -13,3 +13,6 @@ private/
 
 # Planner usage counters (local preview)
 webumi-data/
+
+# reel projects and rendered videos: kept on this computer, too big for git
+social/
