@@ -36,7 +36,7 @@
   <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/styles.css?v=73d2632d">
   <link rel="stylesheet" href="/bears.css?v=fd76818b">
-  <link rel="stylesheet" href="/hero-demo.css?v=6c3dd220">
+  <link rel="stylesheet" href="/hero-demo.css?v=c1382d65">
   <style>
     /* sale prices: build.js "deal" tokens and partials/sale.html */
     .deal { font: inherit; }
@@ -303,65 +303,19 @@
 
   <main id="top">
 <!-- ============ HERO ============ -->
-    <!-- The hero is the product: pick a business and a live, animated website rebuilds for it (hero-demo.js).
-         The bear in that trade's work clothes is the owner. Without JavaScript it shows the first business, still. -->
-    <section class="hero hero--live">
-      <div class="hero__glow" aria-hidden="true"></div>
-      <div class="wrap hero__grid">
-        <div class="hero__copy">
-          <p class="eyebrow reveal"><span class="dot"></span> <span>Website design Sydney</span></p>
-          <h1 class="hero__title reveal">Animated websites <span class="squiggle">that get you booked.</span></h1>
-          <p class="hero__lead reveal">Pick a business, type your name and watch your website come to life. We design and build interactive websites in Sydney with video, motion and <strong>online booking and payments built in</strong>, live in days.</p>
-          <div class="hero__ctas reveal">
-            <a href="/order/?type=website" class="btn btn--primary" id="liveCta">Get a website like this <span class="arrow">→</span></a>
-            <a href="#packages" class="btn btn--ghost">See prices</a>
-          </div>
-          <ul class="hero__facts reveal">
-            <li><span>Websites from <b><b class="deal"><s class="deal__was">$150</s> $90</b></b></span></li>
-            <li><span>Live in <b>3 days</b></span></li>
-            <li><span>Pay nothing until you approve the quote</span></li>
-          </ul>
+    <!-- An open hero, no frames or cards: the bear building a website on a handmade miniature set fills the
+         whole width (video/hero-set.mp4, a 6-second loop; hero-set.webp is its first frame), the words sit on its empty left side. -->
+    <section class="sethero">
+      <video class="sethero__art" autoplay muted loop playsinline disablepictureinpicture preload="auto" poster="/hero-set.webp?v=a0ecbed5" width="1920" height="1080" aria-hidden="true"><source src="/video/hero-set.mp4?v=840f9582" type="video/mp4"></video>
+      <div class="wrap sethero__copy">
+        <p class="sethero__kicker">Website design Sydney</p>
+        <h1 class="hero__title">Animated websites that take <span class="squiggle">bookings and payments.</span></h1>
+        <p class="hero__lead">We design and build your website in Sydney. It shows your work in video and motion, and <strong>customers book a time and pay online</strong>. Live in 3 days to 2 weeks.</p>
+        <div class="hero__ctas">
+          <a href="/order/?type=website" class="btn btn--primary">Get my website <span class="arrow">→</span></a>
+          <a href="#packages" class="sethero__link">See prices</a>
         </div>
-
-        <div class="live reveal" id="live" aria-label="Example websites: pick a business">
-          <div class="live__pick" role="group" aria-label="Pick a business">
-            <button type="button" data-k="cafe" aria-pressed="true">Café</button>
-            <button type="button" data-k="beauty" aria-pressed="false">Salon</button>
-            <button type="button" data-k="barber" aria-pressed="false">Barber</button>
-            <button type="button" data-k="groomer" aria-pressed="false">Dog groomer</button>
-            <button type="button" data-k="cleaner" aria-pressed="false">Cleaner</button>
-            <button type="button" data-k="mechanic" aria-pressed="false">Mechanic</button>
-            <button type="button" data-k="physio" aria-pressed="false">Physio</button>
-            <button type="button" data-k="dentist" aria-pressed="false">Dentist</button>
-            <button type="button" data-k="pilates" aria-pressed="false">Pilates</button>
-          </div>
-          <label class="live__name"><span>Now try yours</span><input id="liveName" type="text" maxlength="28" placeholder="Type your business name" autocomplete="off" spellcheck="false" enterkeyhint="done"></label>
-          <div class="live__tilt">
-            <div class="live__win">
-              <div class="live__bar" aria-hidden="true"><i></i><i></i><i></i><span class="live__url" id="liveUrl">littlebean.com.au</span></div>
-              <div class="site" id="liveSite">
-                <div class="site__nav"><b class="site__logo" data-f="name">Little Bean</b><span class="site__links"><i>Menu</i><i>About</i><i>Find us</i></span><span class="site__btn" data-f="cta">Order ahead</span></div>
-                <div class="site__hero">
-                  <div class="site__copy">
-                    <p class="site__tag" data-f="tag">Surry Hills · from 6:30am</p>
-                    <p class="site__h" data-f="h">Coffee that's ready when you are.</p>
-                    <span class="site__cta" data-f="cta">Order ahead</span>
-                    <p class="site__stars"><span aria-hidden="true">★★★★★</span> <span data-f="reviews">4.9 · 312 Google reviews</span></p>
-                  </div>
-                  <div class="site__art"><span class="site__blob"></span>
-                    <span class="bear bear--stand site__bear" aria-hidden="true"><video muted playsinline preload="none" disablepictureinpicture poster="/video/bears/bear-barista.webp?v=7fbeee7a"></video></span>
-                  </div>
-                </div>
-                <ul class="site__cards">
-                  <li><span data-f="s0">Flat white</span><b data-f="p0">$5.50</b></li>
-                  <li><span data-f="s1">Brekkie roll</span><b data-f="p1">$14</b></li>
-                  <li><span data-f="s2">Banana bread</span><b data-f="p2">$6.50</b></li>
-                </ul>
-                <p class="site__toast" aria-hidden="true"><span class="site__ping"></span><span data-f="toast">New order · 2 flat whites, pick-up 8:10</span></p>
-              </div>
-            </div>
-          </div>
-        </div>
+        <p class="sethero__facts">From <b class="deal"><s class="deal__was">$150</s> $90</b> · fixed quote in 1 business day · pay nothing until you approve it</p>
       </div>
     </section>
 
@@ -961,6 +915,6 @@
   <script src="/script.js?v=b7aa80b1"></script>
   <script type="application/json" id="bearList">{"wave":{"webm":"/video/bears/bear-wave.webm?v=4b579bbf","mp4":"/video/bears/bear-wave.mp4?v=fbc8efc5","poster":"/video/bears/bear-wave.webp?v=32196134"},"pilates":{"webm":"/video/bears/bear-pilates.webm?v=abd06239","mp4":"/video/bears/bear-pilates.mp4?v=9493adef","poster":"/video/bears/bear-pilates.webp?v=27b2aa3b"},"hairdresser":{"webm":"/video/bears/bear-hairdresser.webm?v=75719741","mp4":"/video/bears/bear-hairdresser.mp4?v=715ee832","poster":"/video/bears/bear-hairdresser.webp?v=661ed932"},"barista":{"webm":"/video/bears/bear-barista.webm?v=fba3ee2d","mp4":"/video/bears/bear-barista.mp4?v=425ee16a","poster":"/video/bears/bear-barista.webp?v=7fbeee7a"},"beauty":{"webm":"/video/bears/bear-beauty.webm?v=24a0b237","mp4":"/video/bears/bear-beauty.mp4?v=c853dacc","poster":"/video/bears/bear-beauty.webp?v=58ee8c6e"},"mechanic":{"webm":"/video/bears/bear-mechanic.webm?v=c859ec76","mp4":"/video/bears/bear-mechanic.mp4?v=0dc4b3c5","poster":"/video/bears/bear-mechanic.webp?v=8ccc4470"},"groomer":{"webm":"/video/bears/bear-groomer.webm?v=a93137ad","mp4":"/video/bears/bear-groomer.mp4?v=99571698","poster":"/video/bears/bear-groomer.webp?v=93b7e3ac"},"physio":{"webm":"/video/bears/bear-physio.webm?v=9a265ec2","mp4":"/video/bears/bear-physio.mp4?v=63f727ff","poster":"/video/bears/bear-physio.webp?v=0b19927f"},"cleaner":{"webm":"/video/bears/bear-cleaner.webm?v=c0f670d6","mp4":"/video/bears/bear-cleaner.mp4?v=22688f2a","poster":"/video/bears/bear-cleaner.webp?v=27bea114"},"dentist":{"webm":"/video/bears/bear-dentist.webm?v=e1289601","mp4":"/video/bears/bear-dentist.mp4?v=e8132ab2","poster":"/video/bears/bear-dentist.webp?v=3958065a"}}</script>
   <script src="/bears.js?v=60f1ece6" defer></script>
-  <script src="/hero-demo.js?v=88c25a93" defer></script>
+  <script src="/hero-demo.js?v=b26c448a" defer></script>
 </body>
 </html>
