@@ -1,0 +1,102 @@
+/* Home hero: a live website that rebuilds for the business you pick (pages/index.html, hero-demo.js).
+   The mini site's colours are registered properties, so a new business fades its colours in instead of jumping. */
+@property --s-bg { syntax: "<color>"; inherits: true; initial-value: #f6efe6; }
+@property --s-soft { syntax: "<color>"; inherits: true; initial-value: #e9d8c4; }
+@property --s-accent { syntax: "<color>"; inherits: true; initial-value: #7a4a2b; }
+@property --s-ink { syntax: "<color>"; inherits: true; initial-value: #2b1d14; }
+
+.hero--live .hero__grid { grid-template-columns: .92fr 1.08fr; align-items: center; }
+.hero--live .hero__title { font-size: clamp(2.6rem, 5.4vw, 4.7rem); line-height: 1; margin: 22px 0 24px; }
+.hero--live .squiggle { white-space: normal; }
+.hero--live .squiggle::after { display: none; }   /* the underline doesn't follow a heading that wraps */
+.hero--live .hero__lead { max-width: 520px; }
+
+/* the business picker */
+.live { min-width: 0; }
+.live__pick { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+.live__pick button { font: 600 .88rem/1 var(--body); padding: 9px 14px; border-radius: 999px; cursor: pointer; color: var(--ink);
+  background: var(--paper); border: 2px solid var(--black); box-shadow: 2px 2px 0 var(--black); transition: transform .2s var(--spring), background .2s, color .2s; }
+.live__pick button:hover { transform: translate(-1px, -1px); box-shadow: 3px 3px 0 var(--black); }
+.live__pick button[aria-pressed="true"] { background: var(--black); color: #fff; box-shadow: 2px 2px 0 var(--coral); }
+.live__pick button:focus-visible { outline: 3px solid var(--cyan); outline-offset: 2px; }
+
+/* the browser window, tilting a little towards the mouse */
+.live__tilt { perspective: 1400px; }
+.live__win { position: relative; border: 3px solid var(--black); border-radius: 22px; overflow: hidden; background: var(--paper);
+  box-shadow: 10px 10px 0 var(--black); transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform .5s var(--ease); will-change: transform; }
+.live__bar { display: flex; align-items: center; gap: 6px; padding: 10px 14px; border-bottom: 2px solid var(--black); background: #fff; }
+.live__bar i { width: 10px; height: 10px; border-radius: 50%; background: #ff6159; }
+.live__bar i:nth-child(2) { background: #ffbd2e; } .live__bar i:nth-child(3) { background: #28c941; }
+.live__url { margin-left: 10px; flex: 1; max-width: 300px; padding: 5px 12px; border-radius: 999px; background: #f1f1f1; font: 500 .78rem/1.2 var(--body); color: #555; white-space: nowrap; overflow: hidden; }
+.live__url::after { content: ""; display: inline-block; width: 1px; height: 1em; margin-left: 1px; vertical-align: -2px; background: #555; animation: caret 1s steps(1) infinite; }
+@keyframes caret { 50% { opacity: 0; } }
+
+/* the mini website */
+.site { position: relative; padding: 16px 22px 22px; background: var(--s-bg); color: var(--s-ink);
+  transition: --s-bg .6s, --s-soft .6s, --s-accent .6s, --s-ink .6s; }
+.site__nav { display: flex; align-items: center; gap: 14px; font-size: .78rem; }
+.site__logo { font-family: var(--display); font-size: 1.05rem; letter-spacing: -.02em; color: var(--s-ink); }
+.site__links { display: flex; gap: 14px; margin-left: auto; opacity: .7; } .site__links i { font-style: normal; }
+.site__btn { padding: 6px 12px; border-radius: 999px; background: var(--s-ink); color: var(--s-bg); font-weight: 600; }
+.site__hero { display: grid; grid-template-columns: 1.15fr .85fr; align-items: end; gap: 8px; min-height: 250px; }
+.site__copy { padding: 26px 0 62px; }   /* room under the stars for the booking pop-up */
+.site__tag { display: inline-block; padding: 4px 10px; border-radius: 999px; background: var(--s-soft); font-size: .72rem; font-weight: 600; }
+.site__h { font-family: var(--display); font-weight: 800; font-size: clamp(1.45rem, 2.5vw, 2.1rem); line-height: 1.02; letter-spacing: -.03em; margin: 12px 0 16px; color: var(--s-ink); }
+.site__cta { display: inline-block; padding: 10px 18px; border-radius: 999px; background: var(--s-accent); color: #fff; font-weight: 700; font-size: .85rem;
+  box-shadow: 0 6px 18px -6px var(--s-accent); animation: cta-pulse 2.4s var(--ease) infinite; }
+@keyframes cta-pulse { 0%, 70%, 100% { transform: none; } 80% { transform: scale(1.06); } }
+.site__stars { margin-top: 14px; font-size: .74rem; opacity: .8; } .site__stars span:first-child { color: #f5a623; letter-spacing: 1px; }
+.site__art { position: relative; height: 100%; min-height: 230px; display: grid; place-items: end center; }
+.site__blob { position: absolute; left: 50%; bottom: 0; width: 88%; aspect-ratio: 1; translate: -50% 12%; border-radius: 46% 54% 50% 50% / 55% 45% 55% 45%;
+  background: var(--s-soft); animation: blob 9s ease-in-out infinite alternate; }
+@keyframes blob { to { border-radius: 58% 42% 44% 56% / 46% 58% 42% 54%; rotate: 8deg; } }
+.site__bear { position: relative; width: 150px; height: 250px; }
+.site__cards { list-style: none; margin: 30px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.site__cards li { display: grid; gap: 4px; padding: 12px 14px; border-radius: 14px; background: #fff; box-shadow: 0 1px 0 rgba(0,0,0,.06), 0 8px 20px -14px rgba(0,0,0,.35); font-size: .78rem; }
+.site__cards b { font-family: var(--display); font-size: 1.05rem; color: var(--s-accent); }
+.site__toast { position: absolute; left: 18px; bottom: 112px; display: flex; align-items: center; gap: 9px; padding: 10px 14px; border-radius: 14px;
+  background: #fff; color: #1d1d1d; font-size: .76rem; font-weight: 600; box-shadow: 0 14px 30px -12px rgba(0,0,0,.4); border: 2px solid var(--black);
+  opacity: 0; translate: 0 12px; scale: .9; transition: opacity .35s, translate .45s var(--spring), scale .45s var(--spring); }
+.site__toast.is-on { opacity: 1; translate: 0 0; scale: 1; }
+.site__ping { width: 10px; height: 10px; border-radius: 50%; background: #28c941; box-shadow: 0 0 0 0 rgba(40,201,65,.6); animation: ping 1.6s infinite; flex: none; }
+
+/* a new business: the words and cards slide in one after another */
+.site.is-swap [data-f], .site.is-swap .site__cards li { animation: swap-in .55s var(--ease) both; }
+.site.is-swap .site__h { animation-delay: .06s; } .site.is-swap .site__cta { animation-delay: .12s; }
+.site.is-swap .site__cards li:nth-child(1) { animation-delay: .14s; } .site.is-swap .site__cards li:nth-child(2) { animation-delay: .2s; } .site.is-swap .site__cards li:nth-child(3) { animation-delay: .26s; }
+@keyframes swap-in { from { opacity: 0; transform: translateY(10px); filter: blur(4px); } }
+
+@media (max-width: 1100px) {
+  .hero--live .hero__grid { grid-template-columns: 1fr; }
+  .live { max-width: 680px; }
+}
+@media (max-width: 1100px) {
+  /* phones and tablets: the live website right under the headline, the words after it */
+  .hero--live .hero__copy { display: contents; }
+  .hero--live .eyebrow { order: 1; justify-self: start; } .hero--live .hero__title { order: 2; margin-bottom: 4px; }
+  .hero--live .live { order: 3; } .hero--live .hero__lead { order: 4; }
+  .hero--live .hero__ctas { order: 5; margin-top: 4px; } .hero--live .hero__facts { order: 6; margin-top: 0; }
+  .hero--live .hero__grid { gap: 18px; }
+}
+@media (max-width: 600px) {
+  .live__pick { flex-wrap: nowrap; overflow-x: auto; margin: 0 -16px 14px; padding: 2px 16px 6px; scrollbar-width: none; }
+  .live__pick::-webkit-scrollbar { display: none; }
+  .live__pick button { flex: none; }
+  .live__win { box-shadow: 6px 6px 0 var(--black); border-radius: 16px; }
+  .site { padding: 12px 14px 16px; }
+  .site__links { display: none; } .site__nav { justify-content: space-between; }
+  .site__hero { min-height: 200px; grid-template-columns: 1.3fr .7fr; }
+  .site__copy { padding-top: 14px; }
+  .site__h { font-size: 1.3rem; }
+  .site__bear { width: 110px; height: 184px; }
+  .site__art { min-height: 184px; }
+  .site__cards { gap: 6px; } .site__cards li { padding: 9px 10px; font-size: .7rem; } .site__cards b { font-size: .9rem; }
+  .site__toast { left: 10px; right: 10px; bottom: 82px; font-size: .7rem; }
+  .site__stars { display: none; }
+  .site__copy { padding-bottom: 56px; }
+  .site__cards { margin-top: 24px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .live__win { transform: none; } .site__blob, .site__cta, .live__url::after { animation: none; }
+  .site.is-swap [data-f], .site.is-swap .site__cards li { animation: none; }
+}
