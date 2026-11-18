@@ -7,58 +7,193 @@
  "service": { "name": "AI video, photos and art", "serviceType": "AI video production and image creation", "description": "AI video ads, website hero videos, monthly social videos, AI product and lifestyle photos, team headshots, illustrations and brand characters for small businesses.", "offers": [{ "@type": "Offer", "name": "Video ad", "priceCurrency": "AUD", "price": "290" }, { "@type": "Offer", "name": "AI photos, 10 images", "priceCurrency": "AUD", "price": "170" }, { "@type": "Offer", "name": "Illustration", "priceCurrency": "AUD", "price": "70" }] }
 }
 -->
-    <section class="phero">
-      <div class="hero__glow" aria-hidden="true"></div>
-      <div class="wrap phero__grid">
-        <div>
-          <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span>AI Video</span></nav>
-          <p class="kicker">AI video production · Sydney</p>
-          <h1>AI video, photos and art made for <em>your brand</em>.</h1>
-          <p class="hero__lead">AI video production in Sydney and Australia-wide: video ads for Instagram, Facebook and TikTok, a looping video for your website, product and lifestyle photos, illustrations and a brand character you can use everywhere. Made with AI, directed by us, and yours to use in paid ads.</p>
+    <section class="vhero">
+      <div class="wrap vhero__grid">
+        <div class="vhero__text">
+          <nav class="crumbs crumbs--light" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span>AI Video</span></nav>
+          <p class="kicker kicker--light">AI video production · Sydney</p>
+          <h1>AI video for your ads, socials and <em>website</em>.</h1>
+          <p class="vhero__lead">Every clip on this page is ours: a mascot in work clothes, a kitchen that builds itself, a short film on a coast of the future. Yours comes with a script, music, captions and every size you need.</p>
           <div class="hero__ctas">
             <a href="/order/?type=media" class="btn btn--primary">Get a fixed quote <span class="arrow">→</span></a>
-            <a href="#prices" class="btn btn--ghost">See prices</a>
+            <a href="#work" class="btn btn--light">Watch 29 examples</a>
           </div>
-        </div>
-        <aside class="pbox reveal">
-          <p class="pkg__name">Video ad</p>
-          <p class="pkg__for">{{price:video-ad:length}}, with script, voiceover, music and captions.</p>
-          <p class="pkg__price"><span>from</span> {{aud:video-ad:price}}</p>
-          <hr class="pbox__hr">
-          <p class="pkg__name">AI photos</p>
-          <p class="pkg__for">10 product or lifestyle images.</p>
-          <p class="pkg__price">{{aud:photos-10:price}}</p>
-          <hr class="pbox__hr">
-          <p class="pkg__name">Illustration</p>
-          <p class="pkg__for">For a website, poster, menu or post.</p>
-          <p class="pkg__price"><span>from</span> {{aud:art-single:price}}</p>
-        </aside>
-      </div>
-    </section>
-
-    <!-- the example: our own logo bear, brought to life as a vertical reel -->
-    <section class="section section--white">
-      <div class="wrap split">
-        <div class="prose reveal">
-          <p class="kicker">Example</p>
-          <h2>Meet Umi, our own brand character.</h2>
-          <p>Our logo bear comes to life in this 6-second reel. It's the same character as the bear across our website, so people recognise it wherever they see it. We can create the same for your business: a mascot, a logo that moves, or a product that comes to life.</p>
-          <ul class="checks">
-            <li>The same character, colours and style in every video</li>
-            <li>Made vertical for Reels, TikTok and Stories</li>
-            <li>Small files that load fast on phones</li>
+          <ul class="vhero__facts">
+            <li><b>{{aud:video-ad:price}}</b><span>a video ad, from</span></li>
+            <li><b>9:16 · 1:1 · 16:9</b><span>every size included</span></li>
+            <li><b>100%</b><span>yours to run as paid ads</span></li>
           </ul>
         </div>
-        <div class="aiv__demo reveal">
-          <video class="aiv__reel" data-play-in-view muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/umi-logo-reel.webp}}" width="720" height="1280" aria-label="Umi the bear's logo coming to life: a 6-second animation">
-            <source src="{{v:video/umi-logo-reel.mp4}}" type="video/mp4">
-          </video>
+        <div class="vwall" aria-hidden="true"><div class="vwall__col vwall__col--1"><div class="vwall__track"><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/char-bear-beach.webp}}" data-src="{{v:video/work/char-bear-beach.mp4}}"></video><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/story-laser.webp}}" data-src="{{v:video/work/story-laser.mp4}}"></video><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/art-tree.webp}}" data-src="{{v:video/work/art-tree.mp4}}"></video><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/char-bear-beach.webp}}" data-src="{{v:video/work/char-bear-beach.mp4}}"></video><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/story-laser.webp}}" data-src="{{v:video/work/story-laser.mp4}}"></video><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/art-tree.webp}}" data-src="{{v:video/work/art-tree.mp4}}"></video></div></div><div class="vwall__col vwall__col--2"><div class="vwall__track"><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/char-bear-cafe.webp}}" data-src="{{v:video/work/char-bear-cafe.mp4}}"></video><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/product-coins.webp}}" data-src="{{v:video/work/product-coins.mp4}}"></video><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/art-moon-beach.webp}}" data-src="{{v:video/work/art-moon-beach.mp4}}"></video><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/char-bear-cafe.webp}}" data-src="{{v:video/work/char-bear-cafe.mp4}}"></video><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/product-coins.webp}}" data-src="{{v:video/work/product-coins.mp4}}"></video><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/art-moon-beach.webp}}" data-src="{{v:video/work/art-moon-beach.mp4}}"></video></div></div><div class="vwall__col vwall__col--3"><div class="vwall__track"><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/story-robot-dog.webp}}" data-src="{{v:video/work/story-robot-dog.mp4}}"></video><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/char-bear-bakery.webp}}" data-src="{{v:video/work/char-bear-bakery.mp4}}"></video><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/art-cats.webp}}" data-src="{{v:video/work/art-cats.mp4}}"></video><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/story-robot-dog.webp}}" data-src="{{v:video/work/story-robot-dog.mp4}}"></video><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/char-bear-bakery.webp}}" data-src="{{v:video/work/char-bear-bakery.mp4}}"></video><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/art-cats.webp}}" data-src="{{v:video/work/art-cats.mp4}}"></video></div></div></div>
+      </div>
+    </section>
+
+    <section class="section vg" id="work">
+      <div class="wrap">
+        <div class="section__head reveal">
+          <p class="kicker">Our work · vertical</p>
+          <h2>Pick a style. We make it about your business.</h2>
+          <p class="section__sub">Made vertical for Reels, TikTok and Stories. Clips play as you scroll; tap one to watch it bigger.</p>
+        </div>
+        <div class="vg__chips" role="group" aria-label="Filter the examples"><button type="button" class="vg__chip" data-filter="all" aria-pressed="true">All <small>25</small></button><button type="button" class="vg__chip" data-filter="ads" aria-pressed="false">Ads &amp; products <small>4</small></button><button type="button" class="vg__chip" data-filter="char" aria-pressed="false">Characters <small>11</small></button><button type="button" class="vg__chip" data-filter="stories" aria-pressed="false">Short films <small>4</small></button><button type="button" class="vg__chip" data-filter="art" aria-pressed="false">Animated art <small>6</small></button></div>
+        <div class="vg__grid">
+          <figure class="vg__item" data-cat="char">
+            <button type="button" class="vg__open" aria-label="Watch: A day at the beach"><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/char-bear-beach.webp}}" data-src="{{v:video/work/char-bear-beach.mp4}}"></video><span class="vg__tag">Characters</span></button>
+            <figcaption><b>A day at the beach</b><span>Mascot post for a summer sale</span></figcaption>
+          </figure>
+          <figure class="vg__item" data-cat="char">
+            <button type="button" class="vg__open" aria-label="Watch: A barista bear jumps for joy"><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/bear-barista.webp}}" data-src="{{v:video/work/bear-barista.mp4}}"></video><span class="vg__tag">Characters</span></button>
+            <figcaption><b>A barista bear jumps for joy</b><span>Mascot clip for a café's opening or new menu</span></figcaption>
+          </figure>
+          <figure class="vg__item" data-cat="ads">
+            <button type="button" class="vg__open" aria-label="Watch: Coins sinking in dark water"><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/product-coins.webp}}" data-src="{{v:video/work/product-coins.mp4}}"></video><span class="vg__tag">Ads &amp; products</span></button>
+            <figcaption><b>Coins sinking in dark water</b><span>Ad for a finance or savings business</span></figcaption>
+          </figure>
+          <figure class="vg__item" data-cat="art">
+            <button type="button" class="vg__open" aria-label="Watch: A tree grows and blooms"><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/art-tree.webp}}" data-src="{{v:video/work/art-tree.mp4}}"></video><span class="vg__tag">Animated art</span></button>
+            <figcaption><b>A tree grows and blooms</b><span>Animated illustration for a florist, garden or wellness brand</span></figcaption>
+          </figure>
+          <figure class="vg__item" data-cat="stories">
+            <button type="button" class="vg__open" aria-label="Watch: Morning on a futuristic coast"><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/story-coast-walk.webp}}" data-src="{{v:video/work/story-coast-walk.mp4}}"></video><span class="vg__tag">Short films</span></button>
+            <figcaption><b>Morning on a futuristic coast</b><span>Short film: the opening scene</span></figcaption>
+          </figure>
+          <figure class="vg__item" data-cat="char">
+            <button type="button" class="vg__open" aria-label="Watch: Working from a café"><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/char-bear-cafe.webp}}" data-src="{{v:video/work/char-bear-cafe.mp4}}"></video><span class="vg__tag">Characters</span></button>
+            <figcaption><b>Working from a café</b><span>Mascot post for a café or co-working space</span></figcaption>
+          </figure>
+          <figure class="vg__item" data-cat="ads">
+            <button type="button" class="vg__open" aria-label="Watch: Kettlebell swings, filmed on green"><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/ad-kettlebell-green.webp}}" data-src="{{v:video/work/ad-kettlebell-green.mp4}}"></video><span class="vg__tag">Ads &amp; products</span></button>
+            <figcaption><b>Kettlebell swings, filmed on green</b><span>Activewear ad, cut out and ready for any background</span></figcaption>
+          </figure>
+          <figure class="vg__item" data-cat="art">
+            <button type="button" class="vg__open" aria-label="Watch: A moonlit beach that glows"><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/art-moon-beach.webp}}" data-src="{{v:video/work/art-moon-beach.mp4}}"></video><span class="vg__tag">Animated art</span></button>
+            <figcaption><b>A moonlit beach that glows</b><span>Animated poster for travel or an event</span></figcaption>
+          </figure>
+          <figure class="vg__item" data-cat="char">
+            <button type="button" class="vg__open" aria-label="Watch: A cube creature on a suburban street"><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/char-cube.webp}}" data-src="{{v:video/work/char-cube.mp4}}"></video><span class="vg__tag">Characters</span></button>
+            <figcaption><b>A cube creature on a suburban street</b><span>Brand character for a kids' or toy brand</span></figcaption>
+          </figure>
+          <figure class="vg__item" data-cat="stories">
+            <button type="button" class="vg__open" aria-label="Watch: A walk with a robot dog"><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/story-robot-dog.webp}}" data-src="{{v:video/work/story-robot-dog.mp4}}"></video><span class="vg__tag">Short films</span></button>
+            <figcaption><b>A walk with a robot dog</b><span>Short film: the same woman, scene two</span></figcaption>
+          </figure>
+          <figure class="vg__item" data-cat="char">
+            <button type="button" class="vg__open" aria-label="Watch: Picking up a box of pastries"><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/char-bear-bakery.webp}}" data-src="{{v:video/work/char-bear-bakery.mp4}}"></video><span class="vg__tag">Characters</span></button>
+            <figcaption><b>Picking up a box of pastries</b><span>Mascot clip for a bakery</span></figcaption>
+          </figure>
+          <figure class="vg__item" data-cat="ads">
+            <button type="button" class="vg__open" aria-label="Watch: An emblem in brass and enamel"><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/product-emblem.webp}}" data-src="{{v:video/work/product-emblem.mp4}}"></video><span class="vg__tag">Ads &amp; products</span></button>
+            <figcaption><b>An emblem in brass and enamel</b><span>Logo reveal for a bakery, café or farm brand</span></figcaption>
+          </figure>
+          <figure class="vg__item" data-cat="art">
+            <button type="button" class="vg__open" aria-label="Watch: Two cats, one fierce"><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/art-cats.webp}}" data-src="{{v:video/work/art-cats.mp4}}"></video><span class="vg__tag">Animated art</span></button>
+            <figcaption><b>Two cats, one fierce</b><span>Animated illustration for a pet brand</span></figcaption>
+          </figure>
+          <figure class="vg__item" data-cat="char">
+            <button type="button" class="vg__open" aria-label="Watch: Late night at the gaming desk"><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/char-bear-gamer.webp}}" data-src="{{v:video/work/char-bear-gamer.mp4}}"></video><span class="vg__tag">Characters</span></button>
+            <figcaption><b>Late night at the gaming desk</b><span>Mascot clip for a tech or gaming business</span></figcaption>
+          </figure>
+          <figure class="vg__item" data-cat="char">
+            <button type="button" class="vg__open" aria-label="Watch: A hairdresser bear, scissors ready"><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/bear-hairdresser.webp}}" data-src="{{v:video/work/bear-hairdresser.mp4}}"></video><span class="vg__tag">Characters</span></button>
+            <figcaption><b>A hairdresser bear, scissors ready</b><span>Mascot clip for a hair salon's bookings post</span></figcaption>
+          </figure>
+          <figure class="vg__item" data-cat="stories">
+            <button type="button" class="vg__open" aria-label="Watch: A blast on the skyline"><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/story-laser.webp}}" data-src="{{v:video/work/story-laser.mp4}}"></video><span class="vg__tag">Short films</span></button>
+            <figcaption><b>A blast on the skyline</b><span>Short film: the action scene</span></figcaption>
+          </figure>
+          <figure class="vg__item" data-cat="char">
+            <button type="button" class="vg__open" aria-label="Watch: A forest creature wakes up"><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/char-forest.webp}}" data-src="{{v:video/work/char-forest.mp4}}"></video><span class="vg__tag">Characters</span></button>
+            <figcaption><b>A forest creature wakes up</b><span>Character for a game, book or event</span></figcaption>
+          </figure>
+          <figure class="vg__item" data-cat="art">
+            <button type="button" class="vg__open" aria-label="Watch: A window onto a summer garden"><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/art-window.webp}}" data-src="{{v:video/work/art-window.mp4}}"></video><span class="vg__tag">Animated art</span></button>
+            <figcaption><b>A window onto a summer garden</b><span>Animated illustration for a home or garden brand</span></figcaption>
+          </figure>
+          <figure class="vg__item" data-cat="ads">
+            <button type="button" class="vg__open" aria-label="Watch: A confident walk on green screen"><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/ad-walk-green.webp}}" data-src="{{v:video/work/ad-walk-green.mp4}}"></video><span class="vg__tag">Ads &amp; products</span></button>
+            <figcaption><b>A confident walk on green screen</b><span>Activewear ad, ready for a gym, beach or street</span></figcaption>
+          </figure>
+          <figure class="vg__item" data-cat="char">
+            <button type="button" class="vg__open" aria-label="Watch: Settling in at home"><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/char-bear-home.webp}}" data-src="{{v:video/work/char-bear-home.mp4}}"></video><span class="vg__tag">Characters</span></button>
+            <figcaption><b>Settling in at home</b><span>Mascot clip for real estate or home services</span></figcaption>
+          </figure>
+          <figure class="vg__item" data-cat="stories">
+            <button type="button" class="vg__open" aria-label="Watch: A giant robot by the sea"><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/story-robot.webp}}" data-src="{{v:video/work/story-robot.mp4}}"></video><span class="vg__tag">Short films</span></button>
+            <figcaption><b>A giant robot by the sea</b><span>Short film: the close-up</span></figcaption>
+          </figure>
+          <figure class="vg__item" data-cat="art">
+            <button type="button" class="vg__open" aria-label="Watch: A robot bug in the desert"><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/art-robot-bug.webp}}" data-src="{{v:video/work/art-robot-bug.mp4}}"></video><span class="vg__tag">Animated art</span></button>
+            <figcaption><b>A robot bug in the desert</b><span>Animated poster for a launch or event</span></figcaption>
+          </figure>
+          <figure class="vg__item" data-cat="char">
+            <button type="button" class="vg__open" aria-label="Watch: Showing off an app"><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/char-bear-app.webp}}" data-src="{{v:video/work/char-bear-app.mp4}}"></video><span class="vg__tag">Characters</span></button>
+            <figcaption><b>Showing off an app</b><span>Mascot explainer for an app launch</span></figcaption>
+          </figure>
+          <figure class="vg__item" data-cat="char">
+            <button type="button" class="vg__open" aria-label="Watch: A hologram presenter"><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/char-hologram.webp}}" data-src="{{v:video/work/char-hologram.mp4}}"></video><span class="vg__tag">Characters</span></button>
+            <figcaption><b>A hologram presenter</b><span>Intro for an AI or tech product</span></figcaption>
+          </figure>
+          <figure class="vg__item" data-cat="art">
+            <button type="button" class="vg__open" aria-label="Watch: A golden sign carved in rock"><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/art-rock.webp}}" data-src="{{v:video/work/art-rock.mp4}}"></video><span class="vg__tag">Animated art</span></button>
+            <figcaption><b>A golden sign carved in rock</b><span>Animated art for a music or event poster</span></figcaption>
+          </figure>
         </div>
       </div>
     </section>
 
-    <!-- the second example: AI athletes in a client's own activewear -->
-    <section class="section">
+    <section class="section section--white vw" id="wide">
+      <div class="wrap">
+        <div class="section__head reveal">
+          <p class="kicker">Our work · wide &amp; square</p>
+          <h2>Wide for the top of your website, square for your feed.</h2>
+          <p class="section__sub">A wide clip loops behind your headline with no sound needed; a square one fits Instagram and Facebook posts.</p>
+        </div>
+        <div class="vw__grid">
+          <figure class="vg__item vw__tile vw__tile--wide" data-cat="web">
+            <button type="button" class="vg__open" aria-label="Watch: An empty kitchen builds itself"><span class="vw__bar" aria-hidden="true"><i></i><i></i><i></i><em>yourkitchens.com.au</em></span><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/wide-kitchen.webp}}" data-src="{{v:video/work/wide-kitchen.mp4}}"></video><span class="vg__tag">Website hero</span></button>
+            <figcaption><b>An empty kitchen builds itself</b><span>Website hero for a kitchen renovation business</span></figcaption>
+          </figure>
+          <figure class="vg__item vw__tile vw__tile--sq" data-cat="feed">
+            <button type="button" class="vg__open" aria-label="Watch: A cat that waves hello"><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/sq-cat.webp}}" data-src="{{v:video/work/sq-cat.mp4}}"></video><span class="vg__tag">Square post</span></button>
+            <figcaption><b>A cat that waves hello</b><span>Square post for a pet shop or groomer</span></figcaption>
+          </figure>
+          <figure class="vg__item vw__tile vw__tile--sq" data-cat="feed">
+            <button type="button" class="vg__open" aria-label="Watch: A poodle that waves back"><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/sq-poodle.webp}}" data-src="{{v:video/work/sq-poodle.mp4}}"></video><span class="vg__tag">Square post</span></button>
+            <figcaption><b>A poodle that waves back</b><span>Square post for a dog groomer or vet</span></figcaption>
+          </figure>
+          <figure class="vg__item vw__tile vw__tile--wide" data-cat="web">
+            <button type="button" class="vg__open" aria-label="Watch: Curtains glide into an empty room"><span class="vw__bar" aria-hidden="true"><i></i><i></i><i></i><em>yourcurtains.com.au</em></span><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/wide-curtains.webp}}" data-src="{{v:video/work/wide-curtains.mp4}}"></video><span class="vg__tag">Website hero</span></button>
+            <figcaption><b>Curtains glide into an empty room</b><span>Website hero for a curtain and blinds business</span></figcaption>
+          </figure>
+        </div>
+        <div class="vg__cta reveal">
+          <p><b>Seen one you like?</b> Tell us which, and we quote one like it for your business.</p>
+          <a href="/order/?type=media" class="btn btn--primary">Get a fixed quote <span class="arrow">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <dialog class="vbox" id="vbox" aria-label="Video example">
+      <button type="button" class="vbox__x" aria-label="Close">×</button>
+      <button type="button" class="vbox__nav vbox__nav--prev" aria-label="Previous example">‹</button>
+      <figure class="vbox__fig"><video muted loop playsinline controls disablepictureinpicture></video><figcaption><span class="vbox__tag"></span><b></b><span class="vbox__line"></span></figcaption></figure>
+      <button type="button" class="vbox__nav vbox__nav--next" aria-label="Next example">›</button>
+    </dialog>
+
+    <section class="section mascots">
+      <div class="wrap">
+        <div class="section__head reveal">
+          <p class="kicker">Brand character</p>
+          <h2>One mascot, dressed for every job.</h2>
+          <p class="section__sub">This is Umi, our bear, in ten outfits. We design a character for your business the same way: one character sheet, so it looks the same in every ad, post and on your website.</p>
+        </div>
+      </div>
+      <ul class="mascots__row"><li class="mascots__card"><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/bear-hug.webp}}" data-src="{{v:video/work/bear-hug.mp4}}"></video><b>Hello</b></li><li class="mascots__card"><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/bear-barista.webp}}" data-src="{{v:video/work/bear-barista.mp4}}"></video><b>Café</b></li><li class="mascots__card"><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/bear-hairdresser.webp}}" data-src="{{v:video/work/bear-hairdresser.mp4}}"></video><b>Hair salon</b></li><li class="mascots__card"><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/bear-mechanic.webp}}" data-src="{{v:video/work/bear-mechanic.mp4}}"></video><b>Mechanic</b></li><li class="mascots__card"><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/bear-dentist.webp}}" data-src="{{v:video/work/bear-dentist.mp4}}"></video><b>Dentist</b></li><li class="mascots__card"><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/bear-physio.webp}}" data-src="{{v:video/work/bear-physio.mp4}}"></video><b>Physio</b></li><li class="mascots__card"><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/bear-pilates.webp}}" data-src="{{v:video/work/bear-pilates.mp4}}"></video><b>Pilates</b></li><li class="mascots__card"><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/bear-groomer.webp}}" data-src="{{v:video/work/bear-groomer.mp4}}"></video><b>Dog groomer</b></li><li class="mascots__card"><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/bear-cleaner.webp}}" data-src="{{v:video/work/bear-cleaner.mp4}}"></video><b>Cleaning</b></li><li class="mascots__card"><video muted loop playsinline disablepictureinpicture preload="none" poster="{{v:video/work/bear-beauty.webp}}" data-src="{{v:video/work/bear-beauty.mp4}}"></video><b>Beauty salon</b></li></ul>
+      <div class="wrap"><p class="mascots__cta reveal"><a class="btn btn--ghost" href="#art">Brand character from {{aud:character:price}} <span class="arrow">→</span></a></p></div>
+    </section>
+
+    <!-- the case study: AI athletes in a client's own activewear -->
+    <section class="section section--white">
       <div class="wrap split">
         <div class="aiv__demo reveal">
           <video class="aiv__reel" data-play-in-view muted loop playsinline disablepictureinpicture preload="none" poster="{{v:projects/gym-activewear-website/case/swing.jpg}}" width="1080" height="1920" aria-label="An AI athlete in the brand's activewear swinging a kettlebell">
@@ -66,7 +201,7 @@
           </video>
         </div>
         <div class="prose reveal">
-          <p class="kicker">Example · Activewear</p>
+          <p class="kicker">Case study · Activewear</p>
           <h2>AI athletes in your own gym wear.</h2>
           <p>For an Australian gym and activewear brand, we made AI athletes who train in the brand's real crop tee and shorts: back squats, kettlebell swings and a walk from the office into the gym. The logos sit exactly where the garment mock-ups put them, and we check them frame by frame. We built a concept website around the clips too.</p>
           <ul class="checks">
@@ -190,7 +325,7 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="art">
       <div class="wrap">
         <div class="section__head reveal">
           <p class="kicker">AI art</p>
