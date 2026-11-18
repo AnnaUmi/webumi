@@ -942,12 +942,14 @@
     })();
   }
 
-  /* ---------- Order form (/order/): one page, sections open on click, file uploads ---------- */
-  const ord = $("#orderForm");
+  /* ---------- Order form (/order/) and AI video brief (/ai-video/brief/): one page, sections open on click, file uploads ---------- */
+  const ord = $("#orderForm") || $("#briefForm");
   if (ord) {
+    const brief = ord.id === "briefForm";
     const secs = $$(".osec", ord);
     const humanToken = humanCheck($("#ordVerify"));
-    const DRAFT = "webumiOrder", MAX_FILES = 12, MAX_TOTAL = 20e6;
+    const DRAFT = brief ? "webumiBrief" : "webumiOrder", MAX_FILES = brief ? 20 : 12, MAX_TOTAL = 20e6;
+    const store = () => (brief ? localStorage : sessionStorage);   // a long brief may be finished another day
     const files = {};            // zone -> [{ name, type, data (base64), url (preview) }]
     let attached = "";
     const selectedTypes = () => $$('input[name="types"]:checked', ord).map((i) => i.value);
@@ -974,10 +976,12 @@
     // ---- show only the questions that apply ----
     function refresh() {
       const types = selectedTypes();
-      $$(".ord__group", ord).forEach((g) => (g.hidden = !g.dataset.for.split(" ").some((t) => types.includes(t))));
-      $("[data-none]", ord).hidden = types.length > 0;
+      $$(".ord__group[data-for]", ord).forEach((g) => (g.hidden = !g.dataset.for.split(" ").some((t) => types.includes(t))));
+      const none = $("[data-none]", ord); if (none) none.hidden = types.length > 0;
       const logo = $('input[name="logo"]:checked', ord)?.value || "";
-      $$(".ord__cond", ord).forEach((c) => (c.hidden = !c.dataset.ifLogo.split("|").includes(logo)));
+      const count = brief ? buildVideos(ord.elements.count.value) : 1;
+      $$(".ord__cond[data-if-logo]", ord).forEach((c) => (c.hidden = !c.dataset.ifLogo.split("|").includes(logo)));
+      $$(".ord__cond[data-if-count]", ord).forEach((c) => (c.hidden = count < +c.dataset.ifCount));
       secs.forEach((sec) => {
         let n = 0;
         $$("input, textarea", sec).forEach((el) => {
@@ -990,6 +994,19 @@
         $(".osec__status", sec).textContent = n ? `✓ ${n} answered` : "Not started";
       });
     }
+
+    // ---- brief: one block of questions per video, as many as the client wants ----
+    function buildVideos(value) {
+      const n = Math.min(Math.max(parseInt(value, 10) || 1, 1), 50), list = $("#videoList"), tpl = $("#videoTpl");
+      for (let i = list.children.length + 1; i <= n; i++) list.insertAdjacentHTML("beforeend", tpl.innerHTML.replace(/__N__/g, i));
+      [...list.children].forEach((b, i) => (b.hidden = i >= n));   // fewer videos: hide the extra ones, keep what was typed
+      return n;
+    }
+    $("#addVideo")?.addEventListener("click", () => {
+      const c = ord.elements.count, n = (parseInt(c.value, 10) || 1) + 1;
+      c.value = n; saveDraft(); refresh();
+      $(`[data-video="${n}"]`, ord)?.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
+    });
 
     // ---- file uploads: images are shrunk in the browser so phone photos send quickly ----
     const toBase64 = (blob) => new Promise((res) => { const r = new FileReader(); r.onload = () => res(String(r.result).split(",")[1]); r.readAsDataURL(blob); });
@@ -1058,12 +1075,12 @@
           if (shown(d) && list.length) rows.push([labelOf(d), list.map((f) => f.name).join(", ")]);
         });
         return { title: titleOf(sec), rows };
-      }).concat([{ title: "Your details", rows: ["name", "email", "phone", "contactBy"].map((n) => [labelOf(ord.elements[n]), ord.elements[n].value.trim()]).filter((r) => r[1]) }])
+      }).concat([{ title: "Your details", rows: ["name", "email", "phone", "contactBy", "ref"].filter((n) => ord.elements[n]).map((n) => [labelOf(ord.elements[n]), ord.elements[n].value.trim()]).filter((r) => r[1]) }])
         .filter((x) => x.rows.length);
     }
 
     // ---- colour palettes: live preview + your own colours ----
-    const preview = $("#palPreview");
+    const preview = $("#palPreview") || document.createElement("div");   // the brief has no palette
     const DEFAULTS = ["#0F2A3D", "#FF6B4A", "#FFD23F", "#F4E9D8", "#1FA592"];
     function paint() {
       const pick = $('input[name="palette"]:checked', ord);
@@ -1071,6 +1088,7 @@
       const cols = pick?.dataset.colours ? pick.dataset.colours.split(" ") : own.length ? own : null;
       preview.classList.toggle("is-on", !!cols);
       if (cols) ["--p1", "--p2", "--p3", "--p4"].forEach((v, i) => preview.style.setProperty(v, cols[i % cols.length]));
+      if (!preview.isConnected) return;
       $("#palName").textContent = pick?.dataset.colours ? pick.value.split(":")[0] : cols ? "Your colours" : pick ? pick.value : "Pick a palette to preview it";
     }
     function addColour(value) {
@@ -1087,7 +1105,7 @@
       $("#palAdd").hidden = $$('input[name="customColour"]', box).length >= 5;
       paint();
     }
-    $("#palAdd").addEventListener("click", () => { addColour(); saveDraft(); refresh(); });
+    $("#palAdd")?.addEventListener("click", () => { addColour(); saveDraft(); refresh(); });
     ord.addEventListener("input", (e) => { if (e.target.name === "palette" || e.target.name === "customColour") paint(); });
     ord.addEventListener("change", (e) => { if (e.target.name === "palette") paint(); });
 
@@ -1100,10 +1118,11 @@
         else if (el.type === "color") (d[el.name] ||= []).push(el.value);
         else if (el.value) d[el.name] = el.value;
       });
-      try { sessionStorage.setItem(DRAFT, JSON.stringify(d)); } catch {}
+      try { store().setItem(DRAFT, JSON.stringify(d)); } catch {}
     };
     try {
-      const d = JSON.parse(sessionStorage.getItem(DRAFT) || "{}");
+      const d = JSON.parse(store().getItem(DRAFT) || "{}");
+      if (brief) buildVideos(d.count);   // the video blocks must exist before their answers go back in
       $$("input, select, textarea", ord).forEach((el) => {
         if (!(el.name in d) || el.type === "file") return;
         if (el.type === "checkbox" || el.type === "radio") el.checked = d[el.name].includes(el.value); else el.value = d[el.name];
@@ -1114,12 +1133,17 @@
     ord.addEventListener("change", () => { saveDraft(); refresh(); });
 
     // ---- arriving with ?type=website, or from the planner / price builder ----
-    const q = new URLSearchParams(location.search).get("type");
+    const params = new URLSearchParams(location.search), q = params.get("type");
+    // a brief link can carry the quote: /ai-video/brief/?ref=W-1108-7F3A&videos=2
+    if (brief && params.get("ref") && !ord.elements.ref.value) ord.elements.ref.value = params.get("ref").replace(/[^\w-]/g, "").slice(0, 20);
+    const vids = (params.get("videos") || "").replace(/\D/g, "");
+    if (brief && vids && !ord.elements.count.value) ord.elements.count.value = vids;
     if (q) { const box = $(`input[name="types"][value="${q.replace(/[^a-z]/g, "")}"]`, ord); if (box) box.checked = true; }
     try {
       const plan = JSON.parse(sessionStorage.getItem("webumiPlan") || "{}").offer;
       const est = sessionStorage.getItem("webumiEstimate");
-      if (plan?.headline && window.WebumiOffer) {
+      if (brief) {}
+      else if (plan?.headline && window.WebumiOffer) {
         attached = `Website plan: ${plan.headline}\n${location.origin}${window.WebumiOffer.linkFor(plan)}`;
         $("#ordPlanLink").href = window.WebumiOffer.linkFor(plan);
         $("#ordPlan").hidden = false;
@@ -1137,16 +1161,16 @@
     function check() {
       let first = null;
       const bad = (el, sec) => { if (!first) first = { el, sec }; };
-      const none = !selectedTypes().length;
-      $('[data-err="types"]', ord).classList.toggle("is-on", none);
+      const none = !brief && !selectedTypes().length;
+      $('[data-err="types"]', ord)?.classList.toggle("is-on", none);
       if (none) bad($('input[name="types"]', ord), secs[0]);
       $$("[data-required]", ord).forEach((el) => {
         const off = !el.value.trim() || !el.checkValidity();
         el.closest(".field").classList.toggle("is-invalid", off);
         if (off) bad(el, el.closest(".osec"));
       });
-      const c = !ord.elements.consent.checked;
-      $('[data-err="consent"]', ord).classList.toggle("is-on", c);
+      const c = !brief && !ord.elements.consent.checked;   // the brief asks nothing it can't do without
+      $('[data-err="consent"]', ord)?.classList.toggle("is-on", c);
       if (c) bad(ord.elements.consent, null);
       if (first) {
         if (first.sec) open(first.sec);
@@ -1160,11 +1184,11 @@
     ord.addEventListener("submit", async (e) => {
       e.preventDefault();
       if (!check()) return;
-      const btn = $("#ordSubmit"), err = $("#ordError");
+      const btn = $("#ordSubmit"), err = $("#ordError"), label = btn.textContent;
       btn.disabled = true; btn.textContent = "Sending…"; err.hidden = true;
       const payload = {
-        types: selectedTypes(), name: ord.elements.name.value.trim(), email: ord.elements.email.value.trim(),
-        business: ord.elements.business.value.trim(), consent: true, summary: summary(), plan: attached,
+        kind: brief ? "brief" : "order", types: brief ? ["media"] : selectedTypes(), name: ord.elements.name.value.trim(), email: ord.elements.email.value.trim(),
+        business: ord.elements.business?.value.trim() || "", quoteRef: ord.elements.ref?.value.trim() || "", consent: ord.elements.consent.checked || !brief, summary: summary(), plan: attached,
         nda: !!(ord.elements.nda?.checked && shown(ord.elements.nda)),
         website: ord.elements.website.value,
         files: Object.entries(files).flatMap(([zone, list]) => list.map((f) => ({ zone, name: f.name, type: f.type, data: f.data }))),
@@ -1179,22 +1203,23 @@
         }
         if (data.code === "verify") throw new Error(`We couldn't confirm you're human${humanToken.error ? ` (${humanToken.error})` : ""}. If a tick box appears above the button, tick it and send again.`);
         if (!data.ok) throw new Error(data.error || "Something went wrong.");
-        try { sessionStorage.removeItem(DRAFT); sessionStorage.removeItem("webumiEstimate"); } catch {}
+        try { store().removeItem(DRAFT); if (!brief) sessionStorage.removeItem("webumiEstimate"); } catch {}
         $("#ordRef").textContent = data.ref;
         $("#ordEmail").textContent = payload.email;
-        [...secs, $(".ord__contact", ord), $("#ordPlan")].forEach((el) => (el.hidden = true));
+        if ($("#ordCopy")) $("#ordCopy").hidden = !payload.email;
+        [...secs, $(".ord__contact", ord), $("#ordPlan")].filter(Boolean).forEach((el) => (el.hidden = true));
         $("#ordDone").hidden = false;
         ord.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
         confetti(ord);
       } catch (x) {
         const to = $("#ctEmail")?.textContent || "hello@webumi.com.au";
         err.innerHTML = "";
-        err.append(`${x instanceof TypeError ? "Can't reach the server. Check your internet connection." : x.message} You can also email your order to `);
-        const a = document.createElement("a"); a.href = `mailto:${to}?subject=${encodeURIComponent("Order request")}`; a.textContent = to; err.append(a, ".");
+        err.append(`${x instanceof TypeError ? "Can't reach the server. Check your internet connection." : x.message} Your answers are kept on this page. You can also email your ${brief ? "brief" : "order"} to `);
+        const a = document.createElement("a"); a.href = `mailto:${to}?subject=${encodeURIComponent(brief ? "Video brief" : "Order request")}`; a.textContent = to; err.append(a, ".");
         err.hidden = false;
         err.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
       }
-      btn.disabled = false; btn.textContent = "Send order →";
+      btn.disabled = false; btn.textContent = label;
     });
   }
 
@@ -1516,6 +1541,69 @@
     let dotTick = false;
     stack.addEventListener("scroll", () => { if (!dotTick) { dotTick = true; requestAnimationFrame(() => { dotTick = false; markDot(); }); } }, { passive: true });
     markDot();
+  }
+
+  /* ---------- AI Video page: showreel wall, gallery and lightbox ----------
+     Clips carry their file in data-src and load only near the screen, then play while visible.
+     Chips filter the gallery; a tile opens the clip big (dialog) with previous / next, arrow keys and swipes.
+     Reduced motion: posters only, the lightbox still plays when asked. */
+  const reelVids = $$(".vwall video, .vg__open video, .mascots__card video");
+  if (reelVids.length) {
+    if (!reduceMotion) {
+      const rio = new IntersectionObserver((entries) => entries.forEach(({ target: v, isIntersecting }) => {
+        if (isIntersecting) { if (!v.src) v.src = v.dataset.src; v.play().catch(() => {}); } else v.pause();
+      }), { rootMargin: "120px 0px" });
+      reelVids.forEach((v) => rio.observe(v));
+    }
+
+    const items = $$(".vg__item");
+    const chips = $$(".vg__chip");
+    chips.forEach((chip) => chip.addEventListener("click", () => {
+      const f = chip.dataset.filter;
+      chips.forEach((c) => c.setAttribute("aria-pressed", c === chip));
+      items.forEach((it) => { if (it.closest(".vg__grid")) it.hidden = f !== "all" && it.dataset.cat !== f; });   // the wide & square section stays as it is
+      const grid = $(".vg__grid");
+      if (grid.getBoundingClientRect().top < 0) grid.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+    }));
+
+    const box = $("#vbox");
+    if (box) {
+      const bv = $("video", box);
+      let at = 0;
+      const visible = () => items.filter((it) => !it.hidden);
+      const show = (i) => {
+        const list = visible();
+        at = (i + list.length) % list.length;
+        const it = list[at], v = $("video", it);
+        bv.poster = v.poster;
+        bv.src = v.dataset.src;
+        bv.play().catch(() => {});
+        $("b", box).textContent = $("figcaption b", it).textContent;
+        $(".vbox__line", box).textContent = $("figcaption span", it).textContent;
+        $(".vbox__tag", box).textContent = $(".vg__tag", it).textContent;
+      };
+      items.forEach((it) => $(".vg__open", it).addEventListener("click", () => {
+        box.showModal();
+        document.documentElement.style.overflow = "hidden";
+        show(visible().indexOf(it));
+      }));
+      $(".vbox__nav--prev", box).addEventListener("click", () => show(at - 1));
+      $(".vbox__nav--next", box).addEventListener("click", () => show(at + 1));
+      $(".vbox__x", box).addEventListener("click", () => box.close());
+      box.addEventListener("click", (e) => { if (e.target === box) box.close(); });   // a click on the dark area closes
+      box.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowLeft") show(at - 1);
+        if (e.key === "ArrowRight") show(at + 1);
+      });
+      box.addEventListener("close", () => { bv.pause(); document.documentElement.style.overflow = ""; });
+      let x0 = null;   // phones: swipe left / right
+      box.addEventListener("touchstart", (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+      box.addEventListener("touchend", (e) => {
+        if (x0 === null) return;
+        const dx = e.changedTouches[0].clientX - x0; x0 = null;
+        if (Math.abs(dx) > 50) show(at + (dx < 0 ? 1 : -1));
+      });
+    }
   }
 
   const year = $("#year");
