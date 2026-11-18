@@ -11,11 +11,13 @@
 .salebar { display: block; padding: 8px 16px; text-align: center; background: var(--black); color: #fff; font-size: .92rem; text-decoration: none; }
 .salebar b:first-child { color: var(--sun); margin-right: 6px; }
 .salebar .deal { font-weight: 800; }
+.salebar__left { color: var(--sun); font-weight: 700; }
 .salebar .deal__was { opacity: .6; }
 .salebar:hover span { display: inline-block; transform: translateX(3px); }
 @media (max-width: 600px) {
   .salebar { font-size: .84rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .salebar b:first-child, .salebar .deal__was { display: none; }
+  .salebar:has(.salebar__left:not(:empty)) .salebar__until { display: none; }   /* "43 days left" says it shorter */
 }
 
 .salebn { padding: clamp(40px, 6vw, 72px) 0; }
