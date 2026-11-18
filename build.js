@@ -267,6 +267,7 @@ if (process.argv[2] === "serve") {
     const size = fs.statSync(file).size, range = (req.headers.range || "").match(/^bytes=(\d*)-(\d*)$/);
     if (range) {
       const start = range[1] ? +range[1] : Math.max(0, size - +range[2]), end = range[1] && range[2] ? Math.min(+range[2], size - 1) : size - 1;
+      if (start > end) { res.writeHead(416, { "Content-Range": `bytes */${size}` }); return res.end(); }   // the file got shorter since the browser last saw it
       res.writeHead(206, { "Content-Type": type, "Accept-Ranges": "bytes", "Content-Range": `bytes ${start}-${end}/${size}`, "Content-Length": end - start + 1 });
       return fs.createReadStream(file, { start, end }).pipe(res);
     }

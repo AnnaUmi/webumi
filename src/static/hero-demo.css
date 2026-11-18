@@ -1,10 +1,13 @@
 /* Home hero: open, no frames or cards. The picture fills the whole width; the words sit on its empty left side
    (pages/index.html). The picture's own backdrop is #f7f1e3, the hero takes that colour and fades into the page. */
 .sethero { position: relative; background: #f7f1e3; overflow: hidden; padding: 32px 0 8px; }
-.sethero__art { display: block; width: 72%; height: auto; margin-left: auto; margin-right: 5%; aspect-ratio: 16 / 9; max-height: 80vh; object-fit: cover; object-position: 100% 55%;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 14%, #000 90%, transparent), linear-gradient(transparent, #000 7%, #000 86%, transparent); mask-image: linear-gradient(90deg, transparent, #000 14%, #000 90%, transparent), linear-gradient(transparent, #000 7%, #000 86%, transparent);
+/* the stage holds the looping video and, over it, the canvas that the pointer drives (hero-demo.js) */
+.sethero__stage { position: relative; width: 88%; margin-left: auto; aspect-ratio: 16 / 9; max-height: 80vh;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 24%), linear-gradient(transparent, #000 7%, #000 86%, transparent); mask-image: linear-gradient(90deg, transparent, #000 24%), linear-gradient(transparent, #000 7%, #000 86%, transparent);
   -webkit-mask-composite: source-in; mask-composite: intersect; }
-.sethero__art { will-change: transform; transition: transform .5s var(--ease); }
+.sethero__art { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; object-position: 100% 60%; }
+.sethero__play { opacity: 0; transition: opacity .4s ease; pointer-events: none; }
+.sethero.is-played .sethero__play { opacity: 1; }
 .sethero::after { content: ""; position: absolute; inset: auto 0 0; height: 14%; background: linear-gradient(transparent, var(--sand)); pointer-events: none; }
 .sethero__copy { position: absolute; inset: 0; z-index: 1; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding-bottom: 4vh; }
 .sethero__copy > * { max-width: min(36%, 470px); }
@@ -24,6 +27,7 @@
   .sethero { display: flex; flex-direction: column-reverse; padding: 0; }
   .sethero__copy { position: static; padding-top: 28px; padding-bottom: 0; }
   .sethero__copy > *, .sethero__copy > .hero__title { max-width: none; }
-  .sethero__art { width: 100%; margin-left: 0; margin-right: 0; max-height: none; aspect-ratio: 1200 / 1047; object-position: 84% center;
+  .sethero__stage { width: 100%; margin-left: 0; max-height: none; aspect-ratio: 1200 / 1047;
     -webkit-mask-image: linear-gradient(transparent, #000 10%, #000 88%, transparent); mask-image: linear-gradient(transparent, #000 10%, #000 88%, transparent); }
+  .sethero__art { object-position: 92% center; }
 }
