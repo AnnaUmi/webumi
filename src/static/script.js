@@ -1606,6 +1606,40 @@
     }
   }
 
+  /* ---------- Websites page: the showcase in the hero ----------
+     A browser plays one site's hero video next to a phone showing the same site. Every 7 s (or on a tab click)
+     it moves to the next site; hovering pauses it. Videos load only when their site comes up.
+     Reduced motion: posters, no auto-advance; the tabs still switch. */
+  const wshow = $(".wshow");
+  if (wshow) {
+    const tabs = $$(".wshow__tab", wshow), url = $(".wshow__url", wshow), DUR = 7000;
+    let at = 0, timer = null, paused = false;
+    const go = (i) => {
+      at = (i + tabs.length) % tabs.length;
+      const site = tabs[at].dataset.site;
+      tabs.forEach((t, j) => t.setAttribute("aria-pressed", j === at));
+      url.textContent = tabs[at].dataset.url;
+      $$(".wshow__vid", wshow).forEach((v) => {
+        const on = v.dataset.site === site;
+        v.classList.toggle("is-on", on);
+        if (on && !reduceMotion) { if (!v.src) v.src = v.dataset.src; v.currentTime = 0; v.play().catch(() => {}); }
+        else v.pause();
+      });
+      $$(".wshow__shot", wshow).forEach((im) => im.classList.toggle("is-on", im.dataset.site === site));
+      schedule();
+    };
+    const schedule = () => {
+      clearTimeout(timer);
+      if (!reduceMotion && !paused) timer = setTimeout(() => go(at + 1), DUR);
+    };
+    wshow.style.setProperty("--dur", DUR / 1000 + "s");
+    tabs.forEach((t, i) => t.addEventListener("click", () => go(i)));
+    wshow.addEventListener("mouseenter", () => { paused = true; wshow.classList.add("is-paused"); clearTimeout(timer); });
+    wshow.addEventListener("mouseleave", () => { paused = false; wshow.classList.remove("is-paused"); schedule(); });
+    if (reduceMotion) wshow.classList.add("is-paused");
+    go(0);
+  }
+
   const year = $("#year");
   if (year) year.textContent = new Date().getFullYear();
 })();
