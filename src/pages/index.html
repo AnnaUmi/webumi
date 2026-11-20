@@ -6,23 +6,21 @@
 }
 -->
     <!-- ============ HERO ============ -->
-    <!-- An open hero, no frames or cards: the bear building a website on a handmade miniature set fills the
-         whole width (video/hero-set.mp4, a 6-second 1080p loop; hero-set.webp is its first frame), the words sit on
-         its empty left side. The scene shifts a few pixels against the mouse (hero-demo.js). -->
-    <section class="sethero" id="setHero">
-      <div class="sethero__stage" id="setStage">
-        <video class="sethero__art" id="setArt" autoplay muted loop playsinline disablepictureinpicture preload="auto" poster="{{v:hero-set.webp}}" width="1920" height="1080" aria-hidden="true"><source src="{{v:video/hero-set.mp4}}" type="video/mp4"></video>
-        <canvas class="sethero__art sethero__play" id="setPlay" width="1920" height="1080" aria-hidden="true" data-head="{{v:hero-head.webp}}" data-card="{{v:hero-card.webp}}" data-block="{{v:hero-block.webp}}"></canvas>
-      </div>
-      <div class="wrap sethero__copy">
-        <p class="sethero__kicker">Website design Sydney</p>
-        <h1 class="hero__title">Animated websites that take <span class="squiggle">bookings and payments.</span></h1>
-        <p class="hero__lead">We design and build your website in Sydney. It shows your work in video and motion, and <strong>customers book a time and pay online</strong>. Live in 3 days to 2 weeks.</p>
-        <div class="hero__ctas">
-          <a href="/order/?type=website" class="btn btn--primary">Get my website <span class="arrow">→</span></a>
-          <a href="#packages" class="sethero__link">See prices</a>
+    <!-- Our own websites in a browser and on a phone (partials/site-showcase.html, same as the Websites page). -->
+    <section class="whero whero--home">
+      <div class="hero__glow" aria-hidden="true"></div>
+      <div class="wrap whero__grid">
+        <div class="whero__text">
+          <p class="kicker">Website design · Sydney</p>
+          <h1>Animated websites that take <em>bookings and payments</em>.</h1>
+          <p class="hero__lead">We design and build your website in Sydney. It shows your work in video and motion, and <strong>customers book a time and pay online</strong>. Live in 3 days to 2 weeks.</p>
+          <div class="hero__ctas">
+            <a href="/order/?type=website" class="btn btn--primary">Get my website <span class="arrow">→</span></a>
+            <a href="/projects/" class="btn btn--ghost">See our work</a>
+          </div>
+          <p class="sethero__facts">From {{deal:landing:price}} · fixed quote in 1 business day · pay nothing until you approve it</p>
         </div>
-        <p class="sethero__facts">From {{deal:landing:price}} · fixed quote in 1 business day · pay nothing until you approve it</p>
+{{> site-showcase}}
       </div>
     </section>
 
@@ -33,7 +31,7 @@
       <div class="wrap">
         <div class="section__head why__head reveal">
           <p class="kicker">Why Webumi</p>
-          <h2>Your business has a character. Your website should show it.</h2>
+          <h2>We research your business before we design it.</h2>
           <p>Before we design anything, we learn who your customers are, what result you want and who you compete with. That decides the colours, words, photos and motion, so your site looks like yours and gives customers a reason to choose you.</p>
         </div>
       </div>
@@ -140,12 +138,12 @@
         <div class="ai__copy">
           <p class="kicker kicker--light reveal">AI for small &amp; mid-sized business</p>
           <h2 class="reveal">AI that answers, sorts and books for you.</h2>
-          <p class="section__sub section__sub--light reveal">We build practical AI systems that plug into the tools you already use — trained on <em>your</em> services, prices and way of doing things. It handles the repetitive work, and you decide what it can say and do.</p>
+          <p class="section__sub section__sub--light reveal">We build AI that works inside the tools you already use, set up with <em>your</em> services, prices and way of doing things. It handles the repetitive work, and you decide what it can say and do.</p>
           <ul class="ai__list">
             <li class="reveal"><span><svg class="ic" aria-hidden="true"><use href="#i-chat"/></svg></span><div><h3>AI assistant for your website</h3><p>Answers questions 24/7, quotes from your price list, books appointments and passes hot leads to you.</p></div></li>
             <li class="reveal"><span><svg class="ic" aria-hidden="true"><use href="#i-inbox"/></svg></span><div><h3>AI inbox helper</h3><p>Sorts enquiries, drafts replies in your tone and flags the urgent ones. You just check and hit send.</p></div></li>
             <li class="reveal"><span><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg></span><div><h3>Document &amp; data processing</h3><p>Pulls details out of invoices, forms, emails and PDFs straight into your spreadsheet, CRM or Xero.</p></div></li>
-            <li class="reveal"><span><svg class="ic" aria-hidden="true"><use href="#i-plug"/></svg></span><div><h3>AI integrations &amp; custom tools</h3><p>Connect AI to your CRM, bookings and payments — or a client portal or internal tool built around how you work.</p></div></li>
+            <li class="reveal"><span><svg class="ic" aria-hidden="true"><use href="#i-plug"/></svg></span><div><h3>AI integrations &amp; custom tools</h3><p>Connect AI to your CRM, bookings and payments, or build a client portal or internal tool built around how you work.</p></div></li>
           </ul>
           <a href="/ai-assistants/" class="more-link more-link--light reveal">How AI assistants work for your business →</a>
         </div>

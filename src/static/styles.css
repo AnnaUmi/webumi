@@ -132,7 +132,7 @@ em { font-style: normal; color: var(--coral); }
   filter: blur(40px); pointer-events: none; animation: drift 16s ease-in-out infinite alternate;
 }
 @keyframes drift { to { transform: translate(-6%, 6%) scale(1.08); } }
-/* home: keep the glow behind the bear on wide screens, and fully inside the hero, so its top
+/* home: keep the glow on wide screens, and fully inside the hero, so its top
    isn't cut off in a straight line under the menu */
 .hero .hero__glow { top: 2%; right: max(-10%, calc(50% - 820px)); width: min(70vw, 820px); height: min(70vw, 820px); }
 .hero__grid { position: relative; display: grid; grid-template-columns: 1fr 1.05fr; gap: clamp(32px, 5vw, 72px); align-items: center; }
@@ -190,41 +190,8 @@ em { font-style: normal; color: var(--coral); }
 .chip:hover { transform: translateY(-2px); border-color: var(--ink); }
 .chip.is-active { background: var(--ink); border-color: var(--ink); color: #fff; }
 
-.hero__demo { display: flex; flex-direction: column; align-items: center; min-width: 0; }   /* the bear may overflow, the text column keeps its width */
-/* the bear's spell (video scrubbed by the cursor, script.js). The video is only the bear, on pure
-   white, so multiply drops the background; the pills are ours and flip in time with the star. */
-.spell { position: relative; display: flex; align-items: center; width: calc(100% + 120px); margin-right: -120px; cursor: pointer; }
-/* the video starts right after the pills: its soft left edge (where the star fades out) never covers them */
-.spell__stage { position: relative; margin-left: 8px; }
-.spell__video { display: block; height: min(540px, 62vh, 40vw); aspect-ratio: 928 / 994; width: auto; mix-blend-mode: multiply; }   /* 40vw: the bear still fits on small laptops */
-.spell__side { position: relative; flex: none; display: grid; gap: 12px; }
-.spell__label { font-family: var(--display); font-weight: 700; font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); padding-left: 6px; transition: color .3s; }
-.spell.is-done .spell__label { color: #178a79; }
-.spell__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
 .btn.is-nudge { animation: cta-nudge .9s var(--spring); }
 @keyframes cta-nudge { 35% { transform: translate(-3px, -3px) scale(1.04); box-shadow: var(--hard-lg); } }
-.spell__list li {
-  display: grid; align-items: center; padding: 12px 18px 12px 48px; border-radius: 999px; position: relative;
-  font-family: var(--display); font-weight: 700; font-size: 1.05rem; white-space: nowrap;
-  background: rgba(255,255,255,.88); border: 2.5px dashed #c9bdb0; color: var(--muted);
-  transition: background .3s, border-color .3s, color .3s, box-shadow .3s var(--ease);
-}
-.spell__list li::before {   /* ✕ → ✓ */
-  content: "✕"; position: absolute; left: 12px; top: 50%; translate: 0 -50%; width: 26px; height: 26px; border-radius: 50%;
-  display: grid; place-items: center; font-size: .8rem; background: #ece4da; color: #9a8f84; transition: background .3s, color .3s;
-}
-.spell__no, .spell__yes { grid-area: 1 / 1; transition: opacity .25s, transform .35s var(--spring); }
-.spell__yes { opacity: 0; transform: translateY(8px); }
-.spell__list li.is-fixed { background: var(--paper); border: 2.5px solid var(--black); color: var(--ink); box-shadow: 4px 4px 0 var(--black); animation: spell-pop .45s var(--spring); }
-.spell__list li.is-fixed::before { content: "✓"; background: var(--sea); color: #fff; font-size: .95rem; }
-.spell__list li.is-fixed .spell__no { opacity: 0; transform: translateY(-8px); }
-.spell__list li.is-fixed .spell__yes { opacity: 1; transform: none; }
-@keyframes spell-pop { 40% { transform: scale(1.06); box-shadow: 4px 4px 0 var(--black), 0 0 0 8px rgba(30,227,255,.35); } }
-@media (min-width: 1081px) and (max-width: 1240px) {   /* small laptops: tighter pills, smaller bear, nothing cut off */
-  .spell__video { height: min(540px, 62vh, 36vw); }
-  .spell__list li { font-size: .92rem; padding: 10px 14px 10px 42px; }
-  .spell__list li::before { left: 10px; width: 23px; height: 23px; }
-}
 @keyframes pop { from { opacity: 0; transform: translateY(-14px) scale(.92); } to { opacity: 1; transform: none; } }
 .pulse { width: 10px; height: 10px; border-radius: 50%; background: var(--coral); animation: ping-c 1.6s infinite; }
 @keyframes ping-c { 0% { box-shadow: 0 0 0 0 rgba(255,107,74,.6); } 70%,100% { box-shadow: 0 0 0 10px rgba(255,107,74,0); } }
@@ -605,11 +572,11 @@ input[type="range"]:focus-visible { outline: 3px solid var(--sun); outline-offse
 /* menu sits see-through on top of the 404 until you scroll */
 body:has(.nf) .nav:not(.is-scrolled) { background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; }
 @media (max-width: 1080px) { .nf { --nav-h: calc(68px + env(safe-area-inset-top)); } }
-/* the walking bear: see-through video, fitted to the height, feet on the bottom edge */
-.nf__bear {
-  position: absolute; left: 50%; bottom: 0; height: min(80%, 100vw); width: auto; max-width: none; transform: translateX(-50%);
-  aspect-ratio: 16 / 9; pointer-events: none;
-}
+/* the message over the big 404 */
+.nf { display: flex; align-items: center; justify-content: center; }
+.nf__msg { position: relative; z-index: 1; text-align: center; padding: 0 16px; }
+.nf__msg p { font-family: var(--display); font-weight: 700; font-size: clamp(1.4rem, 3vw, 2.2rem); color: var(--black); }
+.nf__msg .hero__ctas { justify-content: center; margin-top: 24px; }
 .nf__num text { font-family: var(--display); font-weight: 800; font-size: 1500px; }
 
 /* ---------- Inner pages ---------- */
@@ -618,17 +585,6 @@ body:has(.nf) .nav:not(.is-scrolled) { background: transparent; backdrop-filter:
 .phero h1 { font-size: clamp(2.4rem, 5.6vw, 4.2rem); font-weight: 800; letter-spacing: -.04em; line-height: 1; margin: 18px 0 20px; }
 .phero h1 em { color: var(--coral); }
 .phero .hero__lead { max-width: 620px; }
-/* Pricing header: the bear catching the sparkle, standing on the bottom edge (desktop only) */
-.phero--catch .wrap { position: relative; }
-.phero--catch h1 { max-width: 760px; }
-/* same bear size as the home hero (.spell__video): there the bear fills 90% of the frame, here 70% (room for the falling sparkle) */
-.catch { --h: min(540px, 62vh, 40vw); position: absolute; right: clamp(0px, 3vw, 48px); bottom: calc(-1 * clamp(56px, 7vw, 88px) + 6px); height: calc(var(--h) * 1.285); aspect-ratio: 480 / 912; cursor: pointer; }
-.catch__walk { opacity: 0; }   /* both videos are see-through: only one may show at a time */
-.catch.is-walking .catch__walk { opacity: 1; }
-.catch.is-walking .catch__bear { opacity: 0; }
-@media (min-width: 1081px) and (max-width: 1240px) { .catch { --h: min(540px, 62vh, 36vw); } }
-.catch__bear, .catch__walk { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: contain; -webkit-mask-image: linear-gradient(#000 88%, transparent 97%); mask-image: linear-gradient(#000 88%, transparent 97%); }   /* fades the floor reflection under the feet */
-@media (max-width: 1100px) { .catch { display: none; } }
 .crumbs { font-size: .85rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 18px; }
 .crumbs a { color: var(--ink); font-weight: 600; text-decoration: none; }
 .crumbs a:hover { color: var(--coral); }
@@ -1576,19 +1532,7 @@ ol.checks { padding-left: 0; }
   .footer__cols { grid-template-columns: 1fr 1fr; }
   .pains__grid { grid-template-columns: 1fr 1fr; }
   .choose { grid-template-columns: 1fr 1fr; }
-  .hero__demo { order: -1; margin-top: 0; }   /* phones and tablets: the bear and its list come first */
   .hero__grid { row-gap: 8px; }
-  /* phones: the pills as a two-column grid, the bear big underneath */
-  .spell { width: 100%; margin: 0 0 8px; flex-direction: column; align-items: stretch; }
-  .spell__side { gap: 8px; }
-  .spell__list { grid-template-columns: 1fr 1fr; gap: 8px; }
-  .spell__list li { font-size: clamp(.68rem, 2.9vw, .9rem); padding: 7px 8px 7px 30px; }
-  .spell__list li::before { left: 6px; width: 19px; height: 19px; font-size: .7rem; }
-  .spell__label { font-size: .68rem; }
-  .spell__stage { width: min(86%, 400px); margin: -6px -16px 0 auto; }   /* runs to the screen edge: the bear walks in from outside the phone and stops right of centre */
-  .spell__video { height: auto; width: 100%; }
-  .spell__list li { font-size: clamp(.7rem, 3vw, .95rem); padding: 7px 11px 7px 34px; }
-  .spell__list li::before { left: 8px; width: 20px; height: 20px; }
   .bld { grid-template-columns: 1fr; }
   .proj__img { order: 0; }
   .proj__cta .proj__links { justify-content: flex-start; }
